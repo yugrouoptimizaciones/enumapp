@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Constructor de SOPs · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Constructor de SOPs de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="tool-page">
+
+    <div class="tool-container" style="max-width:1200px;">
+
+        <div class="print-header">
+            <h2>📋 ENUMAPP · CONSTRUCTOR DE SOPs</h2>
+            <p>Documentación de procesos estandarizados</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📋 Constructor de Manuales
+                    <small>· SOPs</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-constructor-sops.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Documentá, estandarizá y gestioná los procedimientos clave de tu negocio.
+        </div>
+
+        <!-- FORMULARIO -->
+        <div id="formSOP" class="form-section">
+            <h4>📝 <span id="formTitle">Crear Nuevo Procedimiento</span></h4>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Título del Procedimiento <span class="hint">· nombre descriptivo</span></label>
+                    <input type="text" id="sopTitulo" placeholder="Ej: Procedimiento de Apertura" />
+                </div>
+                <div class="input-group">
+                    <label>Departamento</label>
+                    <select id="sopDepartamento" style="padding:12px 14px; border:1.5px solid var(--color-border-input); border-radius:14px; font-size:16px; background:var(--color-bg-input); color:var(--color-text); font-family:inherit; width:100%;">
+                        <option value="Operaciones">Operaciones</option>
+                        <option value="Ventas">Ventas</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Recursos Humanos">Recursos Humanos</option>
+                        <option value="Compras">Compras</option>
+                        <option value="Logística">Logística</option>
+                        <option value="Calidad">Calidad</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Objetivo</label>
+                    <textarea id="sopObjetivo" placeholder="¿Qué se busca lograr?"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Alcance</label>
+                    <textarea id="sopAlcance" placeholder="¿A quién aplica?"></textarea>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Responsabilidades</label>
+                    <textarea id="sopResponsabilidades" placeholder="¿Quién hace qué?"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Recursos / Materiales</label>
+                    <textarea id="sopRecursos" placeholder="¿Qué se necesita?"></textarea>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Procedimiento (Pasos)</label>
+                <div class="steps-container">
+                    <div id="stepsList"></div>
+                    <div class="step-input">
+                        <input type="text" id="stepInput" placeholder="Escribí el paso y presioná 'Agregar'" />
+                        <button class="btn-primary btn-small" onclick="agregarPaso()">➕ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Controles de Calidad</label>
+                    <textarea id="sopControles" placeholder="¿Cómo verificamos?"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Notas de Seguridad</label>
+                    <textarea id="sopSeguridad" placeholder="Precauciones importantes"></textarea>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; justify-content:center;">
+                <button class="btn-primary" onclick="guardarSOP()">💾 Guardar Procedimiento</button>
+                <button class="btn-secondary" onclick="limpiarFormulario()">🗑️ Limpiar</button>
+                <button class="btn-secondary" onclick="cargarEjemplos()" style="background:#8e44ad;">📋 Ejemplos</button>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- FILTROS -->
+        <div class="flex-row no-print">
+            <span class="badge">📚 <strong>Procedimientos registrados</strong> <span class="counter-badge" id="contadorSOPs">0</span></span>
+            <button class="btn-pdf" onclick="generarInforme()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div class="filter-bar no-print">
+            <input type="text" id="buscarSOP" placeholder="🔍 Buscar procedimiento..." oninput="renderizarSOPs()" />
+            <select id="filtroDepartamento" onchange="renderizarSOPs()">
+                <option value="todos">Todos los departamentos</option>
+                <option value="Operaciones">Operaciones</option>
+                <option value="Ventas">Ventas</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finanzas">Finanzas</option>
+                <option value="Recursos Humanos">Recursos Humanos</option>
+                <option value="Compras">Compras</option>
+                <option value="Logística">Logística</option>
+                <option value="Calidad">Calidad</option>
+                <option value="Administración">Administración</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+
+        <div id="sopGrid" class="product-grid"></div>
+
+        <div class="recommendation-box no-print" id="recommendationBox">
+            <h3>🧠 Estado del Manual</h3>
+            <p id="recommendationText">Agregá al menos un procedimiento para comenzar.</p>
+        </div>
+
+        <div class="footer-note no-print">
+            <span>📌 <strong>Tip:</strong> Un SOP bien documentado facilita la capacitación y asegura la consistencia.</span>
+            <span>🔄 Editá cualquier SOP haciendo clic en la tarjeta.</span>
+        </div>
+
+        <div id="printReport" style="display:none;"></div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        let sops = [];
+        let editingId = null;
+        let pasos = [];
+
+        const sopTitulo = document.getElementById('sopTitulo');
+        const sopDepartamento = document.getElementById('sopDepartamento');
+        const sopObjetivo = document.getElementById('sopObjetivo');
+        const sopAlcance = document.getElementById('sopAlcance');
+        const sopResponsabilidades = document.getElementById('sopResponsabilidades');
+        const sopRecursos = document.getElementById('sopRecursos');
+        const sopControles = document.getElementById('sopControles');
+        const sopSeguridad = document.getElementById('sopSeguridad');
+        const formTitle = document.getElementById('formTitle');
+        const stepsList = document.getElementById('stepsList');
+        const stepInput = document.getElementById('stepInput');
+        const contadorSOPs = document.getElementById('contadorSOPs');
+        const sopGrid = document.getElementById('sopGrid');
+        const recommendationText = document.getElementById('recommendationText');
+        const printDesc = document.getElementById('printDesc');
+        const printReport = document.getElementById('printReport');
+
+        function generarId() { return Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
+        function obtenerFecha() { return ENUMAPP_FMT.date(new Date()); }
+        function obtenerFechaHora() { return ENUMAPP_FMT.dateTime(new Date()); }
+
+        function agregarPaso() {
+            const texto = stepInput.value.trim();
+            if (!texto) return;
+            pasos.push(texto);
+            stepInput.value = '';
+            renderizarPasos();
+        }
+        function eliminarPaso(index) { pasos.splice(index, 1); renderizarPasos(); }
+        function moverPaso(index, dir) {
+            const nuevo = index + dir;
+            if (nuevo < 0 || nuevo >= pasos.length) return;
+            [pasos[index], pasos[nuevo]] = [pasos[nuevo], pasos[index]];
+            renderizarPasos();
+        }
+        function renderizarPasos() {
+            if (pasos.length === 0) {
+                stepsList.innerHTML = `<div style="color:var(--color-text-faint); text-align:center; padding:16px 0;">No hay pasos agregados. Escribí el primer paso arriba.</div>`;
+                return;
+            }
+            let html = '';
+            pasos.forEach((p, i) => {
+                html += `<div class="step-item">
+                    <span class="step-num">${i + 1}.</span>
+                    <span class="step-text">${p}</span>
+                    <div class="step-actions">
+                        <button class="btn-warning" onclick="moverPaso(${i}, -1)" ${i === 0 ? 'disabled style="opacity:0.4;"' : ''}>⬆</button>
+                        <button class="btn-warning" onclick="moverPaso(${i}, 1)" ${i === pasos.length - 1 ? 'disabled style="opacity:0.4;"' : ''}>⬇</button>
+                        <button class="btn-danger" onclick="eliminarPaso(${i})">✕</button>
+                    </div>
+                </div>`;
+            });
+            stepsList.innerHTML = html;
+        }
+
+        function guardarSOP() {
+            const titulo = sopTitulo.value.trim();
+            if (!titulo) { ENUMAPP_UI.toast('Ingresá un título', 'warning'); return; }
+            if (pasos.length === 0) { ENUMAPP_UI.toast('Agregá al menos un paso', 'warning'); return; }
+
+            const sop = {
+                id: editingId || generarId(),
+                titulo, departamento: sopDepartamento.value,
+                objetivo: sopObjetivo.value.trim(),
+                alcance: sopAlcance.value.trim(),
+                responsabilidades: sopResponsabilidades.value.trim(),
+                recursos: sopRecursos.value.trim(),
+                pasos: [...pasos],
+                controles: sopControles.value.trim(),
+                seguridad: sopSeguridad.value.trim(),
+                creado: editingId ? sops.find(s => s.id === editingId)?.creado || obtenerFecha() : obtenerFecha(),
+                modificado: obtenerFechaHora(),
+                version: editingId ? (sops.find(s => s.id === editingId)?.version || 1) + 1 : 1
+            };
+
+            if (editingId) {
+                const idx = sops.findIndex(s => s.id === editingId);
+                if (idx !== -1) sops[idx] = sop;
+                editingId = null;
+                formTitle.textContent = 'Crear Nuevo Procedimiento';
+            } else {
+                sops.push(sop);
+            }
+
+            limpiarFormulario();
+            renderizarSOPs();
+            ENUMAPP_UI.toast('✅ Procedimiento guardado', 'success');
+        }
+
+        function editarSOP(id) {
+            const sop = sops.find(s => s.id === id);
+            if (!sop) return;
+            editingId = id;
+            formTitle.textContent = '✏️ Editando: ' + sop.titulo;
+            sopTitulo.value = sop.titulo;
+            sopDepartamento.value = sop.departamento;
+            sopObjetivo.value = sop.objetivo || '';
+            sopAlcance.value = sop.alcance || '';
+            sopResponsabilidades.value = sop.responsabilidades || '';
+            sopRecursos.value = sop.recursos || '';
+            pasos = [...sop.pasos];
+            sopControles.value = sop.controles || '';
+            sopSeguridad.value = sop.seguridad || '';
+            renderizarPasos();
+            document.getElementById('formSOP').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function eliminarSOP(id) {
+            if (!ENUMAPP_UI.confirm('¿Eliminar este procedimiento?')) return;
+            sops = sops.filter(s => s.id !== id);
+            renderizarSOPs();
+            ENUMAPP_UI.toast('🗑️ Procedimiento eliminado', 'success');
+        }
+
+        function limpiarFormulario() {
+            sopTitulo.value = ''; sopDepartamento.value = 'Operaciones';
+            sopObjetivo.value = ''; sopAlcance.value = '';
+            sopResponsabilidades.value = ''; sopRecursos.value = '';
+            pasos = []; sopControles.value = ''; sopSeguridad.value = '';
+            editingId = null;
+            formTitle.textContent = 'Crear Nuevo Procedimiento';
+            renderizarPasos();
+        }
+
+        function cargarEjemplos() {
+            const ejemplos = [{
+                titulo: 'Apertura de Local', departamento: 'Operaciones',
+                objetivo: 'Establecer el proceso estandarizado para la apertura diaria del local.',
+                alcance: 'Aplica a todo el personal de apertura.',
+                responsabilidades: 'El supervisor verifica. El operario ejecuta.',
+                recursos: 'Llavero, alarma, checklist, uniforme.',
+                pasos: ['Llegar 15 minutos antes.', 'Desactivar la alarma.', 'Verificar puertas y ventanas.',
+                    'Encender iluminación.', 'Encender equipos de refrigeración.',
+                    'Contar caja inicial ($5.000).', 'Verificar productos en stock.',
+                    'Firmar checklist.', 'Abrir al público.'],
+                controles: 'Checklist firmado, supervisión visual.',
+                seguridad: 'No operar equipos sin capacitación.'
+            }, {
+                titulo: 'Recepción de Mercadería', departamento: 'Logística',
+                objetivo: 'Estandarizar la recepción de mercadería.',
+                alcance: 'Personal de logística y almacén.',
+                responsabilidades: 'El encargado coordina. El auxiliar verifica.',
+                recursos: 'Orden de compra, balanza, carretilla.',
+                pasos: ['Recibir orden de compra.', 'Descargar con cuidado.',
+                    'Contar y verificar cantidades.', 'Inspeccionar calidad.',
+                    'Registrar en sistema.', 'Almacenar en ubicación.',
+                    'Firmar remito.'],
+                controles: 'Verificación cruzada de cantidades.',
+                seguridad: 'Usar guantes. No levantar >25kg sin ayuda.'
+            }];
+
+            ejemplos.forEach(e => {
+                sops.push({ id: generarId(), ...e, creado: obtenerFecha(), modificado: obtenerFechaHora(), version: 1 });
+            });
+
+            renderizarSOPs();
+            ENUMAPP_UI.toast('✅ Se cargaron ejemplos', 'success');
+        }
+
+        function generarInforme() {
+            if (sops.length === 0) { ENUMAPP_UI.toast('No hay procedimientos para exportar', 'warning'); return; }
+
+            let html = '<div style="margin-top:20px;">';
+            sops.forEach((s, idx) => {
+                html += `<div style="border:1px solid #ccc; padding:16px; margin-bottom:24px; border-radius:8px; page-break-inside:avoid;">
+                    <h3 style="font-size:20px; margin:0 0 4px;">${idx + 1}. ${s.titulo}</h3>
+                    <div style="font-weight:bold; color:#2b7be4; font-size:14px; margin-bottom:8px;">🏢 ${s.departamento}</div>
+                    <div style="margin:4px 0; font-size:13px;"><strong>Objetivo:</strong> ${s.objetivo || '—'}</div>
+                    <div style="margin:4px 0; font-size:13px;"><strong>Alcance:</strong> ${s.alcance || '—'}</div>
+                    <div style="margin:4px 0; font-size:13px;"><strong>Responsabilidades:</strong> ${s.responsabilidades || '—'}</div>
+                    <div style="margin:4px 0; font-size:13px;"><strong>Recursos:</strong> ${s.recursos || '—'}</div>
+                    <div style="margin:8px 0 4px;"><strong>Pasos:</strong></div>
+                    <ol style="margin:4px 0 8px 20px;">${s.pasos.map(p => `<li>${p}</li>`).join('')}</ol>
+                    <div style="margin:4px 0; font-size:13px;"><strong>Controles:</strong> ${s.controles || '—'}</div>
+                    <div style="margin:4px 0; font-size:13px;"><strong>Seguridad:</strong> ${s.seguridad || '—'}</div>
+                    <div style="margin-top:8px; font-size:12px; color:#777; border-top:1px dashed #ddd; padding-top:6px;">
+                        Versión: ${s.version} · Creado: ${s.creado} · Modificado: ${s.modificado}
+                    </div>
+                </div>`;
+            });
+            html += '</div>';
+            printReport.innerHTML = html;
+            printReport.style.display = 'block';
+
+            const deptos = [...new Set(sops.map(s => s.departamento))];
+            const totalPasos = sops.reduce((acc, s) => acc + s.pasos.length, 0);
+            printDesc.innerHTML = `
+                <strong>Total procedimientos:</strong> ${sops.length}<br>
+                <strong>Departamentos:</strong> ${deptos.join(', ')}<br>
+                <strong>Total pasos:</strong> ${totalPasos}<br>
+                <strong>Actualizado:</strong> ${obtenerFechaHora()}
+            `;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + obtenerFechaHora();
+            window.print();
+        }
+
+        function renderizarSOPs() {
+            const busqueda = document.getElementById('buscarSOP').value.toLowerCase().trim();
+            const filtroDepto = document.getElementById('filtroDepartamento').value;
+
+            let filtrados = sops;
+            if (busqueda) filtrados = filtrados.filter(s =>
+                s.titulo.toLowerCase().includes(busqueda) ||
+                s.departamento.toLowerCase().includes(busqueda) ||
+                (s.objetivo || '').toLowerCase().includes(busqueda));
+            if (filtroDepto !== 'todos') filtrados = filtrados.filter(s => s.departamento === filtroDepto);
+
+            contadorSOPs.textContent = filtrados.length;
+
+            if (filtrados.length === 0) {
+                sopGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px 20px; color:var(--color-text-faint); background:var(--color-bg-card); border-radius:18px; border:1px dashed var(--color-border-input);">
+                    <span style="font-size:48px;">📭</span><br>
+                    <strong style="font-size:18px;">${sops.length === 0 ? 'No hay procedimientos' : 'No se encontraron resultados'}</strong>
+                </div>`;
+            } else {
+                let html = '';
+                filtrados.forEach(s => {
+                    html += `<div class="product-card" onclick="editarSOP('${s.id}')" style="cursor:pointer;">
+                        <div class="nombre">${s.titulo}</div>
+                        <div style="font-size:13px; color:var(--color-primary); font-weight:600; margin-bottom:8px;">🏢 ${s.departamento}</div>
+                        <div class="detalle">
+                            <span>Pasos:</span> ${s.pasos.length}<br>
+                            <span>Versión:</span> ${s.version}<br>
+                            <span>Modificado:</span> ${s.modificado}
+                        </div>
+                        <div class="actions" onclick="event.stopPropagation();">
+                            <button class="btn-primary btn-small" onclick="editarSOP('${s.id}')">✏️ Editar</button>
+                            <button class="btn-danger" onclick="eliminarSOP('${s.id}')">🗑️</button>
+                        </div>
+                    </div>`;
+                });
+                sopGrid.innerHTML = html;
+            }
+
+            if (sops.length === 0) {
+                recommendationText.textContent = '📌 Comenzá documentando los procesos más importantes.';
+            } else if (sops.length < 3) {
+                recommendationText.innerHTML = `📌 Tenés <strong>${sops.length}</strong> procedimiento${sops.length > 1 ? 's' : ''}. Te recomendamos agregar al menos 3 procesos clave.`;
+            } else {
+                const deptos = [...new Set(sops.map(s => s.departamento))];
+                const totalPasos = sops.reduce((acc, s) => acc + s.pasos.length, 0);
+                recommendationText.innerHTML = `✅ <strong>Manual en construcción:</strong> ${sops.length} procedimientos, ${totalPasos} pasos, ${deptos.length} departamentos.`;
+            }
+        }
+
+        renderizarPasos();
+        renderizarSOPs();
+
+        stepInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { e.preventDefault(); agregarPaso(); }
+        });
+
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

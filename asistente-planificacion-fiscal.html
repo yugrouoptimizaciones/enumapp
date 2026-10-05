@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planificación Fiscal · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Asistente de Planificación Fiscal de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>💰 ENUMAPP · PLANIFICACIÓN FISCAL</h2>
+            <p>Transición de Monotributo a Responsable Inscripto</p>
+            <div class="report-date" id="printDate"></div>
+            <div style="font-size:11px; color:#555; margin-top:4px;">
+                Valores vigentes: <span id="printVigencia">—</span>
+            </div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    💰 Asistente de Planificación Fiscal
+                    <small>· Monotributo → R. Inscripto</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <a href="manual-asistente-planificacion-fiscal.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+        </header>
+
+        <!-- ===== DISCLAIMER GRANDE ===== -->
+        <div class="danger-box" id="disclaimerBox" style="margin-top:0;">
+            <p><span class="title">⚠️ AVISO IMPORTANTE — Herramienta orientativa</span>
+            Esta calculadora es <strong>estimativa</strong> y no reemplaza el asesoramiento de un contador público matriculado.
+            Las alícuotas, escalas y mínimos no imponibles <strong>cambian con cada reforma fiscal</strong>.
+            <strong>Valores vigentes: <span id="vigenciaTexto">—</span></strong>.
+            Antes de tomar cualquier decisión, verificá los valores actualizados en ARCA (ex AFIP) y consultá con un profesional.</p>
+        </div>
+
+        <div class="subtitle">
+            Evaluá cuándo y cómo hacer la transición. Compará la carga fiscal actual con la proyectada.
+            <span style="display:inline-block; background:var(--color-primary); color:white; padding:2px 12px; border-radius:30px; font-size:12px; font-weight:600; margin-left:8px;">📅 <span id="vigenciaBadge">—</span></span>
+        </div>
+
+        <div class="form-section">
+            <h4>📝 Datos del contribuyente</h4>
+            <div class="grid-2">
+                <div class="input-group"><label>Ingresos Brutos Mensuales ($)</label><input type="number" id="ingresosMensuales" value="5000000" step="100000" min="0" /></div>
+                <div class="input-group"><label>Gastos Deducibles Anuales ($)</label><input type="number" id="gastosDeducibles" value="30000000" step="100000" min="0" /></div>
+                <div class="input-group"><label>Categoría de Monotributo actual</label>
+                    <select id="categoriaActual" style="padding:12px 14px; border:1.5px solid var(--color-border-input); border-radius:14px; font-size:16px; background:var(--color-bg-input); color:var(--color-text); font-family:inherit; width:100%;">
+                        <option value="A">A (hasta $1.000.784/mes)</option>
+                        <option value="B">B (hasta $1.466.265/mes)</option>
+                        <option value="C">C (hasta $2.055.874/mes)</option>
+                        <option value="D">D (hasta $2.552.388/mes)</option>
+                        <option value="E">E (hasta $3.002.353/mes)</option>
+                        <option value="F">F (hasta $3.762.638/mes)</option>
+                        <option value="G">G (hasta $4.499.650/mes)</option>
+                        <option value="H" selected>H (hasta $6.827.055/mes)</option>
+                        <option value="I">I (hasta $7.641.647/mes)</option>
+                        <option value="J">J (hasta $8.751.043/mes)</option>
+                        <option value="K">K (hasta $10.550.902/mes)</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>Provincia</label>
+                    <select id="provincia" style="padding:12px 14px; border:1.5px solid var(--color-border-input); border-radius:14px; font-size:16px; background:var(--color-bg-input); color:var(--color-text); font-family:inherit; width:100%;">
+                        <option value="CABA">CABA (3.5%)</option>
+                        <option value="Buenos Aires">Buenos Aires (3.0%)</option>
+                        <option value="Córdoba" selected>Córdoba (2.5%)</option>
+                        <option value="Santa Fe">Santa Fe (2.8%)</option>
+                        <option value="Mendoza">Mendoza (2.2%)</option>
+                        <option value="Otras">Otras (2.0%)</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>Actividad / Rubro</label>
+                    <select id="actividad" style="padding:12px 14px; border:1.5px solid var(--color-border-input); border-radius:14px; font-size:16px; background:var(--color-bg-input); color:var(--color-text); font-family:inherit; width:100%;">
+                        <option value="comercio">Comercio (IVA 21%)</option>
+                        <option value="servicios" selected>Servicios (IVA 21%)</option>
+                        <option value="industria">Industria (IVA 21%)</option>
+                        <option value="agropecuario">Agropecuario (IVA 10.5%)</option>
+                        <option value="construccion">Construcción (IVA 21%)</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>Cantidad de empleados</label><input type="number" id="empleados" value="1" step="1" min="0" /></div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row no-print">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <button class="btn-primary" onclick="calcular()">📊 Calcular</button>
+                <button class="btn-secondary" onclick="cargarEjemplo()" style="background:#8e44ad;">📋 Cargar Ejemplo</button>
+                <button class="btn-danger" onclick="reiniciar()">🗑️ Reiniciar</button>
+            </div>
+            <button class="btn-pdf" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div class="flex-row" style="margin-top:0;">
+            <span class="badge">📈 <strong>Comparativa fiscal</strong></span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:10px;">
+            <div class="result-card info">
+                <div class="label">💰 Carga Actual (Monotributo)</div>
+                <div class="value" id="valActual">$0</div>
+                <div class="sub" id="subActual">anual</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">📊 Carga Proyectada (RI)</div>
+                <div class="value" id="valProyectado">$0</div>
+                <div class="sub" id="subProyectado">anual</div>
+            </div>
+            <div class="result-card">
+                <div class="label">📉 Diferencia</div>
+                <div class="value" id="valDiferencia">$0</div>
+                <div class="sub" id="subDiferencia">ahorro / sobrecosto anual</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">🧠 Recomendación</div>
+                <div class="value" id="valRecomendacion" style="font-size:20px;">Evaluar</div>
+                <div class="sub" id="subRecomendacion">basado en tus datos</div>
+            </div>
+        </div>
+
+        <!-- ===== DESGLOSE DETALLADO RI ===== -->
+        <div class="flex-row" style="margin-top:24px;">
+            <span class="badge">🧾 <strong>Desglose Responsable Inscripto</strong></span>
+        </div>
+        <div id="desgloseRI" style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:10px;">
+            <div class="result-card">
+                <div class="label">IVA Neto</div>
+                <div class="value" id="desgloseIVA">$0</div>
+                <div class="sub">débito − crédito fiscal</div>
+            </div>
+            <div class="result-card">
+                <div class="label">Impuesto a las Ganancias</div>
+                <div class="value" id="desgloseGanancias">$0</div>
+                <div class="sub">sobre utilidad neta</div>
+            </div>
+            <div class="result-card">
+                <div class="label">Ingresos Brutos (IIBB)</div>
+                <div class="value" id="desgloseIIBB">$0</div>
+                <div class="sub" id="desgloseIIBBSub">—</div>
+            </div>
+            <div class="result-card">
+                <div class="label">Aportes Previsionales</div>
+                <div class="value" id="desgloseAportes">$0</div>
+                <div class="sub">autónomos + cargas sociales</div>
+            </div>
+        </div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>📋 Análisis detallado</h3>
+            <p id="recommendationText">Completá tus datos y presioná "Calcular".</p>
+        </div>
+
+        <div class="form-section">
+            <h4>📋 Checklist de pasos para la transición</h4>
+            <div id="checklistContainer">
+                <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--color-border); font-size:15px; color:var(--color-text-secondary);">
+                    <span style="font-weight:700; color:var(--color-primary); min-width:28px;">1.</span>
+                    Evaluar si superás los límites del Monotributo
+                    <span style="color:var(--color-warning); font-weight:700; margin-left:auto;">⏳ pendiente</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--color-border); font-size:15px; color:var(--color-text-secondary);">
+                    <span style="font-weight:700; color:var(--color-primary); min-width:28px;">2.</span>
+                    Consultar con un contador de confianza
+                    <span style="color:var(--color-warning); font-weight:700; margin-left:auto;">⏳ pendiente</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--color-border); font-size:15px; color:var(--color-text-secondary);">
+                    <span style="font-weight:700; color:var(--color-primary); min-width:28px;">3.</span>
+                    Inscribirte en Ganancias
+                    <span style="color:var(--color-warning); font-weight:700; margin-left:auto;">⏳ pendiente</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px; padding:8px 0; font-size:15px; color:var(--color-text-secondary);">
+                    <span style="font-weight:700; color:var(--color-primary); min-width:28px;">4.</span>
+                    Inscribirte en IVA
+                    <span style="color:var(--color-warning); font-weight:700; margin-left:auto;">⏳ pendiente</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="fiscalChart"></canvas>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Importante:</strong> Herramienta orientativa. Consultá con un contador. <strong>Valores vigentes: <span id="vigenciaFooter">—</span></strong></span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        (function() {
+            // ===== CONSTANTES FISCALES =====
+            // ⚠️ ACTUALIZAR ESTAS CONSTANTES CUANDO CAMBIEN LAS LEYES
+            const VIGENCIA = 'ARCA · Agosto 2026';
+
+            const IIBB_ALICUOTAS = {
+                'CABA': 0.035,
+                'Buenos Aires': 0.030,
+                'Córdoba': 0.025,
+                'Santa Fe': 0.028,
+                'Mendoza': 0.022,
+                'Otras': 0.020
+            };
+
+            // Carga anual de monotributo (impuesto integrado + SIPA)
+            const MONOTRIBUTO_ANUAL = {
+                A: 594326, B: 676548, C: 792240, D: 1015368,
+                E: 1437732, F: 1809408, G: 2767344, H: 6272472,
+                I: 11564964, J: 14007588, K: 19373352
+            };
+
+            // Límite de facturación anual por categoría
+            const LIMITES_FACTURACION_ANUAL = {
+                A: 12009410, B: 17595182, C: 24670494, D: 30628651,
+                E: 36028231, F: 45151659, G: 53995798, H: 81924660,
+                I: 91699761, J: 105012519, K: 126610830
+            };
+
+            // Alícuota IVA según actividad
+            const IVA_ALICUOTA = {
+                comercio: 0.21,
+                servicios: 0.21,
+                industria: 0.21,
+                agropecuario: 0.105,
+                construccion: 0.21
+            };
+
+            // Alícuota Ganancias para personas jurídicas / unipersonales
+            const GANANCIAS_ALICUOTA = 0.25;
+
+            // Aporte autónomo mensual estimado (jubilación + obra social + PAMI)
+            const APORTE_AUTONOMO_MENSUAL = 180000;
+
+            // Carga social mensual estimada por empleado (contribuciones patronales)
+            const CARGA_SOCIAL_EMPLEADO_MENSUAL = 220000;
+
+            // Crédito fiscal IVA: % de gastos que se asume con IVA computable
+            const GASTOS_CON_IVA_COMPUTABLE = 0.70;
+
+            // Factor simplificado de IIBB en Monotributo (alícuota reducida efectiva)
+            const FACTOR_IIBB_MONOTRIBUTO = 0.5;
+
+            const ingresosMensuales = document.getElementById('ingresosMensuales');
+            const gastosDeducibles = document.getElementById('gastosDeducibles');
+            const categoriaActual = document.getElementById('categoriaActual');
+            const provincia = document.getElementById('provincia');
+            const actividad = document.getElementById('actividad');
+            const empleados = document.getElementById('empleados');
+
+            const valActual = document.getElementById('valActual');
+            const valProyectado = document.getElementById('valProyectado');
+            const valDiferencia = document.getElementById('valDiferencia');
+            const valRecomendacion = document.getElementById('valRecomendacion');
+            const subActual = document.getElementById('subActual');
+            const subProyectado = document.getElementById('subProyectado');
+            const subDiferencia = document.getElementById('subDiferencia');
+            const subRecomendacion = document.getElementById('subRecomendacion');
+            const recommendationText = document.getElementById('recommendationText');
+            const printDesc = document.getElementById('printDesc');
+            const lastSaved = document.getElementById('lastSaved');
+
+            // Desglose RI
+            const desgloseIVA = document.getElementById('desgloseIVA');
+            const desgloseGanancias = document.getElementById('desgloseGanancias');
+            const desgloseIIBB = document.getElementById('desgloseIIBB');
+            const desgloseIIBBSub = document.getElementById('desgloseIIBBSub');
+            const desgloseAportes = document.getElementById('desgloseAportes');
+
+            const ctx = document.getElementById('fiscalChart').getContext('2d');
+            let chart = null;
+            let inicializado = false;
+
+            // ===== VIGENCIA =====
+            ['vigenciaTexto', 'vigenciaBadge', 'vigenciaFooter', 'printVigencia'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = VIGENCIA;
+            });
+
+            // ===== PERSISTENCIA =====
+            function guardarFiscal() {
+                if (!inicializado) return;
+                ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.FISCAL, {
+                    ingresosMensuales: ingresosMensuales.value,
+                    gastosDeducibles: gastosDeducibles.value,
+                    categoriaActual: categoriaActual.value,
+                    provincia: provincia.value,
+                    actividad: actividad.value,
+                    empleados: empleados.value
+                });
+                lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', {
+                    hour: '2-digit', minute: '2-digit'
+                });
+            }
+
+            function cargarFiscal() {
+                const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.FISCAL);
+                if (data) {
+                    ingresosMensuales.value = data.ingresosMensuales || 5000000;
+                    gastosDeducibles.value = data.gastosDeducibles || 30000000;
+                    categoriaActual.value = data.categoriaActual || 'H';
+                    provincia.value = data.provincia || 'Córdoba';
+                    actividad.value = data.actividad || 'servicios';
+                    empleados.value = data.empleados || 1;
+                    return true;
+                }
+                return false;
+            }
+
+            // ===== CÁLCULO RI (RESPONSABLE INSCRIPTO) =====
+            /**
+             * Calcula la carga fiscal anual estimada como Responsable Inscripto.
+             *
+             * Desglose:
+             *  - IVA neto      = IVA débito (ventas) − IVA crédito (compras/gastos)
+             *  - Ganancias     = alícuota × utilidad neta (ingresos − gastos)
+             *  - IIBB          = alícuota provincial × ingresos brutos
+             *  - Aportes       = autónomo mensual × 12 + cargas sociales × empleados × 12
+             *
+             * NO incluye el "+ monotributoAnual * 0.3" (incorrecto: no hay que
+             * seguir pagando monotributo una vez que se pasa a RI).
+             */
+            function calcularRI(datos) {
+                const {
+                    ingresosAnual,
+                    gastos,
+                    actividad: act,
+                    provincia: prov,
+                    empleados: emp
+                } = datos;
+
+                const alicuotaIVA = IVA_ALICUOTA[act] || 0.21;
+                const alicuotaIIBB = IIBB_ALICUOTAS[prov] || 0.025;
+
+                // --- IVA ---
+                const ivaDebito = ingresosAnual * alicuotaIVA;
+                const ivaCredito = gastos * GASTOS_CON_IVA_COMPUTABLE * alicuotaIVA;
+                const ivaNeto = Math.max(0, ivaDebito - ivaCredito);
+
+                // --- Ganancias ---
+                const utilidadNeta = Math.max(0, ingresosAnual - gastos);
+                const ganancias = utilidadNeta * GANANCIAS_ALICUOTA;
+
+                // --- IIBB ---
+                const iibb = ingresosAnual * alicuotaIIBB;
+
+                // --- Aportes previsionales ---
+                const aporteAutonomoAnual = APORTE_AUTONOMO_MENSUAL * 12;
+                const cargasSociales = emp * CARGA_SOCIAL_EMPLEADO_MENSUAL * 12;
+                const aportesTotales = aporteAutonomoAnual + cargasSociales;
+
+                const total = ivaNeto + ganancias + iibb + aportesTotales;
+
+                return {
+                    ivaDebito, ivaCredito, ivaNeto,
+                    ganancias, utilidadNeta,
+                    iibb, alicuotaIIBB,
+                    aporteAutonomoAnual, cargasSociales, aportesTotales,
+                    total
+                };
+            }
+
+            // ===== CÁLCULO MONOTRIBUTO (carga actual) =====
+            function calcularMonotributo(datos) {
+                const { ingresosAnual, categoria, provincia: prov } = datos;
+                const monotributoAnual = MONOTRIBUTO_ANUAL[categoria] || 0;
+                const alicuotaIIBB = IIBB_ALICUOTAS[prov] || 0.025;
+                const iibbMonotributo = ingresosAnual * alicuotaIIBB * FACTOR_IIBB_MONOTRIBUTO;
+                const total = monotributoAnual + iibbMonotributo;
+                return { monotributoAnual, iibbMonotributo, total };
+            }
+
+            // ===== CÁLCULO PRINCIPAL =====
+            function calcular() {
+                const ingresosMens = parseFloat(ingresosMensuales.value) || 0;
+                const ingresosAnual = ingresosMens * 12;
+                const gastos = parseFloat(gastosDeducibles.value) || 0;
+                const cat = categoriaActual.value;
+                const prov = provincia.value;
+                const act = actividad.value;
+                const emp = parseInt(empleados.value) || 0;
+
+                const datos = {
+                    ingresosMens, ingresosAnual, gastos,
+                    categoria: cat, provincia: prov, actividad: act, empleados: emp
+                };
+
+                const monotributo = calcularMonotributo(datos);
+                const ri = calcularRI(datos);
+
+                const cargaActual = monotributo.total;
+                const totalRI = ri.total;
+                const diferencia = totalRI - cargaActual;
+
+                // --- Result cards ---
+                valActual.textContent = ENUMAPP_FMT.money(cargaActual);
+                subActual.textContent = 'anual (Monotributo + IIBB)';
+                valProyectado.textContent = ENUMAPP_FMT.money(totalRI);
+                subProyectado.textContent = 'anual (IVA + Ganancias + IIBB + Aportes)';
+                valDiferencia.textContent = (diferencia >= 0 ? '+' : '') + ENUMAPP_FMT.money(diferencia);
+                subDiferencia.textContent = diferencia >= 0 ? 'sobrecosto al cambiar' : 'ahorro al cambiar';
+
+                // --- Desglose RI ---
+                desgloseIVA.textContent = ENUMAPP_FMT.money(ri.ivaNeto);
+                desgloseGanancias.textContent = ENUMAPP_FMT.money(ri.ganancias);
+                desgloseIIBB.textContent = ENUMAPP_FMT.money(ri.iibb);
+                desgloseIIBBSub.textContent = `${prov} · ${(ri.alicuotaIIBB * 100).toFixed(1)}%`;
+                desgloseAportes.textContent = ENUMAPP_FMT.money(ri.aportesTotales);
+
+                // --- Recomendación ---
+                const limiteMensual = LIMITES_FACTURACION_ANUAL[cat] / 12;
+                const superaLimite = ingresosMens > limiteMensual;
+                let recomendacion = '';
+                let recClase = 'info';
+
+                if (ingresosMens === 0) {
+                    recomendacion = 'Ingresá datos para obtener una recomendación.';
+                } else if (superaLimite && diferencia <= 0) {
+                    recomendacion = '✅ Te conviene pasar a RI. Superás el límite y el ahorro es significativo.';
+                    recClase = 'positive';
+                } else if (superaLimite && diferencia > 0) {
+                    recomendacion = '⚠️ Superás el límite pero el RI sería más caro. Consultá con contador.';
+                    recClase = 'warning';
+                } else if (!superaLimite && diferencia <= 0) {
+                    recomendacion = '💡 Aún no superás el límite pero el cambio ya es conveniente.';
+                    recClase = 'info';
+                } else {
+                    recomendacion = '⏳ El Monotributo sigue siendo más conveniente por ahora.';
+                    recClase = 'info';
+                }
+
+                valRecomendacion.textContent = recClase === 'positive' ? '✅ Cambiar' : recClase === 'warning' ? '⚠️ Evaluar' : '⏳ Esperar';
+                valRecomendacion.style.color = recClase === 'positive' ? '#0f6e3f' : recClase === 'warning' ? '#b45b0b' : '#1a5a7a';
+                subRecomendacion.textContent = superaLimite ? 'Superás el límite' : 'Dentro del límite';
+
+                // --- Detalle ---
+                let detalle = `<strong>📊 Resumen:</strong><br>`;
+                detalle += `• Ingresos mensuales: ${ENUMAPP_FMT.money(ingresosMens)} (anual: ${ENUMAPP_FMT.money(ingresosAnual)})<br>`;
+                detalle += `• Límite categoría ${cat}: ${ENUMAPP_FMT.money(limiteMensual)}/mes<br>`;
+                detalle += `• Estado: ${superaLimite ? '🔴 Superás el límite' : '🟢 Dentro del límite'}<br><br>`;
+
+                detalle += `<strong>💰 Carga actual (Monotributo):</strong><br>`;
+                detalle += `• Monotributo anual: ${ENUMAPP_FMT.money(monotributo.monotributoAnual)}<br>`;
+                detalle += `• IIBB estimado: ${ENUMAPP_FMT.money(monotributo.iibbMonotributo)}<br>`;
+                detalle += `• <strong>Total: ${ENUMAPP_FMT.money(cargaActual)}</strong><br><br>`;
+
+                detalle += `<strong>🧾 Carga proyectada (Responsable Inscripto):</strong><br>`;
+                detalle += `• IVA neto: ${ENUMAPP_FMT.money(ri.ivaNeto)}<br>`;
+                detalle += `  <span style="color:var(--color-text-muted); font-size:13px;">(débito: ${ENUMAPP_FMT.money(ri.ivaDebito)} − crédito: ${ENUMAPP_FMT.money(ri.ivaCredito)})</span><br>`;
+                detalle += `• Ganancias: ${ENUMAPP_FMT.money(ri.ganancias)}<br>`;
+                detalle += `  <span style="color:var(--color-text-muted); font-size:13px;">(utilidad neta: ${ENUMAPP_FMT.money(ri.utilidadNeta)} × 25%)</span><br>`;
+                detalle += `• IIBB (${prov} · ${(ri.alicuotaIIBB * 100).toFixed(1)}%): ${ENUMAPP_FMT.money(ri.iibb)}<br>`;
+                detalle += `• Aportes previsionales: ${ENUMAPP_FMT.money(ri.aportesTotales)}<br>`;
+                detalle += `  <span style="color:var(--color-text-muted); font-size:13px;">(autónomo: ${ENUMAPP_FMT.money(ri.aporteAutonomoAnual)} + cargas sociales: ${ENUMAPP_FMT.money(ri.cargasSociales)})</span><br>`;
+                detalle += `• <strong>Total: ${ENUMAPP_FMT.money(totalRI)}</strong><br><br>`;
+
+                detalle += `<strong>📉 Diferencia:</strong> ${diferencia >= 0 ? '+' : ''}${ENUMAPP_FMT.money(diferencia)} ${diferencia >= 0 ? '(sobrecosto)' : '(ahorro)'}<br><br>`;
+                detalle += `<strong>🧠 Análisis:</strong> ${recomendacion}`;
+
+                recommendationText.innerHTML = detalle;
+
+                // --- Chart ---
+                if (chart) { chart.destroy(); chart = null; }
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Monotributo', 'Responsable Inscripto'],
+                        datasets: [{
+                            label: 'Carga fiscal anual',
+                            data: [cargaActual, totalRI],
+                            backgroundColor: ['rgba(43,123,228,0.7)', 'rgba(230,126,34,0.7)'],
+                            borderColor: ['#2b7be4', '#e67e22'],
+                            borderWidth: 2, borderRadius: 6,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: c => 'Carga: ' + ENUMAPP_FMT.money(c.parsed.y) } }
+                        },
+                        scales: { y: { beginAtZero: true, ticks: { callback: ENUMAPP_UI.axisMoney } } }
+                    }
+                });
+
+                printDesc.innerHTML = `
+                    <strong>Ingresos mensuales:</strong> ${ENUMAPP_FMT.money(ingresosMens)} &nbsp;|&nbsp; <strong>Anuales:</strong> ${ENUMAPP_FMT.money(ingresosAnual)}<br>
+                    <strong>Categoría:</strong> ${cat} &nbsp;|&nbsp; <strong>Provincia:</strong> ${prov}<br>
+                    <strong>Carga actual:</strong> ${ENUMAPP_FMT.money(cargaActual)} &nbsp;|&nbsp; <strong>Proyectada:</strong> ${ENUMAPP_FMT.money(totalRI)}<br>
+                    <strong>Diferencia:</strong> ${diferencia >= 0 ? '+' : ''}${ENUMAPP_FMT.money(diferencia)}<br>
+                    <strong>Recomendación:</strong> ${recomendacion}<br>
+                    <span style="font-size:11px; color:#666;">Valores vigentes: ${VIGENCIA} · Herramienta orientativa, consultá con un contador.</span>
+                `;
+
+                document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+            }
+
+            // ===== EJEMPLO =====
+            function cargarEjemplo() {
+                ingresosMensuales.value = 5000000;
+                gastosDeducibles.value = 30000000;
+                categoriaActual.value = 'H';
+                provincia.value = 'Córdoba';
+                actividad.value = 'servicios';
+                empleados.value = 1;
+                calcular();
+                guardarFiscal();
+            }
+
+            // ===== REINICIAR =====
+            function reiniciar() {
+                if (!ENUMAPP_UI.confirm('¿Borrar todos los datos?')) return;
+                ENUMAPP_STORAGE.remove(ENUMAPP_STORAGE.KEYS.FISCAL);
+                ingresosMensuales.value = 0;
+                gastosDeducibles.value = 0;
+                categoriaActual.value = 'D';
+                provincia.value = 'Córdoba';
+                actividad.value = 'servicios';
+                empleados.value = 0;
+                valActual.textContent = '$0';
+                valProyectado.textContent = '$0';
+                valDiferencia.textContent = '$0';
+                valRecomendacion.textContent = 'Evaluar';
+                subActual.textContent = 'anual';
+                subProyectado.textContent = 'anual';
+                subDiferencia.textContent = 'ahorro / sobrecosto anual';
+                subRecomendacion.textContent = 'basado en tus datos';
+                desgloseIVA.textContent = '$0';
+                desgloseGanancias.textContent = '$0';
+                desgloseIIBB.textContent = '$0';
+                desgloseIIBBSub.textContent = '—';
+                desgloseAportes.textContent = '$0';
+                recommendationText.innerHTML = 'Completá tus datos y presioná "Calcular".';
+                if (chart) { chart.destroy(); chart = null; }
+                ENUMAPP_UI.toast('✅ Datos reiniciados', 'success');
+                lastSaved.textContent = 'Sin datos';
+            }
+
+            // ===== EVENTOS =====
+            [ingresosMensuales, gastosDeducibles, categoriaActual, provincia, actividad, empleados].forEach(inp => {
+                inp.addEventListener('change', function() { calcular(); guardarFiscal(); });
+                inp.addEventListener('input', function() { calcular(); guardarFiscal(); });
+            });
+
+            // ===== INICIALIZACIÓN =====
+            if (cargarFiscal()) {
+                calcular();
+                inicializado = true;
+                guardarFiscal();  // → lastSaved = 'Guardado: HH:MM'
+            } else {
+                inicializado = true;
+                cargarEjemplo();
+            }
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+            window.addEventListener('beforeunload', guardarFiscal);
+
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => { if (chart) chart.resize(); }, 200);
+            });
+        })();
+    </script>
+
+</body>
+</html>

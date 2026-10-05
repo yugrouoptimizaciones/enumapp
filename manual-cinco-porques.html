@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Análisis de Causa Raíz (5 Porqués) · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Análisis de Causa Raíz (5 Porqués) de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE ANÁLISIS DE CAUSA RAÍZ</h2>
+            <p>Metodología Lean Manufacturing - Toyota</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Análisis de Causa Raíz (5 Porqués)</small>
+                </h1>
+            </div>
+            <a href="cinco_porques.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para identificar el origen real de un problema recurrente en tu PyME.
+            Aplicá la metodología Lean de Toyota paso a paso y obtené un plan de acción personalizado.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#datos">Datos iniciales</a></li>
+                <li><a href="#preguntas">Los 5 Porqués</a></li>
+                <li><a href="#secuencia">Lógica secuencial</a></li>
+                <li><a href="#causa-raiz">Identificar la Causa Raíz</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas (PyME)</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Análisis de Causa Raíz (5 Porqués)</strong> es una herramienta de Lean Manufacturing
+                desarrollada por Toyota. Consiste en preguntar <strong>"¿Por qué?"</strong> de forma reiterada
+                (generalmente 5 veces) para pasar de un síntoma superficial a la causa real de un problema.
+            </p>
+            <p>Esta herramienta te ayuda a:</p>
+            <ul>
+                <li><strong>Eliminar la recurrencia</strong> de problemas en lugar de apagar incendios.</li>
+                <li><strong>Tomar decisiones basadas en hechos</strong>, no en suposiciones.</li>
+                <li><strong>Documentar el aprendizaje</strong> para que el equipo no vuelva a cometer el mismo error.</li>
+                <li><strong>Obtener un plan de acción concreto</strong> adaptado a la realidad de una PyME.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 ¿Por qué 5 veces?</span>
+                La primera respuesta suele ser un síntoma ("la máquina falló"). La quinta respuesta suele ser
+                una causa sistémica ("no hay un plan de mantenimiento preventivo"). Al llegar a esa profundidad,
+                la solución es mucho más efectiva y duradera.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Este análisis es ideal para:</p>
+            <ul>
+                <li><strong>Problemas recurrentes</strong>: cosas que fallan una y otra vez.</li>
+                <li><strong>Retrasos en entregas</strong>: pedidos que llegan tarde.</li>
+                <li><strong>Problemas de calidad</strong>: defectos, errores o reclamos de clientes.</li>
+                <li><strong>Diferencias de inventario</strong>: stock que no coincide con el sistema.</li>
+                <li><strong>Paros de producción</strong>: interrupciones en la operación.</li>
+                <li><strong>Incidentes operativos</strong>: errores humanos o de proceso.</li>
+                <li><strong>Problemas financieros</strong>: falta de flujo de caja, costos elevados.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Usala cuando el problema sea <strong>simple o moderadamente complejo</strong>. Si el problema
+                tiene múltiples causas posibles y no sabés por dónde empezar, combiná esta herramienta con
+                un <strong>Diagrama de Ishikawa (Espina de Pescado)</strong> primero.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos iniciales</div>
+                    <div class="step-desc">Tu nombre y el problema</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Los 5 Porqués</div>
+                    <div class="step-desc">Preguntas secuenciales</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Resultados</div>
+                    <div class="step-desc">Causa raíz y categoría</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Plan de acción</div>
+                    <div class="step-desc">Recomendación PyME</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Ejemplo precargado</span>
+                La herramienta viene con un ejemplo ("La línea 3 se detuvo 45 minutos por falta de material")
+                para que veas cómo funciona. Podés modificar todo libremente.</p>
+            </div>
+        </section>
+
+        <section id="datos">
+            <h2>📝 Datos iniciales</h2>
+            <p>Antes de las preguntas, hay 2 campos de texto simples:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tu Nombre</strong></td>
+                        <td>Tu nombre para personalizar el informe.</td>
+                        <td>María Gómez</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Problema a Analizar</strong></td>
+                        <td>Una descripción <strong>clara y específica</strong> del problema. Incluí qué pasó, cuándo, dónde y cuál fue el impacto.</td>
+                        <td>"La línea 3 se detuvo 45 minutos por falta de material"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ La clave está en definir bien el problema</span>
+                Si el problema es vago ("las ventas bajaron"), el análisis será vago. Si es específico
+                ("las ventas del producto X bajaron 20% en el último trimestre"), el análisis será preciso.</p>
+            </div>
+        </section>
+
+        <section id="preguntas">
+            <h2>❓ Los 5 Porqués</h2>
+            <p>
+                La herramienta te presenta <strong>5 campos de texto</strong>, uno para cada nivel de análisis.
+                Cada campo representa una pregunta "¿Por qué?" que profundiza en el nivel anterior.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Pregunta</th>
+                        <th>Qué escribir</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>1er Porqué</strong></td>
+                        <td>La causa inmediata del problema.</td>
+                        <td>"Porque el material no estaba disponible"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>2do Porqué</strong></td>
+                        <td>La causa de la causa anterior.</td>
+                        <td>"Porque el proveedor no entregó"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>3er Porqué</strong></td>
+                        <td>Profundizar un nivel más.</td>
+                        <td>"Porque la orden de compra se envió tarde"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>4to Porqué</strong></td>
+                        <td>Profundizar un nivel más.</td>
+                        <td>"Porque el plan de materiales no se actualizó"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>5to Porqué</strong></td>
+                        <td>La causa raíz sistémica.</td>
+                        <td>"Porque no había un responsable definido para el seguimiento"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Reglas de oro</span>
+                <strong>1.</strong> Basate en hechos, no en opiniones.<br>
+                <strong>2.</strong> No te detengas en síntomas ("la máquina falló").<br>
+                <strong>3.</strong> La causa raíz debe ser <strong>controlable y prevenible</strong> por tu organización.<br>
+                <strong>4.</strong> Involucrá a las personas que conocen el proceso.</p>
+            </div>
+        </section>
+
+        <section id="secuencia">
+            <h2>🔗 Lógica secuencial</h2>
+            <p>
+                La herramienta <strong>no te deja saltar pasos</strong>. Para escribir en el "Por qué 2",
+                primero tenés que completar el "Por qué 1". Esto fuerza la metodología Lean y evita
+                que te saltees niveles de análisis.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">P1 → P2 → P3 → P4 → P5</div>
+                <div class="formula-desc">Cada campo se habilita solo si el anterior tiene texto. Si borrás un campo, los siguientes se limpian automáticamente.</div>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 ¿Por qué es importante?</span>
+                Porque en Lean Manufacturing, el orden importa. No podés entender la causa raíz sin
+                haber recorrido el camino completo. La herramienta te obliga a pensar de forma estructurada.</p>
+            </div>
+        </section>
+
+        <section id="causa-raiz">
+            <h2>🎯 Identificar la Causa Raíz</h2>
+            <p>
+                La herramienta detecta automáticamente cuál es tu <strong>Causa Raíz</strong> según
+                el último "Por qué" que hayas completado:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Nivel alcanzado</th>
+                        <th>Qué muestra la herramienta</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>0 / 5</strong></td>
+                        <td>"Esperando análisis..."</td>
+                        <td>Todavía no empezaste.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 a 4 / 5</strong></td>
+                        <td>"Causa raíz preliminar"</td>
+                        <td>Encontraste una causa, pero se recomienda profundizar más.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5 / 5</strong></td>
+                        <td>"Causa Raíz Definitiva"</td>
+                        <td>Completaste el análisis. Esta es la causa sistémica a atacar.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No siempre son 5</span>
+                A veces la causa raíz aparece en el 3er o 4to "Por qué". Si sentís que ya llegaste
+                a una causa controlable y prevenible, podés detenerte antes. La herramienta te lo
+                indicará como "Causa raíz preliminar".</p>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de responder, vas a ver 6 tarjetas con los resultados:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">📋</span>
+                    <div class="name">Problema Definido</div>
+                    <div class="desc">El problema que escribiste al inicio. Sirve para tener contexto en el informe.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📏</span>
+                    <div class="name">Nivel de Análisis</div>
+                    <div class="desc">Cuántos "Por qué" completaste (0 a 5). Indica la profundidad del análisis.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🏷️</span>
+                    <div class="name">Estado</div>
+                    <div class="desc">"Incompleto" o "Completo". Te dice si ya podés tomar acción o si falta profundizar.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🎯</span>
+                    <div class="name">Causa Raíz</div>
+                    <div class="desc">El texto del último "Por qué" completado. Es la causa que tenés que atacar.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📂</span>
+                    <div class="name">Categoría del Problema</div>
+                    <div class="desc">Clasificación automática según palabras clave (Ventas, Finanzas, Equipo, etc.).</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💡</span>
+                    <div class="name">Recomendación</div>
+                    <div class="desc">Plan de acción específico para la categoría detectada, orientado a PyMEs.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas (PyME)</h2>
+            <p>
+                Cuando completás los 5 Porqués, la herramienta analiza el texto de tu causa raíz y
+                busca <strong>palabras clave</strong> para asignarle una categoría. Según la categoría,
+                te da un plan de acción específico.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Categoría detectada</th>
+                        <th>Palabras clave que la activan</th>
+                        <th>Ejemplo de acción sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ventas y Comercialización</strong></td>
+                        <td>venta, cliente, ingreso, facturación, pedido</td>
+                        <td>Revisar el embudo de ventas, implementar CRM básico.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marketing y Comunicación</strong></td>
+                        <td>marketing, publicidad, redes, instagram, contenido, marca</td>
+                        <td>Definir calendario de contenidos, invertir en publicidad segmentada.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Finanzas y Flujo de Caja</strong></td>
+                        <td>plata, dinero, efectivo, caja, pago, cobro</td>
+                        <td>Implementar flujo de caja a 90 días, separar finanzas personales.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Equipo y Talento</strong></td>
+                        <td>equipo, empleado, personal, socio, colaborador, contratar</td>
+                        <td>Definir roles, implementar reuniones semanales, plan de capacitación.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Proveedores y Stock</strong></td>
+                        <td>proveedor, compra, insumo, material, stock, inventario</td>
+                        <td>Buscar proveedores alternativos, implementar punto de reorden.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Procesos y Operaciones</strong></td>
+                        <td>proceso, procedimiento, método, producción, operación</td>
+                        <td>Documentar SOP, identificar cuellos de botella, estandarizar.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Logística y Tiempos</strong></td>
+                        <td>tiempo, demora, entrega, plazo, logística, envío</td>
+                        <td>Mapear tiempo de ciclo, establecer plazos realistas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Calidad y Satisfacción</strong></td>
+                        <td>calidad, defecto, error, reclamo, devolución</td>
+                        <td>Implementar checklist de calidad, analizar reclamos recurrentes.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tecnología y Digitalización</strong></td>
+                        <td>tecnología, software, sistema, digital, herramienta</td>
+                        <td>Evaluar software de gestión, automatizar tareas manuales.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bienestar del Emprendedor</strong></td>
+                        <td>motivación, ánimo, burnout, estrés, cansancio</td>
+                        <td>Delegar tareas operativas, establecer horarios de desconexión.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estrategia Competitiva</strong></td>
+                        <td>competencia, precio, diferenciación</td>
+                        <td>Analizar competencia, definir elemento diferenciador.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mejora Continua General</strong></td>
+                        <td>(ninguna palabra clave coincide)</td>
+                        <td>Aplicar ciclo PDCA, estandarizar solución, verificar a 30/60/90 días.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 ¿Cómo funciona la detección?</span>
+                La herramienta convierte tu causa raíz a minúsculas y busca las palabras clave con
+                <code>includes()</code>. Si encuentra una coincidencia, asigna la categoría. Si no
+                encuentra ninguna, usa la categoría general de "Mejora Continua".</p>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico es de <strong>barras horizontales</strong>, una por cada "Por qué".
+                Muestra visualmente hasta dónde llegó tu análisis:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Nivel</th>
+                        <th>Significado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge gray">⚪</span></td>
+                        <td>0</td>
+                        <td>No completado. La barra está vacía.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge orange">🟠</span></td>
+                        <td>1-2</td>
+                        <td>Análisis superficial. Todavía no llegaste a la causa raíz.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge blue">🔵</span></td>
+                        <td>3</td>
+                        <td>Análisis intermedio. Estás en camino.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge green">🟢</span></td>
+                        <td>4-5</td>
+                        <td>Análisis profundo. Probablemente encontraste la causa raíz.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué buscar en el gráfico</h3>
+            <ul>
+                <li><strong>Barras grises</strong>: niveles no completados.</li>
+                <li><strong>Barras naranjas</strong>: análisis superficial.</li>
+                <li><strong>Barras verdes</strong>: análisis profundo y completo.</li>
+                <li><strong>La última barra de color</strong>: indica tu nivel máximo de profundidad.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                Si ves muchas barras grises, significa que el análisis está incompleto. Si ves
+                barras verdes hasta el final, llegaste a la causa raíz.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés una <strong>panadería artesanal</strong> y detectás que
+                <strong>los clientes se quejan por la demora en la entrega de pedidos</strong>.
+                Aplicás los 5 Porqués:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Nivel</th>
+                        <th>Respuesta</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Problema</strong></td><td>"Los clientes se quejan por la demora en la entrega de pedidos"</td><td>Problema definido.</td></tr>
+                    <tr><td><strong>1er Porqué</strong></td><td>"Porque la producción no llega a tiempo"</td><td>Causa inmediata.</td></tr>
+                    <tr><td><strong>2do Porqué</strong></td><td>"Porque falta harina en el momento de producir"</td><td>Profundización.</td></tr>
+                    <tr><td><strong>3er Porqué</strong></td><td>"Porque el proveedor no entregó a tiempo"</td><td>Profundización.</td></tr>
+                    <tr><td><strong>4to Porqué</strong></td><td>"Porque no hicimos el pedido con anticipación"</td><td>Profundización.</td></tr>
+                    <tr><td><strong>5to Porqué</strong></td><td>"Porque no tenemos un sistema de control de stock que avise cuándo pedir"</td><td><strong>Causa Raíz</strong></td></tr>
+                </tbody>
+            </table>
+
+            <h3>Resultados que mostraría la herramienta</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nivel de Análisis</td>
+                        <td>5 / 5</td>
+                        <td>Análisis completo.</td>
+                    </tr>
+                    <tr>
+                        <td>Estado</td>
+                        <td>Completo</td>
+                        <td>Listo para tomar acción.</td>
+                    </tr>
+                    <tr>
+                        <td>Causa Raíz</td>
+                        <td>"No tenemos un sistema de control de stock"</td>
+                        <td>Causa sistémica.</td>
+                    </tr>
+                    <tr>
+                        <td>Categoría</td>
+                        <td>Proveedores y Stock</td>
+                        <td>Detectada por palabras clave: "stock".</td>
+                    </tr>
+                    <tr>
+                        <td>Recomendación</td>
+                        <td>Buscar 2 proveedores alternativos, implementar punto de reorden</td>
+                        <td>Acción específica para PyME.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Implementar un sistema de control de stock</strong> (aunque sea un Excel).</li>
+                <li><strong>Definir un punto de reorden</strong> para la harina.</li>
+                <li><strong>Buscar un proveedor alternativo</strong> para no depender de uno solo.</li>
+                <li><strong>Capacitar al equipo</strong> en el nuevo proceso.</li>
+                <li><strong>Verificar en 30 días</strong> si las demoras disminuyeron.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                Si te hubieras quedado en el 1er Porqué ("la producción no llega a tiempo"),
+                la solución habría sido "producir más rápido". Pero la causa raíz era sistémica:
+                falta de control de stock. La solución real es más profunda y duradera.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, nombre y problema, las tarjetas de resultados
+                (nivel, causa raíz, categoría, recomendación), el gráfico de barras y la descripción
+                resumida con la causa raíz detectada.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Guardá un PDF por cada problema que analices. Con el tiempo, vas a tener un historial
+                de causas raíz y soluciones implementadas. Eso es <strong>gestión del conocimiento</strong>
+                en tu PyME.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al cerrar el navegador, los valores vuelven a los defaults de ejemplo. Guardá un PDF si querés conservar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Siempre tienen que ser 5 porqués?</div>
+                <div class="a">No. 5 es un número guía. Si llegás a una causa raíz controlable y prevenible en el 3er o 4to "Por qué", podés detenerte. La herramienta te mostrará "Causa raíz preliminar" y te sugerirá profundizar, pero vos decidís.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si mi causa raíz no coincide con ninguna categoría?</div>
+                <div class="a">La herramienta usará la categoría "Mejora Continua General" y te dará una recomendación basada en el ciclo PDCA (Planificar, Hacer, Verificar, Actuar), que es aplicable a cualquier problema.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo analizar varios problemas a la vez?</div>
+                <div class="a">Esta herramienta está diseñada para un problema a la vez. Si tenés varios problemas, analizalos por separado. Después podés priorizar cuál atacar primero según impacto y urgencia.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué la herramienta no me deja escribir en el Por qué 2 sin completar el 1?</div>
+                <div class="a">Porque la metodología Lean es secuencial. No podés entender la causa raíz sin haber recorrido el camino completo. La herramienta te obliga a pensar de forma estructurada.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "Causa raíz preliminar"?</div>
+                <div class="a">Que encontraste una causa en un nivel intermedio (1 a 4). Puede que sea la raíz, o puede que haya algo más profundo. La herramienta te sugiere seguir preguntando "¿Por qué?" para asegurarte.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿La herramienta reemplaza a un consultor Lean?</div>
+                <div class="a">No. Es una herramienta de autodiagnóstico que te ayuda a estructurar el pensamiento y obtener una recomendación inicial. Para problemas complejos, siempre es recomendable un facilitador experimentado.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esta herramienta para problemas personales?</div>
+                <div class="a">Sí, la metodología de los 5 Porqués es universal. Aunque está diseñada para PyMEs, podés usarla para cualquier problema que quieras analizar en profundidad.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué hago después de identificar la causa raíz?</div>
+                <div class="a">Implementá la acción correctiva sugerida por la herramienta. Documentá el cambio. Verificá a los 30, 60 y 90 días si el problema se resolvió. Estandarizá la solución para que no vuelva a ocurrir.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el gráfico muestra niveles y no texto?</div>
+                <div class="a">Porque el gráfico es visual: muestra la <strong>profundidad</strong> del análisis, no el contenido. Las barras te dicen hasta dónde llegaste, no qué escribiste. El contenido está en las tarjetas de resultados.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo compartir el análisis con mi equipo?</div>
+                <div class="a">Sí. Generá el PDF y compartilo. Es útil para conversaciones sobre mejora continua y para que todo el equipo entienda la causa raíz del problema.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es el ciclo PDCA que menciona la recomendación general?</div>
+                <div class="a">PDCA son las siglas de Planificar (Plan), Hacer (Do), Verificar (Check) y Actuar (Act). Es un ciclo de mejora continua que consiste en planificar una acción, ejecutarla, verificar si funcionó y actuar en consecuencia (estandarizar o corregir).</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Basate en hechos, no en suposiciones</h3>
+            <p>Cada "Por qué" debe estar respaldado por datos, observaciones o registros. Evitá responder "porque creo que..." o "porque me parece que...". La causa raíz debe ser verificable.</p>
+
+            <h3>2. Involucrá al equipo que conoce el proceso</h3>
+            <p>No hagas el análisis solo. Las personas que están en el día a día tienen información que vos no tenés. Hacé una reunión de 30 minutos y completá los 5 Porqués en grupo.</p>
+
+            <h3>3. No te detengas en el primer síntoma</h3>
+            <p>La primera respuesta casi siempre es un síntoma ("la máquina falló"). La causa raíz suele estar más profunda ("no hay plan de mantenimiento preventivo"). No te conformes con lo primero.</p>
+
+            <h3>4. Verificá que la causa raíz sea controlable</h3>
+            <p>Si tu causa raíz es "la economía del país", no podés hacer nada. Buscá una causa que esté dentro de tu control: "no tenemos un colchón financiero para crisis".</p>
+
+            <h3>5. Combiná con el Diagrama de Ishikawa</h3>
+            <p>Si el problema es complejo y tiene múltiples causas posibles, usá primero un Diagrama de Ishikawa (Espina de Pescado) para identificar las causas potenciales. Después aplicá los 5 Porqués a la causa más probable.</p>
+
+            <h3>6. Documentá y compartí</h3>
+            <p>Guardá el PDF del análisis. Compartilo con tu equipo. Documentar el aprendizaje es lo que evita que el problema vuelva a ocurrir.</p>
+
+            <h3>7. Hacé seguimiento a las acciones</h3>
+            <p>Identificar la causa raíz es solo el 50% del trabajo. El otro 50% es implementar la acción correctiva y verificar que funcione. La herramienta te da la recomendación; vos tenés que ejecutarla.</p>
+
+            <h3>8. No busques culpables, buscá causas</h3>
+            <p>El objetivo no es castigar a alguien, sino entender por qué falló el sistema. Si la causa raíz es "Juan no hizo el pedido", preguntate por qué el sistema permitió que Juan no lo hiciera.</p>
+
+            <h3>9. Usalo para problemas recurrentes</h3>
+            <p>Si un problema pasa una y otra vez, es porque la causa raíz nunca se atacó. Los 5 Porqués son perfectos para romper ese ciclo.</p>
+
+            <h3>10. Combiná con otras herramientas de la Suite</h3>
+            <p>Si la causa raíz es de stock, usá la <strong>Gestión de Inventario</strong>. Si es de proveedores, usá el <strong>Gestor de Proveedores</strong>. Si es de procesos, usá el <strong>Constructor de SOPs</strong>. La Suite está diseñada para que las herramientas se complementen.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta, vas a tener <strong>claridad sobre la causa real de tu problema</strong>
+                y un <strong>plan de acción concreto</strong> para eliminarlo. Eso es mejora continua aplicada a tu PyME.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Análisis de Causa Raíz</strong>:</p>
+            <div class="cards-grid">
+            <a href="constructor-sops.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📖 Constructor de SOPs</div>
+            <div class="card-desc">Documentá la solución al problema como procedimiento estándar.</div>
+            </a>
+            <a href="tablero-kanban-operaciones.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📋 Tablero Kanban</div>
+            <div class="card-desc">Convertí las acciones correctivas en tareas con seguimiento.</div>
+            </a>
+            <a href="matriz-delegacion-tareas.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🤝 Matriz de Delegación</div>
+            <div class="card-desc">Asigná responsable a la solución de la causa raíz.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Análisis de Causa Raíz (5 Porqués)</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

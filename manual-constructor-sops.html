@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Constructor de SOPs · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Constructor de SOPs de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE CONSTRUCTOR DE SOPs</h2>
+            <p>Documentación de procesos estandarizados del negocio</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Constructor de SOPs</small>
+                </h1>
+            </div>
+            <a href="constructor-sops.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para documentar, estandarizar y gestionar los procedimientos clave de tu negocio.
+            Aprendé a crear manuales profesionales con pasos claros, controles de calidad y notas de seguridad.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#que-es-sop">¿Qué es un SOP?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#pasos">Cómo agregar pasos</a></li>
+                <li><a href="#guardar">Guardar y editar SOPs</a></li>
+                <li><a href="#tarjetas">Tarjetas de SOPs</a></li>
+                <li><a href="#filtros">Búsqueda y filtros</a></li>
+                <li><a href="#recomendaciones">Estado del manual</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Constructor de Manuales de Procedimiento (SOPs)</strong> es una herramienta que te permite
+                documentar, estandarizar y gestionar los <strong>procesos clave de tu negocio</strong>. Cada
+                procedimiento se guarda como una tarjeta con todos sus detalles: objetivo, alcance,
+                responsabilidades, pasos, controles y notas de seguridad.
+            </p>
+            <p>Con esta herramienta podés:</p>
+            <ul>
+                <li><strong>Documentar procesos</strong> paso a paso, con toda la información necesaria.</li>
+                <li><strong>Estandarizar la operación</strong> para que todos hagan las cosas igual.</li>
+                <li><strong>Facilitar la capacitación</strong> de nuevos empleados.</li>
+                <li><strong>Versionar</strong> cada procedimiento (v1, v2, v3) para saber qué cambió.</li>
+                <li><strong>Exportar un manual completo</strong> en PDF con todos los SOPs.</li>
+                <li><strong>Buscar y filtrar</strong> por título, departamento o contenido.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 SOP = Standard Operating Procedure</span>
+                SOP es la sigla en inglés de "Procedimiento Operativo Estándar". Es un documento que describe
+                <strong>cómo hacer una tarea específica de forma consistente y correcta</strong>. Es la base
+                para que tu negocio funcione sin depender de la memoria de las personas.</p>
+            </div>
+        </section>
+
+        <section id="que-es-sop">
+            <h2>📚 ¿Qué es un SOP?</h2>
+            <p>
+                Un SOP es un documento formal que describe <strong>el paso a paso de un proceso</strong>.
+                Su objetivo es que cualquier persona capacitada pueda ejecutar la tarea correctamente,
+                sin depender de quién la hace.
+            </p>
+
+            <h3>Partes de un SOP bien hecho</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Parte</th>
+                        <th>Qué incluye</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Título</strong></td><td>Nombre descriptivo del procedimiento.</td></tr>
+                    <tr><td><strong>Departamento</strong></td><td>Área responsable de su ejecución.</td></tr>
+                    <tr><td><strong>Objetivo</strong></td><td>Para qué sirve el procedimiento.</td></tr>
+                    <tr><td><strong>Alcance</strong></td><td>A quién aplica y en qué situaciones.</td></tr>
+                    <tr><td><strong>Responsabilidades</strong></td><td>Quién hace qué dentro del proceso.</td></tr>
+                    <tr><td><strong>Recursos</strong></td><td>Qué se necesita (materiales, sistemas, herramientas).</td></tr>
+                    <tr><td><strong>Pasos</strong></td><td>Secuencia ordenada de acciones.</td></tr>
+                    <tr><td><strong>Controles de calidad</strong></td><td>Cómo se verifica que el proceso se hizo bien.</td></tr>
+                    <tr><td><strong>Notas de seguridad</strong></td><td>Precauciones y advertencias.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Beneficios de tener SOPs</span>
+                <strong>Consistencia</strong>: todos ejecutan igual.<br>
+                <strong>Escalabilidad</strong>: podés crecer sin perder calidad.<br>
+                <strong>Capacitación</strong>: los nuevos aprenden más rápido.<br>
+                <strong>Delegación</strong>: podés soltar tareas sin miedo.<br>
+                <strong>Mejora continua</strong>: los procesos se pueden auditar y mejorar.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Documentar procesos clave</strong> antes de contratar personal.</li>
+                <li><strong>Estandarizar tareas repetitivas</strong> para reducir errores.</li>
+                <li><strong>Preparar la capacitación</strong> de nuevos empleados.</li>
+                <li><strong>Auditar procesos</strong> existentes y mejorarlos.</li>
+                <li><strong>Certificaciones de calidad</strong> (ISO, HACCP, etc.).</li>
+                <li><strong>Delegar tareas</strong>: si no está documentado, no se puede delegar bien.</li>
+                <li><strong>Escalar el negocio</strong>: los SOPs son la base para franquiciar o replicar.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Empezá por <strong>los 3 procesos más críticos</strong> de tu operación. No intentes documentar
+                todo de una vez. A medida que los uses, vas a ver cuáles son los más importantes.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Formulario</div>
+                    <div class="step-desc">Crear o editar un SOP</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Filtros</div>
+                    <div class="step-desc">Buscar por título o depto</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Tarjetas</div>
+                    <div class="step-desc">Ver todos los SOPs creados</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">PDF</div>
+                    <div class="step-desc">Exportar el manual completo</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Modo demo</span>
+                Hacé clic en el botón <span class="badge purple">📋 Cargar Ejemplos</span> para cargar 3 SOPs
+                típicos (Apertura de Local, Recepción de Mercadería, Atención al Cliente) y ver cómo se ven.
+                Después podés editarlos o eliminarlos.</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>10 campos organizados en 5 bloques</strong>. Te explico cada uno:</p>
+
+            <h3>Bloque 1: Identificación</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Título del Procedimiento</strong></td>
+                        <td>Nombre descriptivo y específico. <span class="badge red">Obligatorio</span></td>
+                        <td>Procedimiento de Apertura de Local</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Departamento</strong></td>
+                        <td>Área responsable. Elegí de la lista desplegable.</td>
+                        <td>Operaciones</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Bloque 2: Contexto</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Objetivo</strong></td>
+                        <td>Para qué sirve este procedimiento.</td>
+                        <td>Establecer el proceso estandarizado para la apertura diaria del local.</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Alcance</strong></td>
+                        <td>A quién aplica y en qué situaciones.</td>
+                        <td>Aplica a todo el personal de apertura y supervisores de turno.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Bloque 3: Ejecución</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Responsabilidades</strong></td>
+                        <td>Quién hace qué dentro del proceso.</td>
+                        <td>El supervisor verifica el cumplimiento. El operario ejecuta los pasos.</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Recursos / Materiales</strong></td>
+                        <td>Qué se necesita para ejecutarlo.</td>
+                        <td>Llavero, sistema de alarma, checklist, uniforme.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Bloque 4: Pasos (el más importante)</h3>
+            <p>Ver la siguiente sección para el detalle.</p>
+
+            <h3>Bloque 5: Cierre</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">9</td>
+                        <td><strong>Controles de Calidad</strong></td>
+                        <td>Cómo se verifica que se hizo bien.</td>
+                        <td>Checklist firmado, supervisión visual, cámaras.</td>
+                    </tr>
+                    <tr>
+                        <td class="num">10</td>
+                        <td><strong>Notas de Seguridad</strong></td>
+                        <td>Precauciones importantes.</td>
+                        <td>No operar equipos sin capacitación. Usar guantes.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Solo el título es obligatorio</span>
+                Aunque todos los campos son útiles, solo el <strong>título</strong> y al menos <strong>un paso</strong>
+                son obligatorios para guardar. Los demás podés completarlos después.</p>
+            </div>
+        </section>
+
+        <section id="pasos">
+            <h2>📝 Cómo agregar pasos</h2>
+            <p>
+                Los <strong>pasos</strong> son la secuencia ordenada de acciones que componen el procedimiento.
+                Es la parte más importante de cualquier SOP.
+            </p>
+
+            <h3>Cómo funciona</h3>
+            <ol>
+                <li>Escribí el paso en el campo de texto al final del contenedor de pasos.</li>
+                <li>Presioná <strong>Enter</strong> o hacé clic en <span class="badge blue">➕ Agregar</span>.</li>
+                <li>El paso se agrega a la lista con un número.</li>
+                <li>Repetí hasta completar todos los pasos del procedimiento.</li>
+            </ol>
+
+            <h3>Acciones sobre cada paso</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Botón</th>
+                        <th>Acción</th>
+                        <th>Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:18px;">⬆</td>
+                        <td><strong>Subir</strong></td>
+                        <td>Mueve el paso una posición hacia arriba (no aparece en el primer paso).</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:18px;">⬇</td>
+                        <td><strong>Bajar</strong></td>
+                        <td>Mueve el paso una posición hacia abajo (no aparece en el último paso).</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:18px;">✕</td>
+                        <td><strong>Eliminar</strong></td>
+                        <td>Borra el paso de la lista. No pide confirmación.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Buenas prácticas para escribir pasos</h3>
+            <ul>
+                <li><strong>Un paso = una acción.</strong> No mezcles varias acciones en un mismo paso.</li>
+                <li><strong>Empezá con un verbo.</strong> "Verificar", "Encender", "Registrar", "Firmar".</li>
+                <li><strong>Sé específico.</strong> En vez de "Preparar todo", escribí "Encender luces y equipos".</li>
+                <li><strong>Incluí cantidades.</strong> "Conteo de caja: $5.000 en cambio" en lugar de "contar caja".</li>
+                <li><strong>Pensá en el que no sabe.</strong> Si alguien nuevo lee el paso, ¿puede ejecutarlo sin ayuda?</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Regla del 5-12</span>
+                Un buen SOP tiene entre <strong>5 y 12 pasos</strong>. Si tiene menos de 5, probablemente
+                falte detalle. Si tiene más de 12, conviene dividirlo en dos procedimientos separados.</p>
+            </div>
+        </section>
+
+        <section id="guardar">
+            <h2>💾 Guardar y editar SOPs</h2>
+
+            <h3>Guardar un nuevo SOP</h3>
+            <ol>
+                <li>Completá el título y al menos un paso (obligatorios).</li>
+                <li>Completá los demás campos según tu criterio.</li>
+                <li>Hacé clic en <span class="badge blue">💾 Guardar Procedimiento</span>.</li>
+                <li>El SOP aparece como tarjeta en la grilla inferior.</li>
+                <li>El formulario se limpia automáticamente.</li>
+            </ol>
+
+            <h3>Editar un SOP existente</h3>
+            <ol>
+                <li>Hacé clic sobre la tarjeta del SOP que querés editar (o en el botón ✏️ Editar).</li>
+                <li>El formulario se llena con los datos del SOP.</li>
+                <li>El título del formulario cambia a "✏️ Editando: [nombre]".</li>
+                <li>Modificá lo que necesites.</li>
+                <li>Hacé clic en <span class="badge blue">💾 Guardar Procedimiento</span>.</li>
+                <li>La versión se incrementa automáticamente (v1 → v2).</li>
+            </ol>
+
+            <h3>Sistema de versiones</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Situación</th>
+                        <th>Versión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Primera vez que se guarda</td><td>Versión 1</td></tr>
+                    <tr><td>Cada vez que se edita y guarda</td><td>Versión anterior + 1</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Por qué versionar</span>
+                Las versiones te permiten saber <strong>cuándo y cuántas veces</strong> se modificó un
+                procedimiento. Es útil para auditorías y para comunicar cambios al equipo: "A partir de
+                hoy usamos la versión 3 del SOP de apertura".</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No hay deshacer</span>
+                Al guardar una edición, se <strong>sobrescribe la versión anterior</strong>. Si necesitás
+                conservar la versión vieja, guardala como un SOP diferente antes de editar.</p>
+            </div>
+        </section>
+
+        <section id="tarjetas">
+            <h2>🎴 Tarjetas de SOPs</h2>
+            <p>
+                Cada SOP guardado se muestra como una <strong>tarjeta</strong> en la grilla inferior.
+                Las tarjetas se organizan automáticamente según el espacio disponible.
+            </p>
+
+            <h3>Qué muestra cada tarjeta</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Título</strong></td><td>Nombre del procedimiento.</td></tr>
+                    <tr><td><strong>Departamento</strong></td><td>Área responsable, precedido por 🏢.</td></tr>
+                    <tr><td><strong>Pasos</strong></td><td>Cantidad total de pasos del procedimiento.</td></tr>
+                    <tr><td><strong>Versión</strong></td><td>Número de versión actual.</td></tr>
+                    <tr><td><strong>Modificado</strong></td><td>Fecha y hora de la última modificación.</td></tr>
+                    <tr><td><strong>Botones</strong></td><td>✏️ Editar y 🗑️ Eliminar.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Click en la tarjeta</span>
+                Podés hacer clic en <strong>cualquier parte de la tarjeta</strong> para abrirla en modo edición.
+                Los botones de acción están separados para que no se disparen por error.</p>
+            </div>
+        </section>
+
+        <section id="filtros">
+            <h2>🔍 Búsqueda y filtros</h2>
+            <p>
+                Cuando tenés muchos SOPs, los filtros te permiten <strong>encontrar lo que buscás</strong>
+                rápidamente.
+            </p>
+
+            <h3>Filtros disponibles</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Filtro</th>
+                        <th>Cómo funciona</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Buscador de texto</strong></td>
+                        <td>Busca coincidencias en <strong>título, departamento y objetivo</strong>. Se actualiza mientras escribís.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Filtro por departamento</strong></td>
+                        <td>Muestra solo los SOPs del departamento seleccionado.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cómo combinarlos</h3>
+            <p>Los filtros funcionan en conjunto:</p>
+            <ol>
+                <li>Elegí un departamento.</li>
+                <li>Escribí un texto de búsqueda.</li>
+                <li>Se muestran solo los SOPs que cumplen AMBAS condiciones.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Búsqueda rápida</span>
+                Para encontrar un SOP rápido, escribí solo una parte del título: "apertura" en lugar de
+                "procedimiento de apertura de local".</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ El contador cambia</span>
+                El contador de "Procedimientos registrados" muestra solo los SOPs que cumplen los filtros
+                activos. Si borrás los filtros, vuelve al total.</p>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Estado del manual</h2>
+            <p>
+                Debajo de las tarjetas, la herramienta muestra un <strong>mensaje dinámico</strong> según
+                el estado del manual. Puede mostrar 3 tipos de mensajes:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>SOPs registrados</th>
+                        <th>Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>0 SOPs</strong></td>
+                        <td>Invitación a comenzar a documentar. Sugiere empezar por Apertura/Cierre, Atención al Cliente o Recepción de Mercadería.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1-2 SOPs</strong></td>
+                        <td>Recomendación de agregar al menos 3 procesos clave para tener un manual completo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3+ SOPs</strong></td>
+                        <td>Resumen del manual: cantidad de SOPs, total de pasos, departamentos cubiertos. Sugiere validar con el equipo.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Meta del manual</span>
+                Un manual completo tiene entre <strong>8 y 15 SOPs</strong> que cubren los procesos clave
+                de las principales áreas: operaciones, ventas, atención al cliente, administración y
+                recursos humanos.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>
+                Podés exportar <strong>todos los SOPs como un único manual PDF</strong>. Es ideal para
+                compartir con el equipo, con auditores o para imprimir como manual físico.
+            </p>
+
+            <h3>Cómo generar el PDF</h3>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <h3>Qué incluye el PDF</h3>
+            <ul>
+                <li><strong>Encabezado</strong> con el título del manual y la fecha.</li>
+                <li><strong>Cada SOP</strong> en una sección propia, con todos sus campos.</li>
+                <li><strong>Pasos numerados</strong> en formato de lista ordenada.</li>
+                <li><strong>Pie de cada SOP</strong> con versión, fecha de creación y última modificación.</li>
+                <li><strong>Descripción resumida</strong> al final: total de SOPs, departamentos cubiertos, total de pasos.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Salto de página automático</span>
+                La herramienta usa la propiedad CSS <code>page-break-inside: avoid</code> en cada SOP.
+                Esto significa que <strong>ningún SOP queda cortado al medio</strong> entre dos páginas.
+                Si un SOP no entra en el espacio restante, se pasa completo a la siguiente página.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Imprimí el PDF y ponelo en un <strong>carpeta física</strong> en el área de trabajo.
+                También compartilo digitalmente con todo el equipo. Es la forma más efectiva de que
+                los procedimientos se consulten y respeten.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés una <strong>cafetería</strong> y querés documentar el proceso de apertura.
+                Cargás estos datos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Título</td><td>Apertura de Local</td></tr>
+                    <tr><td>Departamento</td><td>Operaciones</td></tr>
+                    <tr><td>Objetivo</td><td>Estandarizar la apertura diaria para garantizar que el local esté operativo a tiempo.</td></tr>
+                    <tr><td>Alcance</td><td>Aplica al barista de turno y al supervisor.</td></tr>
+                    <tr><td>Responsabilidades</td><td>El barista ejecuta los pasos. El supervisor valida el checklist.</td></tr>
+                    <tr><td>Recursos</td><td>Llaves, uniforme, checklist impreso, insumos de limpieza.</td></tr>
+                    <tr><td>Controles</td><td>Checklist firmado al finalizar.</td></tr>
+                    <tr><td>Seguridad</td><td>Usar guantes al manipular productos de limpieza.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Pasos del procedimiento</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Paso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">1</td><td>Llegar 20 minutos antes del horario de apertura.</td></tr>
+                    <tr><td class="num">2</td><td>Ponerse el uniforme completo.</td></tr>
+                    <tr><td class="num">3</td><td>Desactivar la alarma con el código asignado.</td></tr>
+                    <tr><td class="num">4</td><td>Encender las luces del salón y la cocina.</td></tr>
+                    <tr><td class="num">5</td><td>Encender la máquina de café y dejarla calentar 15 minutos.</td></tr>
+                    <tr><td class="num">6</td><td>Verificar que la heladera de productos esté a temperatura correcta.</td></tr>
+                    <tr><td class="num">7</td><td>Revisar stock de insumos (leche, café, azúcar, vasos).</td></tr>
+                    <tr><td class="num">8</td><td>Limpiar mesas y barras con paño húmedo.</td></tr>
+                    <tr><td class="num">9</td><td>Preparar la caja registradora con $5.000 en cambio.</td></tr>
+                    <tr><td class="num">10</td><td>Firmar el checklist de apertura.</td></tr>
+                    <tr><td class="num">11</td><td>Abrir las puertas al público.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Imprimirlo</strong> y pegarlo cerca del mostrador para consulta rápida.</li>
+                <li><strong>Capacitar al equipo</strong>: que cada persona nueva lo lea y lo practique.</li>
+                <li><strong>Revisarlo en 1 mes</strong>: con el uso diario vas a detectar pasos que faltan o sobran.</li>
+                <li><strong>Documentar más procesos</strong>: cierre, limpieza diaria, manejo de caja.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">💡 Insight clave</span>
+                Después de documentar 5 procesos, tu operación ya no depende de tu memoria.
+                Podés delegar con confianza y capacitar a nuevos empleados en días, no en semanas.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al recargar la página, los SOPs se reinician. Guardá un PDF si querés conservar el manual.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántos SOPs debería tener como mínimo?</div>
+                <div class="a">Depende del negocio. Para empezar, 3 procesos clave alcanzan. Lo ideal es tener entre 8 y 15 SOPs que cubran las áreas más críticas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo eliminar un paso del medio de la lista?</div>
+                <div class="a">Sí. El botón ✕ elimina cualquier paso. Si querés reordenar, usá las flechas ⬆ y ⬇.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué diferencia hay entre "Objetivo" y "Alcance"?</div>
+                <div class="a">El Objetivo responde "¿para qué sirve?". El Alcance responde "¿a quién aplica y en qué casos?". Son complementarios.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo guardar el mismo SOP en dos departamentos?</div>
+                <div class="a">No directamente. Si un proceso toca dos áreas, elegí el departamento principal. Podés mencionar la relación con otros departamentos en "Alcance".</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo actualizo un SOP que ya está guardado?</div>
+                <div class="a">Hacé clic sobre la tarjeta del SOP, modificá lo que necesites y guardá. La versión se incrementa automáticamente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo recuperar una versión anterior?</div>
+                <div class="a">No. Al guardar una edición se sobrescribe la versión anterior. Si necesitás mantener historial, guardá una copia antes de editar.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El PDF incluye todos los SOPs?</div>
+                <div class="a">Sí, incluye todos los SOPs registrados en el momento de generar el informe. Si querés exportar solo algunos, filtrá primero o eliminá los que no querés antes de imprimir.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar emojis en los pasos?</div>
+                <div class="a">Sí, se guardan y se muestran correctamente. Algunos usuarios usan emojis para marcar pasos críticos o advertencias.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo cambio el departamento de un SOP?</div>
+                <div class="a">Al editarlo, cambiá el valor en la lista desplegable "Departamento" y volvé a guardar.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los SOPs se comparten entre usuarios?</div>
+                <div class="a">No. Cada usuario ve solo sus propios SOPs. Para compartir, exportá el PDF y envialo por email o WhatsApp.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si tengo muchos SOPs?</div>
+                <div class="a">La herramienta los muestra en una grilla que se adapta al espacio. Para encontrar uno rápido, usá la búsqueda o el filtro por departamento.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Documentá mientras hacés la tarea</h3>
+            <p>La mejor forma de documentar un proceso es ejecutarlo mientras lo escribís. Así no olvidás pasos y capturás el tiempo real.</p>
+
+            <h3>2. Involucrá a quien lo ejecuta</h3>
+            <p>No documentes vos solo. Hablá con quien hace la tarea y validá cada paso. Ellos conocen los detalles que vos no ves.</p>
+
+            <h3>3. Sacá fotos o videos</h3>
+            <p>Si el proceso es visual, complementá el SOP con fotos o un video corto. El texto solo no alcanza para todo.</p>
+
+            <h3>4. Empezá por procesos repetitivos</h3>
+            <p>Los SOPs son más útiles en tareas que se repiten seguido. Una apertura diaria justifica un SOP. Un evento anual, quizás no.</p>
+
+            <h3>5. Mantené los SOPs vivos</h3>
+            <p>Revisá cada SOP cada 6 meses. Si algo cambió, actualizalo. Un SOP desactualizado es peor que no tener ninguno.</p>
+
+            <h3>6. Combiná con el Tablero Kanban</h3>
+            <p>Usá el Kanban para asignar la ejecución de los SOPs. Cada tarea puede referenciar un SOP específico.</p>
+
+            <h3>7. Combiná con la Matriz de Delegación</h3>
+            <p>Las tareas "azules" (Documentar) de la Matriz de Delegación son exactamente las que se convierten en SOPs.</p>
+
+            <h3>8. Numerá los SOPs</h3>
+            <p>En el título podés incluir un código: "OP-001 Apertura de Local". Facilita la referencia y el orden.</p>
+
+            <h3>9. Usá las notas de seguridad con criterio</h3>
+            <p>No pongas advertencias obvias. Reservá este campo para riesgos reales que alguien nuevo podría no conocer.</p>
+
+            <h3>10. Validá con el equipo antes de publicar</h3>
+            <p>Antes de distribuir un SOP, hacelo leer y ejecutar por alguien que no lo conoce. Si lo puede hacer sin preguntar, está bien escrito.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de documentar tus procesos clave, tu negocio va a funcionar
+                <strong>sin depender de vos</strong>. Vas a poder delegar, escalar y tomarte vacaciones
+                sin que se desarme todo. Eso es libertad real.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Constructor de SOPs</strong>:</p>
+            <div class="cards-grid">
+            <a href="tablero-kanban-operaciones.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📋 Tablero Kanban</div>
+            <div class="card-desc">Convertí cada SOP en tareas operativas asignables.</div>
+            </a>
+            <a href="matriz-delegacion-tareas.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🤝 Matriz de Delegación</div>
+            <div class="card-desc">Decidí quién ejecuta cada SOP antes de documentarlo.</div>
+            </a>
+            <a href="cinco_porques.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🔍 5 Porqués</div>
+            <div class="card-desc">Analizá las causas raíz de los problemas antes de documentar el SOP.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Constructor de SOPs</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

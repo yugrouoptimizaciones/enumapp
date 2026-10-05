@@ -1,0 +1,70 @@
+/* ============================================================
+   ENUMAPP · Variables globales
+   Centraliza colores, radios, sombras y tipografía.
+   ============================================================ */
+
+:root {
+    /* ===== COLORES PRINCIPALES ===== */
+    --color-primary: #2b7be4;
+    --color-primary-dark: #1a5fb4;
+    --color-primary-light: #f0f7ff;
+    --color-primary-soft: #e7f2fa;
+
+    /* ===== TEXTO ===== */
+    --color-text: #0a2540;
+    --color-text-secondary: #1f3a5f;
+    --color-text-muted: #5b6f82;
+    --color-text-faint: #7a8b9f;
+
+    /* ===== FONDOS ===== */
+    --color-bg: #f0f4f8;
+    --color-bg-card: #f8fafc;
+    --color-bg-white: #ffffff;
+    --color-bg-input: #fafcfe;
+
+    /* ===== BORDES ===== */
+    --color-border: #e9eef4;
+    --color-border-input: #dce3ec;
+    --color-border-dashed: #e6edf5;
+
+    /* ===== ESTADOS SEMÁNTICOS ===== */
+    --color-success: #2ecc71;
+    --color-success-dark: #0f6e3f;
+    --color-success-bg: #e5f4eb;
+    --color-success-border: #a8d5ba;
+
+    --color-warning: #f39c12;
+    --color-warning-dark: #b45b0b;
+    --color-warning-bg: #fef5e7;
+    --color-warning-border: #fadcb4;
+
+    --color-danger: #e74c3c;
+    --color-danger-dark: #b33c3c;
+    --color-danger-bg: #fce8e8;
+    --color-danger-border: #f0b8b8;
+
+    --color-info: #2b7be4;
+    --color-info-dark: #1a5a7a;
+    --color-info-bg: #e7f2fa;
+    --color-info-border: #b8d4e8;
+
+    /* ===== RADIOS ===== */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+    --radius-pill: 40px;
+
+    /* ===== SOMBRAS ===== */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 4px 12px rgba(43, 123, 228, 0.08);
+    --shadow-lg: 0 12px 30px rgba(43, 123, 228, 0.10);
+    --shadow-xl: 0 20px 60px rgba(0, 20, 40, 0.15);
+    --shadow-primary: 0 8px 20px rgba(43, 123, 228, 0.30);
+
+    /* ===== TIPOGRAFÍA ===== */
+    --font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    --font-mono: 'Consolas', 'Monaco', monospace;
+    --line-height: 1.7;
+}

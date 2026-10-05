@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tablero Kanban · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Tablero Kanban de Operaciones de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container" style="max-width:1200px;">
+
+        <div class="print-header">
+            <h2>📋 ENUMAPP · TABLERO KANBAN</h2>
+            <p>Gestión de tareas del día a día</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📋 Tablero Kanban de Operaciones
+                    <small>· Gestión de tareas</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-tablero-kanban.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Organizá, priorizá y da seguimiento a las tareas operativas de tu negocio. Arrastrá y soltá para mover tareas entre columnas.
+        </div>
+
+        <div class="flex-row no-print">
+            <div>
+                <button class="btn-primary" onclick="abrirModal()">➕ Nueva Tarea</button>
+                <button class="btn-primary btn-small" onclick="cargarEjemplos()" style="background:#8e44ad;">📋 Ejemplos</button>
+            </div>
+            <button class="btn-pdf" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div class="filter-bar no-print">
+            <select id="filtroResponsable" onchange="renderizarKanban()">
+                <option value="todos">Todos los responsables</option>
+            </select>
+            <select id="filtroPrioridad" onchange="renderizarKanban()">
+                <option value="todas">Todas las prioridades</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+            </select>
+            <button class="btn-primary btn-small" onclick="limpiarFiltros()">Limpiar filtros</button>
+        </div>
+
+        <div class="results-grid-4" style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin:12px 0 16px;">
+            <div class="kpi-card"><div class="kpi-value" id="totalTareas">0</div><div class="kpi-label">Total tareas</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="tareasPendientes">0</div><div class="kpi-label">Pendientes</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="tareasProgreso">0</div><div class="kpi-label">En progreso</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="tareasRevision">0</div><div class="kpi-label">En revisión</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="tareasCompletadas">0</div><div class="kpi-label">Completadas</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="tareasAlta" style="color:var(--color-danger);">0</div><div class="kpi-label">Prioridad alta</div></div>
+        </div>
+
+        <div class="kanban-board" id="kanbanBoard"></div>
+
+        <div class="chart-container no-print" style="height:260px;">
+            <canvas id="workloadChart"></canvas>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Tip:</strong> Arrastrá las tarjetas entre columnas para actualizar el estado. Las tareas se guardan automáticamente.</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">Nueva Tarea</h2>
+            <div class="input-group"><label>Título *</label><input type="text" id="taskTitle" placeholder="Ej: Preparar pedido semanal" /></div>
+            <div class="input-group"><label>Descripción</label><textarea id="taskDesc" placeholder="Detalles adicionales..." style="padding:10px 14px; border:1.5px solid var(--color-border-input); border-radius:14px; font-size:15px; background:var(--color-bg-input); font-family:inherit; width:100%; resize:vertical; min-height:60px;"></textarea></div>
+            <div class="input-group"><label>Responsable</label><input type="text" id="taskResponsable" placeholder="Nombre" /></div>
+            <div class="input-group"><label>Prioridad</label>
+                <select id="taskPriority" style="padding:10px 14px; border:1.5px solid var(--color-border-input); border-radius:14px; font-size:15px; background:var(--color-bg-input); font-family:inherit; width:100%;">
+                    <option value="Alta">Alta</option>
+                    <option value="Media" selected>Media</option>
+                    <option value="Baja">Baja</option>
+                </select>
+            </div>
+            <div class="input-group"><label>Fecha límite</label><input type="date" id="taskDue" /></div>
+            <div class="input-group"><label>Etiquetas (separadas por coma)</label><input type="text" id="taskTags" placeholder="urgente, proveedores" /></div>
+            <div class="modal-actions">
+                <button class="btn-danger" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn-primary" onclick="guardarTarea()">💾 Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        let tareas = [];
+        let editingId = null;
+        let dragData = null;
+        let chart = null;
+
+        const COLUMNAS = [
+            { id: 'pendiente', label: '📋 Pendiente' },
+            { id: 'progreso', label: '🔄 En Progreso' },
+            { id: 'revision', label: '🔍 En Revisión' },
+            { id: 'completado', label: '✅ Completado' }
+        ];
+
+        const kanbanBoard = document.getElementById('kanbanBoard');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const taskTitle = document.getElementById('taskTitle');
+        const taskDesc = document.getElementById('taskDesc');
+        const taskResponsable = document.getElementById('taskResponsable');
+        const taskPriority = document.getElementById('taskPriority');
+        const taskDue = document.getElementById('taskDue');
+        const taskTags = document.getElementById('taskTags');
+
+        const totalTareas = document.getElementById('totalTareas');
+        const tareasPendientes = document.getElementById('tareasPendientes');
+        const tareasProgreso = document.getElementById('tareasProgreso');
+        const tareasRevision = document.getElementById('tareasRevision');
+        const tareasCompletadas = document.getElementById('tareasCompletadas');
+        const tareasAlta = document.getElementById('tareasAlta');
+        const lastSaved = document.getElementById('lastSaved');
+        const printDesc = document.getElementById('printDesc');
+
+        function generarId() { return Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
+        function formatearFecha(f) {
+            if (!f) return '';
+            const d = new Date(f + 'T00:00:00');
+            return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });
+        }
+        function estaVencida(f) {
+            if (!f) return false;
+            const hoy = new Date(); hoy.setHours(0,0,0,0);
+            return new Date(f + 'T00:00:00') < hoy;
+        }
+
+        /* ===== GUARDAR / CARGAR (STORAGE UNIFICADO) ===== */
+        function guardarKanban() {
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.KANBAN, tareas);
+            lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function cargarKanban() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.KANBAN, null);
+            if (Array.isArray(data) && data.length >= 0) {
+                tareas = data;
+                if (tareas.length > 0) lastSaved.textContent = 'Cargado desde guardado';
+                else lastSaved.textContent = 'Sin datos';
+                return true;
+            }
+            return false;
+        }
+
+        function abrirModal(tareaId) {
+            editingId = null;
+            modalTitle.textContent = 'Nueva Tarea';
+            taskTitle.value = ''; taskDesc.value = ''; taskResponsable.value = '';
+            taskPriority.value = 'Media'; taskDue.value = ''; taskTags.value = '';
+
+            if (tareaId) {
+                const t = tareas.find(t => t.id === tareaId);
+                if (t) {
+                    editingId = tareaId;
+                    modalTitle.textContent = '✏️ Editar Tarea';
+                    taskTitle.value = t.titulo;
+                    taskDesc.value = t.descripcion || '';
+                    taskResponsable.value = t.responsable || '';
+                    taskPriority.value = t.prioridad || 'Media';
+                    taskDue.value = t.fechaLimite || '';
+                    taskTags.value = (t.etiquetas || []).join(', ');
+                }
+            }
+            modalOverlay.classList.add('active');
+            taskTitle.focus();
+        }
+
+        function cerrarModal() {
+            modalOverlay.classList.remove('active');
+            editingId = null;
+        }
+
+        function guardarTarea() {
+            const titulo = taskTitle.value.trim();
+            if (!titulo) { ENUMAPP_UI.toast('El título es obligatorio', 'warning'); return; }
+
+            const tarea = {
+                id: editingId || generarId(),
+                titulo, descripcion: taskDesc.value.trim(),
+                responsable: taskResponsable.value.trim(),
+                prioridad: taskPriority.value,
+                fechaLimite: taskDue.value,
+                etiquetas: taskTags.value.split(',').map(s => s.trim()).filter(s => s),
+                estado: 'pendiente',
+                creado: ENUMAPP_FMT.dateTime(new Date()),
+                modificado: ENUMAPP_FMT.dateTime(new Date())
+            };
+
+            if (editingId) {
+                const idx = tareas.findIndex(t => t.id === editingId);
+                if (idx !== -1) {
+                    tarea.estado = tareas[idx].estado;
+                    tarea.creado = tareas[idx].creado;
+                    tareas[idx] = tarea;
+                }
+            } else {
+                tareas.push(tarea);
+            }
+
+            cerrarModal();
+            renderizarKanban();
+            guardarKanban();
+            ENUMAPP_UI.toast('✅ Tarea guardada', 'success');
+        }
+
+        function eliminarTarea(id) {
+            if (!ENUMAPP_UI.confirm('¿Eliminar esta tarea?')) return;
+            tareas = tareas.filter(t => t.id !== id);
+            renderizarKanban();
+            guardarKanban();
+        }
+
+        function iniciarDrag(e, id) {
+            dragData = { id };
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', id);
+            setTimeout(() => {
+                const el = document.querySelector(`.task-card[data-id="${id}"]`);
+                if (el) el.classList.add('dragging');
+            }, 0);
+        }
+        function terminarDrag() {
+            const el = document.querySelector(`.task-card[data-id="${dragData?.id}"]`);
+            if (el) el.classList.remove('dragging');
+            dragData = null;
+        }
+        function dragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const col = e.target.closest('.kanban-column');
+            if (col) col.classList.add('drag-over');
+        }
+        function dragLeave(e) {
+            const col = e.target.closest('.kanban-column');
+            if (col) col.classList.remove('drag-over');
+        }
+        function soltar(e) {
+            e.preventDefault();
+            const col = e.target.closest('.kanban-column');
+            if (col) col.classList.remove('drag-over');
+            const id = e.dataTransfer.getData('text/plain');
+            const nuevoEstado = col?.dataset.estado;
+            if (!id || !nuevoEstado) return;
+            const tarea = tareas.find(t => t.id === id);
+            if (tarea && tarea.estado !== nuevoEstado) {
+                tarea.estado = nuevoEstado;
+                tarea.modificado = ENUMAPP_FMT.dateTime(new Date());
+                renderizarKanban();
+                guardarKanban();
+            }
+        }
+
+        function renderizarKanban() {
+            const filtroResp = document.getElementById('filtroResponsable').value;
+            const filtroPrio = document.getElementById('filtroPrioridad').value;
+
+            let tareasFiltradas = tareas;
+            if (filtroResp !== 'todos') tareasFiltradas = tareasFiltradas.filter(t => t.responsable === filtroResp);
+            if (filtroPrio !== 'todas') tareasFiltradas = tareasFiltradas.filter(t => t.prioridad === filtroPrio);
+
+            const responsables = [...new Set(tareas.map(t => t.responsable).filter(r => r))];
+            const selectResp = document.getElementById('filtroResponsable');
+            const currentVal = selectResp.value;
+            selectResp.innerHTML = '<option value="todos">Todos los responsables</option>';
+            responsables.forEach(r => {
+                const opt = document.createElement('option');
+                opt.value = r; opt.textContent = r;
+                selectResp.appendChild(opt);
+            });
+            selectResp.value = currentVal;
+
+            totalTareas.textContent = tareas.length;
+            tareasPendientes.textContent = tareas.filter(t => t.estado === 'pendiente').length;
+            tareasProgreso.textContent = tareas.filter(t => t.estado === 'progreso').length;
+            tareasRevision.textContent = tareas.filter(t => t.estado === 'revision').length;
+            tareasCompletadas.textContent = tareas.filter(t => t.estado === 'completado').length;
+            tareasAlta.textContent = tareas.filter(t => t.prioridad === 'Alta').length;
+
+            let html = '';
+            COLUMNAS.forEach(col => {
+                const tareasCol = tareasFiltradas.filter(t => t.estado === col.id);
+                html += `<div class="kanban-column" data-estado="${col.id}" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="soltar(event)">
+                    <div class="column-header">
+                        <h3>${col.label}</h3>
+                        <span class="count">${tareasCol.length}</span>
+                    </div>
+                    <div class="column-tasks">`;
+
+                if (tareasCol.length === 0) {
+                    html += `<div class="empty-column">Sin tareas</div>`;
+                } else {
+                    tareasCol.forEach(t => {
+                        const prioridadClass = `priority-${t.prioridad.toLowerCase()}`;
+                        const vencida = estaVencida(t.fechaLimite) && t.estado !== 'completado';
+                        html += `<div class="task-card" data-id="${t.id}" draggable="true" ondragstart="iniciarDrag(event, '${t.id}')" ondragend="terminarDrag(event)">
+                            <div class="task-title">${t.titulo} ${vencida ? '⚠️' : ''}</div>
+                            ${t.descripcion ? `<div class="task-desc">${t.descripcion}</div>` : ''}
+                            <div class="task-meta">
+                                ${t.responsable ? `<span class="tag">👤 ${t.responsable}</span>` : ''}
+                                <span class="tag ${prioridadClass}">${t.prioridad}</span>
+                                ${t.fechaLimite ? `<span class="tag due">📅 ${formatearFecha(t.fechaLimite)}${vencida ? ' (vencida)' : ''}</span>` : ''}
+                                ${(t.etiquetas || []).map(e => `<span class="tag">#${e}</span>`).join('')}
+                            </div>
+                            <div class="task-actions no-print">
+                                <button class="btn-warning" onclick="abrirModal('${t.id}')">✏️</button>
+                                <button class="btn-danger" onclick="eliminarTarea('${t.id}')">🗑️</button>
+                            </div>
+                        </div>`;
+                    });
+                }
+                html += `</div></div>`;
+            });
+            kanbanBoard.innerHTML = html;
+
+            actualizarGrafico();
+
+            printDesc.innerHTML = `
+                <strong>Total tareas:</strong> ${tareas.length} &nbsp;|&nbsp;
+                <strong>Pendientes:</strong> ${tareas.filter(t => t.estado === 'pendiente').length} &nbsp;|&nbsp;
+                <strong>En progreso:</strong> ${tareas.filter(t => t.estado === 'progreso').length} &nbsp;|&nbsp;
+                <strong>En revisión:</strong> ${tareas.filter(t => t.estado === 'revision').length} &nbsp;|&nbsp;
+                <strong>Completadas:</strong> ${tareas.filter(t => t.estado === 'completado').length}<br>
+                <strong>Prioridad alta:</strong> ${tareas.filter(t => t.prioridad === 'Alta').length}
+            `;
+        }
+
+        function actualizarGrafico() {
+            const ctx = document.getElementById('workloadChart').getContext('2d');
+            if (chart) { chart.destroy(); chart = null; }
+
+            const responsables = [...new Set(tareas.map(t => t.responsable).filter(r => r))];
+            if (responsables.length === 0) {
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels: ['Sin datos'], datasets: [{ label: 'Carga', data: [0], backgroundColor: '#dce3ec' }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+                return;
+            }
+
+            const data = responsables.map(r => tareas.filter(t => t.responsable === r && t.estado !== 'completado').length);
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: responsables,
+                    datasets: [{ label: 'Tareas activas', data, backgroundColor: 'rgba(43,123,228,0.7)', borderColor: '#2b7be4', borderWidth: 2, borderRadius: 6 }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.parsed.y + ' tareas activas' } } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 1, color: '#5b6f82' }, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        x: { grid: { display: false }, ticks: { color: '#1f3a5f' } }
+                    }
+                }
+            });
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('filtroResponsable').value = 'todos';
+            document.getElementById('filtroPrioridad').value = 'todas';
+            renderizarKanban();
+        }
+
+        function cargarEjemplos() {
+            if (tareas.length > 0 && !ENUMAPP_UI.confirm('Esto agregará tareas de ejemplo. ¿Continuar?')) return;
+            const ejemplos = [
+                { titulo: 'Preparar pedido semanal', descripcion: 'Revisar stock y armar pedido', responsable: 'Ana', prioridad: 'Alta', fechaLimite: '2026-09-10', etiquetas: ['proveedores','stock'], estado: 'pendiente' },
+                { titulo: 'Revisar calidad de producto', descripcion: 'Control de calidad', responsable: 'Carlos', prioridad: 'Alta', fechaLimite: '2026-09-12', etiquetas: ['calidad'], estado: 'progreso' },
+                { titulo: 'Actualizar precios en sistema', descripcion: 'Aplicar nuevos precios', responsable: 'Ana', prioridad: 'Media', fechaLimite: '2026-09-15', etiquetas: ['precios'], estado: 'revision' },
+                { titulo: 'Contactar nuevo proveedor', descripcion: 'Pedir cotización', responsable: 'Luis', prioridad: 'Baja', fechaLimite: '2026-09-20', etiquetas: ['proveedores'], estado: 'pendiente' },
+                { titulo: 'Capacitar a nuevo empleado', descripcion: 'Entrenamiento inicial', responsable: 'Carlos', prioridad: 'Media', fechaLimite: '2026-09-08', etiquetas: ['capacitación'], estado: 'completado' }
+            ];
+            ejemplos.forEach(e => {
+                tareas.push({
+                    id: generarId(), titulo: e.titulo, descripcion: e.descripcion,
+                    responsable: e.responsable, prioridad: e.prioridad,
+                    fechaLimite: e.fechaLimite, etiquetas: e.etiquetas,
+                    estado: e.estado, creado: ENUMAPP_FMT.dateTime(new Date()),
+                    modificado: ENUMAPP_FMT.dateTime(new Date())
+                });
+            });
+            renderizarKanban();
+            guardarKanban();
+            ENUMAPP_UI.toast('✅ Ejemplos cargados', 'success');
+        }
+
+        if (!cargarKanban()) {
+            lastSaved.textContent = 'Sin datos';
+            cargarEjemplos();
+        } else {
+            renderizarKanban();
+        }
+
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        window.addEventListener('beforeunload', guardarKanban);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) cerrarModal();
+            if (e.key === 'Enter' && modalOverlay.classList.contains('active') && e.target.tagName !== 'TEXTAREA') guardarTarea();
+        });
+        modalOverlay.addEventListener('click', function(e) { if (e.target === modalOverlay) cerrarModal(); });
+    </script>
+
+</body>
+</html>

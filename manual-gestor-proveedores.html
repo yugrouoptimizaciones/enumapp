@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Gestor de Proveedores · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Gestor de Proveedores de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE GESTOR DE PROVEEDORES</h2>
+            <p>Comparativa de condiciones y puntaje ponderado</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Gestor de Proveedores</small>
+                </h1>
+            </div>
+            <a href="gestor-proveedores.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para registrar, comparar y evaluar a tus proveedores con un sistema de
+            puntaje ponderado. Aprendé a elegir al mejor según tus prioridades de negocio.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#criterios">Los 4 criterios evaluados</a></li>
+                <li><a href="#ponderaciones">Ponderaciones</a></li>
+                <li><a href="#puntaje">Cómo se calcula el puntaje</a></li>
+                <li><a href="#tarjetas">Tarjetas de proveedor</a></li>
+                <li><a href="#graficos">Interpretar los gráficos</a></li>
+                <li><a href="#tabla">Tabla comparativa</a></li>
+                <li><a href="#recomendaciones">Recomendación automática</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Gestor de Proveedores</strong> es una herramienta que te permite
+                <strong>registrar, comparar y evaluar a tus proveedores</strong> de forma objetiva.
+                Combina 4 criterios clave con un sistema de puntaje ponderado para que puedas elegir
+                al mejor proveedor según tus prioridades.
+            </p>
+            <p>Con esta herramienta podés:</p>
+            <ul>
+                <li>Registrar todos tus proveedores con sus condiciones.</li>
+                <li>Asignar <strong>pesos de importancia</strong> a cada criterio.</li>
+                <li>Obtener un <strong>puntaje de 0 a 100</strong> para cada proveedor.</li>
+                <li>Identificar al <strong>mejor proveedor</strong> automáticamente.</li>
+                <li>Ver comparativas visuales con gráficos de barras y radar.</li>
+                <li>Recibir una <strong>recomendación automática</strong> con las fortalezas del ganador.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Puntaje ponderado</span>
+                No todos los criterios son igual de importantes. Vos decidís cuánto pesa cada uno.
+                El puntaje final combina los 4 criterios según tus prioridades, dándote un número
+                objetivo para comparar proveedores.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Elegir un proveedor nuevo</strong> entre varias opciones.</li>
+                <li><strong>Reevaluar proveedores actuales</strong> antes de renovar contratos.</li>
+                <li><strong>Negociar condiciones</strong>: con datos en mano, pedís mejoras concretas.</li>
+                <li><strong>Diversificar proveedores</strong>: si dependés de uno solo, tenés un riesgo alto.</li>
+                <li><strong>Reducir costos</strong>: comparar precios y plazos de forma sistemática.</li>
+                <li><strong>Documentar decisiones</strong>: saber por qué elegiste un proveedor y no otro.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Evaluá proveedores <strong>al menos una vez al año</strong>, o cada vez que haya
+                un cambio importante en precios o condiciones. También cuando notes que un proveedor
+                actual ya no te da buen servicio.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver esta estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Formulario</div>
+                    <div class="step-desc">Agregar un nuevo proveedor</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Ponderaciones</div>
+                    <div class="step-desc">Definir importancia de cada criterio</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Tarjetas</div>
+                    <div class="step-desc">Ver proveedores con puntaje</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráficos</div>
+                    <div class="step-desc">Comparar visualmente</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Empezá con ejemplos</span>
+                Hacé clic en <span class="badge purple">📋 Cargar Ejemplos</span> para cargar 3
+                proveedores típicos con datos diferentes (uno barato, uno con buen plazo de pago,
+                uno premium) y ver cómo funciona la comparación.</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>7 campos</strong>. Te explico cada uno:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Nombre del Proveedor</strong></td>
+                        <td>Nombre comercial o razón social.</td>
+                        <td>Distribuidora Norte</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Producto / Servicio</strong></td>
+                        <td>Qué te provee ese proveedor.</td>
+                        <td>Harina de trigo</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Precio Unitario</strong></td>
+                        <td>Lo que te cobra por unidad.</td>
+                        <td>$1.200</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Plazo de Pago</strong></td>
+                        <td>Cuántos días tenés para pagar (más días = mejor).</td>
+                        <td>45 días</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Plazo de Entrega</strong></td>
+                        <td>Cuántos días tarda en entregar (menos días = mejor).</td>
+                        <td>3 días</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Calidad</strong></td>
+                        <td>Tu percepción de calidad del 1 al 5.</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td><strong>Notas / Condiciones</strong></td>
+                        <td>Descuentos, penalizaciones, condiciones especiales.</td>
+                        <td>Descuento 3% por pago adelantado</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Cómo evaluar la calidad</span>
+                Usá una escala del 1 al 5:<br>
+                <strong>1</strong> = Muy mala · <strong>2</strong> = Mala · <strong>3</strong> = Aceptable ·
+                <strong>4</strong> = Buena · <strong>5</strong> = Excelente.</p>
+            </div>
+        </section>
+
+        <section id="criterios">
+            <h2>🎨 Los 4 criterios evaluados</h2>
+            <p>
+                La herramienta evalúa cada proveedor en <strong>4 dimensiones clave</strong>. Podés
+                ajustar el peso de cada una según tus prioridades.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-title">💰 Precio</div>
+                    <div class="card-range">↓ Menor es mejor</div>
+                    <div class="card-desc">
+                        El precio unitario del producto. El proveedor más barato obtiene mejor puntaje.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">📅 Plazo de Pago</div>
+                    <div class="card-range">↑ Mayor es mejor</div>
+                    <div class="card-desc">
+                        Días de crédito que te otorga. Más días = mejor flujo de caja para vos.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🚚 Plazo de Entrega</div>
+                    <div class="card-range">↓ Menor es mejor</div>
+                    <div class="card-desc">
+                        Días hasta recibir el pedido. Menos días = más rápido, mejor respuesta a la demanda.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">⭐ Calidad</div>
+                    <div class="card-range">↑ Mayor es mejor</div>
+                    <div class="card-desc">
+                        Tu valoración del producto o servicio del 1 al 5. Afecta tu reputación con el cliente final.
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 ¿Por qué estos 4 criterios?</span>
+                Son los más relevantes en la mayoría de los negocios: <strong>cuánto pagás</strong>,
+                <strong>cuándo pagás</strong>, <strong>cuándo recibís</strong> y <strong>qué calidad recibís</strong>.
+                Juntos cubren el costo total real del abastecimiento.</p>
+            </div>
+        </section>
+
+        <section id="ponderaciones">
+            <h2>⚖️ Ponderaciones</h2>
+            <p>
+                Las ponderaciones definen <strong>cuánta importancia relativa</strong> tiene cada criterio
+                en la decisión final. Se configuran con sliders del 1 al 5.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Peso</th>
+                        <th>Significado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>Poco importante. Casi no influye en la decisión.</td></tr>
+                    <tr><td><strong>2</strong></td><td>Moderadamente importante.</td></tr>
+                    <tr><td><strong>3</strong></td><td>Importante. Influye de forma clara.</td></tr>
+                    <tr><td><strong>4</strong></td><td>Muy importante. Es un criterio clave.</td></tr>
+                    <tr><td><strong>5</strong></td><td>Crítico. Es el factor decisivo.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Ejemplos de configuración según tu negocio</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de negocio</th>
+                        <th>Precio</th>
+                        <th>Pago</th>
+                        <th>Entrega</th>
+                        <th>Calidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Kiosco / almacén</strong> (margen ajustado)</td>
+                        <td>5</td><td>3</td><td>3</td><td>3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Restaurante</strong> (calidad crítica)</td>
+                        <td>4</td><td>2</td><td>4</td><td>5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E-commerce</strong> (velocidad clave)</td>
+                        <td>4</td><td>3</td><td>5</td><td>4</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fábrica</strong> (flujo de caja crítico)</td>
+                        <td>4</td><td>5</td><td>3</td><td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Cambiar pesos cambia el resultado</span>
+                Si subís mucho el peso de un criterio, ese factor domina la decisión. Asegurate de
+                que las ponderaciones reflejen <strong>tus prioridades reales</strong>, no lo que
+                creés que "debería" ser.</p>
+            </div>
+        </section>
+
+        <section id="puntaje">
+            <h2>🧮 Cómo se calcula el puntaje</h2>
+            <p>
+                El puntaje final combina los 4 criterios con sus pesos. Cada criterio se normaliza a
+                un valor entre 0 y 1, y luego se aplica la ponderación.
+            </p>
+
+            <h3>Paso 1: Normalizar cada criterio</h3>
+            <div class="formula-box">
+                <div class="formula">Precio Score = (Max − Precio) ÷ (Max − Min)</div>
+                <div class="formula-desc">El proveedor más barato obtiene 1.0, el más caro obtiene 0.0.</div>
+            </div>
+
+            <div class="formula-box">
+                <div class="formula">Pago Score = (Plazo − Min) ÷ (Max − Min)</div>
+                <div class="formula-desc">El que da más días de pago obtiene 1.0, el que da menos obtiene 0.0.</div>
+            </div>
+
+            <div class="formula-box">
+                <div class="formula">Entrega Score = (Max − Plazo) ÷ (Max − Min)</div>
+                <div class="formula-desc">El que entrega más rápido obtiene 1.0, el más lento obtiene 0.0.</div>
+            </div>
+
+            <div class="formula-box">
+                <div class="formula">Calidad Score = (Calidad − Min) ÷ (Max − Min)</div>
+                <div class="formula-desc">El de mejor calidad obtiene 1.0, el de peor obtiene 0.0.</div>
+            </div>
+
+            <h3>Paso 2: Aplicar ponderaciones</h3>
+            <div class="formula-box">
+                <div class="formula">Puntaje = (ScoreP × PesoP + ScorePa × PesoPa + ScoreE × PesoE + ScoreC × PesoC) ÷ (Suma de Pesos) × 100</div>
+                <div class="formula-desc">El resultado final va de 0 a 100 puntos.</div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Lectura del puntaje</span>
+                El puntaje es <strong>relativo</strong>: se calcula comparando entre los proveedores
+                cargados. Si agregás un nuevo proveedor, todos los puntajes se recalculan
+                automáticamente.</p>
+            </div>
+        </section>
+
+        <section id="tarjetas">
+            <h2>🎴 Tarjetas de proveedor</h2>
+            <p>Cada proveedor se muestra como una tarjeta ordenada de mejor a peor puntaje:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Nombre</strong></td><td>Nombre del proveedor.</td></tr>
+                    <tr><td><strong>Producto</strong></td><td>Qué te provee.</td></tr>
+                    <tr><td><strong>Precio</strong></td><td>Precio unitario.</td></tr>
+                    <tr><td><strong>Plazo pago</strong></td><td>Días de crédito otorgados.</td></tr>
+                    <tr><td><strong>Plazo entrega</strong></td><td>Días hasta recibir el pedido.</td></tr>
+                    <tr><td><strong>Calidad</strong></td><td>Valoración del 1 al 5.</td></tr>
+                    <tr><td><strong>Puntaje</strong></td><td>Puntaje ponderado final (0-100).</td></tr>
+                    <tr><td><strong>Etiqueta "Mejor"</strong></td><td>Se muestra en el proveedor con mayor puntaje.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="graficos">
+            <h2>📈 Interpretar los gráficos</h2>
+            <p>La herramienta genera 2 gráficos complementarios:</p>
+
+            <h3>1. Gráfico de barras (izquierda)</h3>
+            <p>
+                Muestra los <strong>puntajes totales</strong> de todos los proveedores, ordenados de
+                mayor a menor. El mejor se muestra en <strong>verde</strong> y los demás en
+                <strong>azul</strong>. La altura de cada barra indica el puntaje de 0 a 100.
+            </p>
+
+            <h3>2. Gráfico de radar (derecha)</h3>
+            <p>
+                Compara los <strong>4 criterios</strong> entre el mejor proveedor y el segundo mejor.
+                Cada eje es un criterio, y el área muestra el desempeño en cada uno.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Proveedor</th>
+                        <th>Qué muestra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">🟢</td>
+                        <td><strong>Verde</strong> · Mejor</td>
+                        <td>El proveedor con mayor puntaje total.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🔵</td>
+                        <td><strong>Azul</strong> · Segundo</td>
+                        <td>El segundo mejor, para comparar dónde gana y dónde pierde.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Lectura rápida del radar</span>
+                Si el área verde es <strong>más grande</strong> que la azul en casi todos los ejes,
+                el mejor proveedor es claramente superior. Si están <strong>parejos</strong>, la
+                decisión es más ajustada.</p>
+            </div>
+        </section>
+
+        <section id="tabla">
+            <h2>📋 Tabla comparativa</h2>
+            <p>
+                Debajo de los gráficos hay una sección plegable con la <strong>tabla completa</strong>
+                de proveedores. Hacé clic en "📋 Ver tabla comparativa completa" para expandirla.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Columna</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Proveedor</strong></td><td>Nombre del proveedor.</td></tr>
+                    <tr><td><strong>Producto</strong></td><td>Qué provee.</td></tr>
+                    <tr><td><strong>Precio</strong></td><td>Precio unitario.</td></tr>
+                    <tr><td><strong>Plazo Pago</strong></td><td>Días de crédito.</td></tr>
+                    <tr><td><strong>Plazo Entrega</strong></td><td>Días hasta la entrega.</td></tr>
+                    <tr><td><strong>Calidad</strong></td><td>Puntuación del 1 al 5.</td></tr>
+                    <tr><td><strong>Puntaje</strong></td><td>Puntaje ponderado final.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Fila resaltada</span>
+                La fila del mejor proveedor aparece con fondo verde. Es el que la herramienta
+                recomienda según las ponderaciones actuales.</p>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Recomendación automática</h2>
+            <p>
+                Debajo de las tarjetas, la herramienta genera una <strong>recomendación automática</strong>
+                según la cantidad de proveedores cargados:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Proveedores</th>
+                        <th>Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>0 proveedores</strong></td>
+                        <td>Invitación a cargar el primero.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 proveedor</strong></td>
+                        <td>Sugerencia de agregar más para poder comparar.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2+ proveedores</strong></td>
+                        <td>Recomendación del mejor con sus fortalezas destacadas y su nota si tiene.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué incluye la recomendación con 2+ proveedores</h3>
+            <ul>
+                <li><strong>Proveedor recomendado</strong> con su puntaje.</li>
+                <li><strong>Ventaja</strong> sobre el segundo (cuántos puntos de diferencia).</li>
+                <li><strong>Fortalezas</strong>: qué criterios tiene por encima del promedio.</li>
+                <li><strong>Nota</strong>: si cargaste alguna condición especial.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Ejemplo de recomendación</span>
+                "✅ Proveedor recomendado: <strong>Distribuidora Norte</strong> con 82.5 puntos
+                (12.3 pts por encima del segundo). Fortalezas: ✅ Precio competitivo ✅ Buen plazo
+                de pago ✅ Entrega rápida. Nota: Descuento 3% por pago adelantado."</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés una <strong>panadería</strong> y querés elegir proveedor de harina
+                entre 3 opciones. Cargás estos datos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Proveedor</th>
+                        <th>Precio</th>
+                        <th>Pago</th>
+                        <th>Entrega</th>
+                        <th>Calidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Distribuidora Norte</td><td>$1.200</td><td>45 días</td><td>3 días</td><td>4/5</td></tr>
+                    <tr><td>Proveedores del Sur</td><td>$1.000</td><td>30 días</td><td>5 días</td><td>3/5</td></tr>
+                    <tr><td>Alimentos Gourmet</td><td>$1.350</td><td>60 días</td><td>2 días</td><td>5/5</td></tr>
+                </tbody>
+            </table>
+
+            <p>Con ponderaciones: Precio=5, Pago=4, Entrega=3, Calidad=4.</p>
+
+            <h3>Resultados que calcularía la herramienta</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Proveedor</th>
+                        <th>Puntaje</th>
+                        <th>Posición</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Alimentos Gourmet</strong></td>
+                        <td><strong>78.3</strong></td>
+                        <td><span class="badge green">⭐ Mejor</span></td>
+                    </tr>
+                    <tr>
+                        <td>Distribuidora Norte</td>
+                        <td>72.1</td>
+                        <td><span class="badge blue">2°</span></td>
+                    </tr>
+                    <tr>
+                        <td>Proveedores del Sur</td>
+                        <td>38.5</td>
+                        <td><span class="badge gray">3°</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Por qué gana Alimentos Gourmet?</h3>
+            <ul>
+                <li>Es el <strong>más caro</strong>, pero tiene el <strong>mejor plazo de pago</strong> (60 días).</li>
+                <li>Tiene la <strong>entrega más rápida</strong> (2 días).</li>
+                <li>Tiene la <strong>mejor calidad</strong> (5/5).</li>
+                <li>El precio alto se compensa con las otras ventajas.</li>
+            </ul>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Si tenés flujo de caja ajustado</strong>: elegí Alimentos Gourmet por sus 60 días de pago.</li>
+                <li><strong>Si tu prioridad es precio</strong>: subí el peso del precio a 5 y bajá los otros. Vas a ver cómo cambia el resultado.</li>
+                <li><strong>Negociá con el 2°</strong>: usá el análisis para pedirle a Distribuidora Norte mejores condiciones.</li>
+                <li><strong>Considerá tener dos proveedores</strong>: diversificás riesgo y mejorás tu poder de negociación.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Análisis de sensibilidad</span>
+                Movete los sliders de ponderación y observá cómo cambia el ranking. Esto te muestra
+                <strong>qué proveedor es más robusto</strong> ante cambios en tus prioridades.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar el análisis o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, la tabla comparativa completa con todos
+                los proveedores, el gráfico de barras con los puntajes, el gráfico radar del mejor
+                vs. el segundo, la recomendación automática y la descripción resumida con las
+                ponderaciones usadas.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Generá un PDF <strong>cada vez que hagas un análisis nuevo</strong>. Es tu respaldo
+                de por qué elegiste un proveedor. Excelente para auditorías y para justificar
+                decisiones ante un socio o inversor.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al recargar la página, los proveedores se reinician. Guardá un PDF si querés conservar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "ponderación"?</div>
+                <div class="a">Es el peso relativo que le das a cada criterio. Un peso de 5 significa que ese criterio es 5 veces más importante que uno con peso 1.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el proveedor más barato no siempre gana?</div>
+                <div class="a">Porque el precio es solo uno de los 4 criterios. Si un proveedor es más barato pero tiene mal plazo de pago, entrega lenta o baja calidad, puede quedar segundo o tercero.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo cambio la escala de calidad?</div>
+                <div class="a">La escala es fija del 1 al 5. Si querés más granularidad, podés usar valores decimales como 3.5 o 4.5 al cargar.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo tener varios proveedores del mismo producto?</div>
+                <div class="a">Sí, y es muy recomendable. Cargá todos los proveedores de un mismo producto para comparar. Después podés elegir uno solo o dividir el volumen entre dos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El puntaje se puede comparar entre productos diferentes?</div>
+                <div class="a">No directamente. El puntaje es relativo a los proveedores del mismo grupo. Para comparar entre productos distintos, analizalos por separado.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si dos proveedores tienen el mismo puntaje?</div>
+                <div class="a">La herramienta los ordena por orden de carga. Podés desempatar subiendo el peso del criterio que más te importe.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo editar un proveedor después de cargarlo?</div>
+                <div class="a">No directamente. Si te equivocaste, eliminalo y volvé a cargarlo con los datos correctos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo elimino un proveedor?</div>
+                <div class="a">Hacé clic en el botón 🗑️ Eliminar en la tarjeta del proveedor. No pide confirmación, así que tené cuidado.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Las notas afectan el puntaje?</div>
+                <div class="a">No. Las notas son solo información adicional que aparece en la tarjeta y el PDF. No influyen en el cálculo del puntaje.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto para comparar servicios en vez de productos?</div>
+                <div class="a">Sí. Reemplazá "Precio Unitario" por el precio del servicio y "Plazo de Entrega" por el tiempo de respuesta. Los 4 criterios aplican igual.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántos proveedores puedo cargar?</div>
+                <div class="a">No hay límite. Pero para tomar decisiones claras, es mejor comparar 3-5 proveedores por producto. Más opciones complican la decisión.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Analizá por producto, no mezcles</h3>
+            <p>Compará proveedores del mismo producto. No tiene sentido comparar un proveedor de harina con uno de aceite.</p>
+
+            <h3>2. Actualizá los precios cada 3 meses</h3>
+            <p>Los precios cambian rápido. Un análisis de hace 6 meses puede estar desactualizado. Revisá los valores periódicamente.</p>
+
+            <h3>3. Usá el análisis para negociar</h3>
+            <p>Cuando negocies con el proveedor actual, mostrale los datos: "Mi otro proveedor me ofrece X, ¿podés igualarlo?".</p>
+
+            <h3>4. Cargá las notas con detalles clave</h3>
+            <p>Anotá condiciones específicas: "descuento 5% por volumen", "entrega los martes", "no acepta devoluciones". Te va a servir en el futuro.</p>
+
+            <h3>5. Diversificá proveedores</h3>
+            <p>Si dependés de uno solo, tenés un riesgo enorme. Considerá tener 2 proveedores por producto, aunque el segundo no sea tan bueno.</p>
+
+            <h3>6. Combiná con el Fijador de Precios</h3>
+            <p>Los precios de tus proveedores afectan directamente tu estructura de costos. Usá el Fijador de Precios para ajustar tus precios de venta.</p>
+
+            <h3>7. Combiná con Gestión de Inventario</h3>
+            <p>Cargá el lead time real del mejor proveedor en la herramienta de Inventario para calcular bien el punto de pedido.</p>
+
+            <h3>8. Hacé una evaluación anual formal</h3>
+            <p>Una vez al año, reevaluá todos tus proveedores. Los proveedores cambian con el tiempo, y tu análisis del año pasado puede ya no aplicar.</p>
+
+            <h3>9. Probá distintas ponderaciones</h3>
+            <p>Cambiá los pesos y observá cómo cambia el ranking. Si un proveedor sigue siendo el mejor con muchas combinaciones, es una decisión sólida.</p>
+
+            <h3>10. Guardá los PDFs de análisis anteriores</h3>
+            <p>Un PDF por trimestre te da un historial de cómo evolucionaron tus proveedores. Útil para auditorías y para ver tendencias de precios.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta, vas a poder <strong>elegir proveedores con criterio
+                objetivo</strong>, negociar mejores condiciones y reducir tus costos totales de
+                abastecimiento. Todo con datos, no con intuición.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Gestor de Proveedores</strong>:</p>
+            <div class="cards-grid">
+            <a href="gestion-inventario.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📦 Gestión de Inventario</div>
+            <div class="card-desc">Cargá el lead time real del mejor proveedor en tu punto de pedido.</div>
+            </a>
+            <a href="calculadora-importacion.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📦 Calculadora de Importación</div>
+            <div class="card-desc">Compará proveedores nacionales contra importados con costos reales.</div>
+            </a>
+            <a href="simulador-cashflow.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">💵 Simulador de Cashflow</div>
+            <div class="card-desc">Planificá los pagos a proveedores según su plazo de pago.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Gestor de Proveedores</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

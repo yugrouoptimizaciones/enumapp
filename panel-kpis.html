@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de KPIs · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Panel de KPIs de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>📊 ENUMAPP · PANEL DE KPIs</h2>
+            <p>Seguimiento semanal de los números del negocio</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📊 Panel de KPIs
+                    <small>· Métricas Clave del Negocio</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-panel-kpis.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Controlá los 5 números clave de tu negocio semana a semana. Definí metas, registrá
+            datos y detectá tendencias antes de que se conviertan en problemas.
+        </div>
+
+        <div class="flex-row no-print">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <button class="btn-primary" onclick="guardarSemana()">💾 Guardar Semana</button>
+                <button class="btn-secondary" onclick="abrirConfig()">⚙️ Metas</button>
+                <button class="btn-secondary" onclick="cargarEjemplos()" style="background:#8e44ad;">📋 Ejemplos</button>
+                <button class="btn-danger" onclick="reiniciarDatos()" style="background:#c0392b;">🗑️ Reiniciar</button>
+                <button class="btn-excel" onclick="exportarExcel()">📊 Exportar a Excel</button>
+            </div>
+            <button class="btn-pdf" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div class="form-section">
+            <h4>📝 Datos de la semana <span id="semanaLabel" style="font-weight:400; color:#5b6f82; font-size:14px;">(semana actual)</span></h4>
+            <div class="grid-2">
+                <div class="input-group"><label>Ingresos ($)</label><input type="number" id="inputIngresos" value="0" step="100" min="0" /></div>
+                <div class="input-group"><label>Gastos ($)</label><input type="number" id="inputGastos" value="0" step="100" min="0" /></div>
+                <div class="input-group"><label>Nuevos Clientes</label><input type="number" id="inputClientes" value="0" step="1" min="0" /></div>
+                <div class="input-group"><label>Nota / Observación</label><input type="text" id="inputNota" placeholder="Ej: Semana de promociones" /></div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row">
+            <span class="badge">📈 <strong>KPIs de la semana</strong> <span class="counter-badge" id="semanaActualBadge">Semana 0</span></span>
+        </div>
+
+        <div class="results-grid-5">
+            <div class="kpi-card" id="kpiIngresos">
+                <div class="kpi-label">💰 Ingresos</div>
+                <div class="kpi-value" id="valIngresos">$0</div>
+                <div class="kpi-meta"><span class="kpi-status green"></span> vs meta: <span id="metaIngresos">0%</span></div>
+                <div class="kpi-goal">Meta: $<span id="goalIngresos">0</span></div>
+            </div>
+            <div class="kpi-card" id="kpiGastos">
+                <div class="kpi-label">📉 Gastos</div>
+                <div class="kpi-value" id="valGastos">$0</div>
+                <div class="kpi-meta"><span class="kpi-status green"></span> vs meta: <span id="metaGastos">0%</span></div>
+                <div class="kpi-goal">Meta: $<span id="goalGastos">0</span></div>
+            </div>
+            <div class="kpi-card" id="kpiFlujo">
+                <div class="kpi-label">💵 Flujo de Caja</div>
+                <div class="kpi-value" id="valFlujo">$0</div>
+                <div class="kpi-meta">Ingresos - Gastos</div>
+                <div class="kpi-goal">&nbsp;</div>
+            </div>
+            <div class="kpi-card" id="kpiClientes">
+                <div class="kpi-label">👥 Nuevos Clientes</div>
+                <div class="kpi-value" id="valClientes">0</div>
+                <div class="kpi-meta"><span class="kpi-status green"></span> vs meta: <span id="metaClientes">0%</span></div>
+                <div class="kpi-goal">Meta: <span id="goalClientes">0</span></div>
+            </div>
+            <div class="kpi-card" id="kpiMargen">
+                <div class="kpi-label">📊 Margen Bruto</div>
+                <div class="kpi-value" id="valMargen">0%</div>
+                <div class="kpi-meta"><span class="kpi-status green"></span> vs meta: <span id="metaMargen">0%</span></div>
+                <div class="kpi-goal">Meta: <span id="goalMargen">0%</span></div>
+            </div>
+        </div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendaciones</h3>
+            <p id="recommendationText">Ingresá los datos de la semana y guardalos para recibir recomendaciones.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="kpiChart"></canvas>
+        </div>
+
+        <div style="margin-top:20px;">
+            <details>
+                <summary style="font-weight:600; color:var(--color-text-secondary); cursor:pointer; padding:8px 0;">📋 Ver historial de semanas</summary>
+                <div class="table-container">
+                    <table id="tablaHistorial">
+                        <thead>
+                            <tr>
+                                <th>Semana</th><th>Ingresos</th><th>Gastos</th><th>Flujo Caja</th><th>Clientes</th><th>Margen</th><th>Nota</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaHistorialBody"></tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Tip:</strong> Guardá los datos cada semana para ver la evolución. Establecé metas realistas para cada KPI.</span>
+            <span>🔄 <span id="lastSaved">Guardado automático</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <!-- MODAL CONFIGURACIÓN -->
+    <div class="modal-overlay" id="modalConfig">
+        <div class="modal">
+            <h2>⚙️ Configurar Metas</h2>
+            <div class="input-group" style="margin-bottom:14px;"><label>Meta de Ingresos ($/semana)</label><input type="number" id="metaIngresosInput" value="10000" step="100" min="0" /></div>
+            <div class="input-group" style="margin-bottom:14px;"><label>Meta de Gastos ($/semana)</label><input type="number" id="metaGastosInput" value="7000" step="100" min="0" /></div>
+            <div class="input-group" style="margin-bottom:14px;"><label>Meta de Nuevos Clientes</label><input type="number" id="metaClientesInput" value="5" step="1" min="0" /></div>
+            <div class="input-group"><label>Meta de Margen Bruto (%)</label><input type="number" id="metaMargenInput" value="30" step="1" min="0" max="100" /></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="cerrarConfig()">Cerrar</button>
+                <button class="btn-primary" onclick="guardarConfig()">💾 Guardar Metas</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        // ==========================================================
+        // PANEL DE KPIs · Lógica con persistencia unificada
+        // ==========================================================
+
+        let historial = [];
+        let config = {
+            metaIngresos: 10000,
+            metaGastos: 7000,
+            metaClientes: 5,
+            metaMargen: 30
+        };
+
+        // DOM
+        const inputIngresos = document.getElementById('inputIngresos');
+        const inputGastos = document.getElementById('inputGastos');
+        const inputClientes = document.getElementById('inputClientes');
+        const inputNota = document.getElementById('inputNota');
+        const semanaLabel = document.getElementById('semanaLabel');
+
+        const valIngresos = document.getElementById('valIngresos');
+        const valGastos = document.getElementById('valGastos');
+        const valFlujo = document.getElementById('valFlujo');
+        const valClientes = document.getElementById('valClientes');
+        const valMargen = document.getElementById('valMargen');
+
+        const metaIngresosSpan = document.getElementById('metaIngresos');
+        const metaGastosSpan = document.getElementById('metaGastos');
+        const metaClientesSpan = document.getElementById('metaClientes');
+        const metaMargenSpan = document.getElementById('metaMargen');
+
+        const goalIngresos = document.getElementById('goalIngresos');
+        const goalGastos = document.getElementById('goalGastos');
+        const goalClientes = document.getElementById('goalClientes');
+        const goalMargen = document.getElementById('goalMargen');
+
+        const kpiIngresos = document.getElementById('kpiIngresos');
+        const kpiGastos = document.getElementById('kpiGastos');
+        const kpiClientes = document.getElementById('kpiClientes');
+        const kpiMargen = document.getElementById('kpiMargen');
+
+        const recommendationText = document.getElementById('recommendationText');
+        const tablaBody = document.getElementById('tablaHistorialBody');
+        const lastSaved = document.getElementById('lastSaved');
+        const printDesc = document.getElementById('printDesc');
+        const semanaActualBadge = document.getElementById('semanaActualBadge');
+
+        const ctx = document.getElementById('kpiChart').getContext('2d');
+        let chart = null;
+
+        // ===== PERSISTENCIA =====
+        function guardarStorage() {
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.KPIS, { historial, config });
+            const ahora = new Date();
+            lastSaved.textContent = 'Guardado: ' + ahora.toLocaleTimeString('es-AR', {
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+        }
+
+        function cargarStorage() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.KPIS);
+            if (data) {
+                historial = data.historial || [];
+                config = data.config || config;
+                return true;
+            }
+            return false;
+        }
+
+        // ===== REINICIAR =====
+        function reiniciarDatos() {
+            if (!ENUMAPP_UI.confirm('⚠️ ¿Estás seguro de borrar TODOS los datos guardados? Esta acción no se puede deshacer.')) return;
+            if (!ENUMAPP_UI.confirm('✅ Confirmación final: ¿Eliminar todo el historial y las configuraciones?')) return;
+
+            historial = [];
+            config = { metaIngresos: 10000, metaGastos: 7000, metaClientes: 5, metaMargen: 30 };
+            ENUMAPP_STORAGE.remove(ENUMAPP_STORAGE.KEYS.KPIS);
+            inputIngresos.value = 0;
+            inputGastos.value = 0;
+            inputClientes.value = 0;
+            inputNota.value = '';
+            renderizarTodo();
+            guardarStorage();
+            ENUMAPP_UI.toast('✅ Datos reiniciados correctamente', 'success');
+        }
+
+        // ===== EXPORTAR A EXCEL =====
+        function exportarExcel() {
+            if (historial.length === 0) {
+                ENUMAPP_UI.toast('No hay datos para exportar. Guardá al menos una semana primero.', 'warning');
+                return;
+            }
+
+            let csv = '\uFEFF';
+            csv += 'Semana;Fecha;Ingresos;Gastos;Flujo Caja;Clientes;Margen (%);Nota\n';
+
+            historial.forEach((s, idx) => {
+                csv += `${idx + 1};${s.fecha};${s.ingresos};${s.gastos};${s.flujoCaja};${s.clientes};${s.margen.toFixed(1)};${s.nota || ''}\n`;
+            });
+
+            csv += `\n;METAS;${config.metaIngresos};${config.metaGastos};;${config.metaClientes};${config.metaMargen};`;
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            const fecha = new Date().toISOString().slice(0, 10);
+            link.setAttribute('download', `KPIs_${fecha}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            ENUMAPP_UI.toast('✅ Archivo CSV exportado correctamente', 'success');
+        }
+
+        // ===== CONFIG =====
+        function abrirConfig() {
+            document.getElementById('metaIngresosInput').value = config.metaIngresos;
+            document.getElementById('metaGastosInput').value = config.metaGastos;
+            document.getElementById('metaClientesInput').value = config.metaClientes;
+            document.getElementById('metaMargenInput').value = config.metaMargen;
+            ENUMAPP_UI.openModal('modalConfig');
+        }
+        function cerrarConfig() { ENUMAPP_UI.closeModal('modalConfig'); }
+
+        function guardarConfig() {
+            config.metaIngresos = parseFloat(document.getElementById('metaIngresosInput').value) || 0;
+            config.metaGastos = parseFloat(document.getElementById('metaGastosInput').value) || 0;
+            config.metaClientes = parseInt(document.getElementById('metaClientesInput').value) || 0;
+            config.metaMargen = parseFloat(document.getElementById('metaMargenInput').value) || 0;
+            cerrarConfig();
+            renderizarTodo();
+            guardarStorage();
+            ENUMAPP_UI.toast('✅ Metas guardadas', 'success');
+        }
+
+        // ===== GUARDAR SEMANA =====
+        function guardarSemana() {
+            const ingresos = parseFloat(inputIngresos.value) || 0;
+            const gastos = parseFloat(inputGastos.value) || 0;
+            const clientes = parseInt(inputClientes.value) || 0;
+            const nota = inputNota.value.trim() || '';
+
+            if (ingresos === 0 && gastos === 0 && clientes === 0) {
+                ENUMAPP_UI.toast('Ingresá al menos un valor para guardar la semana.', 'warning');
+                return;
+            }
+
+            const semana = {
+                fecha: ENUMAPP_FMT.date(new Date()),
+                ingresos, gastos, clientes, nota,
+                flujoCaja: ingresos - gastos,
+                margen: ingresos > 0 ? ((ingresos - gastos) / ingresos) * 100 : 0
+            };
+
+            historial.push(semana);
+            if (historial.length > 52) historial.shift();
+
+            inputIngresos.value = 0;
+            inputGastos.value = 0;
+            inputClientes.value = 0;
+            inputNota.value = '';
+
+            renderizarTodo();
+            guardarStorage();
+            ENUMAPP_UI.toast('✅ Semana guardada correctamente', 'success');
+        }
+
+        // ===== CARGAR EJEMPLOS =====
+        function cargarEjemplos() {
+            if (historial.length > 0 && !ENUMAPP_UI.confirm('Esto agregará semanas de ejemplo a las existentes. ¿Continuar?')) return;
+
+            const ejemplos = [
+                { ingresos: 8500, gastos: 6200, clientes: 4, nota: 'Semana tranquila' },
+                { ingresos: 10200, gastos: 6800, clientes: 6, nota: 'Promoción especial' },
+                { ingresos: 7800, gastos: 7500, clientes: 3, nota: 'Baja de ventas' },
+                { ingresos: 11500, gastos: 7200, clientes: 7, nota: 'Buena semana' },
+                { ingresos: 9300, gastos: 6500, clientes: 5, nota: 'Semana normal' },
+                { ingresos: 12500, gastos: 8000, clientes: 9, nota: 'Excelente! Evento' },
+                { ingresos: 6800, gastos: 6000, clientes: 2, nota: 'Feríado' },
+                { ingresos: 14500, gastos: 9000, clientes: 12, nota: 'Campaña de marketing' }
+            ];
+
+            ejemplos.forEach(e => {
+                historial.push({
+                    fecha: 'Semana ' + (historial.length + 1),
+                    ingresos: e.ingresos, gastos: e.gastos,
+                    clientes: e.clientes, nota: e.nota || '',
+                    flujoCaja: e.ingresos - e.gastos,
+                    margen: e.ingresos > 0 ? ((e.ingresos - e.gastos) / e.ingresos) * 100 : 0
+                });
+            });
+
+            renderizarTodo();
+            guardarStorage();
+            ENUMAPP_UI.toast('✅ Se cargaron 8 semanas de ejemplo', 'success');
+        }
+
+        // ===== RENDERIZAR KPIs =====
+        function renderizarKPIs() {
+            const ultima = historial.length > 0 ? historial[historial.length - 1] : null;
+
+            goalIngresos.textContent = config.metaIngresos.toLocaleString('es-AR');
+            goalGastos.textContent = config.metaGastos.toLocaleString('es-AR');
+            goalClientes.textContent = config.metaClientes;
+            goalMargen.textContent = config.metaMargen;
+
+            if (ultima) {
+                const i = ultima.ingresos;
+                const g = ultima.gastos;
+                const f = ultima.flujoCaja;
+                const c = ultima.clientes;
+                const m = ultima.margen;
+
+                valIngresos.textContent = ENUMAPP_FMT.money(i);
+                valGastos.textContent = ENUMAPP_FMT.money(g);
+                valFlujo.textContent = f >= 0 ? ENUMAPP_FMT.money(f) : '-' + ENUMAPP_FMT.money(Math.abs(f));
+                valClientes.textContent = c;
+                valMargen.textContent = ENUMAPP_FMT.percent(m);
+
+                const pctIngresos = config.metaIngresos > 0 ? (i / config.metaIngresos) * 100 : 0;
+                const pctGastos = config.metaGastos > 0 ? (g / config.metaGastos) * 100 : 0;
+                const pctClientes = config.metaClientes > 0 ? (c / config.metaClientes) * 100 : 0;
+                const pctMargen = config.metaMargen > 0 ? (m / config.metaMargen) * 100 : 0;
+
+                metaIngresosSpan.textContent = pctIngresos.toFixed(0) + '%';
+                metaGastosSpan.textContent = pctGastos.toFixed(0) + '%';
+                metaClientesSpan.textContent = pctClientes.toFixed(0) + '%';
+                metaMargenSpan.textContent = pctMargen.toFixed(0) + '%';
+
+                setStatus(kpiIngresos, pctIngresos, 'metaIngresos');
+                setStatus(kpiGastos, pctGastos, 'metaGastos', true);
+                setStatus(kpiClientes, pctClientes, 'metaClientes');
+                setStatus(kpiMargen, pctMargen, 'metaMargen');
+
+                semanaActualBadge.textContent = 'Semana ' + historial.length;
+            } else {
+                valIngresos.textContent = '$0';
+                valGastos.textContent = '$0';
+                valFlujo.textContent = '$0';
+                valClientes.textContent = '0';
+                valMargen.textContent = '0%';
+                metaIngresosSpan.textContent = '0%';
+                metaGastosSpan.textContent = '0%';
+                metaClientesSpan.textContent = '0%';
+                metaMargenSpan.textContent = '0%';
+                semanaActualBadge.textContent = 'Sin datos';
+                [kpiIngresos, kpiGastos, kpiClientes, kpiMargen].forEach(el => {
+                    el.style.borderColor = 'var(--color-border)';
+                    const status = el.querySelector('.kpi-status');
+                    if (status) status.className = 'kpi-status green';
+                });
+            }
+        }
+
+        function setStatus(card, pct, metaId, invert = false) {
+            const status = card.querySelector('.kpi-status');
+            const metaSpan = document.getElementById(metaId);
+            if (!status || !metaSpan) return;
+
+            let color;
+            if (invert) {
+                if (pct <= 80) color = 'green';
+                else if (pct <= 100) color = 'yellow';
+                else color = 'red';
+                if (pct <= 80) metaSpan.textContent = pct.toFixed(0) + '% (bien)';
+                else if (pct <= 100) metaSpan.textContent = pct.toFixed(0) + '% (ok)';
+                else metaSpan.textContent = pct.toFixed(0) + '% (excedido)';
+            } else {
+                if (pct >= 100) color = 'green';
+                else if (pct >= 70) color = 'yellow';
+                else color = 'red';
+                if (pct >= 100) metaSpan.textContent = pct.toFixed(0) + '% (cumplido)';
+                else if (pct >= 70) metaSpan.textContent = pct.toFixed(0) + '% (cerca)';
+                else metaSpan.textContent = pct.toFixed(0) + '% (bajo)';
+            }
+
+            status.className = 'kpi-status ' + color;
+            card.style.borderColor = color === 'green' ? 'var(--color-success)' :
+                color === 'yellow' ? 'var(--color-warning)' : 'var(--color-danger)';
+        }
+
+        // ===== RECOMENDACIONES =====
+        function generarRecomendaciones() {
+            if (historial.length === 0) {
+                recommendationText.innerHTML = '📌 No hay datos guardados. Podés <strong>cargar ejemplos</strong> usando el botón "📋 Ejemplos" o <strong>comenzar desde cero</strong> ingresando los datos de la semana 1.';
+                return;
+            }
+
+            const ultima = historial[historial.length - 1];
+            const anterior = historial.length > 1 ? historial[historial.length - 2] : null;
+            const i = ultima.ingresos;
+            const g = ultima.gastos;
+            const c = ultima.clientes;
+            const m = ultima.margen;
+
+            let recs = [];
+
+            if (config.metaIngresos > 0) {
+                const pct = (i / config.metaIngresos) * 100;
+                if (pct < 70) recs.push('⚠️ Ingresos por debajo del 70% de la meta. Considerá promociones o intensificar ventas.');
+                else if (pct >= 100) recs.push('✅ Ingresos superan la meta! Mantené el impulso.');
+                else recs.push(`📈 Ingresos al ${pct.toFixed(0)}% de la meta. Seguí trabajando.`);
+            }
+
+            if (config.metaGastos > 0) {
+                const pct = (g / config.metaGastos) * 100;
+                if (pct > 100) recs.push('🔴 Gastos superan la meta. Revisá costos variables.');
+                else if (pct > 80) recs.push('🟡 Gastos cerca del límite. Monitoreá de cerca.');
+                else recs.push('✅ Gastos controlados.');
+            }
+
+            if (config.metaClientes > 0) {
+                const pct = (c / config.metaClientes) * 100;
+                if (pct < 70) recs.push('📉 Nuevos clientes por debajo de la meta. Revisá canales de captación.');
+                else if (pct >= 100) recs.push('🌟 Excelente captación de clientes!');
+                else recs.push(`👥 Clientes al ${pct.toFixed(0)}% de la meta.`);
+            }
+
+            if (config.metaMargen > 0) {
+                const pct = (m / config.metaMargen) * 100;
+                if (pct < 70) recs.push('📊 Margen bruto bajo. Revisá precios o reducí costos variables.');
+                else if (pct >= 100) recs.push('💰 Excelente margen!');
+                else recs.push(`📊 Margen al ${pct.toFixed(0)}% de la meta.`);
+            }
+
+            if (anterior) {
+                const diffIngresos = ((i - anterior.ingresos) / (anterior.ingresos || 1)) * 100;
+                const diffClientes = ((c - anterior.clientes) / (anterior.clientes || 1)) * 100;
+                if (diffIngresos > 10) recs.push(`📈 Ingresos crecieron un ${diffIngresos.toFixed(0)}% vs semana pasada.`);
+                else if (diffIngresos < -10) recs.push(`📉 Ingresos cayeron un ${Math.abs(diffIngresos).toFixed(0)}% vs semana pasada.`);
+                if (diffClientes > 10) recs.push(`👥 Clientes crecieron un ${diffClientes.toFixed(0)}% vs semana pasada.`);
+                else if (diffClientes < -10) recs.push(`👥 Clientes cayeron un ${Math.abs(diffClientes).toFixed(0)}% vs semana pasada.`);
+            }
+
+            if (recs.length === 0) recs.push('✅ Todo en orden. Seguí así!');
+            recommendationText.innerHTML = recs.map(r => `<div class="rec-item">• ${r}</div>`).join('');
+        }
+
+        // ===== TABLA =====
+        function renderizarTabla() {
+            if (historial.length === 0) {
+                tablaBody.innerHTML = '<tr><td colspan="7">Sin datos registrados</td></tr>';
+                return;
+            }
+            let html = '';
+            const reversed = [...historial].reverse();
+            reversed.forEach((s, idx) => {
+                const numSemana = historial.length - idx;
+                const flujo = s.flujoCaja >= 0 ? ENUMAPP_FMT.money(s.flujoCaja) : '-' + ENUMAPP_FMT.money(Math.abs(s.flujoCaja));
+                html += `
+                    <tr>
+                        <td><strong>#${numSemana}</strong> ${s.fecha}</td>
+                        <td>${ENUMAPP_FMT.money(s.ingresos)}</td>
+                        <td>${ENUMAPP_FMT.money(s.gastos)}</td>
+                        <td>${flujo}</td>
+                        <td>${s.clientes}</td>
+                        <td>${s.margen.toFixed(1)}%</td>
+                        <td>${s.nota || '-'}</td>
+                    </tr>
+                `;
+            });
+            tablaBody.innerHTML = html;
+        }
+
+        // ===== GRÁFICO =====
+        function renderizarGrafico() {
+            if (chart) { chart.destroy(); chart = null; }
+
+            if (historial.length === 0) {
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels: ['Sin datos'], datasets: [{ label: 'Esperando datos', data: [0], borderColor: '#dce3ec' }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+                return;
+            }
+
+            const labels = historial.map((_, idx) => 'Sem ' + (idx + 1));
+            const ingresosData = historial.map(s => s.ingresos);
+            const flujoData = historial.map(s => s.flujoCaja);
+            const clientesData = historial.map(s => s.clientes);
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Ingresos',
+                        data: ingresosData,
+                        borderColor: '#2b7be4',
+                        backgroundColor: 'rgba(43,123,228,0.05)',
+                        borderWidth: 3, pointRadius: 4, tension: 0.2, fill: false,
+                    }, {
+                        label: 'Flujo de Caja',
+                        data: flujoData,
+                        borderColor: '#2ecc71',
+                        backgroundColor: 'rgba(46,204,113,0.05)',
+                        borderWidth: 3, pointRadius: 4, tension: 0.2, fill: false,
+                    }, {
+                        label: 'Nuevos Clientes',
+                        data: clientesData,
+                        borderColor: '#e67e22',
+                        backgroundColor: 'rgba(230,126,34,0.05)',
+                        borderWidth: 2, pointRadius: 4, tension: 0.2, fill: false,
+                        yAxisID: 'y1',
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { boxWidth: 15, padding: 15, font: { size: 12, weight: '600' }, color: '#0a2540' }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const val = context.parsed.y;
+                                    if (context.datasetIndex === 2) return `${label}: ${val}`;
+                                    return `${label}: ${ENUMAPP_FMT.money(val)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#5b6f82', maxTicksLimit: 15 } },
+                        y: {
+                            position: 'left',
+                            title: { display: true, text: 'Pesos ($)', color: '#0a2540', font: { weight: 'bold' } },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            ticks: { color: '#5b6f82', callback: ENUMAPP_UI.axisMoney }
+                        },
+                        y1: {
+                            position: 'right',
+                            title: { display: true, text: 'Clientes', color: '#e67e22', font: { weight: 'bold' } },
+                            grid: { display: false },
+                            ticks: { color: '#e67e22', stepSize: 1 }
+                        }
+                    },
+                    interaction: { intersect: false, mode: 'index' }
+                }
+            });
+        }
+
+        // ===== RENDERIZAR TODO =====
+        function renderizarTodo() {
+            renderizarKPIs();
+            generarRecomendaciones();
+            renderizarTabla();
+            renderizarGrafico();
+
+            const ultima = historial.length > 0 ? historial[historial.length - 1] : null;
+            let desc = `Total semanas: ${historial.length}`;
+            if (ultima) {
+                desc += `<br>Última semana: Ingresos ${ENUMAPP_FMT.money(ultima.ingresos)}, Gastos ${ENUMAPP_FMT.money(ultima.gastos)}, Clientes ${ultima.clientes}, Margen ${ultima.margen.toFixed(1)}%`;
+            }
+            printDesc.innerHTML = desc;
+
+            const printDate = document.getElementById('printDate');
+            if (printDate) {
+                printDate.textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+            }
+        }
+
+        // ===== INICIALIZAR =====
+        if (!cargarStorage()) {
+            renderizarTodo();
+            recommendationText.innerHTML = '📌 No hay datos guardados. Podés <strong>cargar ejemplos</strong> usando el botón "📋 Ejemplos" o <strong>comenzar desde cero</strong> ingresando los datos de la semana 1.';
+            lastSaved.textContent = 'Sin datos';
+        } else {
+            renderizarTodo();
+            lastSaved.textContent = 'Cargado: ' + historial.length + ' semanas';
+        }
+
+        window.addEventListener('beforeunload', guardarStorage);
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                guardarSemana();
+            }
+        });
+
+        console.log('📊 Panel de KPIs · ENUMAPP');
+    </script>
+
+</body>
+</html>

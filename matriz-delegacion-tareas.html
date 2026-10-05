@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matriz de Delegación · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Matriz de Delegación de Tareas de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container" style="max-width:1200px;">
+
+        <div class="print-header">
+            <h2>🤝 ENUMAPP · MATRIZ DE DELEGACIÓN</h2>
+            <p>Análisis de impacto vs. competencia</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    🤝 Matriz de Delegación de Tareas
+                    <small>· Soltá el control operativo</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-matriz-delegacion.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Identificá qué tareas podés delegar, cuáles mantener y cuáles eliminar. Basado en impacto estratégico y tu competencia actual.
+        </div>
+
+        <div class="grid-2" style="margin-bottom:10px;">
+            <div class="input-group">
+                <label>Nombre de la Tarea</label>
+                <input type="text" id="nombreTarea" placeholder="Ej: Gestión de redes sociales" />
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap;">
+                <button class="btn-primary" onclick="agregarTarea()" style="flex:1;">➕ Agregar Tarea</button>
+                <button class="btn-primary" onclick="cargarEjemplos()" style="background:#8e44ad; flex:1;">📋 Ejemplos</button>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                <span style="font-weight:600; color:var(--color-text);">📊 Ejes:</span>
+                <span><span style="display:inline-block; width:16px; height:16px; background:#2b7be4; border-radius:4px; vertical-align:middle; margin-right:4px;"></span> <strong>Impacto</strong> (1-10)</span>
+                <span><span style="display:inline-block; width:16px; height:16px; background:#e67e22; border-radius:4px; vertical-align:middle; margin-right:4px;"></span> <strong>Competencia</strong> (1-10)</span>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row">
+            <span class="badge">📋 <strong>Tareas registradas</strong> <span class="counter-badge" id="contadorTareas">0</span></span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div id="tareasContainer"></div>
+
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:12px 0 16px;">
+            <div class="kpi-card"><div class="kpi-value" id="qKeep" style="color:#2ecc71;">0</div><div class="kpi-label">🟢 Mantener</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="qDelegate" style="color:#e67e22;">0</div><div class="kpi-label">🟠 Delegar</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="qDocument" style="color:#2b7be4;">0</div><div class="kpi-label">🔵 Documentar</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="qEliminate" style="color:#e74c3c;">0</div><div class="kpi-label">🔴 Eliminar</div></div>
+        </div>
+
+        <div class="chart-container" style="height:420px;">
+            <canvas id="delegacionChart"></canvas>
+        </div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendación Estratégica</h3>
+            <p id="recommendationText">Agregá tareas para recibir recomendaciones.</p>
+        </div>
+
+        <div style="margin-top:20px;">
+            <details>
+                <summary style="font-weight:600; color:var(--color-text-secondary); cursor:pointer; padding:8px 0;">📋 Ver tabla detallada</summary>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr><th>Tarea</th><th>Impacto</th><th>Competencia</th><th>Acción</th></tr>
+                        </thead>
+                        <tbody id="tablaTareasBody"></tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> Impacto alto + Competencia alta = Mantener. Impacto alto + Competencia baja = Delegar.</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        let tareas = [];
+        let inicializado = false;
+
+        const nombreTarea = document.getElementById('nombreTarea');
+        const contadorTareas = document.getElementById('contadorTareas');
+        const tareasContainer = document.getElementById('tareasContainer');
+        const recommendationText = document.getElementById('recommendationText');
+        const tablaBody = document.getElementById('tablaTareasBody');
+        const printDesc = document.getElementById('printDesc');
+        const lastSaved = document.getElementById('lastSaved');
+
+        const qKeep = document.getElementById('qKeep');
+        const qDelegate = document.getElementById('qDelegate');
+        const qDocument = document.getElementById('qDocument');
+        const qEliminate = document.getElementById('qEliminate');
+
+        const ctx = document.getElementById('delegacionChart').getContext('2d');
+        let chart = null;
+
+        function generarId() { return Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
+
+        /* ===== PERSISTENCIA ===== */
+        function guardarDelegacion() {
+            if (!inicializado) return;
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.DELEGACION, tareas);
+            lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function cargarDelegacion() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.DELEGACION, null);
+            if (Array.isArray(data)) {
+                tareas = data;
+                return true;
+            }
+            return false;
+        }
+
+        function determinarAccion(imp, comp) {
+            if (imp >= 5 && comp >= 5) return { accion: 'Mantener', color: 'keep', icono: '🟢' };
+            if (imp >= 5 && comp < 5) return { accion: 'Delegar', color: 'delegate', icono: '🟠' };
+            if (imp < 5 && comp >= 5) return { accion: 'Documentar', color: 'document', icono: '🔵' };
+            return { accion: 'Eliminar', color: 'eliminate', icono: '🔴' };
+        }
+
+        function agregarTarea(imp, comp, nombre) {
+            const nom = nombre || nombreTarea.value.trim();
+            if (!nom) { ENUMAPP_UI.toast('Ingresá el nombre de la tarea', 'warning'); return; }
+            tareas.push({ id: generarId(), nombre: nom, impacto: imp ?? 5, competencia: comp ?? 5 });
+            nombreTarea.value = '';
+            renderizarTodo();
+            guardarDelegacion();
+        }
+
+        function eliminarTarea(id) {
+            tareas = tareas.filter(t => t.id !== id);
+            renderizarTodo();
+            guardarDelegacion();
+        }
+
+        function actualizarTarea(id, campo, valor) {
+            const t = tareas.find(t => t.id === id);
+            if (t) { t[campo] = parseFloat(valor); renderizarTodo(); guardarDelegacion(); }
+        }
+
+        function cargarEjemplos() {
+            const ejemplos = [
+                { nombre: '📱 Gestión de redes sociales', impacto: 4, competencia: 3 },
+                { nombre: '💰 Cierre de caja', impacto: 9, competencia: 8 },
+                { nombre: '📦 Control de inventario', impacto: 7, competencia: 4 },
+                { nombre: '🧹 Limpieza', impacto: 2, competencia: 2 },
+                { nombre: '👥 Reclutamiento', impacto: 8, competencia: 6 },
+                { nombre: '📊 Análisis financiero', impacto: 9, competencia: 5 },
+                { nombre: '📈 Planificación estratégica', impacto: 10, competencia: 9 },
+                { nombre: '📋 Documentación de procesos', impacto: 3, competencia: 6 }
+            ];
+            ejemplos.forEach(e => {
+                tareas.push({ id: generarId(), nombre: e.nombre, impacto: e.impacto, competencia: e.competencia });
+            });
+            renderizarTodo();
+            guardarDelegacion();
+        }
+
+        function renderizarTodo() {
+            contadorTareas.textContent = tareas.length;
+
+            if (tareas.length === 0) {
+                tareasContainer.innerHTML = `<div style="text-align:center; padding:30px 20px; color:var(--color-text-faint); background:var(--color-bg-card); border-radius:18px; border:1px dashed var(--color-border-input);">
+                    <span style="font-size:48px;">📋</span><br><strong>No hay tareas</strong><br><span>Agregá tu primera tarea.</span>
+                </div>`;
+            } else {
+                let html = '';
+                tareas.forEach(t => {
+                    const a = determinarAccion(t.impacto, t.competencia);
+                    const colorMap = { keep: '#2ecc71', delegate: '#e67e22', document: '#2b7be4', eliminate: '#e74c3c' };
+                    html += `<div style="background:var(--color-bg-card); border-radius:16px; padding:16px 18px; border:1px solid var(--color-border); margin-bottom:12px; display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
+                        <div style="flex:2; min-width:140px;">
+                            <div style="font-weight:700; color:var(--color-text); font-size:16px;">${t.nombre}</div>
+                            <div style="font-size:13px; font-weight:600; padding:2px 12px; border-radius:20px; display:inline-block; margin-top:2px; color:white; background:${colorMap[a.color]};">${a.icono} ${a.accion}</div>
+                        </div>
+                        <div style="flex:3; min-width:200px; display:flex; gap:16px; flex-wrap:wrap;">
+                            <div style="flex:1; min-width:90px;">
+                                <label style="font-size:12px; font-weight:600; color:var(--color-text-muted);">Impacto <span style="font-weight:700; color:var(--color-text);">${t.impacto.toFixed(1)}</span></label>
+                                <input type="range" min="1" max="10" step="0.5" value="${t.impacto}" oninput="actualizarTarea('${t.id}', 'impacto', this.value)" style="width:100%;" />
+                            </div>
+                            <div style="flex:1; min-width:90px;">
+                                <label style="font-size:12px; font-weight:600; color:var(--color-text-muted);">Competencia <span style="font-weight:700; color:var(--color-text);">${t.competencia.toFixed(1)}</span></label>
+                                <input type="range" min="1" max="10" step="0.5" value="${t.competencia}" oninput="actualizarTarea('${t.id}', 'competencia', this.value)" style="width:100%;" />
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn-danger" onclick="eliminarTarea('${t.id}')">✕</button>
+                        </div>
+                    </div>`;
+                });
+                tareasContainer.innerHTML = html;
+            }
+
+            const counts = { keep: 0, delegate: 0, document: 0, eliminate: 0 };
+            tareas.forEach(t => {
+                const a = determinarAccion(t.impacto, t.competencia);
+                counts[a.color]++;
+            });
+            qKeep.textContent = counts.keep;
+            qDelegate.textContent = counts.delegate;
+            qDocument.textContent = counts.document;
+            qEliminate.textContent = counts.eliminate;
+
+            if (tareas.length === 0) {
+                recommendationText.textContent = '📌 Agregá tareas para analizar qué podés delegar.';
+            } else if (tareas.length < 3) {
+                recommendationText.innerHTML = `📌 Tenés <strong>${tareas.length} tarea${tareas.length > 1 ? 's' : ''}</strong>. Agregá al menos 8-10.`;
+            } else {
+                const totalDelegar = counts.delegate + counts.document + counts.eliminate;
+                const pctDelegar = Math.round((totalDelegar / tareas.length) * 100);
+                let mensaje = `✅ <strong>${tareas.length} tareas evaluadas.</strong><br>`;
+                mensaje += `🟢 Mantener: ${counts.keep} | 🟠 Delegar: ${counts.delegate} | 🔵 Documentar: ${counts.document} | 🔴 Eliminar: ${counts.eliminate}<br><br>`;
+                mensaje += pctDelegar > 60
+                    ? `💡 <strong>Acción:</strong> Podés delegar o eliminar más del 60% de tus tareas.`
+                    : `📈 <strong>Acción:</strong> Seguí identificando tareas para delegar.`;
+                recommendationText.innerHTML = mensaje;
+            }
+
+            let tablaHTML = '';
+            tareas.forEach(t => {
+                const a = determinarAccion(t.impacto, t.competencia);
+                const colorMap = { keep: '#2ecc71', delegate: '#e67e22', document: '#2b7be4', eliminate: '#e74c3c' };
+                tablaHTML += `<tr>
+                    <td><strong>${t.nombre}</strong></td>
+                    <td>${t.impacto.toFixed(1)}</td>
+                    <td>${t.competencia.toFixed(1)}</td>
+                    <td><span style="padding:2px 12px; border-radius:20px; background:${colorMap[a.color]}; color:white; font-weight:600;">${a.icono} ${a.accion}</span></td>
+                </tr>`;
+            });
+            tablaBody.innerHTML = tablaHTML || '<tr><td colspan="4">Sin tareas</td></tr>';
+
+            if (chart) { chart.destroy(); chart = null; }
+
+            if (tareas.length > 0) {
+                const data = tareas.map(t => ({
+                    x: t.impacto, y: t.competencia, label: t.nombre,
+                    accion: determinarAccion(t.impacto, t.competencia)
+                }));
+                const colors = data.map(d => {
+                    switch (d.accion.color) {
+                        case 'keep': return '#2ecc71';
+                        case 'delegate': return '#e67e22';
+                        case 'document': return '#2b7be4';
+                        case 'eliminate': return '#e74c3c';
+                    }
+                });
+
+                chart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Tareas',
+                            data,
+                            backgroundColor: colors,
+                            borderColor: colors,
+                            borderWidth: 2,
+                            pointRadius: 8,
+                            pointHoverRadius: 12,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: c => `${c.raw.label} (Imp: ${c.raw.x.toFixed(1)}, Comp: ${c.raw.y.toFixed(1)}) → ${c.raw.accion.icono} ${c.raw.accion.accion}`
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                min: 0, max: 11,
+                                title: { display: true, text: 'Impacto Estratégico', color: '#0a2540', font: { weight: 'bold' } },
+                                grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 1, color: '#5b6f82' }
+                            },
+                            y: {
+                                min: 0, max: 11,
+                                title: { display: true, text: 'Competencia del Fundador', color: '#0a2540', font: { weight: 'bold' } },
+                                grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 1, color: '#5b6f82' }
+                            }
+                        },
+                        plugins: [{
+                            id: 'quadrantLabels',
+                            afterDraw: function(chart) {
+                                const ctx2 = chart.ctx;
+                                const xS = chart.scales.x;
+                                const yS = chart.scales.y;
+                                const xMid = xS.getPixelForValue(5.5);
+                                const yMid = yS.getPixelForValue(5.5);
+                                const xL = xS.getPixelForValue(1), xR = xS.getPixelForValue(10);
+                                const yT = yS.getPixelForValue(10), yB = yS.getPixelForValue(1);
+                                ctx2.save();
+                                ctx2.font = 'bold 16px Segoe UI, sans-serif';
+                                ctx2.textAlign = 'center';
+                                ctx2.textBaseline = 'middle';
+                                const labels = [
+                                    { x: (xL + xMid) / 2, y: (yT + yMid) / 2, text: '🟢 Mantener', color: '#2ecc71' },
+                                    { x: (xMid + xR) / 2, y: (yT + yMid) / 2, text: '🟠 Delegar', color: '#e67e22' },
+                                    { x: (xL + xMid) / 2, y: (yMid + yB) / 2, text: '🔵 Documentar', color: '#2b7be4' },
+                                    { x: (xMid + xR) / 2, y: (yMid + yB) / 2, text: '🔴 Eliminar', color: '#e74c3c' }
+                                ];
+                                labels.forEach(l => { ctx2.fillStyle = l.color; ctx2.fillText(l.text, l.x, l.y); });
+                                ctx2.restore();
+                            }
+                        }]
+                    }
+                });
+            }
+
+            printDesc.innerHTML = `
+                <strong>Total tareas:</strong> ${tareas.length}<br>
+                <strong>🟢 Mantener:</strong> ${counts.keep} | <strong>🟠 Delegar:</strong> ${counts.delegate} | <strong>🔵 Documentar:</strong> ${counts.document} | <strong>🔴 Eliminar:</strong> ${counts.eliminate}
+            `;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        }
+
+        nombreTarea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { e.preventDefault(); agregarTarea(); }
+        });
+
+        // ===== INICIALIZACIÓN =====
+        if (cargarDelegacion()) {
+            renderizarTodo();
+    // Marcar como inicializado ANTES de forzar el guardado,
+    // así guardarDelegacion() no se bloquea por la bandera.
+            inicializado = true;
+        if (tareas.length > 0) {
+                guardarDelegacion();  // → lastSaved = 'Guardado: HH:MM'
+            } else {
+                lastSaved.textContent = 'Sin datos';
+            }
+            } else {
+            inicializado = true;
+            lastSaved.textContent = 'Sin datos';
+                setTimeout(cargarEjemplos, 300);
+        }
+
+        window.addEventListener('beforeunload', guardarDelegacion);
+
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => { if (chart) chart.resize(); }, 200);
+        });
+    </script>
+
+</body>
+</html>

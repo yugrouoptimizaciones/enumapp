@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ENUMAPP · Tus números, tu negocio, tu app</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="ENUMAPP · Suite de herramientas para gestionar y escalar tu PyME." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="public-page">
+
+    <!-- HEADER -->
+    <header class="public-header">
+        <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="40" height="40">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="logo-text">
+                <span class="brand">ENUMAPP</span>
+                <span class="tagline">Tus números, tu negocio, tu app</span>
+            </div>
+        </a>
+        <nav class="header-nav">
+            <a href="contacto.html" class="header-link">💬 Contacto</a>
+            <a href="premium-proximamente.html" class="premium-status-badge" id="premiumBadge">⭐ Activar Premium</a>
+            <a href="#registro" class="header-cta">Acceder gratis</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="public-hero">
+        <h1>Las herramientas que tu negocio necesita, <span>todas en un solo lugar</span></h1>
+        <p>19 aplicaciones listas para usar: controlá tus finanzas, organizá tus operaciones, definí precios con estrategia y tomá decisiones con datos. Sin planillas complicadas.</p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:32px;">
+            <span style="background:var(--color-info-bg); color:var(--color-info-dark); padding:8px 18px; border-radius:40px; font-size:14px; font-weight:600;">💯 Gratis para empezar</span>
+            <span style="background:var(--color-info-bg); color:var(--color-info-dark); padding:8px 18px; border-radius:40px; font-size:14px; font-weight:600;">🔒 Sin tarjeta de crédito</span>
+            <span style="background:var(--color-info-bg); color:var(--color-info-dark); padding:8px 18px; border-radius:40px; font-size:14px; font-weight:600;">⚡ Configuración en 30 segundos</span>
+        </div>
+        <a href="#registro" class="btn-primary" style="font-size:17px; padding:16px 40px;">Quiero mi acceso →</a>
+    </section>
+
+    <!-- PROBLEMA -->
+    <section class="public-section">
+        <h2>¿Te suena familiar?</h2>
+        <p class="section-subtitle">La mayoría de los dueños de PyMEs se enfrentan a los mismos problemas día a día.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px;">
+            <div class="pain-card"><span class="icon">📊</span><h3>Todo en planillas</h3><p>Excel por acá, papel por allá. Nunca tenés una vista clara de tu negocio.</p></div>
+            <div class="pain-card"><span class="icon">💸</span><h3>No sabés si ganás o perdés</h3><p>Facturás mucho pero al final del mes no sabés si la plata alcanza.</p></div>
+            <div class="pain-card"><span class="icon">📦</span><h3>Stock descontrolado</h3><p>Te quedás sin productos o compras de más. Nunca en el punto justo.</p></div>
+            <div class="pain-card"><span class="icon">💤</span><h3>Hacés todo vos</h3><p>No podés delegar porque no hay procesos ni herramientas que ayuden.</p></div>
+        </div>
+    </section>
+
+    <!-- MÓDULOS -->
+    <section class="public-section" style="background:#f8fafc; max-width:100%;">
+        <div style="max-width:1100px; margin:0 auto;">
+            <h2>Todo lo que vas a conseguir</h2>
+            <p class="section-subtitle">6 módulos con 19 herramientas diseñadas específicamente para PyMEs.</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+                <div class="module-card">
+                    <span class="mod-icon">🎯</span>
+                    <h3>1. Estrategia</h3>
+                    <p>Validá tu negocio y definí qué delegar.</p>
+                    <ul><li>Test de Ajuste de Mercado</li><li>Matriz de Propuesta de Valor</li><li>Matriz de Delegación</li></ul>
+                </div>
+                <div class="module-card">
+                    <span class="mod-icon">💰</span>
+                    <h3>2. Finanzas</h3>
+                    <p>Controlá tus números semana a semana.</p>
+                    <ul><li>Panel de KPIs</li><li>Simulador de Cashflow</li><li>Punto de Equilibrio</li><li>Rentabilidad por Producto</li><li>Fijador de Precios</li><li>Estacionalidad</li></ul>
+                </div>
+                <div class="module-card">
+                    <span class="mod-icon">⚙️</span>
+                    <h3>3. Operaciones</h3>
+                    <p>Organizá tu día a día con procesos claros.</p>
+                    <ul><li>Tablero Kanban</li><li>Constructor de SOPs</li><li>Gestión de Inventario</li><li>Gestor de Proveedores</li><li>Análisis de Causa Raíz</li></ul>
+                </div>
+                <div class="module-card">
+                    <span class="mod-icon">🧾</span>
+                    <h3>4. Administración</h3>
+                    <p>Decisiones fiscales y de costos con criterio.</p>
+                    <ul><li>Planificación Fiscal</li><li>Calculadora de Importación</li></ul>
+                </div>
+                <div class="module-card">
+                    <span class="mod-icon">📦</span>
+                    <h3>5. Kits y Contenido</h3>
+                    <p>Todo el contenido listo para publicar.</p>
+                    <ul><li>Kit de Redes Sociales</li><li>Banners y Portadas</li><li>Kit de Shorts</li><li>Guiones de YouTube</li><li>Secuencia de Emails</li></ul>
+                </div>
+                <div class="module-card">
+                    <span class="mod-icon">📊</span>
+                    <h3>6. Dashboards</h3>
+                    <p>Métricas y adopción en tiempo real.</p>
+                    <ul><li>Dashboard Unificado</li><li>YouTube Analytics</li><li>Email Marketing</li><li>Uso de Herramientas</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="public-section">
+        <h2>Elegí tu plan</h2>
+        <p class="section-subtitle">Empezá gratis. Cuando quieras más potencia, pasá al Premium.</p>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Plan Free</h3>
+                <div class="price">$0 <small>/ siempre</small></div>
+                <div class="price-desc">Para empezar a ordenar tu negocio.</div>
+                <ul>
+                    <li>Acceso a 19 herramientas básicas</li>
+                    <li>Panel de KPIs</li>
+                    <li>Simulador de Cashflow</li>
+                    <li>Tablero Kanban</li>
+                    <li>Guardado local</li>
+                    <li>Exportación a PDF</li>
+                    <li>Puede contener publicidad</li>
+                </ul>
+                <a href="#registro" class="cta free">Empezar gratis</a>
+            </div>
+            <div class="price-card featured">
+                <div class="tag">MÁS ELEGIDO</div>
+                <h3>Plan Premium</h3>
+                <div class="price">$10.000 ARS <small>/ año</small></div>
+                <div class="price-desc">Para hacer crecer tu negocio en serio.</div>
+                <ul>
+                    <li>Las 19 herramientas ampliadas</li>
+                    <li>Tus archivos directo a Google Drive</li>
+                    <li>Actualizaciones cada mes</li>
+                    <li>Nuevas herramientas primero</li>
+                    <li>Soporte prioritario</li>
+                    <li>Acceso a manuales en PDF</li>
+                    <li>Sin publicidad</li>
+                </ul>
+                <a href="contacto.html" class="cta premium">Quiero Premium →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- REGISTRO -->
+    <section class="register-section" id="registro">
+        <div class="register-content">
+            <div id="formWrapper">
+                <h2>Accedé a todas las herramientas</h2>
+                <p class="sub">Registrate una vez y desbloqueá la suite completa.</p>
+                <form id="registroForm">
+                    <div class="form-group"><label>Tu nombre</label><input type="text" name="nombre" id="inputNombre" placeholder="Ej: Juan Pérez" required /></div>
+                    <div class="form-group"><label>Email</label><input type="email" name="email" id="inputEmail" placeholder="tu@email.com" required /></div>
+                    <div class="form-group"><label>Nombre de tu negocio</label><input type="text" name="negocio" id="inputNegocio" placeholder="Ej: Panadería La Floresta" /></div>
+                    <button type="submit" class="form-submit" id="btnSubmit">🚀 Acceder gratis ahora</button>
+                    <p class="form-note">Tus datos están seguros. No compartimos tu email con terceros.<br>Al registrarte, aceptás nuestra <a href="terminos.html">política de privacidad</a> y términos.</p>
+                </form>
+            </div>
+            <div class="form-success" id="formSuccess">
+                <span class="check">✅</span>
+                <h3>¡Registro exitoso!</h3>
+                <p>Ya podés acceder a todas las herramientas de ENUMAPP.</p>
+                <a href="suite.html" class="btn-primary" style="display:inline-block;">Entrar a ENUMAPP →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="public-section">
+        <h2>Preguntas frecuentes</h2>
+        <div style="max-width:780px; margin:20px auto 0;">
+            <div class="public-faq"><h3>¿Es realmente gratis?</h3><p>Sí. El plan Free es gratis para siempre. El Premium cuesta $10.000 ARS/año y desbloquea herramientas avanzadas.</p></div>
+            <div class="public-faq"><h3>¿Necesito tarjeta de crédito?</h3><p>No. Solo tu email. Podés empezar en menos de 30 segundos.</p></div>
+            <div class="public-faq"><h3>¿Dónde se guardan mis datos?</h3><p>Todo se guarda localmente en tu navegador. Ningún dato de tu negocio se envía a nuestros servidores.</p></div>
+            <div class="public-faq"><h3>¿Cómo activo el Plan Premium?</h3><p>Después de tu compra te enviamos un código por email. Andá a la página de <a href="premium-proximamente.html">activación</a> e ingresalo.</p></div>
+            <div class="public-faq"><h3>¿Sirve para cualquier tipo de negocio?</h3><p>Sí. Está diseñado para PyMEs de cualquier rubro: comercio, servicios, gastronomía, industria.</p></div>
+            <div class="public-faq"><h3>¿Necesito saber de contabilidad?</h3><p>No. Cada herramienta tiene un manual de uso detallado y está pensada para cualquier dueño de negocio.</p></div>
+        </div>
+    </section>
+
+    <footer class="enumapp-footer">
+        <div class="footer-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+            </svg>
+            <strong>ENUMAPP</strong>
+        </div>
+        <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+        <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+        <div class="footer-links">
+            <a href="index.html">Inicio</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="premium-proximamente.html">Activar Premium</a>
+            <a href="terminos.html">Términos y Condiciones</a>
+            <a href="privacidad.html">Política de Privacidad</a>
+        </div>
+    </footer>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnpnapqw';
+        const REGISTRO_KEY = 'enumapp_v1_registro';
+        const PREMIUM_KEY = 'enumapp_v1_premium';
+
+        function actualizarBadgePremium() {
+            const badge = document.getElementById('premiumBadge');
+            if (!badge) return;
+            const esPremium = localStorage.getItem(PREMIUM_KEY) === 'true';
+            if (esPremium) {
+                badge.className = 'premium-status-badge premium';
+                badge.innerHTML = '⭐ PREMIUM';
+                badge.href = 'premium.html';
+                badge.title = 'Ya tenés el Plan Premium activado';
+            }
+        }
+
+        function hayRegistro() {
+            return !!localStorage.getItem(REGISTRO_KEY);
+        }
+
+        function guardarRegistro(nombre, email, negocio) {
+            localStorage.setItem(REGISTRO_KEY, JSON.stringify({
+                nombre, email, negocio, fechaRegistro: new Date().toISOString()
+            }));
+        }
+
+        // Si ya está registrado, mostrar un banner suave pero permitir ver la landing
+        if (hayRegistro()) {
+            const banner = document.createElement('div');
+            banner.style.cssText = 'background:var(--color-success-bg); color:var(--color-success-dark); padding:12px 20px; text-align:center; font-size:14px; font-weight:600; border-bottom:1px solid var(--color-success-border);';
+            banner.innerHTML = '✅ Ya estás registrado. <a href="suite.html" style="color:var(--color-primary); text-decoration:none; font-weight:700;">Ir a la suite →</a>';
+            document.body.insertBefore(banner, document.body.firstChild);
+        }
+
+        const form = document.getElementById('registroForm');
+        const formWrapper = document.getElementById('formWrapper');
+        const formSuccess = document.getElementById('formSuccess');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('inputNombre').value.trim();
+            const email = document.getElementById('inputEmail').value.trim();
+            const negocio = document.getElementById('inputNegocio').value.trim();
+
+            if (!nombre || !email) { ENUMAPP_UI.toast('Completá tu nombre y email', 'warning'); return; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { ENUMAPP_UI.toast('Email inválido', 'warning'); return; }
+
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = '⏳ Enviando...';
+
+            try {
+                if (FORMSPREE_ENDPOINT) {
+                    await fetch(FORMSPREE_ENDPOINT, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                            tipo: 'registro', nombre, email, negocio,
+                            origen: 'enumapp', fecha: new Date().toISOString()
+                        })
+                    });
+                }
+                guardarRegistro(nombre, email, negocio);
+                formWrapper.style.display = 'none';
+                formSuccess.style.display = 'block';
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } catch (err) {
+                console.error(err);
+                // Aun si falla el envío, guardamos localmente para no bloquear al usuario
+                guardarRegistro(nombre, email, negocio);
+                formWrapper.style.display = 'none';
+                formSuccess.style.display = 'block';
+            }
+        });
+
+        actualizarBadgePremium();
+        console.log('🚀 ENUMAPP · Landing cargada');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Tablero Kanban · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Tablero Kanban de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE TABLERO KANBAN</h2>
+            <p>Gestión visual de tareas operativas</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Tablero Kanban de Operaciones</small>
+                </h1>
+            </div>
+            <a href="tablero-kanban-operaciones.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para organizar, priorizar y hacer seguimiento de las tareas operativas
+            de tu negocio. Aprendé a usar el sistema Kanban con drag & drop para tener todo bajo control.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#que-es-kanban">¿Qué es Kanban?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#columnas">Las 4 columnas</a></li>
+                <li><a href="#crear">Cómo crear una tarea</a></li>
+                <li><a href="#campos">Campos del formulario</a></li>
+                <li><a href="#drag-drop">Cómo arrastrar y soltar</a></li>
+                <li><a href="#editar">Editar y eliminar tareas</a></li>
+                <li><a href="#filtros">Filtros</a></li>
+                <li><a href="#metricas">Métricas del tablero</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#vencidas">Alertas de vencimiento</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Tablero Kanban de Operaciones</strong> es un sistema visual para gestionar todas las
+                tareas operativas de tu negocio. Cada tarea es una <strong>tarjeta</strong> que se mueve por
+                <strong>4 columnas</strong> según su estado: Pendiente, En Progreso, En Revisión y Completado.
+            </p>
+            <p>Con este tablero podés:</p>
+            <ul>
+                <li>Ver de un vistazo <strong>todo lo que hay que hacer</strong>.</li>
+                <li>Saber <strong>quién es responsable</strong> de cada tarea.</li>
+                <li>Priorizar por <strong>urgencia e importancia</strong>.</li>
+                <li>Detectar <strong>cuellos de botella</strong> en tu operación.</li>
+                <li>Balancear la <strong>carga de trabajo</strong> del equipo.</li>
+                <li>Cumplir con las <strong>fechas límite</strong> sin sorpresas.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Kanban</span>
+                Kanban es una palabra japonesa que significa "tarjeta visual". Es una metodología de gestión
+                de tareas que se originó en Toyota y hoy se usa en todo el mundo. Su principio central es
+                <strong>hacer visible el trabajo</strong> para poder gestionarlo mejor.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Organizar el día a día</strong> de un negocio pequeño o mediano.</li>
+                <li><strong>Coordinar un equipo</strong> de 2 a 10 personas.</li>
+                <li><strong>Gestionar proyectos operativos</strong> (apertura de local, mudanza, etc.).</li>
+                <li><strong>Hacer seguimiento de tareas recurrentes</strong> (pedidos, controles de calidad).</li>
+                <li><strong>Identificar cuellos de botella</strong>: si una columna se llena, hay un problema.</li>
+                <li><strong>Documentar procesos</strong> en tiempo real mientras se ejecutan.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Revisá el tablero <strong>todos los días al inicio</strong> y <strong>al final</strong> de la jornada.
+                En 5 minutos vas a saber qué hay que hacer, qué está trabado y qué se completó.
+                Es la mejor rutina para tener todo bajo control.</p>
+            </div>
+        </section>
+
+        <section id="que-es-kanban">
+            <h2>📚 ¿Qué es Kanban?</h2>
+            <p>
+                Kanban es mucho más que un tablero con columnas. Es una filosofía de trabajo con 4 principios
+                básicos que te van a servir para toda tu operación.
+            </p>
+
+            <h3>Los 4 principios del Kanban</h3>
+            <ol>
+                <li><strong>Visualizar el trabajo</strong>: si no lo ves, no lo podés gestionar.</li>
+                <li><strong>Limitar el trabajo en curso</strong>: no podés tener 20 tareas "en progreso" a la vez.</li>
+                <li><strong>Gestionar el flujo</strong>: las tareas tienen que avanzar, no estancarse.</li>
+                <li><strong>Mejorar continuamente</strong>: cada semana, ajustá el proceso según lo aprendido.</li>
+            </ol>
+
+            <h3>Cómo se ve un tablero Kanban</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>📋 Pendiente</th>
+                        <th>🔄 En Progreso</th>
+                        <th>🔍 En Revisión</th>
+                        <th>✅ Completado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Preparar pedido<br>Contactar proveedor</td>
+                        <td>Revisar calidad</td>
+                        <td>Actualizar precios</td>
+                        <td>Capacitar empleado</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Historia rápida</span>
+                Kanban nació en las fábricas de Toyota en los años 40. La idea era simple: usar tarjetas
+                para que cada estación supiera qué producir y cuándo. Hoy es el sistema de gestión visual
+                más usado del mundo, desde startups hasta gigantes como Google y Spotify.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, se cargan automáticamente 7 tareas de ejemplo. Vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Barra de acciones</div>
+                    <div class="step-desc">Nueva tarea, ejemplos y PDF</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Filtros</div>
+                    <div class="step-desc">Por responsable y prioridad</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Métricas</div>
+                    <div class="step-desc">6 contadores de estado</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Tablero</div>
+                    <div class="step-desc">4 columnas con tarjetas</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Datos persistentes</span>
+                A diferencia de otras herramientas, el Kanban <strong>sí guarda los datos</strong> en el
+                navegador. Si cerrás y volvés a abrir, las tareas siguen ahí. Podés trabajar sin miedo
+                a perder el trabajo.</p>
+            </div>
+        </section>
+
+        <section id="columnas">
+            <h2>📊 Las 4 columnas</h2>
+            <p>
+                Cada columna representa un <strong>estado del flujo de trabajo</strong>. Las tareas avanzan
+                de izquierda a derecha a medida que progresan.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Columna</th>
+                        <th>Significado</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📋</td>
+                        <td><strong>Pendiente</strong></td>
+                        <td>Tareas que todavía no empezaste.</td>
+                        <td>Todo lo que hay que hacer pero no está en marcha.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔄</td>
+                        <td><strong>En Progreso</strong></td>
+                        <td>Tareas que estás haciendo activamente.</td>
+                        <td>Lo que está en la mesa en este momento.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔍</td>
+                        <td><strong>En Revisión</strong></td>
+                        <td>Tareas terminadas pero pendientes de validación.</td>
+                        <td>Lo que necesita un control antes de cerrarse.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">✅</td>
+                        <td><strong>Completado</strong></td>
+                        <td>Tareas finalizadas y validadas.</td>
+                        <td>Lo que ya está hecho y no requiere más acción.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Regla de oro del Kanban</span>
+                No tengas más de <strong>3 tareas "En Progreso"</strong> a la vez. Si tenés 10, no estás
+                realmente trabajando en ninguna. El Kanban se trata de <strong>terminar cosas</strong>,
+                no de empezar muchas.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Cuidado con la columna "Pendiente"</span>
+                Si la columna Pendiente se llena de 30 tareas, es señal de que estás acumulando más
+                trabajo del que podés hacer. Revisá prioridades y quizás elimines algunas tareas que
+                no aportan valor.</p>
+            </div>
+        </section>
+
+        <section id="crear">
+            <h2>➕ Cómo crear una tarea</h2>
+            <p>Crear tareas es muy simple. Tenés 2 formas:</p>
+
+            <h3>Forma 1: Botón "Nueva Tarea"</h3>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">➕ Nueva Tarea</span>.</li>
+                <li>Se abre una ventana con el formulario.</li>
+                <li>Completá los campos (solo el título es obligatorio).</li>
+                <li>Hacé clic en <strong>💾 Guardar</strong>.</li>
+                <li>La tarea aparece en la columna "Pendiente".</li>
+            </ol>
+
+            <h3>Forma 2: Cargar ejemplos</h3>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge purple">📋 Ejemplos</span>.</li>
+                <li>Se cargan 7 tareas típicas de un negocio.</li>
+                <li>Podés modificarlas, moverlas o eliminarlas.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Atajo de teclado</span>
+                En el formulario, podés presionar <code>Enter</code> para guardar (excepto cuando estás
+                escribiendo en la descripción) y <code>Esc</code> para cerrar sin guardar.</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Campos del formulario</h2>
+            <p>El formulario de nueva tarea tiene 6 campos. Solo el título es obligatorio.</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Obligatorio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Título</strong></td>
+                        <td>Nombre corto y descriptivo de la tarea.</td>
+                        <td><span class="badge red">Sí</span></td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Descripción</strong></td>
+                        <td>Detalles adicionales, contexto, criterios de aceptación.</td>
+                        <td><span class="badge gray">No</span></td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Responsable</strong></td>
+                        <td>Nombre de la persona que va a ejecutarla.</td>
+                        <td><span class="badge gray">No</span></td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Prioridad</strong></td>
+                        <td>Alta, Media o Baja.</td>
+                        <td><span class="badge gray">No (default: Media)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Fecha límite</strong></td>
+                        <td>Cuándo debe estar terminada. Se muestra en formato corto.</td>
+                        <td><span class="badge gray">No</span></td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Etiquetas</strong></td>
+                        <td>Palabras clave separadas por coma: <code>urgente, proveedores, calidad</code>.</td>
+                        <td><span class="badge gray">No</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cómo elegir la prioridad</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Prioridad</th>
+                        <th>Cuándo usar</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Alta</strong></td>
+                        <td>Urgente. Hay que hacerla sí o sí esta semana.</td>
+                        <td><span class="badge red">Rojo</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Media</strong></td>
+                        <td>Importante pero no crítica. Tiene margen de tiempo.</td>
+                        <td><span class="badge orange">Naranja</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Baja</strong></td>
+                        <td>Se puede hacer cuando haya tiempo libre.</td>
+                        <td><span class="badge green">Verde</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Tip sobre etiquetas</span>
+                Las etiquetas te permiten <strong>agrupar tareas por tema</strong> aunque estén en distintas
+                columnas. Por ejemplo: <code>#proveedores</code>, <code>#calidad</code>, <code>#precios</code>.
+                Son súper útiles para ver de un vistazo todo lo relacionado con un tema.</p>
+            </div>
+        </section>
+
+        <section id="drag-drop">
+            <h2>🎯 Cómo arrastrar y soltar</h2>
+            <p>
+                El corazón del Kanban es el <strong>drag & drop</strong>: mover tarjetas entre columnas
+                para actualizar su estado. Es tan simple como:
+            </p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Hacé clic</div>
+                    <div class="step-desc">Sobre la tarjeta que querés mover</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Mantené apretado</div>
+                    <div class="step-desc">Sin soltar el botón del mouse</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Arrastrá</div>
+                    <div class="step-desc">Hacia la columna destino</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Soltá</div>
+                    <div class="step-desc">La tarjeta se queda en la nueva columna</div>
+                </div>
+            </div>
+
+            <h3>Qué pasa cuando arrastrás</h3>
+            <ul>
+                <li>La tarjeta se pone <strong>semi-transparente</strong> para mostrar que la estás moviendo.</li>
+                <li>La columna destino se <strong>resalta con borde azul</strong>.</li>
+                <li>Al soltar, la tarea cambia de estado y se <strong>guarda automáticamente</strong>.</li>
+                <li>Si no la soltás en una columna válida, vuelve a su lugar original.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 En móvil o tablet</span>
+                El drag & drop funciona con dedo, pero puede ser incómodo. Si estás en móvil,
+                considerá usar la versión de escritorio para mayor precisión.</p>
+            </div>
+        </section>
+
+        <section id="editar">
+            <h2>✏️ Editar y eliminar tareas</h2>
+            <p>Cada tarjeta tiene <strong>2 botones de acción</strong> en su parte inferior:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Botón</th>
+                        <th>Acción</th>
+                        <th>Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">✏️</td>
+                        <td><strong>Editar</strong></td>
+                        <td>Abre el formulario con los datos de la tarea precargados. Podés cambiar todo excepto el estado (eso se hace arrastrando).</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🗑️</td>
+                        <td><strong>Eliminar</strong></td>
+                        <td>Borra la tarea definitivamente. Pide confirmación antes de hacerlo.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Eliminar no se puede deshacer</span>
+                Si borraste una tarea por error, tenés que crearla de nuevo. Tené cuidado con el botón 🗑️,
+                especialmente en tareas con mucha información.</p>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ El estado no se edita desde el formulario</span>
+                El estado de una tarea se cambia <strong>solo arrastrando</strong> la tarjeta entre columnas.
+                Esto es así para que el flujo del Kanban sea visual e intuitivo.</p>
+            </div>
+        </section>
+
+        <section id="filtros">
+            <h2>🔍 Filtros</h2>
+            <p>
+                Los filtros te permiten ver <strong>solo un subconjunto de tareas</strong>. Son ideales
+                cuando tenés muchas tareas y querés enfocarte en algo específico.
+            </p>
+
+            <h3>Filtros disponibles</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Filtro</th>
+                        <th>Opciones</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Responsable</strong></td>
+                        <td>Lista de todos los responsables + "Todos"</td>
+                        <td>Ver solo las tareas de una persona (ej: para una reunión 1 a 1).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prioridad</strong></td>
+                        <td>Alta, Media, Baja, Todas</td>
+                        <td>Enfocarte solo en lo urgente cuando estás con poco tiempo.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cómo usar los filtros</h3>
+            <ol>
+                <li>Seleccioná un valor en el filtro de <strong>Responsable</strong> o <strong>Prioridad</strong>.</li>
+                <li>El tablero se actualiza al instante.</li>
+                <li>Las métricas siguen mostrando el total general.</li>
+                <li>Para volver a ver todo, hacé clic en <strong>Limpiar filtros</strong>.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Uso estratégico</span>
+                Antes de cada reunión de equipo, filtrá por cada responsable para ver qué tiene cada uno.
+                También podés filtrar por <strong>Prioridad Alta</strong> para hacer un <em>daily</em>
+                express con solo lo urgente.</p>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Métricas del tablero</h2>
+            <p>
+                Arriba del tablero hay <strong>6 tarjetas con contadores</strong> que te dan una visión
+                rápida del estado general.
+            </p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">📋</span>
+                    <div class="name">Total tareas</div>
+                    <div class="desc">Cuántas tareas hay registradas en total (sin filtrar).</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🕐</span>
+                    <div class="name">Pendientes</div>
+                    <div class="desc">Tareas que todavía no empezaste.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔄</span>
+                    <div class="name">En Progreso</div>
+                    <div class="desc">Tareas que estás haciendo ahora.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔍</span>
+                    <div class="name">En Revisión</div>
+                    <div class="desc">Tareas terminadas pendientes de validación.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">✅</span>
+                    <div class="name">Completadas</div>
+                    <div class="desc">Tareas finalizadas y cerradas.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔴</span>
+                    <div class="name">Prioridad Alta</div>
+                    <div class="desc">Tareas marcadas como urgentes. Se resalta en rojo.</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Lectura rápida</span>
+                Si "Pendientes" es mucho mayor que "En Progreso", tenés un <strong>cuello de botella</strong>
+                en el arranque. Si "En Revisión" se acumula, hay un problema en la validación.
+                Si "Prioridad Alta" es mayor a 5, tenés demasiadas urgencias: revisá prioridades.</p>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                Debajo del tablero hay un <strong>gráfico de barras</strong> que muestra la
+                <strong>carga de trabajo por responsable</strong>.
+            </p>
+
+            <h3>Qué muestra</h3>
+            <ul>
+                <li>En el <strong>eje horizontal</strong>: los nombres de los responsables.</li>
+                <li>En el <strong>eje vertical</strong>: cantidad de tareas activas (no completadas).</li>
+                <li>Cada barra es una persona; más alta = más carga.</li>
+            </ul>
+
+            <h3>Cómo interpretarlo</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Situación</th>
+                        <th>Significado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Barras <strong>uniformes</strong></td>
+                        <td>Carga equilibrada entre el equipo.</td>
+                        <td>Mantener el rumbo.</td>
+                    </tr>
+                    <tr>
+                        <td>Una barra <strong>muy alta</strong></td>
+                        <td>Esa persona está sobrecargada.</td>
+                        <td>Redistribuir tareas a otras personas.</td>
+                    </tr>
+                    <tr>
+                        <td>Muchas barras <strong>bajas</strong></td>
+                        <td>El equipo está ocioso o hay pocas tareas.</td>
+                        <td>Ver si podés adelantar trabajo pendiente.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Solo una barra</strong></td>
+                        <td>Todo lo hace una persona (¿vos?).</td>
+                        <td>Es urgente delegar y usar la Matriz de Delegación.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Regla práctica</span>
+                Si una persona tiene <strong>más del doble de tareas</strong> que el promedio,
+                está sobrecargada. Redistribuí antes de que se queme.</p>
+            </div>
+        </section>
+
+        <section id="vencidas">
+            <h2>⚠️ Alertas de vencimiento</h2>
+            <p>
+                La herramienta tiene un sistema automático de alertas: si una tarea tiene fecha límite
+                y esa fecha ya pasó, aparece con un <strong>ícono ⚠️</strong> y la palabra "(vencida)".
+            </p>
+
+            <h3>Cómo se ve</h3>
+            <ul>
+                <li>El título de la tarea se muestra con <strong>⚠️ al final</strong>.</li>
+                <li>La etiqueta de fecha dice <strong>"(vencida)"</strong>.</li>
+                <li>El sistema <strong>NO</strong> bloquea la tarea; solo avisa.</li>
+            </ul>
+
+            <h3>Qué hacer con tareas vencidas</h3>
+            <ol>
+                <li><strong>Revisala</strong>: ¿sigue siendo relevante?</li>
+                <li>Si sí: <strong>actualizá la fecha límite</strong> o priorizala inmediatamente.</li>
+                <li>Si no: <strong>eliminala</strong> o pausala.</li>
+                <li>Si ya está hecha: <strong>movela a Completado</strong>.</li>
+            </ol>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No dejes acumular vencidas</span>
+                Si tenés más de 3 tareas vencidas, tu sistema de gestión de tiempo necesita un ajuste.
+                Puede ser que estés poniendo fechas muy optimistas o que tengas demasiadas tareas.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés un <strong>negocio de catering</strong> con 3 personas en el equipo:
+                Ana, Carlos y Luis. Tenés estas tareas para la semana:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Tarea</th>
+                        <th>Responsable</th>
+                        <th>Prioridad</th>
+                        <th>Fecha</th>
+                        <th>Estado inicial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Preparar pedido semanal</td><td>Ana</td><td><span class="badge red">Alta</span></td><td>10 Sep</td><td>📋 Pendiente</td></tr>
+                    <tr><td>Revisar calidad</td><td>Carlos</td><td><span class="badge red">Alta</span></td><td>12 Sep</td><td>🔄 En Progreso</td></tr>
+                    <tr><td>Actualizar precios</td><td>Ana</td><td><span class="badge orange">Media</span></td><td>15 Sep</td><td>🔍 En Revisión</td></tr>
+                    <tr><td>Contactar proveedor</td><td>Luis</td><td><span class="badge green">Baja</span></td><td>20 Sep</td><td>📋 Pendiente</td></tr>
+                    <tr><td>Capacitar empleado</td><td>Carlos</td><td><span class="badge orange">Media</span></td><td>08 Sep</td><td>✅ Completado</td></tr>
+                    <tr><td>Revisar métricas</td><td>Luis</td><td><span class="badge red">Alta</span></td><td>05 Sep</td><td>✅ Completado</td></tr>
+                    <tr><td>Mantenimiento equipos</td><td>Juan</td><td><span class="badge orange">Media</span></td><td>14 Sep</td><td>🔄 En Progreso</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Métricas del tablero</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr><th>Métrica</th><th>Valor</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Total tareas</td><td>7</td></tr>
+                    <tr><td>Pendientes</td><td>2</td></tr>
+                    <tr><td>En Progreso</td><td>2</td></tr>
+                    <tr><td>En Revisión</td><td>1</td></tr>
+                    <tr><td>Completadas</td><td>2</td></tr>
+                    <tr><td>Prioridad Alta</td><td>3</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Carga de trabajo por persona</h3>
+            <ul>
+                <li><strong>Ana</strong>: 2 tareas activas (1 Pendiente + 1 En Revisión)</li>
+                <li><strong>Carlos</strong>: 1 tarea activa (1 En Progreso)</li>
+                <li><strong>Luis</strong>: 1 tarea activa (1 Pendiente)</li>
+                <li><strong>Juan</strong>: 1 tarea activa (1 En Progreso)</li>
+            </ul>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Carga equilibrada</strong>: ningún responsable está sobrecargado.</li>
+                <li><strong>Atención a las prioridades altas</strong>: hay 3 tareas críticas. Asegurate de que avancen.</li>
+                <li><strong>Mantenimiento en progreso desde Juan</strong>: revisá que no esté trabado.</li>
+                <li><strong>Contactar proveedor es baja prioridad</strong>: dejalo para cuando haya tiempo.</li>
+                <li><strong>Revisión de métricas ya completada</strong>: correcto, era de prioridad alta.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">💡 Rutina semanal sugerida</span>
+                <strong>Lunes</strong>: revisar todo el tablero y priorizar la semana.<br>
+                <strong>Miércoles</strong>: check-in rápido para ver avances.<br>
+                <strong>Viernes</strong>: cerrar tareas completadas y planificar la próxima semana.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar una captura del tablero o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, las 4 columnas con todas las tarjetas visibles,
+                el gráfico de carga de trabajo y la descripción resumida con los contadores por estado.
+                Se ocultan automáticamente los filtros y los botones de acción.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Generá un PDF <strong>cada viernes</strong> como respaldo semanal. Vas a tener
+                un historial de cómo evolucionó la operación semana a semana. Excelente para reuniones
+                de equipo y para detectar patrones.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">Sí. Esta herramienta guarda todas las tareas en el almacenamiento local del navegador (localStorage). Al volver a abrir, encontrás todas tus tareas tal como las dejaste.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo compartir el tablero con mi equipo?</div>
+                <div class="a">No en tiempo real. Cada persona tiene su propio navegador con sus propios datos. Para compartir, podés exportar PDF o trabajar todos en la misma computadora.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántas tareas puedo tener?</div>
+                <div class="a">No hay límite técnico. Pero para que el tablero sea útil, se recomienda no tener más de 30-50 tareas activas. Si tenés más, priorizá o eliminá las que no aportan.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo mover una tarea de "Completado" a "Pendiente"?</div>
+                <div class="a">Sí. El drag & drop funciona en cualquier dirección. Si te equivocaste al mover una tarea, simplemente arrastrala de vuelta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo elimino todas las tareas de ejemplo?</div>
+                <div class="a">Una por una con el botón 🗑️. No hay un botón de "borrar todo" para evitar borrados accidentales.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa que una tarea esté "vencida"?</div>
+                <div class="a">Que la fecha límite ya pasó. La tarea sigue en su columna pero se marca con ⚠️. Es una señal para que la revises.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo cambiar el nombre de las columnas?</div>
+                <div class="a">No. Las 4 columnas (Pendiente, En Progreso, En Revisión, Completado) son fijas porque forman el flujo básico del Kanban.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo asigno tareas a varias personas?</div>
+                <div class="a">No se puede asignar una tarea a más de una persona. Si una tarea requiere dos personas, considerá dividirla en dos tareas separadas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El gráfico cuenta las tareas completadas?</div>
+                <div class="a">No. El gráfico muestra solo tareas <strong>activas</strong> (no completadas). Así ves la carga real de trabajo de cada persona.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar emojis en los títulos?</div>
+                <div class="a">Sí. Los emojis se guardan y se muestran sin problema. Muchos usuarios los usan para categorizar visualmente (📞 llamadas, 📦 logística, etc.).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si dos personas tienen el mismo nombre?</div>
+                <div class="a">El sistema los trata como la misma persona. Si tenés dos "Juan", agregá un apellido o inicial: "Juan P." y "Juan G.".</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los filtros afectan las métricas?</div>
+                <div class="a">No. Las métricas siempre muestran el total general. Solo el tablero visual se filtra.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Establecé un límite de WIP (Work In Progress)</h3>
+            <p>No más de 3 tareas en "En Progreso" por persona. Si tenés más, algo está mal: o son demasiado grandes o estás saltando entre tareas sin terminar ninguna.</p>
+
+            <h3>2. Descomponé tareas grandes</h3>
+            <p>Una tarea como "Organizar evento" es demasiado amplia. Divídila en tareas más chicas: "Reservar salón", "Contratar catering", "Enviar invitaciones".</p>
+
+            <h3>3. Usá etiquetas consistentes</h3>
+            <p>Definí un set de etiquetas y usalas siempre igual: <code>#urgente</code>, <code>#proveedores</code>, <code>#clientes</code>. Así podés buscar y filtrar por tema.</p>
+
+            <h3>4. Prioridad ≠ Urgencia</h3>
+            <p>Prioridad Alta es "importante y urgente". Prioridad Media es "importante pero no urgente". Baja es "ni urgente ni importante". No marques todo como Alta.</p>
+
+            <h3>5. Revisá el tablero en rituales fijos</h3>
+            <p><strong>Daily de 5 minutos</strong>: cada mañana, revisar qué está en progreso.<br>
+            <strong>Weekly de 30 minutos</strong>: cada viernes, planificar la semana siguiente.</p>
+
+            <h3>6. Archivá lo completado</h3>
+            <p>Cuando la columna "Completado" se llena, eliminá las tareas viejas (ya cumplieron su función). Si querés el historial, guardá un PDF antes.</p>
+
+            <h3>7. Combiná con el Constructor de SOPs</h3>
+            <p>Cuando completás una tarea importante, documentala como SOP. Así la próxima vez es más fácil y podés delegarla.</p>
+
+            <h3>8. Usá colores de prioridad para decisiones rápidas</h3>
+            <p>Si tenés poco tiempo, filtrá por <strong>Prioridad Alta</strong> y hacé solo eso. El resto puede esperar.</p>
+
+            <h3>9. Fechas realistas, no optimistas</h3>
+            <p>Cuando pongas fecha límite, agregá un 30% extra al tiempo que creés que vas a tardar. Vas a tener menos vencidas.</p>
+
+            <h3>10. El Kanban no es para todo</h3>
+            <p>El Kanban es ideal para tareas operativas de flujo continuo. Para proyectos grandes con muchas dependencias, mejor usar un Gantt o cronograma específico.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar el Kanban durante 1 mes, vas a tener <strong>control visual total</strong>
+                de tu operación. Vas a saber en 10 segundos qué hay que hacer, quién lo hace y qué está
+                trabado. Esa claridad vale oro.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Tablero Kanban</strong>:</p>
+            <div class="cards-grid">
+                <a href="matriz-delegacion-tareas.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">🤝 Matriz de Delegación</div>
+                    <div class="card-desc">Decidí qué tareas podés delegar antes de asignarlas en el Kanban.</div>
+                </a>
+                <a href="constructor-sops.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">📖 Constructor de SOPs</div>
+                    <div class="card-desc">Documentá los procesos de cada tarea para que cualquiera pueda ejecutarla.</div>
+                </a>
+                <a href="okr-tracker.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">🎯 OKR Tracker</div>
+                    <div class="card-desc">Los OKRs definen el foco estratégico; el Kanban ejecuta el día a día.</div>
+                </a>
+            </div>
+        </section>
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Tablero Kanban de Operaciones</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

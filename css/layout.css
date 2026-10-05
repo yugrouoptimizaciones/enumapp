@@ -1,0 +1,126 @@
+/* ============================================================
+   ENUMAPP · Header y Footer compartidos
+   ============================================================ */
+
+/* ===== HEADER DE HERRAMIENTAS Y MANUALES ===== */
+.enumapp-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.enumapp-header .enumapp-logo {
+    flex-shrink: 0;
+}
+
+.enumapp-header .enumapp-header-text {
+    flex: 1;
+    min-width: 200px;
+}
+
+.enumapp-header .enumapp-brand {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.enumapp-header .back-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+.enumapp-header .back-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+}
+
+/* ===== FOOTER COMPARTIDO ===== */
+.enumapp-footer {
+    text-align: center;
+    padding: 40px 20px 20px;
+    font-size: 13px;
+    color: var(--color-text-faint);
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-white);
+    margin-top: 30px;
+    border-radius: var(--radius-lg);
+}
+
+.enumapp-footer .footer-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.enumapp-footer .footer-brand strong {
+    color: var(--color-text);
+    font-size: 15px;
+    letter-spacing: 1.5px;
+}
+
+.enumapp-footer .footer-tagline {
+    font-size: 12px;
+    color: var(--color-text-faint);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.enumapp-footer .footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-top: 14px;
+}
+
+.enumapp-footer a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+}
+.enumapp-footer a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+/* ===== FOOTER NOTE (resumen simple) ===== */
+.footer-note {
+    margin-top: 40px;
+    border-top: 1px solid var(--color-border-dashed);
+    padding-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+.footer-note strong { color: var(--color-text); }
+
+/* ===== GRIDS ===== */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 700px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 14px; }
+}

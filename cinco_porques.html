@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Análisis de Causa Raíz (5 Porqués) · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Análisis de Causa Raíz (5 Porqués) de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>🔍 ENUMAPP · ANÁLISIS DE CAUSA RAÍZ</h2>
+            <p>Metodología Lean Manufacturing - Toyota</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    🔍 5 Porqués
+                    <small>· Identificar la Causa Raíz</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-cinco-porques.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Herramienta Lean. Definí el problema, preguntá "¿Por qué?" 5 veces y encontrá el origen real para eliminar la recurrencia.
+        </div>
+
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Tu Nombre <span class="hint">· para el informe</span></label>
+                    <input type="text" id="nombre" value="Juan Pérez" />
+                </div>
+                <div class="input-group">
+                    <label>Problema a Analizar <span class="hint">· sé específico</span></label>
+                    <input type="text" id="problema" value="La línea 3 se detuvo 45 minutos por falta de material" />
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="grid-2" id="preguntasContainer">
+            <div class="input-group">
+                <label>1. ¿Por qué? <span class="hint">· Primer nivel</span></label>
+                <input type="text" id="p1" placeholder="Ej: Porque el material no estaba disponible" />
+            </div>
+            <div class="input-group">
+                <label>2. ¿Por qué? <span class="hint">· Profundizar</span></label>
+                <input type="text" id="p2" placeholder="Ej: Porque el proveedor no entregó" disabled />
+            </div>
+            <div class="input-group">
+                <label>3. ¿Por qué? <span class="hint">· Profundizar</span></label>
+                <input type="text" id="p3" placeholder="Ej: Porque la orden se envió tarde" disabled />
+            </div>
+            <div class="input-group">
+                <label>4. ¿Por qué? <span class="hint">· Profundizar</span></label>
+                <input type="text" id="p4" placeholder="Ej: Porque el plan no se actualizó" disabled />
+            </div>
+            <div class="input-group">
+                <label>5. ¿Por qué? <span class="hint">· Causa Raíz</span></label>
+                <input type="text" id="p5" placeholder="Ej: Porque no había un responsable definido" disabled />
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row">
+            <span class="badge">📈 <strong>Diagnóstico</strong> · actualización automática</span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:10px;">
+            <div class="result-card info" style="grid-column: span 2;">
+                <div class="label">Problema Definido</div>
+                <div class="value" id="problemaDisplay" style="font-size:18px;">La línea 3 se detuvo...</div>
+                <div class="sub" id="clasificacion">Esperando análisis...</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">Nivel de Análisis</div>
+                <div class="value" id="nivelAnalisis">0 / 5</div>
+                <div class="sub">Profundidad</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">Estado</div>
+                <div class="value" id="estadoAnalisis" style="font-size:18px;">Incompleto</div>
+                <div class="sub">Progreso</div>
+            </div>
+            <div class="result-card positive" style="grid-column: span 2;">
+                <div class="label">Causa Raíz Identificada</div>
+                <div class="value" id="causaRaizDisplay" style="font-size:16px;">-</div>
+                <div class="sub" id="causaRaizSub">Completá los 5 porqués</div>
+            </div>
+            <div class="result-card info" style="grid-column: span 2;">
+                <div class="label">Recomendación Lean</div>
+                <div class="value" id="recomendacionDisplay" style="font-size:14px;">-</div>
+                <div class="sub" id="recomendacionSub">Basado en la causa raíz</div>
+            </div>
+        </div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Plan de Acción Sugerido</h3>
+            <p id="recommendationText">Completá los 5 porqués para generar un plan de acción.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> Cada "Por qué" debe basarse en hechos, no en suposiciones.</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        const inputs = ['p1','p2','p3','p4','p5'].map(id => document.getElementById(id));
+        const problemaInput = document.getElementById('problema');
+        const nombreInput = document.getElementById('nombre');
+        const problemaDisplay = document.getElementById('problemaDisplay');
+        const clasificacion = document.getElementById('clasificacion');
+        const nivelAnalisis = document.getElementById('nivelAnalisis');
+        const estadoAnalisis = document.getElementById('estadoAnalisis');
+        const causaRaizDisplay = document.getElementById('causaRaizDisplay');
+        const causaRaizSub = document.getElementById('causaRaizSub');
+        const recomendacionDisplay = document.getElementById('recomendacionDisplay');
+        const recomendacionSub = document.getElementById('recomendacionSub');
+        const recommendationText = document.getElementById('recommendationText');
+        const printDesc = document.getElementById('printDesc');
+        const lastSaved = document.getElementById('lastSaved');
+
+        const ctx = document.getElementById('barChart').getContext('2d');
+        let myChart = null;
+
+        /* ===== PERSISTENCIA ===== */
+        let saveTimer = null;
+        function guardarCincoPorques() {
+            const estado = {
+                nombre: nombreInput.value,
+                problema: problemaInput.value,
+                p1: inputs[0].value,
+                p2: inputs[1].value,
+                p3: inputs[2].value,
+                p4: inputs[3].value,
+                p5: inputs[4].value
+            };
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.CINCO_PORQUES, estado);
+            lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function cargarCincoPorques() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.CINCO_PORQUES, null);
+            if (data && typeof data === 'object') {
+                if (data.nombre !== undefined) nombreInput.value = data.nombre;
+                if (data.problema !== undefined) problemaInput.value = data.problema;
+                if (data.p1 !== undefined) inputs[0].value = data.p1;
+                if (data.p2 !== undefined) inputs[1].value = data.p2;
+                if (data.p3 !== undefined) inputs[2].value = data.p3;
+                if (data.p4 !== undefined) inputs[3].value = data.p4;
+                if (data.p5 !== undefined) inputs[4].value = data.p5;
+                lastSaved.textContent = 'Cargado desde guardado';
+                return true;
+            }
+            return false;
+        }
+
+        function validarSecuencia() {
+            inputs[1].disabled = inputs[0].value.trim() === '';
+            inputs[2].disabled = inputs[1].value.trim() === '';
+            inputs[3].disabled = inputs[2].value.trim() === '';
+            inputs[4].disabled = inputs[3].value.trim() === '';
+            if (inputs[1].disabled) { inputs[2].value = ''; inputs[2].disabled = true; }
+            if (inputs[2].disabled) { inputs[3].value = ''; inputs[3].disabled = true; }
+            if (inputs[3].disabled) { inputs[4].value = ''; inputs[4].disabled = true; }
+        }
+
+        function actualizar() {
+            validarSecuencia();
+            const valores = inputs.map(i => i.value.trim());
+            const problema = problemaInput.value.trim() || 'Problema no definido';
+
+            let nivel = 0;
+            for (let i = 0; i < 5; i++) { if (valores[i] !== '') nivel++; else break; }
+
+            problemaDisplay.textContent = problema;
+            nivelAnalisis.textContent = `${nivel} / 5`;
+
+            if (nivel === 0) {
+                clasificacion.textContent = 'Esperando análisis...';
+                estadoAnalisis.textContent = 'Incompleto';
+                causaRaizDisplay.textContent = '-';
+                causaRaizSub.textContent = 'Completá los 5 porqués';
+                recomendacionDisplay.textContent = '-';
+                recomendacionSub.textContent = 'Basado en la causa raíz';
+                recommendationText.textContent = 'Completá los 5 porqués para generar un plan de acción.';
+            } else if (nivel < 5) {
+                clasificacion.textContent = `Análisis en progreso (Nivel ${nivel})`;
+                estadoAnalisis.textContent = 'Incompleto';
+                causaRaizDisplay.textContent = valores[nivel - 1] || '-';
+                causaRaizSub.textContent = 'Causa raíz preliminar';
+                recomendacionDisplay.textContent = 'Profundizar más';
+                recomendacionSub.textContent = 'Se recomienda llegar al 5to porqué';
+                recommendationText.textContent = `Has identificado una causa en el nivel ${nivel}. Seguí preguntando "¿Por qué?" para llegar a la raíz.`;
+            } else {
+                clasificacion.textContent = '✅ Análisis Completo';
+                estadoAnalisis.textContent = 'Completo';
+                causaRaizDisplay.textContent = valores[4];
+                causaRaizSub.textContent = 'Causa Raíz Definitiva';
+
+                const causaRaizTexto = valores[4].toLowerCase();
+                let categoria = 'General', recomendacionEspecifica = '';
+
+                if (causaRaizTexto.match(/venta|cliente|ingreso|facturación|pedido/)) {
+                    categoria = 'Ventas y Comercialización';
+                    recomendacionEspecifica = '🔹 Revisar el embudo de ventas. Implementar CRM básico. Definir propuesta de valor clara.';
+                } else if (causaRaizTexto.match(/marketing|publicidad|redes|instagram|contenido|marca/)) {
+                    categoria = 'Marketing y Comunicación';
+                    recomendacionEspecifica = '🔹 Definir calendario de contenidos. Invertir en publicidad segmentada. Medir ROI.';
+                } else if (causaRaizTexto.match(/plata|dinero|efectivo|caja|pago|cobro|financiero/)) {
+                    categoria = 'Finanzas y Flujo de Caja';
+                    recomendacionEspecifica = '🔹 Flujo de caja a 90 días. Separar finanzas personales. Revisar costos fijos.';
+                } else if (causaRaizTexto.match(/equipo|empleado|personal|socio|colaborador|contratar/)) {
+                    categoria = 'Equipo y Talento';
+                    recomendacionEspecifica = '🔹 Definir roles claros. Reuniones semanales. Plan de capacitación.';
+                } else if (causaRaizTexto.match(/proveedor|compra|insumo|material|stock|inventario/)) {
+                    categoria = 'Proveedores y Stock';
+                    recomendacionEspecifica = '🔹 Buscar proveedores alternativos. Implementar punto de reorden.';
+                } else if (causaRaizTexto.match(/proceso|procedimiento|método|producción|operación/)) {
+                    categoria = 'Procesos y Operaciones';
+                    recomendacionEspecifica = '🔹 Documentar SOP. Identificar cuellos de botella. Estandarizar.';
+                } else if (causaRaizTexto.match(/tiempo|demora|entrega|plazo|logística|envío/)) {
+                    categoria = 'Logística y Tiempos';
+                    recomendacionEspecifica = '🔹 Mapear tiempo de ciclo. Establecer plazos realistas.';
+                } else if (causaRaizTexto.match(/calidad|defecto|error|reclamo|devolución/)) {
+                    categoria = 'Calidad y Satisfacción';
+                    recomendacionEspecifica = '🔹 Checklist de calidad. Analizar reclamos recurrentes.';
+                } else if (causaRaizTexto.match(/tecnología|software|sistema|digital|herramienta/)) {
+                    categoria = 'Tecnología y Digitalización';
+                    recomendacionEspecifica = '🔹 Evaluar software de gestión. Automatizar tareas manuales.';
+                } else if (causaRaizTexto.match(/motivación|ánimo|burnout|estrés|cansancio/)) {
+                    categoria = 'Bienestar del Emprendedor';
+                    recomendacionEspecifica = '🔹 Delegar tareas operativas. Establecer horarios de desconexión.';
+                } else if (causaRaizTexto.match(/competencia|precio|diferenciación/)) {
+                    categoria = 'Estrategia Competitiva';
+                    recomendacionEspecifica = '🔹 Analizar competencia. Definir elemento diferenciador.';
+                } else {
+                    categoria = 'Mejora Continua General';
+                    recomendacionEspecifica = '🔹 Aplicar ciclo PDCA. Estandarizar la solución. Verificar a 30/60/90 días.';
+                }
+
+                recomendacionDisplay.textContent = categoria;
+                recomendacionSub.textContent = 'Categoría detectada';
+
+                recommendationText.innerHTML = `
+                    🎯 <strong>Causa Raíz:</strong> ${valores[4]}<br><br>
+                    📂 <strong>Categoría:</strong> ${categoria}<br><br>
+                    💡 <strong>Acción Sugerida:</strong> ${recomendacionEspecifica}
+                `;
+            }
+
+            const labels = ['1er Porqué', '2do Porqué', '3er Porqué', '4to Porqué', '5to Porqué'];
+            const dataProfundidad = valores.map((v, idx) => v !== '' ? (idx + 1) : 0);
+
+            if (myChart) myChart.destroy();
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Nivel Alcanzado',
+                        data: dataProfundidad,
+                        backgroundColor: dataProfundidad.map(v => {
+                            if (v === 0) return '#e0e0e0';
+                            if (v <= 2) return '#f39c12';
+                            if (v <= 3) return '#2b7be4';
+                            return '#2ecc71';
+                        }),
+                        borderColor: dataProfundidad.map(v => v === 0 ? '#ccc' : v <= 2 ? '#d68910' : v <= 3 ? '#1a5fb4' : '#1e8449'),
+                        borderWidth: 2, borderRadius: 6, maxBarThickness: 40,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: c => c.parsed.x === 0 ? 'No completado' : `Nivel ${c.parsed.x} alcanzado`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { min: 0, max: 5.5, ticks: { stepSize: 1, color: '#5b6f82' }, grid: { color: 'rgba(0,0,0,0.05)' },
+                             title: { display: true, text: 'Profundidad del Análisis', color: '#0a2540', font: { weight: 'bold' } } },
+                        y: { grid: { display: false }, ticks: { color: '#1f3a5f', font: { size: 11, weight: '600' } } }
+                    }
+                }
+            });
+
+            const nombre = nombreInput.value || 'Sin nombre';
+            printDesc.innerHTML = `
+                <strong>Nombre:</strong> ${nombre} &nbsp;|&nbsp; <strong>Problema:</strong> ${problema}<br>
+                <strong>Nivel:</strong> ${nivel}/5 &nbsp;|&nbsp; <strong>Causa Raíz:</strong> ${valores[4] || 'No definida'}<br>
+                <strong>Recomendación:</strong> ${recomendacionDisplay.textContent}
+            `;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+            // Guardar con debounce
+            if (saveTimer) clearTimeout(saveTimer);
+            saveTimer = setTimeout(guardarCincoPorques, 500);
+        }
+
+        inputs.forEach(s => { s.addEventListener('input', actualizar); s.addEventListener('change', actualizar); });
+        problemaInput.addEventListener('input', actualizar);
+        nombreInput.addEventListener('input', actualizar);
+
+        // Cargar datos guardados al iniciar
+        if (!cargarCincoPorques()) {
+            lastSaved.textContent = 'Sin datos';
+        }
+        actualizar();
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+        window.addEventListener('beforeunload', guardarCincoPorques);
+
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => { if (myChart) myChart.resize(); }, 200);
+        });
+    </script>
+
+</body>
+</html>

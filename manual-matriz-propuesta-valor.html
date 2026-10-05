@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Matriz de Propuesta de Valor · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso de la Matriz de Propuesta de Valor de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE MATRIZ DE PROPUESTA DE VALOR</h2>
+            <p>Análisis cuantitativo del Ajuste Producto-Mercado (APM)</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Matriz de Propuesta de Valor</small>
+                </h1>
+            </div>
+            <a href="matriz-propuesta-valor.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para evaluar el ajuste producto-mercado. Aprendé a puntuar la importancia
+            de cada dimensión y tu capacidad para resolverla, y descubrí dónde están las oportunidades
+            de mejora.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#descripcion">Describir producto y segmento</a></li>
+                <li><a href="#dimensiones">Las 6 dimensiones</a></li>
+                <li><a href="#escala">Cómo puntuar (0 a 10)</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#brecha">La brecha total</a></li>
+                <li><a href="#grafico">Interpretar el gráfico radar</a></li>
+                <li><a href="#estados">Los 4 estados de ajuste</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                La <strong>Matriz de Propuesta de Valor</strong> es una herramienta de diagnóstico que te ayuda
+                a evaluar si tu producto o servicio <strong>realmente encaja con lo que el mercado necesita</strong>.
+            </p>
+            <p>Lo hace comparando dos cosas para cada dimensión clave:</p>
+            <ul>
+                <li><strong>Importancia</strong>: cuánto le importa al mercado esa dimensión.</li>
+                <li><strong>Capacidad</strong>: qué tan bien la resolvés vos.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Ajuste Producto-Mercado (PMF)</span>
+                El <em>Product-Market Fit</em> es el grado en que tu producto satisface una demanda real del mercado.
+                Un buen PMF significa que tenés clientes que quieren lo que ofrecés, lo compran y lo recomiendan.
+                Esta herramienta te da una medida cuantitativa de ese ajuste.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Validar una idea de negocio</strong> antes de invertir tiempo y dinero.</li>
+                <li><strong>Revisar un producto existente</strong> que no está despegando.</li>
+                <li><strong>Priorizar mejoras</strong>: ¿en qué dimensión conviene invertir primero?</li>
+                <li><strong>Analizar la competencia</strong>: comparar tu propuesta con la de otros.</li>
+                <li><strong>Preparar un pitch</strong> para inversores: tener datos concretos del ajuste.</li>
+                <li><strong>Decidir si pivotar o persistir</strong>: si la brecha es enorme, replanteate el modelo.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Usala <strong>cada 3-6 meses</strong> para ver cómo evoluciona tu ajuste. Y también
+                antes de lanzar un producto nuevo o entrar a un segmento distinto.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Describir</div>
+                    <div class="step-desc">Producto y segmento</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Puntuar</div>
+                    <div class="step-desc">6 dimensiones × 2 ejes</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Analizar</div>
+                    <div class="step-desc">Métricas y gráfico radar</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Accionar</div>
+                    <div class="step-desc">Recomendaciones automáticas</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Modo demo precargado</span>
+                La herramienta viene con valores de ejemplo para "Bandejas de Pasapalos" y "Comercios minoristas /
+                Particulares". Podés modificarlos libremente para analizar tu propio caso.</p>
+            </div>
+        </section>
+
+        <section id="descripcion">
+            <h2>📝 Describir producto y segmento</h2>
+            <p>
+                Antes de puntuar, tenés que definir claramente <strong>qué estás analizando y a quién le vendés</strong>.
+                Estos dos campos son solo para dar contexto al análisis y aparecen en el PDF.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Producto / Servicio</strong></td>
+                        <td>Nombre corto y descriptivo de lo que ofrecés.</td>
+                        <td>Bandejas de Pasapalos, App de delivery, Curso de marketing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Segmento de Clientes</strong></td>
+                        <td>A quién le vendés. Cuanto más específico, mejor.</td>
+                        <td>Comercios minoristas, Mamás con hijos pequeños, PYMES de servicios</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Importante</span>
+                Si vendés a varios segmentos distintos, <strong>hacé un análisis por cada uno</strong>.
+                Un producto puede tener buen ajuste con un segmento y mal ajuste con otro.</p>
+            </div>
+        </section>
+
+        <section id="dimensiones">
+            <h2>🎨 Las 6 dimensiones</h2>
+            <p>
+                La herramienta evalúa tu propuesta de valor en <strong>6 dimensiones clave</strong>.
+                Para cada una, vas a puntuar la importancia (para el mercado) y tu capacidad (para resolverla).
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-title">🩹 1. Resuelve un dolor real</div>
+                    <div class="card-range">¿Qué tan grave es el problema que resolvés?</div>
+                    <div class="card-desc">
+                        Si el dolor es grave, el cliente busca activamente soluciones.
+                        Si es leve, no hay urgencia de compra.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">💎 2. Genera un beneficio tangible</div>
+                    <div class="card-range">¿Qué valor concreto agrega?</div>
+                    <div class="card-desc">
+                        Ahorra tiempo, ahorra dinero, mejora la salud, genera estatus.
+                        El beneficio debe ser claro y medible.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🚪 3. Accesible / Fácil de obtener</div>
+                    <div class="card-range">¿Qué tan fácil es comprarlo o usarlo?</div>
+                    <div class="card-desc">
+                        Disponibilidad, canales de venta, precio accesible,
+                        facilidad de pago, tiempos de entrega.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">💰 4. Precio competitivo</div>
+                    <div class="card-range">¿Qué tan sensible es el cliente al precio?</div>
+                    <div class="card-desc">
+                        Un precio justo respecto al valor entregado y a las alternativas del mercado.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">⭐ 5. Único / Diferenciado</div>
+                    <div class="card-range">¿Qué te hace distinto de la competencia?</div>
+                    <div class="card-desc">
+                        Si sos un commodity, competís solo por precio.
+                        Si sos único, podés cobrar más y tener clientes fieles.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🛡️ 6. Confiable / Bajo riesgo</div>
+                    <div class="card-range">¿Qué tan seguro es comprarte?</div>
+                    <div class="card-desc">
+                        Garantías, reputación, trayectoria, políticas de devolución,
+                        reseñas de otros clientes.
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Por qué estas 6 dimensiones</span>
+                Son una combinación de las teorías más aceptadas del marketing estratégico
+                (Value Proposition Canvas, Jobs-to-be-Done, Product-Market Fit).
+                Cubren los aspectos racionales, emocionales y prácticos de la decisión de compra.</p>
+            </div>
+        </section>
+
+        <section id="escala">
+            <h2>📏 Cómo puntuar (0 a 10)</h2>
+            <p>
+                Cada dimensión tiene <strong>2 sliders</strong>. Uno para la Importancia (para el mercado)
+                y otro para tu Capacidad (para resolverla).
+            </p>
+
+            <h3>Slider de Importancia · Preguntate:</h3>
+            <p style="padding-left:16px; border-left:3px solid #2b7be4; font-style:italic;">
+                "¿Qué tan importante es esta dimensión para mi cliente a la hora de decidir la compra?"
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>0-2</strong></td><td>Nada importante. Al cliente no le importa.</td></tr>
+                    <tr><td><strong>3-4</strong></td><td>Poco importante. Es un detalle secundario.</td></tr>
+                    <tr><td><strong>5-6</strong></td><td>Medianamente importante. Lo tiene en cuenta pero no es decisivo.</td></tr>
+                    <tr><td><strong>7-8</strong></td><td>Muy importante. Es uno de los factores que más pesa en la decisión.</td></tr>
+                    <tr><td><strong>9-10</strong></td><td>Crítico. Sin esto, el cliente ni te considera.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Slider de Capacidad · Preguntate:</h3>
+            <p style="padding-left:16px; border-left:3px solid #2ecc71; font-style:italic;">
+                "¿Qué tan bien resolvemos esta dimensión hoy?"
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>0-2</strong></td><td>Muy bajo. No la trabajamos o lo hacemos mal.</td></tr>
+                    <tr><td><strong>3-4</strong></td><td>Bajo. Estamos por debajo del estándar del mercado.</td></tr>
+                    <tr><td><strong>5-6</strong></td><td>Medio. Estamos en línea con la competencia.</td></tr>
+                    <tr><td><strong>7-8</strong></td><td>Alto. Estamos por encima del promedio del mercado.</td></tr>
+                    <tr><td><strong>9-10</strong></td><td>Excelente. Somos referentes en esta dimensión.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Sé riguroso con las puntuaciones</span>
+                Es muy común sobreestimar la capacidad propia y subestimar la importancia del mercado.
+                Para ser riguroso: pedile a un cliente real que puntúe la importancia de cada dimensión
+                sin ver tus puntuaciones. Después comparás.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Los sliders van de 0 a 10 en pasos de 0.5</span>
+                Esto te permite matizar entre "importante" y "muy importante" (ej. 7.5).
+                No te compliques: si dudás, redondeá a un entero.</p>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de puntuar, vas a ver 4 tarjetas con los resultados principales:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">🎯</span>
+                    <div class="name">Ajuste Promedio</div>
+                    <div class="desc">
+                        Relación entre capacidad promedio e importancia promedio.
+                        Un valor de 100% significa ajuste perfecto. Se muestra en %.
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🚨</span>
+                    <div class="name">Dimensión Más Crítica</div>
+                    <div class="desc">
+                        La dimensión donde hay <strong>mayor brecha positiva</strong> (importancia − capacidad).
+                        Es decir, donde el mercado valora mucho y vos no llegás.
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💪</span>
+                    <div class="name">Fortaleza Principal</div>
+                    <div class="desc">
+                        La dimensión donde tenés <strong>mayor excedente</strong> (capacidad − importancia).
+                        Estás sobresatisfaciendo al mercado en ese punto.
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📐</span>
+                    <div class="name">Brecha Total</div>
+                    <div class="desc">
+                        Suma de todas las brechas individuales.
+                        Positivo = oportunidad de mejora. Negativo = sobredimensionado.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Sobre el Ajuste Promedio</h3>
+            <p>
+                Se calcula dividiendo el promedio de tus capacidades por el promedio de las importancias,
+                y multiplicando por 100:
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Ajuste = (Capacidad promedio ÷ Importancia promedio) × 100</div>
+                <div class="formula-desc">
+                    Si el resultado supera el 100%, se muestra como 100% (no podés "sobreajustar" más allá).
+                </div>
+            </div>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Ajuste</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge red">&lt; 60%</span></td>
+                        <td>Muy bajo. Tu solución no está cubriendo lo que el mercado necesita.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge orange">60% – 80%</span></td>
+                        <td>Ajuste parcial. Vas en camino pero hay brechas grandes.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge blue">80% – 95%</span></td>
+                        <td>Buen ajuste. El mercado valora lo que hacés y vos llegás.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge green">95% – 100%</span></td>
+                        <td>Ajuste excelente. Estás en línea con lo que el mercado espera.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="brecha">
+            <h2>📐 La brecha total</h2>
+            <p>
+                La <strong>brecha total</strong> es la suma de las diferencias entre importancia y capacidad
+                en las 6 dimensiones. Es el indicador más importante para saber si estás sobre o
+                sub-invirtiendo en tu propuesta de valor.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Brecha = Σ (Importancia_i − Capacidad_i) para las 6 dimensiones</div>
+                <div class="formula-desc">
+                    Un valor positivo significa que el mercado pide más de lo que das.
+                    Un valor negativo significa que das más de lo que el mercado pide.
+                </div>
+            </div>
+
+            <h3>Cómo interpretar el rango</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Brecha</th>
+                        <th>Interpretación</th>
+                        <th>Acción sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>&gt; +5</strong></td>
+                        <td>Gran oportunidad sin explotar. El mercado pide mucho y vos no llegás.</td>
+                        <td>Priorizar mejoras en las dimensiones más críticas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>0 a +5</strong></td>
+                        <td>Buen ajuste con margen de mejora.</td>
+                        <td>Trabajar en cerrar la brecha progresivamente.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>-3 a 0</strong></td>
+                        <td>Ajuste casi perfecto. Alineados con el mercado.</td>
+                        <td>Mantener y optimizar costos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>&lt; -3</strong></td>
+                        <td>Sobredimensionado. Invertís en cosas que al cliente no le importan tanto.</td>
+                        <td>Redirigir recursos hacia dimensiones más valoradas.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Ejemplo numérico</span>
+                Si en "Diferenciación" el mercado puntúa 9 y vos puntuás 5, la brecha de esa dimensión es +4.
+                Si en "Precio" el mercado puntúa 6 y vos 8, la brecha es −2 (sobredimensionado).
+                La brecha total sería la suma de las 6 dimensiones.</p>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico radar</h2>
+            <p>
+                El gráfico es un <strong>radar (o telaraña)</strong> con 6 ejes, uno por cada dimensión.
+                Se muestran dos áreas superpuestas:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Área</th>
+                        <th>Qué representa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">🔵</td>
+                        <td><strong>Azul</strong> · Importancia (Mercado)</td>
+                        <td>Cuánto le importa al mercado cada dimensión.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🟢</td>
+                        <td><strong>Verde</strong> · Nuestra Capacidad</td>
+                        <td>Qué tan bien resolvemos cada dimensión hoy.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cómo leerlo</h3>
+            <ul>
+                <li>Si el <strong>área verde está adentro del área azul</strong> → no llegás a lo que el mercado pide.</li>
+                <li>Si el <strong>área verde sobresale del azul</strong> → estás dando más de lo que el mercado necesita.</li>
+                <li>Si las <strong>dos áreas son casi iguales</strong> → ajuste perfecto.</li>
+                <li>Si hay <strong>picos en el azul y valles en el verde</strong> → esas son tus brechas críticas.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                El gráfico radar es ideal para <strong>detectar asimetrías</strong>. Fijate en los ejes
+                donde las dos áreas se separan más. Esos son los puntos clave donde tenés que actuar.</p>
+            </div>
+        </section>
+
+        <section id="estados">
+            <h2>🎭 Los 4 estados de ajuste</h2>
+            <p>Según el valor de la brecha total, la herramienta identifica 4 estados posibles:</p>
+
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-title">🟢 Ajuste casi perfecto</div>
+                    <div class="card-range">Brecha entre -3 y 0</div>
+                    <div class="card-desc">
+                        Tu capacidad está alineada con la importancia del mercado.
+                        Estás entregando justo lo que el cliente necesita. Mantené el rumbo y optimizá costos.
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">🔵 Buen ajuste con margen</div>
+                    <div class="card-range">Brecha entre 0 y +5</div>
+                    <div class="card-desc">
+                        La demanda supera ligeramente tu oferta. El mercado valora lo que hacés,
+                        pero podés dar más. Trabajá en cerrar las brechas.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-title">🟠 Gran oportunidad</div>
+                    <div class="card-range">Brecha mayor a +5</div>
+                    <div class="card-desc">
+                        Los clientes necesitan urgentemente lo que ofreces, pero tu solución aún no está
+                        a la altura. Enfocá recursos en las dimensiones más críticas.
+                    </div>
+                </div>
+                <div class="card danger">
+                    <div class="card-title">🔴 Sobredimensionado</div>
+                    <div class="card-range">Brecha menor a -3</div>
+                    <div class="card-desc">
+                        Tu capacidad supera la importancia del mercado. Estás invirtiendo recursos
+                        en cosas que al cliente no le importan tanto. Redirigí esos recursos.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                Debajo de las métricas, la herramienta genera <strong>recomendaciones personalizadas</strong>
+                según el estado de tu ajuste. Puede sugerirte:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Tipo</th>
+                        <th>Qué recomienda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🚀</td>
+                        <td><strong>Gran oportunidad</strong></td>
+                        <td>Enfocar recursos en la dimensión más crítica. Considerar alianzas o externalización.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📈</td>
+                        <td><strong>Buen ajuste</strong></td>
+                        <td>Trabajar en la dimensión más débil para cerrar la brecha.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">✅</td>
+                        <td><strong>Ajuste perfecto</strong></td>
+                        <td>Mantener el rumbo, optimizar costos, prestar atención a la dimensión crítica.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⚠️</td>
+                        <td><strong>Sobredimensionado</strong></td>
+                        <td>Redirigir recursos hacia dimensiones más valoradas. Menos es más.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🎯</td>
+                        <td><strong>Acción inmediata</strong></td>
+                        <td>Aparece cuando hay una dimensión con brecha &gt; 4. Sugiere un taller interno para rediseñar la propuesta.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés un negocio de <strong>bandejas de pasapalos gourmet</strong> que vendés a
+                comercios minoristas y particulares. Cargás estos valores:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dimensión</th>
+                        <th>Importancia</th>
+                        <th>Capacidad</th>
+                        <th>Brecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1. Resuelve un dolor real</td><td>9.0</td><td>7.0</td><td style="color:#b45b0b; font-weight:700;">+2.0</td></tr>
+                    <tr><td>2. Beneficio tangible</td><td>8.0</td><td>8.0</td><td style="color:#0f6e3f; font-weight:700;">0.0</td></tr>
+                    <tr><td>3. Accesibilidad</td><td>7.0</td><td>6.0</td><td style="color:#b45b0b; font-weight:700;">+1.0</td></tr>
+                    <tr><td>4. Precio competitivo</td><td>6.0</td><td>8.0</td><td style="color:#1a5a7a; font-weight:700;">−2.0</td></tr>
+                    <tr><td>5. Diferenciación</td><td>9.0</td><td>5.0</td><td style="color:#b33c3c; font-weight:700;">+4.0</td></tr>
+                    <tr><td>6. Confiabilidad</td><td>8.0</td><td>7.0</td><td style="color:#b45b0b; font-weight:700;">+1.0</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Resultados que mostraría la herramienta</h3>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ajuste Promedio</td>
+                        <td>85%</td>
+                        <td>Buena relación capacidad/importancia.</td>
+                    </tr>
+                    <tr>
+                        <td>Dimensión Más Crítica</td>
+                        <td>Diferenciación</td>
+                        <td>El mercado la valora 9, vos solo 5.</td>
+                    </tr>
+                    <tr>
+                        <td>Fortaleza Principal</td>
+                        <td>Precio</td>
+                        <td>Estás dando más de lo que el mercado necesita.</td>
+                    </tr>
+                    <tr>
+                        <td>Brecha Total</td>
+                        <td>+6.0</td>
+                        <td>El mercado pide más de lo que das en total.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Recomendación que generaría</h3>
+            <div class="info-box">
+                <p>
+                    🚀 <strong>Gran oportunidad de mercado.</strong> La importancia total supera ampliamente
+                    tu capacidad (brecha +6.0). Los clientes necesitan urgentemente lo que ofreces, pero
+                    tu solución aún no está a la altura. <strong>Enfocá todos los recursos en mejorar
+                    "Diferenciación"</strong> para capturar ese valor.
+                    <br><br>
+                    🎯 <strong>Acción inmediata:</strong> La brecha en "Diferenciación" es muy grande
+                    (4.0 pts). Hacé un taller interno para rediseñar tu propuesta en ese aspecto.
+                </p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Prioridad 1:</strong> Diferenciación. ¿Qué podés hacer único? Presentación, sabores exclusivos, packaging, historia de marca.</li>
+                <li><strong>Prioridad 2:</strong> Dolor real. Asegurate de estar resolviendo un problema concreto y urgente.</li>
+                <li><strong>Reducir:</strong> Precio. Estás dando más de lo necesario. Podrías ajustar el precio al alza sin perder clientes.</li>
+                <li><strong>Mantener:</strong> Beneficio tangible y Confiabilidad. Ahí estás bien.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                La brecha de <strong>+6</strong> no significa que tu negocio esté mal. Significa que
+                <strong>hay demanda insatisfecha</strong> que podés capturar si mejorás las dimensiones
+                críticas. Es una oportunidad, no un problema.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu equipo o inversores:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, las 4 tarjetas de métricas, la recomendación
+                estratégica, el gráfico radar y la descripción resumida con producto, segmento,
+                ajuste, brecha, fortaleza y debilidad.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Guardá un PDF cada 3-6 meses y compará cómo evolucionan las métricas. Si la brecha
+                total baja, estás mejorando tu ajuste producto-mercado.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al cerrar el navegador, los valores vuelven a los defaults. Guardá un PDF si querés conservar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿La herramienta sirve para servicios o solo para productos?</div>
+                <div class="a">Sirve para ambos. Las 6 dimensiones aplican tanto a productos físicos como a servicios, software, consultoría o cursos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo puntúo la "importancia" de cada dimensión?</div>
+                <div class="a">La forma más rigurosa es preguntar a 5-10 clientes reales. Si no podés, ponete en sus zapatos y respondé como si fueras ellos, no como dueño del negocio.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si tengo múltiples segmentos de clientes?</div>
+                <div class="a">Hacé un análisis por cada segmento. Un producto puede tener buen ajuste con un segmento y mal ajuste con otro. Lo ideal es elegir el segmento donde tengas mejor ajuste.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "brecha negativa"?</div>
+                <div class="a">Que tu capacidad supera a la importancia. Estás sobredimensionado en esa dimensión: estás invirtiendo más recursos de los que el mercado justifica.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Debo eliminar las dimensiones con brecha negativa?</div>
+                <div class="a">No necesariamente. A veces sobresalir en una dimensión genera diferenciación aunque el mercado no lo pida explícitamente. Pero si la brecha es muy negativa (&gt;3), considerá reducir esfuerzos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa un ajuste del 100%?</div>
+                <div class="a">Que tu capacidad promedio es igual a la importancia promedio. En la práctica, es difícil alcanzarlo, pero es una buena meta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo priorizo entre las dimensiones críticas?</div>
+                <div class="a">Ordenalas por brecha (importancia − capacidad). La que tenga mayor brecha es la más urgente. Empezá por ahí.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántas veces debería hacer este análisis?</div>
+                <div class="a">Cada 3-6 meses es un buen ritmo. Y también cada vez que cambies algo importante en tu propuesta (precio, canal, diferenciación, etc.).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿La herramienta considera la competencia?</div>
+                <div class="a">Indirectamente, cuando puntúas "Diferenciación". Para un análisis más profundo, podés hacer un análisis por cada competidor y comparar los radares.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "poco sensible al precio"?</div>
+                <div class="a">Que el cliente no decide la compra basándose principalmente en el precio. Valora más otras dimensiones. Si tu dimensión precio tiene baja importancia, podés cobrar más sin perder clientes.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los valores del ejemplo son un benchmark?</div>
+                <div class="a">No, son solo valores de ejemplo para mostrar cómo funciona la herramienta. Cada negocio y segmento tiene sus propios valores ideales.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Preguntá a clientes reales, no a tu equipo</h3>
+            <p>El error más común es puntuar la importancia desde la perspectiva del dueño. Preguntá a 5-10 clientes reales para tener datos honestos.</p>
+
+            <h3>2. Hacé un análisis por segmento</h3>
+            <p>Si vendés a distintos tipos de clientes, hacé un análisis por cada segmento. Cada uno valora cosas diferentes.</p>
+
+            <h3>3. Compará con la competencia</h3>
+            <p>Cargá los mismos datos de importancia, pero con las capacidades de tu principal competidor. Vas a ver dónde estás mejor y peor.</p>
+
+            <h3>4. Priorizá por impacto × urgencia</h3>
+            <p>No todas las dimensiones con brecha son igual de urgentes. Algunas tienen bajo impacto; otras son bloqueantes para vender.</p>
+
+            <h3>5. Revisá después de cada cambio grande</h3>
+            <p>Cada vez que cambies precio, canal, producto o target, volvé a hacer el análisis. Los ajustes se mueven.</p>
+
+            <h3>6. Combiná con el Test de Ajuste de Mercado</h3>
+            <p>El Test te dice si sos autoempleo o escalable. La Matriz de Propuesta de Valor te dice qué tan bien ajustás con el mercado. Juntas dan una visión completa.</p>
+
+            <h3>7. Usá el radar como herramienta de comunicación</h3>
+            <p>El gráfico radar es excelente para mostrar tu propuesta a inversores o socios. Es visual y rápido de entender.</p>
+
+            <h3>8. No sobreestimes tu capacidad</h3>
+            <p>Es tentador puntuar 8 o 9 en capacidad en todo. Pero si te comparás con el mejor del mercado, probablemente seas un 5 o 6 en varias dimensiones.</p>
+
+            <h3>9. Guardá los PDFs cronológicamente</h3>
+            <p>Guardá un PDF por trimestre con la fecha en el nombre. Al año tendrás 4 PDFs para ver la evolución de tu ajuste.</p>
+
+            <h3>10. Enfocate en 2-3 dimensiones, no en las 6</h3>
+            <p>Es imposible ser excelente en las 6 dimensiones al mismo tiempo. Elegí las 2-3 más críticas y enfocate en mejorar esas.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta varias veces, vas a tener una <strong>comprensión profunda
+                de qué valora tu mercado y dónde estás fallando</strong>. Eso es la base para construir
+                una propuesta de valor sólida y competitiva.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con la <strong>Matriz de Propuesta de Valor</strong>:</p>
+            <div class="cards-grid">
+            <a href="test-ajuste-mercado.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🧭 Test de Ajuste de Mercado</div>
+            <div class="card-desc">Validá tu perfil emprendedor antes de definir la propuesta.</div>
+            </a>
+            <a href="fijador-precios-antiinflacion.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">💰 Fijador de Precios</div>
+            <div class="card-desc">Ajustá el precio según la importancia de cada dimensión.</div>
+            </a>
+            <a href="okr-tracker.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🎯 OKR Tracker</div>
+            <div class="card-desc">Convertí las brechas críticas en objetivos trimestrales.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Matriz de Propuesta de Valor</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

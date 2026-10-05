@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Fijador de Precios Anti-Inflación · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Fijador de Precios Anti-Inflación de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE FIJADOR DE PRECIOS</h2>
+            <p>Ajuste dinámico de precios según inflación</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Fijador de Precios Anti-Inflación</small>
+                </h1>
+            </div>
+            <a href="fijador-precios-antiinflacion.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para proteger tus márgenes frente a la inflación. Aprendé a calcular el precio
+            de venta ideal, simular escenarios y tomar decisiones de precios con datos concretos.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#margen">Margen bruto real</a></li>
+                <li><a href="#frecuencia">Frecuencia de ajuste</a></li>
+                <li><a href="#escenarios">Escenarios de inflación</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#tabla">Tabla de proyección</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Fijador de Precios Anti-Inflación</strong> es una calculadora que te ayuda a
+                determinar <strong>cuánto deberías cobrar por tus productos</strong> mes a mes para que
+                la inflación no se coma tus márgenes de ganancia.
+            </p>
+            <p>La herramienta hace tres cosas fundamentales:</p>
+            <ul>
+                <li>Calcula el <strong>precio de venta ideal</strong> para mantener el margen que deseás.</li>
+                <li><strong>Proyecta a futuro</strong> cómo van a subir tus costos y precios en los próximos meses.</li>
+                <li><strong>Te alerta</strong> si tu margen actual está por debajo del objetivo o si estás perdiendo plata sin darte cuenta.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Margen Bruto Real</span>
+                Es el porcentaje de ganancia que te queda después de restar el costo de reposición del precio de venta.
+                Si un producto lo comprás a $5.500 y lo vendés a $8.000, tu margen bruto es del 31,3%.
+                El problema: cuando el costo sube por inflación y vos no ajustás el precio, ese margen se reduce.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Actualizar listas de precios</strong> cuando suben tus costos.</li>
+                <li><strong>Planificar aumentos</strong> escalonados en el año.</li>
+                <li><strong>Definir precios de productos nuevos</strong> teniendo en cuenta la inflación esperada.</li>
+                <li><strong>Verificar si estás ganando</strong> lo que pensás que ganás.</li>
+                <li><strong>Negociar con clientes mayoristas</strong> con datos concretos en mano.</li>
+                <li><strong>Proyectar tu rentabilidad</strong> a 6-12 meses.</li>
+                <li><strong>Evaluar el impacto</strong> de una devaluación o salto cambiario.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                En contextos de inflación alta (más del 5% mensual), revisá esta herramienta
+                <strong>todos los meses</strong>. En inflación moderada, alcanza con revisarla cada 2-3 meses.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos actuales</div>
+                    <div class="step-desc">Precio y costo de hoy</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Parámetros</div>
+                    <div class="step-desc">Inflación, plazo y frecuencia</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Resultados</div>
+                    <div class="step-desc">Precio sugerido y ajuste acumulado</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráfico y tabla</div>
+                    <div class="step-desc">Evolución mes a mes</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cálculo en tiempo real</span>
+                Cada vez que modificás un campo, los resultados y el gráfico se <strong>recalculan
+                automáticamente</strong>. No hay botón de "Calcular".</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>9 campos</strong>. Te explico cada uno:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Precio de Venta Actual</strong></td>
+                        <td>El precio al que vendés el producto hoy.</td>
+                        <td>$8.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Costo de Reposición Actual</strong></td>
+                        <td>Lo que te cuesta comprar o producir ese producto hoy.</td>
+                        <td>$5.500</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Margen Bruto Deseado</strong></td>
+                        <td>El porcentaje de ganancia que querés mantener sobre el precio de venta.</td>
+                        <td>35%</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Inflación Mensual Esperada</strong></td>
+                        <td>Cuánto esperás que suban los precios de tus costos cada mes.</td>
+                        <td>5%</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Plazo de Proyección</strong></td>
+                        <td>Cuántos meses querés proyectar hacia el futuro.</td>
+                        <td>12 meses</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Frecuencia de Ajuste</strong></td>
+                        <td>Cada cuánto vas a actualizar tus precios de venta.</td>
+                        <td>Trimestral</td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td><strong>Inflación Optimista</strong></td>
+                        <td>Escenario de inflación baja (solo referencia).</td>
+                        <td>3%</td>
+                    </tr>
+                    <tr>
+                        <td class="num">8</td>
+                        <td><strong>Inflación Realista</strong></td>
+                        <td>Escenario de inflación esperada. Sincronizado con el campo principal.</td>
+                        <td>5%</td>
+                    </tr>
+                    <tr>
+                        <td class="num">9</td>
+                        <td><strong>Inflación Pesimista</strong></td>
+                        <td>Escenario de inflación alta (solo referencia).</td>
+                        <td>8%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Sincronización automática</span>
+                El campo de <strong>Inflación Realista</strong> está sincronizado con el campo principal de
+                <strong>Inflación Mensual</strong>. Si cambiás uno, el otro se actualiza automáticamente.</p>
+            </div>
+        </section>
+
+        <section id="margen">
+            <h2>💰 Margen bruto real</h2>
+            <p>
+                El <strong>margen bruto</strong> es el porcentaje de ganancia que te queda después de
+                restar el costo de reposición del precio de venta. Es un indicador clave de la salud
+                de tu negocio.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Margen Bruto = (Precio − Costo) ÷ Precio × 100</div>
+                <div class="formula-desc">
+                    Si vendés a $8.000 y el costo es $5.500, tu margen es (8.000 − 5.500) ÷ 8.000 = 31,3%
+                </div>
+            </div>
+
+            <h3>Por qué es importante el margen real</h3>
+            <p>
+                Cuando hay inflación, el costo de reposición sube mes a mes. Si vos no ajustás el precio,
+                tu margen se reduce. La herramienta calcula el precio que necesitás cobrar para mantener
+                el margen deseado frente a la suba de costos.
+            </p>
+
+            <h3>Qué margen elegir</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Margen</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>20% - 30%</strong></td>
+                        <td>Comercio minorista, productos de alta rotación, competencia intensa.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>30% - 50%</strong></td>
+                        <td>Retail estándar, productos con marca propia, servicios profesionales.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>50% - 70%</strong></td>
+                        <td>Productos con alto valor agregado, nichos específicos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>70%+</strong></td>
+                        <td>Servicios especializados, productos exclusivos, alto valor percibido.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No confundas margen con markup</span>
+                El <strong>margen</strong> se calcula sobre el precio de venta. El <strong>markup</strong>
+                se calcula sobre el costo. Son diferentes. Esta herramienta usa margen sobre ventas.</p>
+            </div>
+        </section>
+
+        <section id="frecuencia">
+            <h2>⏱️ Frecuencia de ajuste</h2>
+            <p>
+                Este campo define <strong>cada cuánto vas a actualizar tus precios de venta</strong> para
+                mantener el margen deseado. Es una decisión estratégica: si ajustás muy poco, perdés
+                margen; si ajustás muy seguido, podés afectar la relación con tus clientes.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Opción</th>
+                        <th>Cuándo usarla</th>
+                        <th>Ventaja</th>
+                        <th>Desventaja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mensual</strong></td>
+                        <td>Inflación alta (&gt;5% mensual)</td>
+                        <td>Nunca perdés margen</td>
+                        <td>Más trabajo administrativo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trimestral</strong></td>
+                        <td>Inflación moderada (3-5%)</td>
+                        <td>Equilibrio entre margen y gestión</td>
+                        <td>Pérdida parcial entre ajustes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Semestral</strong></td>
+                        <td>Inflación baja (2-3%)</td>
+                        <td>Menos trabajo</td>
+                        <td>Perdés margen entre ajustes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Anual</strong></td>
+                        <td>Inflación muy baja (&lt;2%)</td>
+                        <td>Mínima gestión</td>
+                        <td>No sirve en contextos inflacionarios</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Recomendación para Argentina</span>
+                Con inflación superior al 4% mensual, la frecuencia <strong>mensual o trimestral</strong> es
+                la más realista. La herramienta te avisa si elegís una frecuencia poco frecuente para
+                la inflación que ingresaste.</p>
+            </div>
+        </section>
+
+        <section id="escenarios">
+            <h2>🎲 Escenarios de inflación</h2>
+            <p>
+                En la parte inferior del formulario hay 3 campos adicionales que te permiten
+                <strong>comparar escenarios</strong> sin modificar el cálculo principal.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-title">🟢 Optimista</div>
+                    <div class="card-range">Ej: 3% mensual</div>
+                    <div class="card-desc">
+                        Escenario donde la inflación baja. Sirve para planificar crecimiento
+                        y pensar en inversiones de mediano plazo.
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">🔵 Realista</div>
+                    <div class="card-range">Ej: 5% mensual</div>
+                    <div class="card-desc">
+                        El escenario más probable. Sincronizado con el campo principal
+                        de inflación mensual.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-title">🟠 Pesimista</div>
+                    <div class="card-range">Ej: 8% mensual</div>
+                    <div class="card-desc">
+                        Escenario de aceleración inflacionaria. Preparate para ajustes
+                        más frecuentes y búsqueda de alternativas.
+                    </div>
+                </div>
+                <div class="card danger">
+                    <div class="card-title">🔴 Crisis</div>
+                    <div class="card-range">Ej: 10%+ mensual</div>
+                    <div class="card-desc">
+                        Escenario extremo. Ajustá precios semanalmente y considerá
+                        dolarizar parte de tus costos.
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo usarlos</span>
+                Los campos de escenarios <strong>no afectan</strong> el cálculo principal automáticamente.
+                Son referencias rápidas. Si querés simular otro escenario, cambiá el campo de
+                <strong>Inflación Mensual</strong> principal.</p>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de ingresar los datos, vas a ver 4 tarjetas con los resultados principales:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">💵</span>
+                    <div class="name">Precio de Venta Recomendado (mes 1)</div>
+                    <div class="desc">El precio que deberías cobrar HOY para mantener el margen deseado. Puede diferir de tu precio actual si estás ganando menos de lo que querés.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Margen Real Proyectado</div>
+                    <div class="desc">El margen que vas a tener al final del período si seguís el plan de ajustes.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📈</span>
+                    <div class="name">Ajuste Acumulado</div>
+                    <div class="desc">El porcentaje total que deberías aumentar tus precios a lo largo del período. Ej: +79,6% en 12 meses.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🎯</span>
+                    <div class="name">Margen Actual</div>
+                    <div class="desc">Se muestra debajo del campo "Margen Deseado". Es tu margen real hoy, para comparar contra lo que querés lograr.</div>
+                </div>
+            </div>
+
+            <h3>Ejemplo numérico</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Qué significa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Precio actual</td><td>$8.000</td><td>Lo que cobrás hoy</td></tr>
+                    <tr><td>Costo actual</td><td>$5.500</td><td>Lo que te cuesta reponer</td></tr>
+                    <tr><td>Margen actual</td><td>31,3%</td><td>Estás ganando menos del 35% que querés</td></tr>
+                    <tr><td>Precio recomendado</td><td>$8.462</td><td>Deberías subir el precio para llegar al 35%</td></tr>
+                    <tr><td>Ajuste acumulado (12 meses)</td><td>+79,6%</td><td>En un año, tus precios van a subir casi 80%</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>El gráfico principal muestra 3 líneas que evolucionan mes a mes:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Línea</th>
+                        <th>Eje</th>
+                        <th>Qué muestra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">🟠</td>
+                        <td><strong>Naranja</strong> · Costo de Reposición</td>
+                        <td>Izquierdo ($)</td>
+                        <td>Cómo sube tu costo mes a mes con la inflación.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🔵</td>
+                        <td><strong>Azul</strong> · Precio de Venta</td>
+                        <td>Izquierdo ($)</td>
+                        <td>El precio que deberías cobrar cada mes. Sube "a saltos" según la frecuencia.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🟢</td>
+                        <td><strong>Verde</strong> · Margen Real</td>
+                        <td>Derecho (%)</td>
+                        <td>El porcentaje de ganancia. Idealmente se mantiene cerca del margen deseado.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Por qué el precio sube "a saltos"</span>
+                El precio de venta <strong>no sube todos los meses</strong>, solo cuando toca ajustar según la
+                frecuencia elegida. Entre ajustes, el margen real baja porque el costo sigue subiendo pero
+                el precio se mantiene. Por eso es importante elegir bien la frecuencia.</p>
+            </div>
+
+            <h3>Qué buscar en el gráfico</h3>
+            <ul>
+                <li>Si la línea <strong>verde se mantiene plana</strong>: estás ajustando bien los precios.</li>
+                <li>Si la línea <strong>verde baja mucho</strong> entre ajustes: deberías aumentar la frecuencia.</li>
+                <li>Si la línea <strong>azul y naranja se separan mucho</strong>: tu margen está creciendo, podrías bajar precios o invertir.</li>
+                <li>Si la línea <strong>naranja supera la azul</strong>: estás vendiendo a pérdida en términos reales.</li>
+            </ul>
+        </section>
+
+        <section id="tabla">
+            <h2>📋 Tabla de proyección</h2>
+            <p>
+                Debajo del gráfico hay una sección plegable con la <strong>proyección mes a mes</strong>.
+                Hacé clic en "📋 Ver tabla de proyección mensual" para expandirla.
+            </p>
+
+            <h3>Columnas de la tabla</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Columna</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Mes</strong></td><td>Número de mes (1 a 12 por defecto).</td></tr>
+                    <tr><td><strong>Costo Reposición</strong></td><td>Cuánto te va a costar el producto ese mes, según la inflación.</td></tr>
+                    <tr><td><strong>Precio Venta</strong></td><td>El precio que deberías cobrar ese mes.</td></tr>
+                    <tr><td><strong>Margen Real</strong></td><td>Tu porcentaje de ganancia ese mes.</td></tr>
+                    <tr><td><strong>Inflación acum.</strong></td><td>Cuánto subió todo desde el mes 0 (en porcentaje acumulado).</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Ejemplo de tabla</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Costo Repos.</th>
+                        <th>Precio Venta</th>
+                        <th>Margen Real</th>
+                        <th>Inflación acum.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>$5.775</td>
+                        <td>$8.885</td>
+                        <td>35,0%</td>
+                        <td>5,0%</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>$6.064</td>
+                        <td>$8.885</td>
+                        <td>31,7%</td>
+                        <td>10,3%</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>$6.367</td>
+                        <td>$9.795</td>
+                        <td>35,0%</td>
+                        <td>15,8%</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>$6.685</td>
+                        <td>$9.795</td>
+                        <td>31,7%</td>
+                        <td>21,6%</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>$7.020</td>
+                        <td>$9.795</td>
+                        <td>28,3%</td>
+                        <td>27,6%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Filas resaltadas</span>
+                Las filas con <strong>fondo verde claro</strong> son los meses en los que hay que ajustar el
+                precio según la frecuencia que elegiste. Son los meses clave para revisar tu lista de precios.</p>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                La herramienta genera recomendaciones personalizadas según la inflación y la frecuencia
+                elegida. Puede sugerirte:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Escenario</th>
+                        <th>Qué recomienda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟢</td>
+                        <td><strong>Inflación baja</strong> (≤2%)</td>
+                        <td>Ajustar precios semestral o anualmente.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟡</td>
+                        <td><strong>Inflación moderada</strong> (2-5%)</td>
+                        <td>Ajustar trimestralmente y monitorear de cerca.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Inflación alta</strong> (&gt;5%)</td>
+                        <td>Ajustar mensualmente, buscar proveedores alternativos, dolarizar costos.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⚠️</td>
+                        <td><strong>Alerta</strong></td>
+                        <td>Si elegís frecuencia poco frecuente para la inflación, te avisa que aumentes la frecuencia.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés una <strong>pizzería</strong> y querés planificar los precios de un año. Estos son tus datos actuales:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Precio de la pizza grande</td><td>$8.000</td></tr>
+                    <tr><td>Costo de los insumos</td><td>$5.500</td></tr>
+                    <tr><td>Margen actual</td><td>31,3%</td></tr>
+                    <tr><td>Margen deseado</td><td>40%</td></tr>
+                    <tr><td>Inflación mensual esperada</td><td>6%</td></tr>
+                    <tr><td>Frecuencia de ajuste</td><td>Mensual</td></tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué te dice la herramienta?</h3>
+
+            <div class="info-box">
+                <p><span class="title">📊 Resultado</span>
+                <strong>Precio recomendado mes 1:</strong> $9.167 (para llegar al 40% de margen)<br>
+                <strong>Ajuste acumulado en 12 meses:</strong> +101% (por inflación + suba de margen)<br>
+                <strong>Margen real proyectado:</strong> 40% constante</p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Semana 1:</strong> Actualizá el precio en el sistema y en la pizarra.</li>
+                <li><strong>Cada 1° de mes:</strong> Revisá el precio sugerido y ajustá según inflación real.</li>
+                <li><strong>Cada 3 meses:</strong> Revisá si tus costos subieron más de lo esperado y actualizá la inflación en la herramienta.</li>
+                <li><strong>Comunicación:</strong> Avisá a tus clientes frecuentes antes de cada ajuste importante.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Estrategia útil</span>
+                En vez de un solo aumento grande al año, hacé <strong>aumentos pequeños y frecuentes</strong>.
+                Psicológicamente, un 6% mensual molesta menos que un 100% anual.</p>
+            </div>
+
+            <h3>Comparación de escenarios</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Escenario</th>
+                        <th>Inflación</th>
+                        <th>Precio mes 1</th>
+                        <th>Precio mes 12</th>
+                        <th>Ajuste total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🟢 Optimista</td>
+                        <td>3%</td>
+                        <td>$9.167</td>
+                        <td>$11.628</td>
+                        <td>+45%</td>
+                    </tr>
+                    <tr>
+                        <td>🔵 Realista</td>
+                        <td>5%</td>
+                        <td>$9.167</td>
+                        <td>$13.927</td>
+                        <td>+74%</td>
+                    </tr>
+                    <tr>
+                        <td>🟠 Pesimista</td>
+                        <td>8%</td>
+                        <td>$9.167</td>
+                        <td>$17.556</td>
+                        <td>+119%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, las 4 tarjetas de resultados, la recomendación
+                estratégica, el gráfico con las 3 líneas, la tabla de proyección mensual y la descripción
+                resumida con los parámetros clave.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Generá un PDF <strong>cada trimestre</strong> y guardalo con el nombre del trimestre
+                (ej: <code>Precios_Q4_2026.pdf</code>). Al final del año tendrás un historial completo
+                de cómo evolucionaron tus precios.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan automáticamente?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Si cerrás el navegador, los valores vuelven a los defaults. Guardá un PDF si querés conservar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué diferencia hay entre margen deseado y margen actual?</div>
+                <div class="a">El margen actual es el que tenés hoy con tu precio y costo actuales. El margen deseado es el que querés mantener de aquí en adelante. La herramienta te ayuda a llevarlo del actual al deseado.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el precio recomendado puede ser distinto al actual?</div>
+                <div class="a">Porque el precio actual puede haberse quedado atrás respecto a los costos. Si tu margen actual es menor al deseado, el precio recomendado va a ser más alto.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si dejo la inflación en 0%?</div>
+                <div class="a">La herramienta asume que los costos no suben. El precio recomendado se mantiene constante y el margen real también. Útil para comparar escenarios sin inflación.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "Ajuste acumulado"?</div>
+                <div class="a">Es el porcentaje total que deberías aumentar tus precios desde el inicio hasta el final del período. Por ejemplo, +100% significa que en 12 meses el precio se duplica.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿La herramienta aplica IVA u otros impuestos?</div>
+                <div class="a">No. La herramienta trabaja con valores netos. Si sos Responsable Inscripto, tenés que agregar el IVA por fuera o incluirlo en el precio de venta antes de cargarlo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo simular varios productos a la vez?</div>
+                <div class="a">No en la misma pantalla. Para cada producto, cambiá los valores y analizá por separado. Podés guardar un PDF por producto si querés comparar.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el gráfico tiene dos ejes verticales?</div>
+                <div class="a">Porque los precios se miden en pesos ($) y el margen en porcentaje (%). El eje izquierdo es para precios y costos, el derecho para el margen.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto si vendo servicios en vez de productos?</div>
+                <div class="a">Sí, funciona igual. Reemplazá "Costo de Reposición" por "Costo del servicio" (horas, materiales, etc.) y listo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo sé si mi margen deseado es realista?</div>
+                <div class="a">Depende del mercado. Compará con tu competencia y con tu estructura de costos fijos. Si el margen deseado te deja fuera del mercado, ajustalo. Si te deja sin cubrir costos fijos, subilo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los escenarios optimista/realista/pesimista se aplican automáticamente?</div>
+                <div class="a">No. Son solo referencias. El cálculo principal usa el campo "Inflación Mensual". Si querés simular otro escenario, cambiá ese campo.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Revisá la herramienta todos los meses</h3>
+            <p>En Argentina, la inflación cambia rápido. Revisar cada mes te permite ajustar la proyección con datos más reales.</p>
+
+            <h3>2. Redondeá los precios al alza</h3>
+            <p>Si el precio sugerido es $8.462, cobrá $8.500 o $8.900. Los precios redondeados son más fáciles de comunicar y te dan un pequeño colchón extra.</p>
+
+            <h3>3. Mantené un margen mínimo de seguridad</h3>
+            <p>Si tu margen deseado es 35%, apuntá a 38% o 40%. Así tenés un colchón para cuando la inflación real supere la proyectada.</p>
+
+            <h3>4. Combiná con el Análisis de Estacionalidad</h3>
+            <p>En meses de alta temporada, podés subir un poco más el margen. En meses bajos, ajustá solo por inflación sin sumar margen extra.</p>
+
+            <h3>5. Usá los escenarios para planificar</h3>
+            <p>Si podés aguantar el escenario pesimista, vas a estar tranquilo en cualquier situación. Si solo podés con el optimista, necesitás ajustar tu estructura de costos.</p>
+
+            <h3>6. Revisá el margen después de cada ajuste real</h3>
+            <p>Después de subir precios, comparé el precio real con el sugerido por la herramienta. Si hubo diferencia, ajustá los parámetros.</p>
+
+            <h3>7. Guardá un PDF cada trimestre</h3>
+            <p>Un PDF trimestral te sirve para ver la evolución real de tus precios y comparar con lo que habías proyectado.</p>
+
+            <h3>8. Anotá la fecha del último aumento</h3>
+            <p>Agregá la fecha al nombre del archivo PDF. Así tenés un historial claro de cuándo ajustaste y por qué.</p>
+
+            <h3>9. No ajustes solo por inflación</h3>
+            <p>Si tus costos suben más que la inflación general (ej: tu proveedor sube más), usá el campo de inflación con ese valor específico.</p>
+
+            <h3>10. Comunicá los aumentos con anticipación</h3>
+            <p>Avisá a tus clientes frecuentes 1 semana antes de un ajuste importante. Reduce el impacto en las ventas y mejora la relación.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de 3 meses usando esta herramienta, vas a tener una rutina clara de ajuste de
+                precios y ya no vas a perder margen por quedarte atrás con la inflación. Eso es
+                protección real para tu rentabilidad.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Fijador de Precios Anti-Inflación</strong>:</p>
+            <div class="cards-grid">
+            <a href="calculadora-rentabilidad-producto.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📈 Rentabilidad por Producto</div>
+            <div class="card-desc">Verificá que los nuevos precios mantengan tus márgenes objetivo.</div>
+            </a>
+            <a href="simulador-equilibrio.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">⚖️ Punto de Equilibrio</div>
+            <div class="card-desc">Recalculá el BEP con los nuevos precios ajustados.</div>
+            </a>
+            <a href="analisis-estacionalidad.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📅 Análisis de Estacionalidad</div>
+            <div class="card-desc">Ajustá precios por temporada y por patrón de demanda.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Fijador de Precios Anti-Inflación</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

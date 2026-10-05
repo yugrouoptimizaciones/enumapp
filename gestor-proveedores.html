@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestor de Proveedores · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Gestor de Proveedores de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>🏢 ENUMAPP · GESTOR DE PROVEEDORES</h2>
+            <p>Comparativa de condiciones y puntaje ponderado</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    🏢 Gestor de Proveedores
+                    <small>· Comparación y evaluación</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-gestor-proveedores.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Registrá tus proveedores, asigná ponderaciones a los criterios clave y descubrí cuál es el mejor.
+        </div>
+
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group"><label>Nombre del Proveedor</label><input type="text" id="provNombre" placeholder="Ej: Distribuidora XYZ" /></div>
+                <div class="input-group"><label>Producto / Servicio</label><input type="text" id="provProducto" placeholder="Ej: Harina de trigo" /></div>
+                <div class="input-group"><label>Precio Unitario ($)</label><input type="number" id="provPrecio" value="1000" step="100" min="0" /></div>
+                <div class="input-group"><label>Plazo de Pago (días)</label><input type="number" id="provPlazoPago" value="30" step="1" min="0" /></div>
+                <div class="input-group"><label>Plazo de Entrega (días)</label><input type="number" id="provPlazoEntrega" value="5" step="1" min="0" /></div>
+                <div class="input-group"><label>Calidad (1-5)</label><input type="number" id="provCalidad" value="4" step="1" min="1" max="5" /></div>
+                <div class="input-group" style="grid-column: 1 / -1;">
+                    <label>Notas / Condiciones</label>
+                    <textarea id="provNotas" placeholder="Descuentos, penalizaciones, condiciones especiales"></textarea>
+                </div>
+                <div style="grid-column: 1 / -1; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                    <button class="btn-primary" onclick="agregarProveedor()">➕ Agregar Proveedor</button>
+                    <button class="btn-primary" style="background:#6c7a7a;" onclick="cargarEjemplos()">📋 Cargar Ejemplos</button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="form-section">
+            <h4>⚖️ Ponderación de Criterios (Importancia 1-5)</h4>
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Precio <span class="hint">· menor precio = mejor</span></label>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <input type="range" id="pesoPrecio" min="1" max="5" step="1" value="5" style="flex:1;" />
+                        <span style="font-weight:700; color:var(--color-text); font-size:18px;" id="pesoPrecioVal">5</span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Plazo de Pago <span class="hint">· más días = mejor</span></label>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <input type="range" id="pesoPlazoPago" min="1" max="5" step="1" value="4" style="flex:1;" />
+                        <span style="font-weight:700; color:var(--color-text); font-size:18px;" id="pesoPlazoPagoVal">4</span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Plazo de Entrega <span class="hint">· menos días = mejor</span></label>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <input type="range" id="pesoPlazoEntrega" min="1" max="5" step="1" value="3" style="flex:1;" />
+                        <span style="font-weight:700; color:var(--color-text); font-size:18px;" id="pesoPlazoEntregaVal">3</span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Calidad <span class="hint">· mayor puntaje = mejor</span></label>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <input type="range" id="pesoCalidad" min="1" max="5" step="1" value="4" style="flex:1;" />
+                        <span style="font-weight:700; color:var(--color-text); font-size:18px;" id="pesoCalidadVal">4</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-row">
+            <span class="badge">🏷️ <strong>Proveedores registrados</strong> · <span class="counter-badge" id="contadorProveedores">0</span></span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div id="proveedoresContainer" class="product-grid"></div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendación de Proveedor</h3>
+            <p id="recommendationText">Agregá al menos dos proveedores para recibir una recomendación.</p>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container medium"><canvas id="barChart"></canvas></div>
+            <div class="chart-container medium"><canvas id="radarChart"></canvas></div>
+        </div>
+
+        <div style="margin-top:20px;">
+            <details>
+                <summary style="font-weight:600; color:var(--color-text-secondary); cursor:pointer; padding:8px 0;">📋 Ver tabla comparativa completa</summary>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Proveedor</th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Plazo Pago</th>
+                                <th>Plazo Entrega</th>
+                                <th>Calidad</th>
+                                <th>Puntaje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProveedoresBody"></tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> El puntaje ponderado combina los criterios según la importancia que asignaste.</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        let proveedores = [];
+        let inicializado = false;
+
+        const provNombre = document.getElementById('provNombre');
+        const provProducto = document.getElementById('provProducto');
+        const provPrecio = document.getElementById('provPrecio');
+        const provPlazoPago = document.getElementById('provPlazoPago');
+        const provPlazoEntrega = document.getElementById('provPlazoEntrega');
+        const provCalidad = document.getElementById('provCalidad');
+        const provNotas = document.getElementById('provNotas');
+
+        const pesoPrecio = document.getElementById('pesoPrecio');
+        const pesoPlazoPago = document.getElementById('pesoPlazoPago');
+        const pesoPlazoEntrega = document.getElementById('pesoPlazoEntrega');
+        const pesoCalidad = document.getElementById('pesoCalidad');
+        const pesoPrecioVal = document.getElementById('pesoPrecioVal');
+        const pesoPlazoPagoVal = document.getElementById('pesoPlazoPagoVal');
+        const pesoPlazoEntregaVal = document.getElementById('pesoPlazoEntregaVal');
+        const pesoCalidadVal = document.getElementById('pesoCalidadVal');
+
+        const contador = document.getElementById('contadorProveedores');
+        const container = document.getElementById('proveedoresContainer');
+        const recommendationText = document.getElementById('recommendationText');
+        const tablaBody = document.getElementById('tablaProveedoresBody');
+        const printDesc = document.getElementById('printDesc');
+        const lastSaved = document.getElementById('lastSaved');
+
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        let chartBar = null, chartRadar = null;
+
+        function generarId() { return Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
+
+        /* ===== PERSISTENCIA ===== */
+        function guardarProveedores() {
+            if (!inicializado) return;
+            const estado = {
+                proveedores,
+                pesos: {
+                    precio: pesoPrecio.value,
+                    plazoPago: pesoPlazoPago.value,
+                    plazoEntrega: pesoPlazoEntrega.value,
+                    calidad: pesoCalidad.value
+                }
+            };
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.PROVEEDORES, estado);
+            lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function cargarProveedores() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.PROVEEDORES, null);
+            if (data && typeof data === 'object') {
+                if (Array.isArray(data.proveedores)) proveedores = data.proveedores;
+                if (data.pesos) {
+                    if (data.pesos.precio) { pesoPrecio.value = data.pesos.precio; pesoPrecioVal.textContent = data.pesos.precio; }
+                    if (data.pesos.plazoPago) { pesoPlazoPago.value = data.pesos.plazoPago; pesoPlazoPagoVal.textContent = data.pesos.plazoPago; }
+                    if (data.pesos.plazoEntrega) { pesoPlazoEntrega.value = data.pesos.plazoEntrega; pesoPlazoEntregaVal.textContent = data.pesos.plazoEntrega; }
+                    if (data.pesos.calidad) { pesoCalidad.value = data.pesos.calidad; pesoCalidadVal.textContent = data.pesos.calidad; }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        pesoPrecio.addEventListener('input', function() { pesoPrecioVal.textContent = this.value; renderizarTodo(); guardarProveedores(); });
+        pesoPlazoPago.addEventListener('input', function() { pesoPlazoPagoVal.textContent = this.value; renderizarTodo(); guardarProveedores(); });
+        pesoPlazoEntrega.addEventListener('input', function() { pesoPlazoEntregaVal.textContent = this.value; renderizarTodo(); guardarProveedores(); });
+        pesoCalidad.addEventListener('input', function() { pesoCalidadVal.textContent = this.value; renderizarTodo(); guardarProveedores(); });
+
+        function cargarEjemplos() {
+            const ejemplos = [
+                { nombre: 'Distribuidora Norte', producto: 'Harina de trigo', precio: 1200, plazoPago: 45, plazoEntrega: 3, calidad: 4, notas: 'Descuento 3% por pago adelantado' },
+                { nombre: 'Proveedores del Sur', producto: 'Harina de trigo', precio: 1000, plazoPago: 30, plazoEntrega: 5, calidad: 3, notas: 'Entrega sin cargo' },
+                { nombre: 'Alimentos Gourmet', producto: 'Harina de trigo', precio: 1350, plazoPago: 60, plazoEntrega: 2, calidad: 5, notas: 'Producto premium' }
+            ];
+            ejemplos.forEach(e => proveedores.push({ id: generarId(), ...e }));
+            renderizarTodo();
+            guardarProveedores();
+            ENUMAPP_UI.toast('✅ 3 proveedores cargados', 'success');
+        }
+
+        function agregarProveedor() {
+            const nombre = provNombre.value.trim();
+            const producto = provProducto.value.trim();
+            if (!nombre) { ENUMAPP_UI.toast('Ingresá el nombre del proveedor', 'warning'); return; }
+            if (!producto) { ENUMAPP_UI.toast('Ingresá el producto', 'warning'); return; }
+
+            proveedores.push({
+                id: generarId(),
+                nombre, producto,
+                precio: parseFloat(provPrecio.value) || 0,
+                plazoPago: parseFloat(provPlazoPago.value) || 0,
+                plazoEntrega: parseFloat(provPlazoEntrega.value) || 0,
+                calidad: parseFloat(provCalidad.value) || 1,
+                notas: provNotas.value.trim()
+            });
+
+            provNombre.value = ''; provProducto.value = '';
+            provPrecio.value = ''; provPlazoPago.value = '';
+            provPlazoEntrega.value = ''; provCalidad.value = ''; provNotas.value = '';
+
+            renderizarTodo();
+            guardarProveedores();
+            ENUMAPP_UI.toast('✅ Proveedor agregado', 'success');
+        }
+
+        function eliminarProveedor(id) {
+            proveedores = proveedores.filter(p => p.id !== id);
+            renderizarTodo();
+            guardarProveedores();
+        }
+
+        function calcularPuntajes() {
+            const wPrecio = parseFloat(pesoPrecio.value) || 1;
+            const wPago = parseFloat(pesoPlazoPago.value) || 1;
+            const wEntrega = parseFloat(pesoPlazoEntrega.value) || 1;
+            const wCalidad = parseFloat(pesoCalidad.value) || 1;
+
+            if (proveedores.length === 0) return [];
+
+            const maxPrecio = Math.max(...proveedores.map(p => p.precio));
+            const minPrecio = Math.min(...proveedores.map(p => p.precio));
+            const maxPago = Math.max(...proveedores.map(p => p.plazoPago));
+            const minPago = Math.min(...proveedores.map(p => p.plazoPago));
+            const maxEntrega = Math.max(...proveedores.map(p => p.plazoEntrega));
+            const minEntrega = Math.min(...proveedores.map(p => p.plazoEntrega));
+            const maxCalidad = Math.max(...proveedores.map(p => p.calidad));
+            const minCalidad = Math.min(...proveedores.map(p => p.calidad));
+
+            const rangePrecio = maxPrecio - minPrecio || 1;
+            const rangePago = maxPago - minPago || 1;
+            const rangeEntrega = maxEntrega - minEntrega || 1;
+            const rangeCalidad = maxCalidad - minCalidad || 1;
+
+            return proveedores.map(p => {
+                const scorePrecio = 1 - ((p.precio - minPrecio) / rangePrecio);
+                const scorePago = (p.plazoPago - minPago) / rangePago;
+                const scoreEntrega = 1 - ((p.plazoEntrega - minEntrega) / rangeEntrega);
+                const scoreCalidad = (p.calidad - minCalidad) / rangeCalidad;
+
+                const puntaje = (scorePrecio * wPrecio + scorePago * wPago + scoreEntrega * wEntrega + scoreCalidad * wCalidad) / (wPrecio + wPago + wEntrega + wCalidad);
+
+                return { ...p, scorePrecio, scorePago, scoreEntrega, scoreCalidad, puntaje: puntaje * 100 };
+            });
+        }
+
+        function renderizarTodo() {
+            const proveedoresConPuntaje = calcularPuntajes();
+            contador.textContent = proveedoresConPuntaje.length;
+
+            const sorted = [...proveedoresConPuntaje].sort((a, b) => b.puntaje - a.puntaje);
+            const mejor = sorted.length > 0 ? sorted[0] : null;
+
+            if (proveedoresConPuntaje.length === 0) {
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px 20px; color:var(--color-text-faint); background:var(--color-bg-card); border-radius:18px; border:1px dashed var(--color-border-input);">
+                    <span style="font-size:48px;">📭</span><br>
+                    <strong style="font-size:18px;">No hay proveedores registrados</strong>
+                </div>`;
+            } else {
+                let html = '';
+                sorted.forEach(p => {
+                    const isBest = mejor && p.id === mejor.id;
+                    html += `<div class="proveedor-card ${isBest ? 'best' : ''}">
+                        ${isBest ? '<div class="best-badge">⭐ Mejor</div>' : ''}
+                        <div class="nombre">${p.nombre}</div>
+                        <div class="producto">${p.producto}</div>
+                        <div class="detalle">
+                            <span>Precio:</span> ${ENUMAPP_FMT.money(p.precio)}<br>
+                            <span>Plazo pago:</span> ${p.plazoPago} días<br>
+                            <span>Plazo entrega:</span> ${p.plazoEntrega} días<br>
+                            <span>Calidad:</span> ${p.calidad}/5
+                            ${p.notas ? `<br><span style="color:var(--color-text-muted); font-size:13px;">📝 ${p.notas}</span>` : ''}
+                        </div>
+                        <div class="puntaje">🏆 ${p.puntaje.toFixed(1)} pts</div>
+                        <button class="btn-danger" onclick="eliminarProveedor('${p.id}')">🗑️ Eliminar</button>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            }
+
+            if (sorted.length === 0) {
+                recommendationText.textContent = 'Agregá al menos dos proveedores para recibir una recomendación.';
+            } else if (sorted.length === 1) {
+                recommendationText.innerHTML = `📌 Actualmente tenés un solo proveedor: <strong>${sorted[0].nombre}</strong>. Agregá más para comparar.`;
+            } else {
+                const mejorP = sorted[0];
+                const segundoP = sorted[1];
+                const diff = mejorP.puntaje - segundoP.puntaje;
+                let mensaje = `✅ <strong>Proveedor recomendado: ${mejorP.nombre}</strong> con ${mejorP.puntaje.toFixed(1)} puntos (${diff.toFixed(1)} pts por encima del segundo).<br>`;
+                mensaje += `📊 <strong>Fortalezas:</strong> ${mejorP.scorePrecio > 0.7 ? '✅ Precio competitivo ' : ''}${mejorP.scorePago > 0.7 ? '✅ Buen plazo de pago ' : ''}${mejorP.scoreEntrega > 0.7 ? '✅ Entrega rápida ' : ''}${mejorP.scoreCalidad > 0.7 ? '✅ Alta calidad ' : ''}`;
+                if (mejorP.notas) mensaje += `<br>📝 <strong>Nota:</strong> ${mejorP.notas}`;
+                recommendationText.innerHTML = mensaje;
+            }
+
+            let tablaHTML = '';
+            sorted.forEach(p => {
+                const isBest = mejor && p.id === mejor.id;
+                tablaHTML += `<tr class="${isBest ? 'top-row' : ''}">
+                    <td>${p.nombre}</td>
+                    <td>${p.producto}</td>
+                    <td>${ENUMAPP_FMT.money(p.precio)}</td>
+                    <td>${p.plazoPago} días</td>
+                    <td>${p.plazoEntrega} días</td>
+                    <td>${p.calidad}/5</td>
+                    <td><strong>${p.puntaje.toFixed(1)}</strong></td>
+                </tr>`;
+            });
+            tablaBody.innerHTML = tablaHTML || '<tr><td colspan="7">Sin proveedores</td></tr>';
+
+            if (chartBar) { chartBar.destroy(); chartBar = null; }
+            if (sorted.length > 0) {
+                chartBar = new Chart(ctxBar, {
+                    type: 'bar',
+                    data: {
+                        labels: sorted.map(p => p.nombre),
+                        datasets: [{
+                            label: 'Puntaje ponderado',
+                            data: sorted.map(p => p.puntaje),
+                            backgroundColor: sorted.map((p, i) => i === 0 ? 'rgba(46,204,113,0.8)' : 'rgba(43,123,228,0.7)'),
+                            borderColor: sorted.map((p, i) => i === 0 ? '#2ecc71' : '#2b7be4'),
+                            borderWidth: 2, borderRadius: 6,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: c => 'Puntaje: ' + c.parsed.y.toFixed(1) + ' pts' } }
+                        },
+                        scales: { y: { min: 0, max: 100, ticks: { callback: v => v + ' pts' } } }
+                    }
+                });
+            }
+
+            if (chartRadar) { chartRadar.destroy(); chartRadar = null; }
+            if (sorted.length > 0) {
+                const mejorP = sorted[0];
+                const labelsRadar = ['Precio', 'Plazo Pago', 'Plazo Entrega', 'Calidad'];
+                const dataRadar = [mejorP.scorePrecio * 100, mejorP.scorePago * 100, mejorP.scoreEntrega * 100, mejorP.scoreCalidad * 100];
+                let datasets = [{
+                    label: mejorP.nombre,
+                    data: dataRadar,
+                    backgroundColor: 'rgba(46,204,113,0.2)',
+                    borderColor: '#2ecc71',
+                    borderWidth: 3, pointBackgroundColor: '#2ecc71', pointRadius: 5,
+                }];
+                if (sorted.length > 1) {
+                    const segundo = sorted[1];
+                    datasets.push({
+                        label: segundo.nombre,
+                        data: [segundo.scorePrecio * 100, segundo.scorePago * 100, segundo.scoreEntrega * 100, segundo.scoreCalidad * 100],
+                        backgroundColor: 'rgba(43,123,228,0.2)',
+                        borderColor: '#2b7be4',
+                        borderWidth: 3, pointBackgroundColor: '#2b7be4', pointRadius: 5,
+                    });
+                }
+                chartRadar = new Chart(ctxRadar, {
+                    type: 'radar',
+                    data: { labels: labelsRadar, datasets },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top', labels: { font: { size: 12 }, color: '#0a2540' } },
+                            tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.r.toFixed(1)}%` } }
+                        },
+                        scales: {
+                            r: {
+                                min: 0, max: 100,
+                                ticks: { stepSize: 20, color: '#5b6f82', backdropColor: 'transparent' },
+                                grid: { color: 'rgba(0,0,0,0.07)' },
+                                angleLines: { color: 'rgba(0,0,0,0.1)' },
+                                pointLabels: { color: '#1f3a5f', font: { size: 12, weight: '600' } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            let desc = '';
+            if (sorted.length > 0) {
+                desc = `<strong>Mejor proveedor:</strong> ${sorted[0].nombre} (${sorted[0].puntaje.toFixed(1)} pts)<br>
+                    <strong>Total proveedores:</strong> ${sorted.length}`;
+            } else desc = 'Sin proveedores registrados.';
+            printDesc.innerHTML = desc;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        }
+
+        // ===== INICIALIZACIÓN =====
+        // 1) Cargar datos (sin tocar lastSaved)
+        // 2) Renderizar
+        // 3) Marcar inicializado
+        // 4) Forzar un guardado para que lastSaved quede con la hora actual
+        if (cargarProveedores()) {
+            renderizarTodo();
+            inicializado = true;
+            if (proveedores.length > 0) {
+                guardarProveedores();
+            } else {
+                lastSaved.textContent = 'Sin datos';
+            }
+        } else {
+            inicializado = true;
+            lastSaved.textContent = 'Sin datos';
+            renderizarTodo();
+        }
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+        window.addEventListener('beforeunload', guardarProveedores);
+
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (chartBar) chartBar.resize();
+                if (chartRadar) chartRadar.resize();
+            }, 200);
+        });
+    </script>
+
+</body>
+</html>

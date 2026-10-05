@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ENUMAPP · Tus números, tu negocio, tu app.</title>
+    <!-- ===== ENUMAPP Favicon ===== -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="ENUMAPP · Tus números, tu negocio, tu app." />
+    <style>
+        /* ===== ESTILOS GENERALES (Misma línea visual) ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15);
+            padding: 35px 40px 45px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a2540;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+        h1 small {
+            font-size: 16px;
+            font-weight: 400;
+            color: #5b6f82;
+            margin-left: 8px;
+        }
+        .subtitle {
+            color: #5b6f82;
+            font-size: 15px;
+            border-left: 4px solid #2b7be4;
+            padding-left: 16px;
+            margin-bottom: 30px;
+            background: #f8fafc;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.5;
+        }
+
+        /* ===== BARRA DE NAVEGACIÓN INTERNA ===== */
+        .toc {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 18px 24px;
+            border: 1px solid #e9eef4;
+            margin-bottom: 30px;
+        }
+        .toc h3 {
+            font-size: 15px;
+            color: #0a2540;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 6px 24px;
+        }
+        .toc ul li a {
+            color: #2b7be4;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+        }
+        .toc ul li a:hover {
+            color: #1a5fb4;
+            padding-left: 4px;
+        }
+        .toc ul li a::before {
+            content: '→';
+            color: #7a8b9f;
+            font-weight: 400;
+        }
+
+        /* ===== SECCIONES ===== */
+        section {
+            margin-bottom: 34px;
+            scroll-margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0a2540;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed #e6edf5;
+            margin-bottom: 18px;
+        }
+
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1f3a5f;
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f3a5f;
+            margin: 14px 0 6px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #1f3a5f;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        ul, ol {
+            margin: 8px 0 14px 24px;
+        }
+
+        li {
+            font-size: 15px;
+            color: #1f3a5f;
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        strong {
+            color: #0a2540;
+        }
+
+        code {
+            background: #f0f4f8;
+            color: #1a5fb4;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ===== CAJAS DE INFORMACIÓN ===== */
+        .info-box {
+            background: #f0f7ff;
+            border-left: 6px solid #2b7be4;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .info-box .title {
+            font-weight: 700;
+            color: #0a2540;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .tip-box {
+            background: #e5f4eb;
+            border-left: 6px solid #2ecc71;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .tip-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .tip-box .title {
+            font-weight: 700;
+            color: #0f6e3f;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .warning-box {
+            background: #fef5e7;
+            border-left: 6px solid #e67e22;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .warning-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .warning-box .title {
+            font-weight: 700;
+            color: #b45b0b;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .danger-box {
+            background: #fce8e8;
+            border-left: 6px solid #e74c3c;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .danger-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .danger-box .title {
+            font-weight: 700;
+            color: #b33c3c;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* ===== TABLA DE PASOS ===== */
+        .steps-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 18px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e9eef4;
+        }
+        .steps-table th {
+            background: #f0f4f8;
+            color: #1f3a5f;
+            font-weight: 600;
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 14px;
+            border-bottom: 2px solid #dce3ec;
+        }
+        .steps-table td {
+            padding: 12px 14px;
+            font-size: 14.5px;
+            color: #0a2540;
+            border-bottom: 1px solid #e9eef4;
+            vertical-align: top;
+        }
+        .steps-table tr:last-child td {
+            border-bottom: none;
+        }
+        .steps-table tr:hover td {
+            background: #fafcfe;
+        }
+        .steps-table .num {
+            width: 40px;
+            text-align: center;
+            font-weight: 700;
+            color: #2b7be4;
+        }
+
+        /* ===== BADGES Y CHIPS ===== */
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .badge.blue { background: #e7f2fa; color: #1a5a7a; }
+        .badge.green { background: #e5f4eb; color: #0f6e3f; }
+        .badge.orange { background: #fef5e7; color: #b45b0b; }
+        .badge.red { background: #fce8e8; color: #b33c3c; }
+
+        /* ===== TARJETAS DE MÉTRICAS ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .metric-card {
+            background: #f8fafc;
+            border: 1px solid #e9eef4;
+            border-radius: 16px;
+            padding: 16px 18px;
+            transition: 0.2s;
+        }
+        .metric-card:hover {
+            border-color: #2b7be4;
+            transform: translateY(-2px);
+        }
+        .metric-card .icon {
+            font-size: 22px;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .metric-card .name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a2540;
+            margin-bottom: 4px;
+        }
+        .metric-card .desc {
+            font-size: 13px;
+            color: #5b6f82;
+            line-height: 1.5;
+        }
+
+        /* ===== FÓRMULA DESTACADA ===== */
+        .formula-box {
+            background: #f0f7ff;
+            border: 1.5px dashed #2b7be4;
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin: 16px 0;
+            text-align: center;
+        }
+        .formula-box .formula {
+            font-size: 17px;
+            font-weight: 700;
+            color: #2b7be4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.5;
+        }
+        .formula-box .formula-desc {
+            font-size: 13.5px;
+            color: #5b6f82;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            background: #f8fafc;
+            border: 1px solid #e9eef4;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+        .faq-item:hover {
+            border-color: #2b7be4;
+        }
+        .faq-item .q {
+            font-weight: 700;
+            color: #0a2540;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .faq-item .q::before {
+            content: '❓';
+            flex-shrink: 0;
+        }
+        .faq-item .a {
+            font-size: 14.5px;
+            color: #1f3a5f;
+            line-height: 1.6;
+            padding-left: 26px;
+        }
+        .faq-item .a::before {
+            content: '💡 ';
+        }
+
+        /* ===== PASO A PASO ILUSTRADO ===== */
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .flow-step {
+            flex: 1;
+            min-width: 160px;
+            background: #f8fafc;
+            border: 1px solid #e9eef4;
+            border-radius: 16px;
+            padding: 16px 14px;
+            text-align: center;
+            position: relative;
+        }
+        .flow-step .step-num {
+            width: 32px;
+            height: 32px;
+            background: #2b7be4;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        .flow-step .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a2540;
+            margin-bottom: 4px;
+        }
+        .flow-step .step-desc {
+            font-size: 12.5px;
+            color: #5b6f82;
+            line-height: 1.5;
+        }
+
+        /* ===== ESCENARIOS ===== */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .scenario-card {
+            border-radius: 16px;
+            padding: 18px 18px 20px;
+            border: 1px solid #e9eef4;
+            transition: 0.2s;
+        }
+        .scenario-card:hover {
+            transform: translateY(-2px);
+        }
+        .scenario-card.opt {
+            background: #e5f4eb;
+            border-color: #a8d5ba;
+        }
+        .scenario-card.real {
+            background: #e7f2fa;
+            border-color: #b8d4e8;
+        }
+        .scenario-card.pes {
+            background: #fce8e8;
+            border-color: #f0b8b8;
+        }
+        .scenario-card .sc-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0a2540;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .scenario-card .sc-value {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 6px 0;
+        }
+        .scenario-card.opt .sc-value { color: #0f6e3f; }
+        .scenario-card.real .sc-value { color: #1a5a7a; }
+        .scenario-card.pes .sc-value { color: #b33c3c; }
+        .scenario-card .sc-desc {
+            font-size: 13px;
+            color: #5b6f82;
+            line-height: 1.5;
+        }
+
+        /* ===== BOTÓN VOLVER ARRIBA ===== */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #2b7be4;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(43, 123, 228, 0.4);
+            transition: 0.2s;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .back-top:hover {
+            background: #1a5fb4;
+            transform: scale(1.1);
+        }
+        .back-top.visible {
+            display: flex;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-note {
+            margin-top: 40px;
+            border-top: 1px solid #e6edf5;
+            padding-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 14px;
+            color: #5b6f82;
+        }
+        .footer-note strong {
+            color: #0a2540;
+        }
+/* ===== FOOTER SECUNDARIO (links) ===== */
+.footer {
+    text-align: center;
+    padding: 40px 20px 20px;
+    font-size: 13px;
+    color: #7a8b9f;
+    border-top: 1px solid #e9eef4;
+    background: #ffffff;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+
+.footer p {
+    margin-bottom: 6px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-top: 14px;
+}
+
+.footer a {
+    color: #2b7be4;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.footer a:hover {
+    color: #1a5fb4;
+    text-decoration: underline;
+}
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            .toc ul {
+                grid-template-columns: 1fr;
+            }
+            .steps-table th,
+            .steps-table td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+            .back-top {
+                width: 44px;
+                height: 44px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* ===== IMPRESIÓN ===== */
+        @media print {
+            body {
+                background: white !important;
+                padding: 0.3in !important;
+                display: block !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                padding: 20px !important;
+                border-radius: 8px !important;
+                max-width: 100% !important;
+            }
+            .toc,
+            .back-top,
+            .no-print {
+                display: none !important;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            .info-box,
+            .tip-box,
+            .warning-box,
+            .danger-box {
+                border: 1px solid #000 !important;
+                background: #f9f9f9 !important;
+                border-left: 6px solid #000 !important;
+            }
+            .steps-table th {
+                background: #f4f4f4 !important;
+                border: 1px solid #000 !important;
+            }
+            .steps-table td {
+                border: 1px solid #000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <h1>
+            📖 Manual de Uso
+            <small>· Calculadora de Rentabilidad por Producto</small>
+        </h1>
+        <div class="subtitle">
+            Guía completa para analizar la rentabilidad de cada producto. Aprendé a calcular márgenes,
+            descubrir tu punto de equilibrio y tomar decisiones sobre precios, costos y volumen de ventas.
+        </div>
+
+        <!-- ===== ÍNDICE ===== -->
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#margenes">Margen bruto vs. margen neto</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#punto-equilibrio">Punto de equilibrio</a></li>
+                <li><a href="#graficos">Interpretar los gráficos</a></li>
+                <li><a href="#escenarios">Escenarios de ventas</a></li>
+                <li><a href="#tabla">Tabla de sensibilidad</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+            </ul>
+        </div>
+
+        <!-- ===== SECCIÓN 1: QUÉ ES ===== -->
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                La <strong>Calculadora de Rentabilidad por Producto</strong> es una herramienta que te permite
+                analizar en profundidad <strong>cuánto ganás realmente con cada producto que vendés</strong>.
+            </p>
+            <p>Con esta calculadora vas a poder:</p>
+            <ul>
+                <li>Conocer el <strong>margen bruto</strong> y el <strong>margen neto</strong> de cada producto.</li>
+                <li>Saber cuál es tu <strong>punto de equilibrio</strong>: cuántas unidades necesitás vender para no perder.</li>
+                <li>Simular <strong>3 escenarios de ventas</strong> (optimista, realista, pesimista).</li>
+                <li>Ver el <strong>impacto de la inflación</strong> en tus costos y precios.</li>
+                <li>Recibir <strong>recomendaciones automáticas</strong> según la rentabilidad obtenida.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Rentabilidad</span>
+                No es lo mismo que "margen". La rentabilidad es el <strong>dinero que realmente te queda</strong>
+                después de restar TODOS los costos (variables + fijos). Un producto puede tener buen margen bruto
+                pero baja rentabilidad si no vende lo suficiente para cubrir los costos fijos.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 2: CUÁNDO USARLA ===== -->
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Antes de lanzar un producto nuevo</strong>: validar si los números cierran.</li>
+                <li><strong>Revisar productos existentes</strong>: identificar cuáles son rentables y cuáles no.</li>
+                <li><strong>Definir precios</strong>: calcular cuánto cobrar para llegar al margen deseado.</li>
+                <li><strong>Analizar promociones</strong>: ver si un descuento afecta demasiado la rentabilidad.</li>
+                <li><strong>Planificar stock</strong>: saber cuánto pedir de cada producto según su rentabilidad.</li>
+                <li><strong>Decidir discontinuar productos</strong>: si un producto no es rentable, mejor sacarlo de la línea.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Analizá <strong>un producto a la vez</strong>. Para comparar varios, hacé el análisis por separado
+                y guardá un PDF de cada uno. Después podés compararlos manualmente.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 3: PRIMEROS PASOS ===== -->
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos del producto</div>
+                    <div class="step-desc">Nombre, categoría, precio y costos</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Parámetros</div>
+                    <div class="step-desc">Volumen, inflación y escenario</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Resultados</div>
+                    <div class="step-desc">Márgenes, rentabilidad y BEP</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráficos y tabla</div>
+                    <div class="step-desc">Comparativa visual y escenarios</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Importante</span>
+                La herramienta viene con valores de ejemplo precargados ("Pasapalos Gourmet"). Podés modificar
+                cualquier campo y los resultados se actualizan <strong>en tiempo real</strong>, sin necesidad de
+                presionar ningún botón.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 4: CAMPOS ===== -->
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>8 campos principales</strong>. Te explico cada uno:</p>
+
+            <h3>Datos generales</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Nombre del Producto</strong></td>
+                        <td>Nombre que identifica al producto. Solo para referencia.</td>
+                        <td>Pasapalos Gourmet</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Categoría</strong></td>
+                        <td>Línea a la que pertenece. Ayuda a agrupar productos.</td>
+                        <td>Alimentos, Bebidas, Electrónica</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Datos económicos</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Precio de Venta Unitario</strong></td>
+                        <td>Lo que cobrás por cada unidad al cliente.</td>
+                        <td>$8.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Costo Variable Unitario</strong></td>
+                        <td>Lo que te cuesta cada unidad: materia prima, insumos, comisiones.</td>
+                        <td>$5.500</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Costos Fijos Asignados</strong></td>
+                        <td>Parte de los costos fijos que le asignás a este producto (alquiler, sueldos, servicios).</td>
+                        <td>$5.000/mes</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Volumen Estimado de Ventas</strong></td>
+                        <td>Cuántas unidades esperás vender por mes.</td>
+                        <td>10 unidades</td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td><strong>Inflación / Devaluación Anual</strong></td>
+                        <td>Cuánto esperás que suban los precios en el año. Solo para proyección.</td>
+                        <td>60%</td>
+                    </tr>
+                    <tr>
+                        <td class="num">8</td>
+                        <td><strong>Escenario de Ventas</strong></td>
+                        <td>Optimista (+20%), Realista (base) o Pesimista (−20%).</td>
+                        <td>Realista</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué son los "costos fijos asignados"?</h3>
+            <p>
+                Son los gastos que tenés aunque no vendas nada: alquiler, sueldos fijos, servicios, internet, etc.
+                Como no podés asignarlos a un producto específico, se <strong>reparten proporcionalmente</strong>.
+            </p>
+
+            <div class="info-box">
+                <p><span class="title">💡 Ejemplo de asignación</span>
+                Si tenés $50.000 de costos fijos mensuales y vendés 5 productos distintos, podés asignar
+                <strong>$10.000 a cada uno</strong>. O si un producto representa el 40% de tus ventas,
+                le asignás el 40% de los costos fijos ($20.000).</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 5: MÁRGENES ===== -->
+        <section id="margenes">
+            <h2>💰 Margen bruto vs. margen neto</h2>
+            <p>La diferencia entre ambos es <strong>fundamental</strong> para entender tu rentabilidad real.</p>
+
+            <div class="formula-box">
+                <div class="formula">Margen Bruto = (Precio − Costo Variable) ÷ Precio × 100</div>
+                <div class="formula-desc">
+                    Mide cuánto te queda después de pagar solo los costos variables.
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <div class="formula">Margen Neto = (Precio − Costo Variable − Costo Fijo Unitario) ÷ Precio × 100</div>
+                <div class="formula-desc">
+                    Mide cuánto te queda después de pagar TODOS los costos (variables + fijos).
+                </div>
+            </div>
+
+            <h3>Comparativa práctica</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Margen Bruto</th>
+                        <th>Margen Neto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Qué mide</strong></td>
+                        <td>Rentabilidad por unidad vendida, sin contar gastos fijos.</td>
+                        <td>Rentabilidad real después de cubrir todos los gastos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cuándo usarlo</strong></td>
+                        <td>Para comparar productos entre sí y definir precios.</td>
+                        <td>Para saber si el producto realmente deja ganancia.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Valor típico</strong></td>
+                        <td>30% – 50%</td>
+                        <td>10% – 30%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Si es negativo</strong></td>
+                        <td>Estás vendiendo por debajo del costo. Alerta roja.</td>
+                        <td>No cubrís los gastos fijos. El producto te hace perder plata.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Importante</span>
+                Un producto con buen margen bruto puede tener <strong>margen neto negativo</strong> si vendés pocas
+                unidades. Porque los costos fijos se reparten entre menos unidades, y cada una "carga" con más costo fijo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 6: MÉTRICAS ===== -->
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de ingresar los datos, vas a ver 4 tarjetas con los resultados principales:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">💵</span>
+                    <div class="name">Margen Bruto Unitario</div>
+                    <div class="desc">Cuánto te queda por unidad después de pagar el costo variable. Se muestra en $ y en %.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Margen Neto Unitario</div>
+                    <div class="desc">Cuánto te queda por unidad después de pagar TODOS los costos. Es tu ganancia real por unidad.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💰</span>
+                    <div class="name">Rentabilidad Mensual (Neto)</div>
+                    <div class="desc">La ganancia total del mes: margen neto unitario × unidades vendidas. Es lo que realmente ganás con este producto.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">⚖️</span>
+                    <div class="name">Punto de Equilibrio</div>
+                    <div class="desc">Cuántas unidades necesitás vender para cubrir todos los costos. Por debajo de eso, perdés; por encima, ganás.</div>
+                </div>
+            </div>
+
+            <h3>Cómo leer los colores</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Significado</th>
+                        <th>Acción sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟢</td>
+                        <td><strong>Verde</strong> · Rentabilidad positiva y sana</td>
+                        <td>Mantener y escalar el producto.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟡</td>
+                        <td><strong>Amarillo</strong> · Rentabilidad ajustada</td>
+                        <td>Optimizar costos o subir precios.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Rojo</strong> · Pérdida o margen crítico</td>
+                        <td>Revisar urgente o discontinuar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 7: PUNTO DE EQUILIBRIO ===== -->
+        <section id="punto-equilibrio">
+            <h2>⚖️ Punto de equilibrio</h2>
+            <p>
+                El <strong>punto de equilibrio</strong> (o BEP por sus siglas en inglés: Break-Even Point) es la
+                cantidad de unidades que necesitás vender para <strong>cubrir exactamente todos tus costos</strong>.
+                Ni ganás ni perdés.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Punto de Equilibrio (unid.) = Costos Fijos ÷ Margen Bruto Unitario</div>
+                <div class="formula-desc">
+                    Ejemplo: si tus costos fijos son $5.000 y el margen bruto es $2.500, el BEP es 2 unidades.
+                </div>
+            </div>
+
+            <h3>Cómo interpretarlo</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Situación</th>
+                        <th>Qué significa</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vendés <strong>menos</strong> que el BEP</td>
+                        <td>Estás perdiendo plata con este producto.</td>
+                        <td>Necesitás aumentar el volumen o reducir costos.</td>
+                    </tr>
+                    <tr>
+                        <td>Vendés <strong>exactamente</strong> el BEP</td>
+                        <td>Ni ganás ni perdés. Empate.</td>
+                        <td>Necesitás vender más para ser rentable.</td>
+                    </tr>
+                    <tr>
+                        <td>Vendés <strong>más</strong> que el BEP</td>
+                        <td>Cada unidad extra es ganancia neta.</td>
+                        <td>Buen trabajo. Podés considerar subir el precio.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Regla de oro</span>
+                Cuanto <strong>más bajo sea tu BEP</strong>, mejor. Significa que necesitás vender menos para no
+                perder. Si tu BEP es muy alto respecto a tu volumen estimado, tenés un producto frágil.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 8: GRÁFICOS ===== -->
+        <section id="graficos">
+            <h2>📈 Interpretar los gráficos</h2>
+            <p>La herramienta genera 2 gráficos que te ayudan a visualizar la rentabilidad:</p>
+
+            <h3>1. Gráfico de Barras (izquierda)</h3>
+            <p>Compara dos valores por unidad:</p>
+            <ul>
+                <li><strong>Barra azul</strong>: Margen Bruto</li>
+                <li><strong>Barra verde</strong>: Margen Neto</li>
+            </ul>
+            <p>
+                Si la diferencia entre ambas barras es grande, significa que tus <strong>costos fijos pesan mucho</strong>
+                sobre este producto. Si son similares, el impacto de los costos fijos es bajo.
+            </p>
+
+            <h3>2. Gráfico de Torta/Dona (derecha)</h3>
+            <p>Muestra cómo se descompone el precio de venta:</p>
+            <ul>
+                <li><span class="badge orange">Naranja</span> <strong>Costo Variable</strong>: lo que pagás por materia prima e insumos.</li>
+                <li><span class="badge blue">Gris</span> <strong>Costo Fijo Unitario</strong>: la parte proporcional de tus gastos fijos.</li>
+                <li><span class="badge green">Verde</span> <strong>Margen Neto</strong>: lo que realmente te queda.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Interpretación visual</span>
+                <strong>Cuanto más grande la porción verde, mejor.</strong> Si el verde es muy pequeño o no existe,
+                necesitás revisar precios o costos urgentemente.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 9: ESCENARIOS ===== -->
+        <section id="escenarios">
+            <h2>🎲 Escenarios de ventas</h2>
+            <p>
+                En el formulario hay un campo <strong>Escenario de Ventas</strong> con 3 opciones que ajustan
+                el volumen de ventas:
+            </p>
+
+            <div class="scenarios-grid">
+                <div class="scenario-card opt">
+                    <div class="sc-title">🟢 Optimista</div>
+                    <div class="sc-value">+20% volumen</div>
+                    <div class="sc-desc">Simula un mes con mejores ventas de lo esperado. Útil para ver el potencial de ganancia.</div>
+                </div>
+                <div class="scenario-card real">
+                    <div class="sc-title">🔵 Realista</div>
+                    <div class="sc-value">Base (0%)</div>
+                    <div class="sc-desc">El escenario más probable. Usa el volumen estimado tal cual.</div>
+                </div>
+                <div class="scenario-card pes">
+                    <div class="sc-title">🔴 Pesimista</div>
+                    <div class="sc-value">−20% volumen</div>
+                    <div class="sc-desc">Simula un mes con peores ventas. Sirve para saber cuánto podés aguantar sin perder plata.</div>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Cómo usar los escenarios</span>
+                Elegí el escenario <strong>Pesimista</strong> y verificá si tu producto sigue siendo rentable.
+                Si en el peor escenario perdés plata, tenés un producto <strong>frágil</strong> que necesita ajustes.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 10: TABLA ===== -->
+        <section id="tabla">
+            <h2>📋 Tabla de sensibilidad</h2>
+            <p>
+                Debajo de los gráficos hay una sección plegable con la <strong>tabla comparativa de los 3 escenarios</strong>.
+                Hacé clic en "📋 Ver tabla de escenarios y sensibilidad" para expandirla.
+            </p>
+
+            <h3>Columnas de la tabla</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Columna</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Escenario</strong></td>
+                        <td>Optimista, Realista o Pesimista.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio</strong></td>
+                        <td>El precio de venta unitario (no cambia entre escenarios).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Costo Var.</strong></td>
+                        <td>El costo variable por unidad (no cambia entre escenarios).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Volumen</strong></td>
+                        <td>Cantidad estimada de unidades según el escenario.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Margen Neto %</strong></td>
+                        <td>El margen neto como porcentaje del precio.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rentabilidad Mensual</strong></td>
+                        <td>Ganancia neta del mes según el escenario.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Qué mirar</span>
+                Compará las filas de la tabla para ver cómo cambia la rentabilidad entre escenarios.
+                Si en el escenario Pesimista la rentabilidad se vuelve <strong>muy negativa</strong>,
+                tu producto depende demasiado del volumen alto.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 11: RECOMENDACIONES ===== -->
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                La herramienta genera recomendaciones personalizadas según el margen y la rentabilidad obtenidos.
+                Puede darte 4 tipos de mensajes:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Tipo</th>
+                        <th>Cuándo aparece</th>
+                        <th>Qué sugiere</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Alerta crítica</strong></td>
+                        <td>Margen bruto ≤ 0</td>
+                        <td>Revisar precio o reducir costos variables. Cada venta genera pérdida.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟡</td>
+                        <td><strong>Ajuste necesario</strong></td>
+                        <td>Rentabilidad negativa</td>
+                        <td>Aumentar precio o reducir costos fijos. También subir volumen al BEP.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟢</td>
+                        <td><strong>Rentabilidad baja</strong></td>
+                        <td>Rentabilidad positiva pero < 10% de CF</td>
+                        <td>Optimizar costos o aumentar volumen. Margen ajustado.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🌟</td>
+                        <td><strong>Excelente rentabilidad</strong></td>
+                        <td>Rentabilidad alta</td>
+                        <td>Escalar el producto o replicar el éxito en otras líneas.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Nota sobre inflación</span>
+                Si cargaste un % de inflación anual, la recomendación incluye un aviso sobre cómo impactará
+                en tu costo futuro y qué precio deberías cobrar para mantener el margen.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 12: EJEMPLO ===== -->
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés un negocio de <strong>pasapalos gourmet</strong> y querés analizar el producto estrella:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nombre del producto</td>
+                        <td>Bandeja Premium</td>
+                    </tr>
+                    <tr>
+                        <td>Precio de venta</td>
+                        <td>$8.000</td>
+                    </tr>
+                    <tr>
+                        <td>Costo variable unitario</td>
+                        <td>$5.500</td>
+                    </tr>
+                    <tr>
+                        <td>Costos fijos asignados</td>
+                        <td>$5.000/mes</td>
+                    </tr>
+                    <tr>
+                        <td>Volumen estimado</td>
+                        <td>10 unidades/mes</td>
+                    </tr>
+                    <tr>
+                        <td>Inflación anual</td>
+                        <td>60%</td>
+                    </tr>
+                    <tr>
+                        <td>Escenario</td>
+                        <td>Realista</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué calcula la herramienta?</h3>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Margen Bruto Unitario</td>
+                        <td>$2.500 (31,3%)</td>
+                        <td>Después de pagar el costo variable, te quedan $2.500 por unidad.</td>
+                    </tr>
+                    <tr>
+                        <td>Costo Fijo Unitario</td>
+                        <td>$500</td>
+                        <td>$5.000 de CF ÷ 10 unidades vendidas.</td>
+                    </tr>
+                    <tr>
+                        <td>Margen Neto Unitario</td>
+                        <td>$2.000 (25,0%)</td>
+                        <td>Tu ganancia real por unidad después de cubrir TODOS los costos.</td>
+                    </tr>
+                    <tr>
+                        <td>Rentabilidad Mensual</td>
+                        <td>$20.000</td>
+                        <td>$2.000 × 10 unidades = ganancia neta del mes.</td>
+                    </tr>
+                    <tr>
+                        <td>Punto de Equilibrio</td>
+                        <td>2 unidades</td>
+                        <td>Con vender 2 unidades ya cubrís todos los costos.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Producto saludable</strong>: con 10 unidades vendidas estás muy por encima del BEP. Es un producto rentable.</li>
+                <li><strong>Analizá el impacto de la inflación</strong>: si tu costo sube un 60% anual, el precio debería subir a ~$12.800 para mantener el margen.</li>
+                <li><strong>Escalá el producto</strong>: si podés vender 20 unidades, la rentabilidad se duplica a $40.000.</li>
+                <li><strong>Revisá los escenarios</strong>: en el pesimista (8 unidades), la rentabilidad baja a $16.000 pero sigue siendo positiva.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                Este producto tiene una <strong>estructura sana</strong>: 31% de margen bruto, 25% de margen neto,
+                y un BEP de solo 2 unidades. Es un producto que podés escalar sin miedo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 13: PDF ===== -->
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, tarjetas de resultados, recomendaciones, ambos gráficos
+                (barras y torta), tabla de escenarios y descripción resumen con los parámetros clave.
+                Se ocultan automáticamente los campos de entrada y los botones.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Tip para comparar productos</span>
+                Guardá un PDF por cada producto con el nombre del archivo incluyendo el nombre del producto.
+                Así podés comparar varios productos rápidamente abriendo varios PDFs a la vez.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 14: FAQ ===== -->
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al cerrar el navegador, los valores vuelven a los defaults. Si querés conservar un análisis, guardalo como PDF.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuál es la diferencia entre margen bruto y margen neto?</div>
+                <div class="a">El bruto solo resta los costos variables. El neto resta los variables + los fijos. El neto es tu ganancia real por unidad.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo asigno los costos fijos a un producto?</div>
+                <div class="a">Podés asignar un monto fijo por producto, o un porcentaje proporcional a las ventas de ese producto. Ej: si representa el 30% de tus ventas, asignale el 30% de los CF.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si el costo variable supera el precio?</div>
+                <div class="a">La herramienta te alerta con margen bruto negativo. Cada venta genera pérdida. Tenés que subir el precio o reducir costos urgente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El punto de equilibrio tiene en cuenta el IVA?</div>
+                <div class="a">No. La herramienta trabaja con valores netos. Si sos Responsable Inscripto, el IVA no afecta tu rentabilidad real (lo trasladás al cliente). Si sos Monotributista, el precio incluye el IVA y no se descuenta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el margen neto puede ser mayor al bruto?</div>
+                <div class="a">No puede. El margen neto siempre es menor o igual al bruto porque descuenta más costos. Si ves lo contrario, revisá los datos ingresados.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo simulo un aumento de precio?</div>
+                <div class="a">Cambiá el campo "Precio de Venta Unitario" y observá cómo se actualizan todos los cálculos en tiempo real.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa que el BEP sea 0?</div>
+                <div class="a">Que no tenés costos fijos asignados a este producto. Todo lo que vendés es ganancia neta (después del costo variable). Idealmente no debería ser 0 en la realidad.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo analizar servicios además de productos?</div>
+                <div class="a">Sí. Reemplazá "costo variable" por el costo de las horas o materiales, y "costo fijo asignado" por gastos fijos del servicio.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué inflación anual uso?</div>
+                <div class="a">Usá la inflación esperada para los próximos 12 meses. En Argentina, consultá el REM del BCRA o el promedio de analistas. Como referencia, valores entre 40% y 80% son realistas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los escenarios cambian los costos fijos?</div>
+                <div class="a">No. Los costos fijos son los mismos en los 3 escenarios. Lo que cambia es el volumen de ventas, que afecta el costo fijo unitario (se reparte entre más o menos unidades).</div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 15: TIPS ===== -->
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Revisá el margen neto, no el bruto</h3>
+            <p>El margen bruto te dice si el producto "vale la pena", pero el neto te dice si realmente ganás dinero. Priorizá el neto.</p>
+
+            <h3>2. Analizá el peor escenario primero</h3>
+            <p>Antes de entusiasmarte con un producto, mirá el escenario pesimista. Si sigue siendo rentable, es un producto sólido.</p>
+
+            <h3>3. Compará productos entre sí</h3>
+            <p>No analices un producto aislado. Guardá PDFs y compáralos: ¿cuál tiene mejor margen? ¿Cuál tiene BEP más bajo? Ahí están las oportunidades.</p>
+
+            <h3>4. Cuidado con los productos de bajo margen</h3>
+            <p>Un producto con 10% de margen neto no te deja casi nada. Antes de escalarlo, asegurate de que el volumen sea MUY alto.</p>
+
+            <h3>5. Revisá los costos fijos asignados</h3>
+            <p>Muchas veces asignamos los CF de forma arbitraria. Revisá si el criterio es justo. Si un producto usa más espacio o personal, debería cargar más CF.</p>
+
+            <h3>6. Subí precios en escalones pequeños</h3>
+            <p>En vez de un aumento grande, hacé varios pequeños. Cada 3 meses subí un 5-10%. El cliente lo siente menos.</p>
+
+            <h3>7. Usá el punto de equilibrio como meta mínima</h3>
+            <p>Tu meta de ventas nunca debería ser menor al BEP. Si no llegás al BEP, perdés plata. Apuntá siempre a 1,5x o 2x el BEP.</p>
+
+            <h3>8. Revisá el impacto inflacionario</h3>
+            <p>La herramienta te muestra cuánto subiría tu costo con la inflación esperada. Usá ese dato para planificar los aumentos de precio.</p>
+
+            <h3>9. Combiná con el Fijador de Precios Anti-Inflación</h3>
+            <p>El fijador te da los precios mes a mes; la calculadora te dice si esos precios te dan rentabilidad. Usalas juntas.</p>
+
+            <h3>10. Documentá y compará trimestralmente</h3>
+            <p>Cada 3 meses, volvé a analizar tus productos top. Los costos cambian, la inflación avanza. Mantené el análisis actualizado.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta, vas a saber <strong>qué productos vale la pena escalar, cuáles mantener y cuáles discontinuar</strong>.
+                Ese es el primer paso para un negocio rentable y sano.</p>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Calculadora de Rentabilidad por Producto</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+        <br>
+        <!-- ===== FOOTER ===== -->
+        <div>
+            <footer class="footer" align="center">
+                <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                        <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                        <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                        <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                        <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                        <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    </svg>
+                    <strong style="color:#0A2540; font-size:15px; letter-spacing:1.5px;">ENUMAPP</strong>
+                </div>
+                <p style="font-size:12px; color:#7a8b9f; font-style:italic; margin-bottom:8px;">Tus números, tu negocio, tu app.</p>
+                <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+                <div class="footer-links">
+                    <a href="suite.html">Inicio</a>
+                    <a href="contacto.html" target="_blank" rel="noopener noreferrer">Contacto</a>
+                    <a href="premium-proximamente.html" target="_blank" rel="noopener noreferrer">Activar Premium</a>
+                    <a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+                    <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    <!-- ===== BOTÓN VOLVER ARRIBA ===== -->
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script>
+        // ===== SCROLL SUAVE PARA LOS ENLACES DEL ÍNDICE =====
+        document.querySelectorAll('.toc a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== MOSTRAR/OCULTAR BOTÓN VOLVER ARRIBA =====
+        const backTop = document.getElementById('backTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backTop.classList.add('visible');
+            } else {
+                backTop.classList.remove('visible');
+            }
+        });
+
+        // ===== ATAJOS DE TECLADO =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Home' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        });
+
+        console.log('📖 Manual de Uso de la Calculadora de Rentabilidad cargado.');
+    </script>
+</body>
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Asistente de Planificación Fiscal · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Asistente de Planificación Fiscal de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE PLANIFICACIÓN FISCAL</h2>
+            <p>Transición de Monotributo a Responsable Inscripto</p>
+            <div class="report-date" id="printDate"></div>
+            <div style="font-size:11px; color:#555; margin-top:4px;">
+                Valores vigentes: <strong>ARCA · Agosto 2026</strong>
+            </div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Asistente de Planificación Fiscal</small>
+                </h1>
+            </div>
+            <a href="asistente-planificacion-fiscal.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para evaluar la transición de Monotributo a Responsable Inscripto.
+            Aprendé a comparar tu carga fiscal actual con la proyectada y a seguir la hoja de ruta
+            para tomar la mejor decisión.
+            <span style="display:inline-block; background:var(--color-primary); color:white; padding:2px 12px; border-radius:30px; font-size:12px; font-weight:600; margin-left:8px;">📅 ARCA · Agosto 2026</span>
+        </div>
+
+        <!-- ===== DISCLAIMER GRANDE ===== -->
+        <div class="danger-box">
+            <p><span class="title">⚠️ AVISO IMPORTANTE — Herramienta orientativa</span>
+            Esta calculadora es <strong>estimativa</strong> y no reemplaza el asesoramiento de un contador público matriculado.
+            Las alícuotas, escalas y mínimos no imponibles <strong>cambian con cada reforma fiscal</strong>.
+            <strong>Valores vigentes: ARCA · Agosto 2026</strong>.
+            Antes de tomar cualquier decisión, verificá los valores actualizados en ARCA (ex AFIP) y consultá con un profesional.</p>
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#disclaimer">⚠️ Aviso importante</a></li>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#categorias">Categorías de Monotributo</a></li>
+                <li><a href="#impuestos">Los impuestos comparados</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#estados">Los 3 estados de decisión</a></li>
+                <li><a href="#checklist">Checklist de la transición</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#detalle">Análisis detallado</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <!-- ===== DISCLAIMER (SECCIÓN) ===== -->
+        <section id="disclaimer">
+            <h2>⚠️ Aviso importante</h2>
+            <p>Esta herramienta es <strong>orientativa</strong>. No reemplaza el asesoramiento de un contador
+            público matriculado. Las alícuotas, escalas y mínimos no imponibles cambian con cada reforma fiscal.</p>
+            <div class="danger-box">
+                <p><span class="title">Valores vigentes: ARCA · Agosto 2026</span>
+                Antes de tomar cualquier decisión fiscal, verificá los valores actualizados en el sitio oficial
+                de ARCA (ex AFIP) y consultá con un profesional matriculado. Esta calculadora usa valores
+                promedio y simplificaciones que pueden no reflejar tu situación particular.</p>
+            </div>
+        </section>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Asistente de Planificación Fiscal</strong> es una calculadora que te permite
+                <strong>comparar tu carga fiscal actual como Monotributista con la que tendrías como
+                Responsable Inscripto</strong> (RI). El objetivo es que puedas decidir con datos concretos
+                si te conviene hacer la transición.
+            </p>
+            <p>Con esta herramienta podés:</p>
+            <ul>
+                <li>Calcular tu <strong>carga fiscal anual</strong> como Monotributista.</li>
+                <li>Proyectar tu <strong>carga fiscal como Responsable Inscripto</strong> (IVA + Ganancias + IIBB + Aportes previsionales).</li>
+                <li>Ver el <strong>desglose de cada impuesto</strong> como RI en 4 tarjetas independientes.</li>
+                <li>Ver la <strong>diferencia</strong> entre ambas opciones (ahorro o sobrecosto).</li>
+                <li>Saber si <strong>superás el límite</strong> de tu categoría de Monotributo.</li>
+                <li>Recibir una <strong>recomendación personalizada</strong>.</li>
+                <li>Seguir un <strong>checklist de pasos</strong> para la transición.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Monotributo vs. RI</span>
+                El <strong>Monotributo</strong> es un régimen simplificado: pagás una cuota fija mensual que
+                incluye IVA, Ganancias y jubilación. El <strong>Responsable Inscripto</strong> paga cada
+                impuesto por separado: IVA (21%), Ganancias (25% sobre utilidad), Ingresos Brutos
+                (2-3.5% según provincia) y <strong>aportes previsionales como autónomo</strong>. Si facturás
+                mucho, el RI puede ser más barato; si facturás poco, el Monotributo suele convenir.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Antes de superar el límite</strong> de tu categoría de Monotributo: preparate con tiempo.</li>
+                <li><strong>Reevaluar tu situación</strong> cada 6 meses si tu facturación está creciendo.</li>
+                <li><strong>Cuando un contador te sugiere</strong> hacer la transición: validalo con números.</li>
+                <li><strong>Antes de firmar contratos grandes</strong> con clientes que exigen factura A.</li>
+                <li><strong>Al planificar inversiones</strong>: el RI te permite deducir más gastos.</li>
+                <li><strong>Para tener una segunda opinión</strong> antes de consultar un profesional.</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Herramienta orientativa</span>
+                Esta calculadora es una <strong>estimación simplificada</strong>. El sistema tributario
+                argentino es complejo y tiene muchas variables (deducciones, escalas, retenciones, etc.).
+                Usala como guía, pero <strong>siempre consultá a un contador</strong> antes de tomar
+                decisiones.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, se cargan datos de ejemplo. Vas a ver esta estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos del contribuyente</div>
+                    <div class="step-desc">6 campos editables</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Comparativa fiscal</div>
+                    <div class="step-desc">4 tarjetas de resultados</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Desglose RI</div>
+                    <div class="step-desc">4 tarjetas por impuesto</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Checklist</div>
+                    <div class="step-desc">Pasos de la transición</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">5</div>
+                    <div class="step-title">Gráfico comparativo</div>
+                    <div class="step-desc">Monotributo vs. RI</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Pasos básicos para usar la herramienta</span>
+                <strong>1.</strong> Cargá tus datos (ingresos, gastos, categoría, provincia, actividad).<br>
+                <strong>2.</strong> Hacé clic en <span class="badge blue">📊 Calcular</span>.<br>
+                <strong>3.</strong> Leé las 4 tarjetas comparativas y las 4 de desglose RI.<br>
+                <strong>4.</strong> Revisá la recomendación y seguí el checklist.<br>
+                <strong>5.</strong> Generá el PDF para guardar o compartir con tu contador.</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>6 campos</strong>. Te explico cada uno:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Ingresos Brutos Mensuales</strong></td>
+                        <td>Tu facturación promedio mensual (antes de impuestos).</td>
+                        <td>$5.000.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Gastos Deducibles Anuales</strong></td>
+                        <td>Total de gastos deducibles del año (insumos, alquiler, servicios, etc.).</td>
+                        <td>$30.000.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Categoría de Monotributo</strong></td>
+                        <td>La categoría en la que estás actualmente (A a K).</td>
+                        <td>H</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Provincia</strong></td>
+                        <td>Tu jurisdicción para el cálculo de Ingresos Brutos.</td>
+                        <td>Córdoba</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Actividad / Rubro</strong></td>
+                        <td>Tu tipo de actividad. Afecta la alícuota de IVA (21% general, 10.5% agropecuario).</td>
+                        <td>Servicios</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Cantidad de Empleados</strong></td>
+                        <td>Si tenés personal en relación de dependencia.</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Cómo estimar tus ingresos brutos</span>
+                Sumá todas tus facturas de los últimos 3 meses y dividí por 3. Eso te da un promedio
+                realista. Si tu facturación varía mucho, usá el promedio de los últimos 6 meses.</p>
+            </div>
+        </section>
+
+        <section id="categorias">
+            <h2>🏷️ Categorías de Monotributo</h2>
+            <p>
+                Las categorías van de la <strong>A</strong> (la más baja) a la <strong>K</strong> (la más alta).
+                Cada una tiene un límite de facturación anual y una cuota mensual.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Límite mensual</th>
+                        <th>Límite anual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>A</strong></td><td>$1.000.784/mes</td><td>Hasta $12M anual</td></tr>
+                    <tr><td><strong>B</strong></td><td>$1.466.265/mes</td><td>Hasta $17,6M anual</td></tr>
+                    <tr><td><strong>C</strong></td><td>$2.055.874/mes</td><td>Hasta $24,7M anual</td></tr>
+                    <tr><td><strong>D</strong></td><td>$2.552.388/mes</td><td>Hasta $30,6M anual</td></tr>
+                    <tr><td><strong>E</strong></td><td>$3.002.353/mes</td><td>Hasta $36M anual</td></tr>
+                    <tr><td><strong>F</strong></td><td>$3.762.638/mes</td><td>Hasta $45,1M anual</td></tr>
+                    <tr><td><strong>G</strong></td><td>$4.499.650/mes</td><td>Hasta $54M anual</td></tr>
+                    <tr><td><strong>H</strong></td><td>$6.827.055/mes</td><td>Hasta $81,9M anual</td></tr>
+                    <tr><td><strong>I</strong></td><td>$7.641.647/mes</td><td>Hasta $91,7M anual</td></tr>
+                    <tr><td><strong>J</strong></td><td>$8.751.043/mes</td><td>Hasta $105M anual</td></tr>
+                    <tr><td><strong>K</strong></td><td>$10.550.902/mes</td><td>Hasta $126,6M anual</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Valores actualizados a Agosto 2026</span>
+                Los valores pueden cambiar semestralmente. Consultá siempre con tu contador o en
+                el sitio oficial de <strong>ARCA</strong> (ex AFIP) para tener los valores vigentes.</p>
+            </div>
+        </section>
+
+        <section id="impuestos">
+            <h2>💼 Los impuestos comparados</h2>
+            <p>La herramienta compara 2 escenarios usando los impuestos correspondientes a cada uno:</p>
+
+            <h3>Como Monotributista</h3>
+            <ul>
+                <li><strong>Cuota de Monotributo</strong>: pago mensual fijo según categoría. <strong>Incluye</strong> el aporte previsional (jubilación) y la obra social.</li>
+                <li><strong>Ingresos Brutos (IIBB)</strong>: alícuota provincial reducida (aproximadamente 50% de la alícuota general).</li>
+            </ul>
+
+            <h3>Como Responsable Inscripto</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Impuesto</th>
+                        <th>Alícuota / Base</th>
+                        <th>Cómo se calcula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IVA</strong></td>
+                        <td>21% (o 10.5% para agropecuario)</td>
+                        <td>IVA débito (ventas) − IVA crédito (compras) = IVA neto.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ganancias</strong></td>
+                        <td>25% sobre utilidad neta</td>
+                        <td>(Ingresos anuales − Gastos deducibles) × 25%.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ingresos Brutos</strong></td>
+                        <td>2% a 3.5% según provincia</td>
+                        <td>Facturación anual × alícuota provincial.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aportes previsionales</strong></td>
+                        <td>~$180.000/mes (autónomo)</td>
+                        <td>Aporte mensual fijo × 12 meses. Reemplaza la jubilación que pagabas en el Monotributo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cargas sociales</strong></td>
+                        <td>~$220.000 por empleado/mes</td>
+                        <td>Solo si tenés empleados en relación de dependencia (jubilación, obra social, ART).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Diferencia clave</span>
+                Como Responsable Inscripto pagás <strong>aportes previsionales como autónomo</strong> (~$180.000/mes),
+                que en el Monotributo están incluidos dentro de la cuota mensual. Si además tenés empleados,
+                sumás <strong>cargas sociales patronales</strong> (~$220.000/mes por empleado). Esto suele ser
+                el factor que más impacta en la comparación.</p>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Alícuotas de IIBB por provincia</span>
+                <strong>CABA</strong>: 3.5% · <strong>Buenos Aires</strong>: 3.0% · <strong>Córdoba</strong>: 2.5%
+                · <strong>Santa Fe</strong>: 2.8% · <strong>Mendoza</strong>: 2.2% · <strong>Otras</strong>: 2.0%.
+                Son alícuotas promedio para actividades de servicios y comercio.</p>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de calcular, vas a ver <strong>8 tarjetas</strong> organizadas en 2 bloques.</p>
+
+            <h3>Bloque 1 · Comparativa fiscal (4 tarjetas)</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">💰</span>
+                    <div class="name">Carga Actual (Monotributo)</div>
+                    <div class="desc">Lo que pagás al año como Monotributista + IIBB reducido.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Carga Proyectada (RI)</div>
+                    <div class="desc">Lo que pagarías al año como RI: IVA + Ganancias + IIBB + Aportes previsionales.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📉</span>
+                    <div class="name">Diferencia</div>
+                    <div class="desc">La resta entre ambas cargas. <strong>Positiva</strong> = RI más caro. <strong>Negativa</strong> = RI más barato.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🧠</span>
+                    <div class="name">Recomendación</div>
+                    <div class="desc">Cambiar, Evaluar o Esperar. Resumen ejecutivo de la situación.</div>
+                </div>
+            </div>
+
+            <h3>Bloque 2 · Desglose Responsable Inscripto (4 tarjetas)</h3>
+            <p>Debajo de la comparativa, la herramienta muestra <strong>4 tarjetas de desglose</strong>
+            con el detalle de cada impuesto como RI:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">🧾</span>
+                    <div class="name">IVA Neto</div>
+                    <div class="desc">IVA débito − IVA crédito. Es lo que efectivamente tenés que depositar.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Impuesto a las Ganancias</div>
+                    <div class="desc">25% sobre la utilidad neta (ingresos − gastos deducibles).</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🏛️</span>
+                    <div class="name">Ingresos Brutos (IIBB)</div>
+                    <div class="desc">Alícuota provincial aplicada a la facturación. Varía según jurisdicción.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">👤</span>
+                    <div class="name">Aportes Previsionales</div>
+                    <div class="desc">Aporte autónomo (~$180.000/mes) + cargas sociales por empleado (~$220.000/mes c/u).</div>
+                </div>
+            </div>
+
+            <h3>Cómo leer la diferencia</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Diferencia</th>
+                        <th>Significado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge red">Positiva (+)</span></td>
+                        <td>Como RI pagarías <strong>más</strong> que como Monotributista. Es un sobrecosto.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge green">Negativa (−)</span></td>
+                        <td>Como RI pagarías <strong>menos</strong>. Es un ahorro real.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge gray">Cero (0)</span></td>
+                        <td>Es indiferente fiscalmente. La decisión depende de otros factores (clientes, proyección).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="estados">
+            <h2>🎭 Los 3 estados de decisión</h2>
+            <p>La herramienta recomienda una de estas 3 opciones según tus datos:</p>
+
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-title">✅ Cambiar</div>
+                    <div class="card-cond">Superás el límite Y el RI es más barato</div>
+                    <div class="card-desc">
+                        Es el escenario ideal. Ya no podés seguir como Monotributista y encima
+                        te conviene económicamente el cambio. Iniciá la transición.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-title">⚠️ Evaluar</div>
+                    <div class="card-cond">Superás el límite pero el RI es más caro</div>
+                    <div class="card-desc">
+                        Tenés que salir del Monotributo, pero como RI pagarías más. Consultá
+                        con un contador para buscar estrategias de optimización (deducciones, etc.).
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">⏳ Esperar</div>
+                    <div class="card-cond">No superás el límite</div>
+                    <div class="card-desc">
+                        Todavía no necesitás cambiar. Seguí como Monotributista y reevaluá
+                        cuando tus ingresos se acerquen al límite de tu categoría.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="checklist">
+            <h2>📋 Checklist de la transición</h2>
+            <p>
+                Si la recomendación es <strong>Cambiar</strong> o <strong>Evaluar</strong>, la herramienta
+                genera un checklist con los pasos para hacer la transición correctamente.
+            </p>
+
+            <div class="checklist">
+                <h4>📋 Checklist de pasos para la transición</h4>
+                <div class="checklist-item"><span class="num">1.</span> Evaluar si superás los límites de facturación del Monotributo <span class="done">✅ hecho</span></div>
+                <div class="checklist-item"><span class="num">2.</span> Consultar con un contador de confianza <span class="pending">⏳ pendiente</span></div>
+                <div class="checklist-item"><span class="num">3.</span> Inscribirte en el Impuesto a las Ganancias <span class="done">✅ hecho</span></div>
+                <div class="checklist-item"><span class="num">4.</span> Inscribirte en el IVA <span class="done">✅ hecho</span></div>
+                <div class="checklist-item"><span class="num">5.</span> Dar de baja el Monotributo <span class="done">✅ hecho</span></div>
+                <div class="checklist-item"><span class="num">6.</span> Empezar a facturar con IVA y retenciones <span class="pending">⏳ pendiente</span></div>
+                <div class="checklist-item"><span class="num">7.</span> Llevar contabilidad formal (libros, balances) <span class="pending">⏳ pendiente</span></div>
+                <div class="checklist-item"><span class="num">8.</span> Presentar declaraciones juradas mensuales/anuales <span class="pending">⏳ pendiente</span></div>
+            </div>
+
+            <h3>Cómo interpretar los estados del checklist</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Significado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge green">✅ hecho</span></td>
+                        <td>La herramienta detectó que este paso ya está cubierto por tu situación.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge orange">⏳ pendiente</span></td>
+                        <td>Este paso lo tenés que hacer vos. Requiere acción concreta.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Sobre los aportes previsionales</span>
+                Al pasar a RI, dejás de pagar la cuota del Monotributo (que incluía jubilación) y empezás
+                a pagar <strong>aportes como autónomo</strong> más las <strong>cargas sociales</strong> por cada
+                empleado. Este costo suele ser el factor que más impacta en la comparación y muchas veces
+                explica por qué el RI resulta más caro en el corto plazo.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ El checklist es orientativo</span>
+                Los pasos pueden variar según tu situación particular. Algunos pasos se pueden hacer
+                en paralelo y otros tienen plazos específicos. <strong>Consultá con un contador</strong>
+                para armar tu plan de transición personalizado.</p>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico compara las <strong>dos cargas fiscales anuales</strong> en un gráfico
+                de barras simple. Tiene solo 2 barras:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Barra</th>
+                        <th>Representa</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">🔵</td>
+                        <td><strong>Monotributo actual</strong></td>
+                        <td>Azul</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🟠</td>
+                        <td><strong>Responsable Inscripto proyectado</strong></td>
+                        <td>Naranja</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué buscar en el gráfico</h3>
+            <ul>
+                <li>Si la barra azul es <strong>más alta</strong>: el Monotributo te cuesta más. Conviene cambiar.</li>
+                <li>Si la barra naranja es <strong>más alta</strong>: el RI te cuesta más. Evaluá opciones.</li>
+                <li>Si son <strong>similares</strong>: la decisión depende de otros factores.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                Al pasar el mouse sobre cada barra, el tooltip te muestra el valor exacto de la
+                carga fiscal anual. Es útil para comparar con precisión.</p>
+            </div>
+        </section>
+
+        <section id="detalle">
+            <h2>🔍 Análisis detallado</h2>
+            <p>
+                Debajo del gráfico hay un bloque llamado <strong>Análisis detallado</strong> que
+                desglosa los cálculos:
+            </p>
+
+            <h3>Qué incluye el análisis</h3>
+            <ul>
+                <li><strong>Resumen general</strong>: ingresos, gastos, categoría y límites.</li>
+                <li><strong>Estado</strong>: si superás o no el límite de tu categoría.</li>
+                <li><strong>Carga actual (Monotributo)</strong> con el detalle de la cuota y el IIBB reducido.</li>
+                <li><strong>Carga proyectada (RI)</strong> con el desglose completo:
+                    <ul style="margin-top:6px;">
+                        <li><strong>IVA neto</strong>: débito fiscal − crédito fiscal. Se muestra aparte el débito y el crédito.</li>
+                        <li><strong>Ganancias</strong>: 25% sobre la utilidad neta estimada.</li>
+                        <li><strong>Ingresos Brutos</strong>: según tu provincia, con la alícuota visible.</li>
+                        <li><strong>Aportes previsionales</strong>: aporte autónomo anual + cargas sociales por empleados.</li>
+                    </ul>
+                </li>
+                <li><strong>Diferencia</strong> en pesos y su naturaleza (ahorro o sobrecosto).</li>
+                <li><strong>Análisis</strong>: la recomendación en texto completo.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Por qué es útil el desglose</span>
+                Te permite ver <strong>qué impuesto pesa más</strong> en tu caso particular. Por ejemplo,
+                si el IVA neto es muy alto, podés buscar más gastos deducibles. Si los aportes previsionales
+                son altos, evaluá si vale la pena tener empleados. Cada tarjeta te da una pista de dónde optimizar.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que sos un <strong>consultor de sistemas</strong> en Córdoba y estos son tus datos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Ingresos mensuales</td><td>$5.000.000</td></tr>
+                    <tr><td>Gastos deducibles anuales</td><td>$30.000.000</td></tr>
+                    <tr><td>Categoría actual</td><td>H</td></tr>
+                    <tr><td>Provincia</td><td>Córdoba (2.5%)</td></tr>
+                    <tr><td>Actividad</td><td>Servicios</td></tr>
+                    <tr><td>Empleados</td><td>1</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Cómo se calcula la carga RI (desglose)</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Cálculo</th>
+                        <th>Monto anual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IVA neto</td>
+                        <td>IVA débito ($12.600.000) − IVA crédito ($4.410.000)</td>
+                        <td>$8.190.000</td>
+                    </tr>
+                    <tr>
+                        <td>Ganancias</td>
+                        <td>Utilidad ($60M − $30M) × 25%</td>
+                        <td>$7.500.000</td>
+                    </tr>
+                    <tr>
+                        <td>Ingresos Brutos</td>
+                        <td>$60.000.000 × 2.5%</td>
+                        <td>$1.500.000</td>
+                    </tr>
+                    <tr>
+                        <td>Aporte autónomo</td>
+                        <td>$180.000 × 12</td>
+                        <td>$2.160.000</td>
+                    </tr>
+                    <tr>
+                        <td>Cargas sociales</td>
+                        <td>1 empleado × $220.000 × 12</td>
+                        <td>$2.640.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total RI</strong></td>
+                        <td></td>
+                        <td><strong>$21.990.000</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Comparación final</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Carga actual (Monotributo)</td>
+                        <td>$9.369.963</td>
+                        <td>Cuota H + IIBB reducido</td>
+                    </tr>
+                    <tr>
+                        <td>Carga proyectada (RI)</td>
+                        <td>$21.990.000</td>
+                        <td>IVA + Ganancias + IIBB + Aportes previsionales</td>
+                    </tr>
+                    <tr>
+                        <td>Diferencia</td>
+                        <td style="color:#b33c3c; font-weight:700;">+$12.620.037</td>
+                        <td>Sobrecosto anual de casi $12,6M si cambia</td>
+                    </tr>
+                    <tr>
+                        <td>Recomendación</td>
+                        <td><span class="badge orange">⏳ Esperar</span></td>
+                        <td>No supera el límite (H: $81,9M/anual) — el Monotributo sigue conviniendo</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Nota sobre el ejemplo</span>
+                Este caso es típico de un profesional con buenos ingresos pero <strong>pocos gastos deducibles</strong>.
+                El IVA neto y los aportes previsionales son los factores que hacen que el RI sea más caro.
+                A medida que crecen los ingresos y los gastos, la balanza puede inclinarse hacia el RI.</p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Consultar a un contador</strong> para validar los números.</li>
+                <li><strong>Evaluar cuándo vas a superar el límite</strong> de la categoría H (mensual o anual).</li>
+                <li><strong>Proyectar la transición</strong> a medida que crezcan tus ingresos.</li>
+                <li><strong>Considerar clientes que exigen Factura A</strong>: aunque no estés obligado, puede convenirte.</li>
+                <li><strong>Seguir el checklist</strong> de la herramienta paso a paso cuando llegue el momento.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Análisis de sensibilidad</span>
+                Si tu facturación es más alta o tus gastos son mayores, el resultado puede invertirse.
+                Probá distintos valores en el formulario para ver a partir de qué nivel te conviene el cambio.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar el análisis o compartirlo con tu contador:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha y vigencia, las 4 tarjetas de comparativa,
+                las 4 tarjetas de desglose RI, la recomendación detallada, el checklist completo, el
+                gráfico comparativo y el resumen con los datos clave.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                <strong>Llevá el PDF a tu contador</strong>. Es una excelente base para iniciar la
+                conversación y aprovechar mejor la reunión. También podés guardarlo como respaldo
+                de tu análisis.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">Sí. Los datos se guardan en el almacenamiento local del navegador. Al volver a abrir la herramienta, encontrás tus últimos valores cargados.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Esta herramienta reemplaza al contador?</div>
+                <div class="a">No. Es una herramienta orientativa. El sistema tributario argentino tiene muchas variables y cambios frecuentes. Siempre consultá con un contador matriculado antes de tomar decisiones.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "superás el límite"?</div>
+                <div class="a">Que tu facturación mensual es mayor al máximo permitido para tu categoría de Monotributo. Si pasás 12 meses consecutivos por encima del límite, quedás excluido del régimen.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si no supero el límite pero el RI me conviene?</div>
+                <div class="a">Podés pasar voluntariamente a RI aunque no estés obligado. Es útil si tus clientes exigen factura A o si tenés muchos gastos deducibles.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es el "IVA neto"?</div>
+                <div class="a">Es la diferencia entre el IVA que cobrás a tus clientes (débito fiscal) y el IVA que pagás en tus compras (crédito fiscal). Si cobrás más del que pagás, tenés que depositar la diferencia.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué en Monotributo el IIBB es más bajo?</div>
+                <div class="a">Porque el régimen simplificado tiene una alícuota reducida de Ingresos Brutos en muchas provincias (aproximadamente 50% de la alícuota general). Es un beneficio del Monotributo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué son los aportes previsionales y las cargas sociales?</div>
+                <div class="a">Son dos conceptos distintos: los <strong>aportes previsionales del autónomo</strong> (~$180.000/mes) los pagás vos como titular para tu jubilación y obra social. Las <strong>cargas sociales patronales</strong> (~$220.000/mes por empleado) las pagás por cada empleado en relación de dependencia (jubilación, obra social, ART, etc.). En Monotributo, tu aporte previsional ya está incluido en la cuota mensual.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Se puede volver al Monotributo después de ser RI?</div>
+                <div class="a">Sí, si cumplís los requisitos y esperás 3 años desde la exclusión. Consultá con un contador para conocer los detalles y plazos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa con los clientes que me piden factura A?</div>
+                <div class="a">Si sos Monotributista, solo podés emitir factura C. Si tus clientes exigen factura A, es un motivo para pasar a RI aunque no estés obligado por el límite.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Las alícuotas cambian según el año?</div>
+                <div class="a">Sí. Los valores de las categorías de Monotributo se actualizan semestralmente, y las escalas de Ganancias y las alícuotas provinciales también pueden cambiar. La herramienta usa valores de <strong>ARCA · Agosto 2026</strong>.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo modificar los valores del cálculo?</div>
+                <div class="a">No desde la interfaz. Los valores están fijos en el código. Si necesitás actualizarlos, editá las constantes al inicio del script de la herramienta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto si estoy inscripto en Ganancias?</div>
+                <div class="a">Sí. Si ya sos RI, la herramienta te sirve para comparar qué pasaría si volvieras al Monotributo (aunque esto tiene limitaciones legales). O para confirmar que tu decisión fue correcta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué se eliminó el "+ monotributo × 0.3" que antes aparecía?</div>
+                <div class="a">Era un error. Una vez que pasás a Responsable Inscripto, <strong>dejás de pagar Monotributo</strong>. No hay que sumar ninguna parte proporcional de la cuota de Monotributo al cálculo del RI. Ahora el cálculo refleja únicamente los impuestos y aportes que efectivamente pagarías como RI.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Cargá tus gastos reales, no estimados</h3>
+            <p>El cálculo de Ganancias e IVA depende fuertemente de los gastos deducibles. Si subestimás los gastos, sobreestimarás la carga de RI. Revisá tus registros contables.</p>
+
+            <h3>2. Actualizá los datos cada 6 meses</h3>
+            <p>Las alícuotas y categorías cambian. Volvé a usar la herramienta cada 6 meses para mantener el análisis actualizado.</p>
+
+            <h3>3. Probá varios escenarios</h3>
+            <p>Simulá distintos niveles de facturación (por ejemplo, si crecés un 20% anual) para ver en qué punto te conviene más el cambio.</p>
+
+            <h3>4. Combiná con la Calculadora de Importación</h3>
+            <p>Si importás mercadería, esa herramienta te da los costos reales. Esos costos son parte de tus gastos deducibles para el cálculo de Ganancias.</p>
+
+            <h3>5. Guardá el PDF y llevalo al contador</h3>
+            <p>Es la mejor forma de tener una conversación productiva. El contador puede validar los números y agregar variables que la herramienta no considera.</p>
+
+            <h3>6. No te apures con el cambio</h3>
+            <p>La transición de Monotributo a RI tiene costos operativos (contabilidad, sistemas, capacitación). Considerá esos costos antes de decidir.</p>
+
+            <h3>7. Analizá el impacto en tus clientes</h3>
+            <p>Como RI, tus precios incluirán IVA explícito. Algunos clientes particulares pueden no estar dispuestos a pagarlo. Evalualo antes del cambio.</p>
+
+            <h3>8. Investigá las alícuotas de tu provincia</h3>
+            <p>Cada provincia tiene sus propias alícuotas y regímenes de IIBB. Si operás en varias jurisdicciones, el cálculo es más complejo.</p>
+
+            <h3>9. Guardá un PDF cada trimestre</h3>
+            <p>Un PDF por trimestre te da un historial de cómo evolucionó tu análisis. Útil para ver tendencias y para auditorías.</p>
+
+            <h3>10. Consultá siempre con un profesional</h3>
+            <p>Esta herramienta es orientativa. Las decisiones fiscales tienen consecuencias legales y financieras importantes. Un contador te ahorra tiempo, dinero y problemas.</p>
+
+            <h3>11. Analizá las 4 tarjetas de desglose RI</h3>
+            <p>No mires solo el total. Mirá <strong>qué impuesto pesa más</strong> en tu caso. Si el IVA neto es
+            muy alto, buscá más gastos deducibles. Si los aportes previsionales son altos, evaluá si vale la pena
+            tener empleados. Cada tarjeta te da una pista de dónde optimizar.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta, vas a tener <strong>claridad sobre tu mejor opción fiscal</strong>
+                y una hoja de ruta para tomar la decisión correcta en el momento adecuado. Eso te puede
+                ahorrar millones de pesos al año.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Asistente de Planificación Fiscal</strong>:</p>
+            <div class="cards-grid">
+            <a href="calculadora-importacion.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📦 Calculadora de Importación</div>
+            <div class="card-desc">Los costos de importación son gastos deducibles para Ganancias.</div>
+            </a>
+            <a href="panel-kpis.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📊 Panel de KPIs</div>
+            <div class="card-desc">Seguí tus ingresos para detectar cuándo superás el límite del Monotributo.</div>
+            </a>
+            <a href="calculadora-rentabilidad-producto.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📈 Rentabilidad por Producto</div>
+            <div class="card-desc">Optimizá márgenes para reducir la carga de Ganancias.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Asistente de Planificación Fiscal</span>
+            <span>🔄 Valores vigentes: <strong>ARCA · Agosto 2026</strong> · Última actualización del manual: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

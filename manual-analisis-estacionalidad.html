@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Análisis de Estacionalidad · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Análisis de Estacionalidad de ENUMAPP. Tus números, tu negocio, tu app." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE ANÁLISIS DE ESTACIONALIDAD</h2>
+            <p>Patrones estacionales en ventas y costos</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Análisis de Estacionalidad</small>
+                </h1>
+            </div>
+            <a href="analisis-estacionalidad.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para identificar patrones estacionales en tus ventas y costos.
+            Aprendé a planificar stock, ajustar precios y diseñar promociones basándote en datos históricos.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#cargar">Cómo cargar datos mensuales</a></li>
+                <li><a href="#indice">El índice estacional</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#graficos">Interpretar los 3 gráficos</a></li>
+                <li><a href="#tendencia">Tendencia general</a></li>
+                <li><a href="#correlacion">Correlación ventas-costos</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Análisis de Estacionalidad</strong> es una herramienta que te permite identificar
+                patrones en tus ventas y costos a lo largo de los 12 meses del año. Con estos datos, podés
+                descubrir qué meses son buenos y cuáles no, y planificar con anticipación.
+            </p>
+            <p>Con esta herramienta vas a poder:</p>
+            <ul>
+                <li>Identificar tus <strong>meses de alta temporada</strong> (más ventas).</li>
+                <li>Detectar tus <strong>meses de baja temporada</strong> (menos ventas).</li>
+                <li>Ver si tus ventas tienen una <strong>tendencia creciente o decreciente</strong>.</li>
+                <li>Calcular la <strong>correlación</strong> entre ventas y costos.</li>
+                <li>Recibir un <strong>plan de acción</strong> concreto para cada período.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Índice Estacional</span>
+                Es un número que expresa cada mes como porcentaje del promedio anual. Un índice de 120%
+                significa que ese mes vendiste un 20% más que el promedio. Un índice de 80% significa
+                que vendiste un 20% menos.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Planificar stock:</strong> saber cuánto comprar en cada mes.</li>
+                <li><strong>Definir precios:</strong> ajustar precios según la demanda estacional.</li>
+                <li><strong>Diseñar promociones:</strong> impulsar ventas en meses flojos.</li>
+                <li><strong>Planificar vacaciones:</strong> tomarte descanso en meses de baja.</li>
+                <li><strong>Presupuestar:</strong> anticipar flujos de caja mensuales.</li>
+                <li><strong>Negociar con proveedores:</strong> comprar en temporada baja cuando hay mejores precios.</li>
+                <li><strong>Comparar años:</strong> si llevás varios años de datos, podés ver la evolución.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Actualizá los datos al menos una vez al mes. Después de 12 meses, vas a tener un análisis
+                sólido de tu negocio. Cuantos más meses de historia cargues, más precisas serán las
+                predicciones.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Tabla de datos</div>
+                    <div class="step-desc">12 filas, una por cada mes</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Botones de acción</div>
+                    <div class="step-desc">Calcular, Ejemplo, Reiniciar, PDF</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Tarjetas de resultados</div>
+                    <div class="step-desc">Promedios y meses extremos</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráficos</div>
+                    <div class="step-desc">Ventas, costos e índice estacional</div>
+                </div>
+            </div>
+
+            <h3>🔘 Barra de botones</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Botón</th>
+                        <th>Nombre</th>
+                        <th>Para qué sirve</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">📊</td>
+                        <td><strong>Calcular</strong></td>
+                        <td>Procesa los datos ingresados y genera los gráficos, tarjetas y recomendaciones.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">📋</td>
+                        <td><strong>Ejemplo</strong></td>
+                        <td>Carga datos de muestra para ver cómo funciona la herramienta.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">🗑️</td>
+                        <td><strong>Reiniciar</strong></td>
+                        <td>Borra todos los datos guardados y deja la tabla en blanco.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">📄</td>
+                        <td><strong>Generar Informe PDF</strong></td>
+                        <td>Abre el diálogo de impresión para guardar el análisis como PDF.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="cargar">
+            <h2>✍️ Cómo cargar datos mensuales</h2>
+            <p>
+                En la tabla <strong>Datos mensuales</strong> vas a encontrar 12 filas (una por mes) y 2 columnas editables.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Columna</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">💰</td>
+                        <td><strong>Ventas ($)</strong> · Total facturado en el mes</td>
+                        <td>85.000</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📉</td>
+                        <td><strong>Costos ($)</strong> · Todos los gastos del mes</td>
+                        <td>62.000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Pasos para ingresar datos</h3>
+            <ol>
+                <li>Hacé clic en la celda que querés completar (por ejemplo, "Enero · Ventas").</li>
+                <li>Escribí el número <strong>sin símbolos</strong> (ej: <code>85000</code>, no <code>$85.000</code>).</li>
+                <li>Presioná <code>Tab</code> para pasar a la siguiente celda o hacé clic en otra.</li>
+                <li>Los datos se <strong>guardan automáticamente</strong> mientras escribís.</li>
+                <li>Al terminar, presioná <span class="badge blue">📊 Calcular</span>.</li>
+            </ol>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Importante</span>
+                Si no tenés datos de algún mes, dejà el valor en <code>0</code>. No dejes la celda vacía porque puede
+                distorsionar los promedios.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Persistencia automática</span>
+                Los datos se guardan en el navegador. Si cerrás y volvés a abrir la herramienta, tus valores
+                siguen ahí. Además, al abrir se recalcula automáticamente.</p>
+            </div>
+        </section>
+
+        <section id="indice">
+            <h2>📊 El índice estacional</h2>
+            <p>
+                El índice estacional es el corazón del análisis. Mide cada mes como porcentaje del promedio
+                anual, lo que permite comparar meses entre sí de forma clara.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Índice Estacional = (Ventas del mes ÷ Ventas promedio) × 100</div>
+                <div class="formula-desc">
+                    Ejemplo: si en Diciembre vendiste $15.500 y el promedio anual es $10.500, el índice es 147,6%.
+                </div>
+            </div>
+
+            <h3>Cómo interpretar los rangos</h3>
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-range">🚀 &gt; 120%</div>
+                    <div class="card-title">Alta temporada</div>
+                    <div class="card-desc">
+                        El mes vende mucho más que el promedio. Aprovechalo al máximo.
+                        💡 <strong>Acción:</strong> Subir precios, asegurar stock, reforzar atención.
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-range">✅ 100%</div>
+                    <div class="card-title">Promedio</div>
+                    <div class="card-desc">
+                        El mes vende exactamente lo esperado. Mes estable.
+                        💡 <strong>Acción:</strong> Mantener operación normal.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-range">📉 80% - 100%</div>
+                    <div class="card-title">Levemente bajo</div>
+                    <div class="card-desc">
+                        El mes vende un poco menos que el promedio. Cuidado con los márgenes.
+                        💡 <strong>Acción:</strong> Promociones suaves, cuidar gastos.
+                    </div>
+                </div>
+                <div class="card danger">
+                    <div class="card-range">❄️ &lt; 80%</div>
+                    <div class="card-title">Baja temporada</div>
+                    <div class="card-desc">
+                        El mes vende mucho menos que el promedio. Es el momento de reaccionar.
+                        💡 <strong>Acción:</strong> Promociones agresivas, fidelización, ajustar costos.
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Por qué es útil el índice</span>
+                El índice te permite <strong>comparar meses de forma justa</strong>. Un mes con $50.000 de ventas
+                puede parecer bueno, pero si el promedio es $80.000, en realidad es un mes malo (índice 62,5%).</p>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de calcular, vas a ver 4 tarjetas con métricas clave:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">📈</span>
+                    <div class="name">Ventas Promedio</div>
+                    <div class="desc">El promedio mensual de tus ventas en los 12 meses. Es tu línea base para comparar cada mes.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📉</span>
+                    <div class="name">Costos Promedio</div>
+                    <div class="desc">El promedio mensual de tus costos. Comparalo con el promedio de ventas para ver tu margen.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔥</span>
+                    <div class="name">Mes de Mayor Ventas</div>
+                    <div class="desc">El mes con el índice estacional más alto. Indica tu pico de temporada.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">❄️</span>
+                    <div class="name">Mes de Menor Ventas</div>
+                    <div class="desc">El mes con el índice estacional más bajo. Momento ideal para planificar promociones.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="graficos">
+            <h2>📈 Interpretar los 3 gráficos</h2>
+            <p>La herramienta genera 3 gráficos que te ayudan a visualizar los patrones:</p>
+
+            <h3>1. Gráfico de Ventas (arriba izquierda)</h3>
+            <p>
+                Muestra una <strong>línea azul</strong> con las ventas mes a mes y una <strong>línea roja punteada</strong>
+                que representa el promedio anual. Los puntos que están por encima de la línea roja indican meses buenos;
+                los que están por debajo, meses flojos.
+            </p>
+
+            <h3>2. Gráfico de Costos (arriba derecha)</h3>
+            <p>
+                Similar al anterior pero con los <strong>costos en naranja</strong>. Comparando ambos gráficos podés ver
+                si tus costos acompañan a tus ventas o se mantienen fijos.
+            </p>
+
+            <h3>3. Gráfico de Índice Estacional (abajo)</h3>
+            <p>
+                Es el más importante. Muestra <strong>barras</strong> para cada mes:
+            </p>
+            <ul>
+                <li><span class="badge green">Verde</span> si el mes está por encima del promedio (índice ≥ 100%).</li>
+                <li><span class="badge orange">Naranja</span> si el mes está por debajo del promedio (índice &lt; 100%).</li>
+                <li>Una <strong>línea roja punteada</strong> marca el 100% de referencia.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                Si ves muchas barras verdes juntas → alta temporada concentrada.
+                Si están dispersas → ventas más estables durante el año.</p>
+            </div>
+        </section>
+
+        <section id="tendencia">
+            <h2>📊 Tendencia general</h2>
+            <p>
+                La herramienta calcula la <strong>tendencia promedio mensual</strong> de tus ventas a lo largo
+                del año. Es un indicador de si tu negocio está creciendo o decreciendo.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Tendencia = Promedio de los cambios mes a mes</div>
+                <div class="formula-desc">
+                    Se calcula como el promedio de las variaciones porcentuales de cada mes respecto al anterior.
+                </div>
+            </div>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Tendencia</th>
+                        <th>Interpretación</th>
+                        <th>Acción sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge green">&gt; +5%</span></td>
+                        <td>Tus ventas crecen mes a mes. Buen momento.</td>
+                        <td>Invertir en crecimiento: más stock, más marketing, contratar.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge blue">-5% a +5%</span></td>
+                        <td>Tus ventas se mantienen estables.</td>
+                        <td>Mantener el rumbo y optimizar costos.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge red">&lt; -5%</span></td>
+                        <td>Tus ventas caen. Atención.</td>
+                        <td>Revisar estrategia comercial, precios y competencia.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="correlacion">
+            <h2>🔗 Correlación ventas-costos</h2>
+            <p>
+                La <strong>correlación</strong> mide qué tan alineados están tus costos con tus ventas.
+                Va de -1 (relación inversa perfecta) a +1 (relación directa perfecta).
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Correlación = Covarianza(Ventas, Costos) ÷ (Desvío Ventas × Desvío Costos)</div>
+                <div class="formula-desc">
+                    El resultado siempre está entre -1 y +1.
+                </div>
+            </div>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                        <th>Acción sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge green">&gt; +0.7</span></td>
+                        <td>Alta correlación positiva. Los costos suben cuando suben las ventas.</td>
+                        <td>Bien alineados. Revisá costos variables para mejorar el margen.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge blue">-0.7 a +0.7</span></td>
+                        <td>Correlación moderada. Hay relación pero no total.</td>
+                        <td>Mantener control de costos fijos y variables.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge red">&lt; -0.7</span></td>
+                        <td>Correlación negativa. Los costos suben cuando las ventas bajan.</td>
+                        <td>Revisar estructura de costos. Hay ineficiencias.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Correlación positiva ideal</span>
+                En un negocio sano, cuando suben las ventas también suben los costos variables (materia prima,
+                comisiones), pero <strong>no los costos fijos</strong>. Si la correlación es muy alta, significa
+                que tenés muchos costos variables atados a las ventas.</p>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                La herramienta genera un <strong>análisis completo</strong> con recomendaciones específicas
+                para tu negocio. Cada recomendación se clasifica con un icono:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Tipo</th>
+                        <th>Qué significa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟢</td>
+                        <td><strong>Alta temporada</strong></td>
+                        <td>Meses con índice &gt; 120%. Aprovechá para aumentar precios y stock.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Baja temporada</strong></td>
+                        <td>Meses con índice &lt; 80%. Considerá promociones o descuentos.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📈</td>
+                        <td><strong>Tendencia positiva</strong></td>
+                        <td>Tus ventas crecen mes a mes. Buen momento para invertir.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📉</td>
+                        <td><strong>Tendencia negativa</strong></td>
+                        <td>Tus ventas caen. Revisá estrategia comercial y costos.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📊</td>
+                        <td><strong>Correlación ventas-costos</strong></td>
+                        <td>Indica si los costos siguen a las ventas o se comportan de forma independiente.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📌</td>
+                        <td><strong>Plan de acción</strong></td>
+                        <td>Resumen con los meses a preparar stock y los meses para promocionar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés un negocio de <strong>pasapalos gourmet</strong>. Cargás los siguientes datos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Ventas</th>
+                        <th>Índice</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enero</td>
+                        <td>$8.500</td>
+                        <td>70%</td>
+                        <td><span class="badge red">Baja</span> post-fiestas</td>
+                    </tr>
+                    <tr>
+                        <td>Mayo</td>
+                        <td>$11.500</td>
+                        <td>95%</td>
+                        <td><span class="badge blue">Normal</span></td>
+                    </tr>
+                    <tr>
+                        <td>Noviembre</td>
+                        <td>$13.500</td>
+                        <td>112%</td>
+                        <td><span class="badge green">Alta</span> pre-fiestas</td>
+                    </tr>
+                    <tr>
+                        <td>Diciembre</td>
+                        <td>$15.500</td>
+                        <td>128%</td>
+                        <td><span class="badge green">Alta</span> fiestas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Con este análisis, la herramienta te diría:</p>
+
+            <div class="info-box">
+                <p><span class="title">🎯 Recomendación</span>
+                <strong>Alta temporada:</strong> Noviembre y Diciembre (índice &gt; 120%). Prepará stock extra,
+                considerá subir precios un 10-15%.<br>
+                <strong>Baja temporada:</strong> Enero y Febrero (índice &lt; 80%). Lanzá promociones 2x1 o
+                descuentos por volumen.<br>
+                <strong>Tendencia:</strong> Las ventas crecen en promedio un 5% mensual. Buen momento para
+                invertir en marketing.</p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Noviembre:</strong> Comprá el doble de insumos y contratá personal temporal.</li>
+                <li><strong>Diciembre:</strong> Aumentá precios un 15% y ofrecé packs navideños.</li>
+                <li><strong>Enero-Febrero:</strong> Promoción "2x1 los martes" para mantener flujo.</li>
+                <li><strong>Marzo-Abril:</strong> Aprovechá para renovar equipamiento o capacitarte.</li>
+                <li><strong>Mayo-Junio:</strong> Revisá precios y costos antes del próximo pico.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                Con este análisis, podés planificar cada mes del año con anticipación. En vez de reaccionar
+                cuando las ventas caen, <strong>te preparás con meses de antelación</strong>.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión de tu navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, tarjetas de resultados, recomendaciones,
+                los 3 gráficos y una descripción resumen con los datos clave. Se ocultan automáticamente
+                la tabla de ingreso de datos y los botones de acción.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Formato recomendado</span>
+                Para una mejor lectura, elegí tamaño <strong>A4</strong> y orientación <strong>vertical</strong>.
+                Si tenés muchos datos, podés usar <strong>horizontal</strong>.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan automáticamente?</div>
+                <div class="a">Sí. Todo se guarda en el almacenamiento local de tu navegador. Al volver a abrir la herramienta, los datos siguen ahí y se recalculan automáticamente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántos meses necesito para que el análisis sea útil?</div>
+                <div class="a">Con 6 meses ya podés ver patrones. Lo ideal son 12 meses para tener el ciclo completo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "índice estacional"?</div>
+                <div class="a">Es un número que expresa cada mes como porcentaje del promedio anual. Un índice de 120% significa que ese mes vendiste un 20% más que el promedio.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si tengo meses sin datos?</div>
+                <div class="a">Dejá el valor en 0. El análisis se ajustará automáticamente al promedio real de los meses cargados. Pero recordá que el promedio se calcula sobre 12 meses.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué mis gráficos no se actualizan al cambiar un dato?</div>
+                <div class="a">Los gráficos se actualizan cuando presionás "Calcular". Si modificás un dato, tenés que volver a presionar el botón.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo interpretó la "tendencia"?</div>
+                <div class="a">La tendencia es el cambio promedio mensual de tus ventas. Si es positiva, tus ventas crecen; si es negativa, decrecen.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "correlación" en las recomendaciones?</div>
+                <div class="a">Es un número entre -1 y 1 que indica si los costos se mueven junto con las ventas. Cerca de 1 significa que cuando suben las ventas, también suben los costos. Cerca de 0 significa que son independientes.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo analizar varios años a la vez?</div>
+                <div class="a">Esta herramienta está diseñada para analizar 12 meses. Si querés comparar años, guardá un PDF por año y comparalos manualmente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo cambio el orden de los meses?</div>
+                <div class="a">No se puede cambiar el orden. Los meses están fijos de Enero a Diciembre. Es el orden natural del análisis estacional.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto si mi negocio no tiene estacionalidad?</div>
+                <div class="a">Sí. Si tu negocio es estable todo el año, verás índices cercanos a 100% y correlaciones bajas. Igual te sirve para confirmar que efectivamente es estable.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se comparten entre usuarios?</div>
+                <div class="a">No. Cada usuario ve solo sus propios datos. Para compartir, exportá el PDF y envialo por email o WhatsApp.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Cargá datos al cierre de cada mes</h3>
+            <p>Establecé una rutina el último día de cada mes para actualizar la información. Así el análisis siempre estará al día.</p>
+
+            <h3>2. Compará años anteriores</h3>
+            <p>Al final del año, guardá el PDF y empezá un nuevo set de datos. Comparar dos años te muestra si tu negocio crece o no.</p>
+
+            <h3>3. Usá el análisis para negociar con proveedores</h3>
+            <p>Si identificás meses de baja, podés negociar precios más bajos o plazos de pago extendidos con tus proveedores.</p>
+
+            <h3>4. Combiná con el Panel de KPIs</h3>
+            <p>Mientras el Panel de KPIs te da el detalle semanal, el Análisis de Estacionalidad te da la foto anual. Usalas juntas para tomar mejores decisiones.</p>
+
+            <h3>5. Planificá las vacaciones en meses bajos</h3>
+            <p>Si tu negocio tiene meses de baja claros, esos son los mejores momentos para tomarte unos días sin perder ventas.</p>
+
+            <h3>6. Ajustá promociones según el índice</h3>
+            <p>En meses con índice &lt; 80%, lanzá promociones agresivas. En meses con índice &gt; 120%, no descuentes, aprovechá para subir precios.</p>
+
+            <h3>7. Guardá un PDF cada trimestre</h3>
+            <p>Un PDF trimestral te sirve como respaldo histórico y para compartir con socios o contadores.</p>
+
+            <h3>8. Combiná con el Fijador de Precios Anti-Inflación</h3>
+            <p>En meses de alta temporada, podés aplicar un margen extra. En meses bajos, solo ajustá por inflación. El fijador te da la fórmula exacta.</p>
+
+            <h3>9. Analizá la correlación para optimizar costos</h3>
+            <p>Si la correlación es muy alta, tus costos variables pesan mucho. Buscá negociar mejores precios de insumos. Si es baja, revisá tus costos fijos.</p>
+
+            <h3>10. Revisá el índice estacional cada año</h3>
+            <p>Los patrones cambian con el tiempo. Un mes que era de baja hace 3 años puede ser de alta ahora. Revisá cada año.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de 12 meses de uso continuo, vas a poder predecir con alta precisión
+                cuánto vas a vender en cada mes del año siguiente. ¡Eso es oro puro para tu planificación!</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Análisis de Estacionalidad</strong>:</p>
+            <div class="cards-grid">
+                <a href="simulador-cashflow.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">💵 Simulador de Cashflow</div>
+                <div class="card-desc">Proyectá tu flujo anual incorporando los patrones estacionales.</div>
+                </a>
+                <a href="fijador-precios-antiinflacion.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">💰 Fijador de Precios</div>
+                <div class="card-desc">Ajustá precios en meses de alta y baja temporada.</div>
+                </a>
+                <a href="panel-kpis.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">📊 Panel de KPIs</div>
+                <div class="card-desc">Compará semanas reales contra los patrones históricos.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Análisis de Estacionalidad</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Matriz de Delegación de Tareas · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso de la Matriz de Delegación de Tareas de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE MATRIZ DE DELEGACIÓN</h2>
+            <p>Análisis de impacto vs. competencia para delegar estratégicamente</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Matriz de Delegación de Tareas</small>
+                </h1>
+            </div>
+            <a href="matriz-delegacion-tareas.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para identificar qué tareas debés mantener, cuáles delegar, cuáles documentar
+            y cuáles eliminar. Aprendé a soltar el control operativo y enfocarte en lo estratégico.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#cargar">Cómo agregar tareas</a></li>
+                <li><a href="#cuadrantes">Los 4 cuadrantes</a></li>
+                <li><a href="#ejes">Los 2 ejes explicados</a></li>
+                <li><a href="#sliders">Ajustar con sliders</a></li>
+                <li><a href="#sumario">Sumario de cuadrantes</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#tabla">Tabla detallada</a></li>
+                <li><a href="#plan">Plan de acción</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                La <strong>Matriz de Delegación de Tareas</strong> es una herramienta visual que te ayuda a
+                <strong>decidir qué hacer con cada tarea de tu negocio</strong>. Clasifica todas tus actividades
+                en 4 categorías según dos criterios: el impacto estratégico y tu competencia personal.
+            </p>
+            <p>El objetivo es simple: <strong>liberarte de las tareas operativas</strong> para que puedas enfocarte
+                en las actividades donde realmente aportás valor.</p>
+
+            <div class="info-box">
+                <p><span class="title">💡 ¿Por qué es importante delegar?</span>
+                Los fundadores suelen caer en la trampa de querer hacer todo. Delegar no es perder el control:
+                es <strong>multiplicar tu capacidad</strong>. Una hora que dedicás a tareas operativas es una
+                hora que no dedicás a vender, innovar o planificar el crecimiento.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Fundadores agotados</strong> que sienten que hacen todo ellos solos.</li>
+                <li><strong>Negocios que quieren crecer</strong> sin contratar más gente desordenadamente.</li>
+                <li><strong>Antes de contratar</strong> un primer empleado o asistente: ¿qué le podés delegar?</li>
+                <li><strong>Revisión trimestral</strong> de tu carga de trabajo.</li>
+                <li><strong>Documentar procesos</strong> para que otros puedan ejecutarlos.</li>
+                <li><strong>Identificar tareas innecesarias</strong> que no aportan valor.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Usala con <strong>al menos 8-10 tareas cargadas</strong> para tener una visión completa.
+                Cuantas más tareas cargues, mejor va a ser el análisis y más claro va a estar dónde
+                está tu cuello de botella.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, se cargan automáticamente 10 tareas de ejemplo. Vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Formulario</div>
+                    <div class="step-desc">Agregar nuevas tareas</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Lista de tareas</div>
+                    <div class="step-desc">Con sliders para ajustar</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Sumario</div>
+                    <div class="step-desc">Conteo por cuadrante</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráfico + recomendación</div>
+                    <div class="step-desc">Análisis visual y consejos</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Datos de ejemplo</span>
+                La herramienta carga automáticamente 10 tareas típicas para que veas cómo funciona.
+                Podés borrarlas una por una con el botón ✕ o simplemente empezar a agregar las tuyas
+                y dejar las de ejemplo como referencia.</p>
+            </div>
+        </section>
+
+        <section id="cargar">
+            <h2>✍️ Cómo agregar tareas</h2>
+            <p>El formulario es simple: un campo de texto y dos botones.</p>
+
+            <h3>Pasos para agregar una tarea</h3>
+            <ol>
+                <li>Escribí el nombre de la tarea en el campo <strong>"Nombre de la Tarea"</strong>.</li>
+                <li>Hacé clic en el botón <span class="badge blue">➕ Agregar Tarea</span>.</li>
+                <li>La tarea se agrega automáticamente con valores por defecto (Impacto 5, Competencia 5).</li>
+                <li>Después podés ajustar los sliders para clasificarla correctamente.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Atajo de teclado</span>
+                Podés presionar <code>Enter</code> después de escribir el nombre para agregarla rápidamente.
+                No hace falta hacer clic en el botón.</p>
+            </div>
+
+            <h3>Nombres de tareas recomendados</h3>
+            <p>Usá nombres claros y específicos. Algunos ejemplos:</p>
+            <ul>
+                <li>✅ <strong>Bien:</strong> "Cierre de caja diario"</li>
+                <li>✅ <strong>Bien:</strong> "Responder emails de clientes"</li>
+                <li>❌ <strong>Mal:</strong> "Administración"</li>
+                <li>❌ <strong>Mal:</strong> "Cosas varias"</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Sin persistencia</span>
+                Esta herramienta <strong>no guarda datos</strong> en el navegador. Si recargás la página,
+                todo se reinicia. Guardá un PDF con el análisis antes de cerrar.</p>
+            </div>
+        </section>
+
+        <section id="cuadrantes">
+            <h2>🎨 Los 4 cuadrantes</h2>
+            <p>
+                Cada tarea cae en uno de los 4 cuadrantes según su impacto y tu competencia. La herramienta
+                calcula automáticamente en qué cuadrante está y le asigna un color.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-title">🟢 Mantener</div>
+                    <div class="card-cond">Impacto alto + Competencia alta</div>
+                    <div class="card-desc">
+                        Son tus tareas <strong>core</strong>. Donde más aportás y más valor generás.
+                        No las delegues: hacelas vos mejor que nadie.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-title">🟠 Delegar</div>
+                    <div class="card-cond">Impacto alto + Competencia baja</div>
+                    <div class="card-desc">
+                        Tareas importantes pero en las que <strong>no sos experto</strong>.
+                        Contractá o subcontratá a alguien que las haga mejor.
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">🔵 Documentar</div>
+                    <div class="card-cond">Impacto bajo + Competencia alta</div>
+                    <div class="card-desc">
+                        Sabés hacerlas bien pero <strong>no aportan valor estratégico</strong>.
+                        Creá un SOP y enseñale a alguien más para que las haga.
+                    </div>
+                </div>
+                <div class="card danger">
+                    <div class="card-title">🔴 Eliminar</div>
+                    <div class="card-cond">Impacto bajo + Competencia baja</div>
+                    <div class="card-desc">
+                        Tareas que <strong>no aportan valor</strong> ni vos sos bueno en ellas.
+                        Directamente eliminálas del negocio.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Regla de decisión</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Impacto</th>
+                        <th>Competencia</th>
+                        <th>Acción</th>
+                        <th>% del tiempo ideal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alto (≥5)</td>
+                        <td>Alta (≥5)</td>
+                        <td><span class="badge green">🟢 Mantener</span></td>
+                        <td>40-50%</td>
+                    </tr>
+                    <tr>
+                        <td>Alto (≥5)</td>
+                        <td>Baja (&lt;5)</td>
+                        <td><span class="badge orange">🟠 Delegar</span></td>
+                        <td>10-20%</td>
+                    </tr>
+                    <tr>
+                        <td>Bajo (&lt;5)</td>
+                        <td>Alta (≥5)</td>
+                        <td><span class="badge blue">🔵 Documentar</span></td>
+                        <td>20-30%</td>
+                    </tr>
+                    <tr>
+                        <td>Bajo (&lt;5)</td>
+                        <td>Baja (&lt;5)</td>
+                        <td><span class="badge red">🔴 Eliminar</span></td>
+                        <td>0%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="ejes">
+            <h2>📐 Los 2 ejes explicados</h2>
+            <p>Cada tarea se evalúa en dos dimensiones, ambas del 1 al 10:</p>
+
+            <h3>1. Impacto Estratégico (eje horizontal)</h3>
+            <p>
+                Mide <strong>cuánto aporta la tarea a los objetivos del negocio</strong>. No se trata de
+                cuánto tiempo lleva, sino de cuán importante es para el crecimiento o la rentabilidad.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Significado</th>
+                        <th>Ejemplos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1-3</td><td>Bajo. No mueve la aguja.</td><td>Ordenar el escritorio, responder emails rutinarios</td></tr>
+                    <tr><td>4-6</td><td>Medio. Aporta pero no es crítico.</td><td>Atención al cliente, gestión de redes sociales</td></tr>
+                    <tr><td>7-9</td><td>Alto. Impacta directamente en resultados.</td><td>Ventas, análisis financiero, planificación</td></tr>
+                    <tr><td>10</td><td>Crítico. Sin esto, el negocio no funciona.</td><td>Estrategia, definición de producto, alianzas clave</td></tr>
+                </tbody>
+            </table>
+
+            <h3>2. Competencia del Fundador (eje vertical)</h3>
+            <p>
+                Mide <strong>qué tan bueno sos vos haciendo esa tarea</strong>. Es una autoevaluación honesta
+                de tu habilidad, experiencia y capacidad de ejecución.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Significado</th>
+                        <th>Ejemplos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1-3</td><td>Bajo. No sos experto, te cuesta o no te gusta.</td><td>Diseño gráfico, contabilidad, programación</td></tr>
+                    <tr><td>4-6</td><td>Medio. Podés hacerlo pero no destacás.</td><td>Redacción, gestión de redes, atención al cliente</td></tr>
+                    <tr><td>7-9</td><td>Alto. Sos muy bueno y disfrutás hacerlo.</td><td>Ventas, trato con personas, análisis de datos</td></tr>
+                    <tr><td>10</td><td>Máximo. Es tu superpoder.</td><td>Lo que te define profesionalmente</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sliders">
+            <h2>🎚️ Ajustar con sliders</h2>
+            <p>
+                Cada tarea en la lista tiene <strong>2 sliders</strong>: uno para Impacto y otro para Competencia.
+                Podés ajustarlos en cualquier momento y los resultados se actualizan en tiempo real.
+            </p>
+
+            <h3>Cómo funciona</h3>
+            <ol>
+                <li>Encontrá la tarea que querés ajustar.</li>
+                <li>Movés el slider de <strong>Impacto</strong> hacia la izquierda (bajo) o derecha (alto).</li>
+                <li>Movés el slider de <strong>Competencia</strong> de la misma forma.</li>
+                <li>El color de la etiqueta cambia automáticamente: 🟢🟠🔵🔴</li>
+                <li>El gráfico y el sumario también se actualizan al instante.</li>
+            </ol>
+
+            <h3>Los sliders van de 1 a 10</h3>
+            <p>
+                Cada slider permite valores <strong>en pasos de 0.5</strong>. Esto te da precisión suficiente
+                para diferenciar tareas similares. Por ejemplo, podés poner 7.5 si considerás que algo está
+                entre "alto" y "muy alto".
+            </p>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Sé honesto con la competencia</span>
+                El error más común es sobreestimar tu competencia. Preguntate:
+                <strong>¿Contrataría a alguien para hacer esta tarea mejor que yo?</strong>
+                Si la respuesta es sí, tu competencia real es menor a 5.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Valores por defecto</span>
+                Cuando agregás una tarea, se crea con <strong>Impacto 5 y Competencia 5</strong>.
+                Es tu responsabilidad ajustar los sliders para clasificarla bien. Si la dejás así,
+                cae justo en el límite de "Mantener".</p>
+            </div>
+        </section>
+
+        <section id="sumario">
+            <h2>📊 Sumario de cuadrantes</h2>
+            <p>
+                Debajo de las tareas, hay un bloque con <strong>4 tarjetas</strong> que muestran cuántas
+                tareas cayeron en cada cuadrante:
+            </p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">🟢</span>
+                    <div class="name">Mantener</div>
+                    <div class="desc">Tareas core que debés seguir haciendo vos. Ideal: 40-50% del total.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🟠</span>
+                    <div class="name">Delegar</div>
+                    <div class="desc">Tareas importantes en las que no sos experto. Urgentes de externalizar.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔵</span>
+                    <div class="name">Documentar</div>
+                    <div class="desc">Tareas que hacés bien pero no aportan valor. Documentalas y enseñalas.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔴</span>
+                    <div class="name">Eliminar</div>
+                    <div class="desc">Tareas que no aportan valor. Dejalas de hacer directamente.</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo interpretar el sumario</span>
+                Si tenés más del 60% de tus tareas en <strong>"Mantener"</strong>, estás haciendo
+                demasiado trabajo operativo. Si tenés 0 tareas en "Delegar", probablemente estés
+                siendo demasiado conservador con tus autoevaluaciones.</p>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico es un <strong>diagrama de dispersión</strong> donde cada tarea es un punto.
+                Los ejes son los mismos que usás para clasificar:
+            </p>
+
+            <h3>Elementos del gráfico</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Elemento</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">➡️</td>
+                        <td><strong>Eje X</strong>: Impacto Estratégico (1-10).</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⬆️</td>
+                        <td><strong>Eje Y</strong>: Competencia del Fundador (1-10).</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⚫</td>
+                        <td><strong>Puntos de colores</strong>: cada tarea. El color indica el cuadrante.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⋯</td>
+                        <td><strong>Líneas punteadas</strong>: dividen el gráfico en los 4 cuadrantes en el valor 5.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🏷️</td>
+                        <td><strong>Etiquetas</strong>: "🟢 Mantener", "🟠 Delegar", "🔵 Documentar", "🔴 Eliminar" en cada esquina.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué buscar en el gráfico</h3>
+            <ul>
+                <li><strong>Acumulación en el cuadrante verde (arriba-derecha)</strong>: tus tareas core están claras.</li>
+                <li><strong>Muchos puntos naranjas (arriba-izquierda)</strong>: estás perdiendo oportunidades por no delegar.</li>
+                <li><strong>Puntos azules (abajo-derecha)</strong>: tareas que deberías documentar y pasar a otros.</li>
+                <li><strong>Puntos rojos (abajo-izquierda)</strong>: tareas que no aportan valor. Eliminalas.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                <strong>Mirá dónde se concentran los puntos.</strong> Si la mayoría están en el cuadrante
+                inferior-izquierdo, tenés un problema: estás haciendo cosas que no aportan y en las que
+                no sos bueno. Si están arriba-derecha, estás bien enfocado.</p>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                La herramienta genera un <strong>análisis automático</strong> según los resultados.
+                El mensaje cambia según la cantidad de tareas registradas:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Tareas cargadas</th>
+                        <th>Tipo de mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0 tareas</td>
+                        <td>Invitación a comenzar a cargar tareas.</td>
+                    </tr>
+                    <tr>
+                        <td>1-2 tareas</td>
+                        <td>Recomendación de agregar al menos 8-10 tareas para tener visión completa.</td>
+                    </tr>
+                    <tr>
+                        <td>3+ tareas</td>
+                        <td>Análisis completo con porcentajes por cuadrante y acción prioritaria.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué incluye el análisis completo</h3>
+            <ul>
+                <li><strong>Total evaluado</strong>: cuántas tareas hay en cada cuadrante.</li>
+                <li><strong>Porcentaje por cuadrante</strong>: qué proporción del total representa cada uno.</li>
+                <li><strong>Potencial de delegación</strong>: porcentaje de tareas que podés delegar, documentar o eliminar.</li>
+                <li><strong>Acción prioritaria</strong>: un consejo según si superás o no el 60% de potencial.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Meta ideal</span>
+                Un fundador bien enfocado debería tener:
+                <strong>40-50% en "Mantener"</strong>, <strong>20-30% en "Delegar"</strong>,
+                <strong>20-30% en "Documentar"</strong> y <strong>0-10% en "Eliminar"</strong>.</p>
+            </div>
+        </section>
+
+        <section id="tabla">
+            <h2>📋 Tabla detallada</h2>
+            <p>
+                Debajo de las recomendaciones hay una sección plegable con la <strong>tabla completa de tareas</strong>.
+                Hacé clic en "📋 Ver tabla detallada" para expandirla.
+            </p>
+
+            <h3>Columnas de la tabla</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Columna</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Tarea</strong></td><td>Nombre de la tarea.</td></tr>
+                    <tr><td><strong>Impacto</strong></td><td>Valor del 1 al 10 que asignaste.</td></tr>
+                    <tr><td><strong>Competencia</strong></td><td>Valor del 1 al 10 que asignaste.</td></tr>
+                    <tr><td><strong>Acción Recomendada</strong></td><td>Cuadrante con su color e icono correspondiente.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Orden de la tabla</span>
+                La tabla muestra las tareas en el <strong>mismo orden</strong> en que las cargaste.
+                Si querés reordenarlas por impacto o competencia, podés exportar el PDF y ordenar
+                manualmente en Excel o en una hoja de cálculo.</p>
+            </div>
+        </section>
+
+        <section id="plan">
+            <h2>🎯 Plan de acción</h2>
+            <p>
+                Una vez que tenés el análisis, el siguiente paso es <strong>actuar</strong>. Acá te dejamos
+                un plan concreto según el cuadrante:
+            </p>
+
+            <h3>🟢 Mantener · Tareas core</h3>
+            <ol>
+                <li><strong>Bloquealas en tu agenda</strong>: reservá tiempo específico cada semana para hacerlas.</li>
+                <li><strong>No las delegues</strong>: son tu aporte único. Si las delegás, perdés valor.</li>
+                <li><strong>Mejorá en ellas</strong>: tomá cursos, buscá mentores, practicá.</li>
+                <li><strong>Documentalas para vos</strong>: así podés repetir procesos sin pensarlos.</li>
+            </ol>
+
+            <h3>🟠 Delegar · Tareas urgentes</h3>
+            <ol>
+                <li><strong>Identificá el perfil</strong> de quién podría hacerla (freelancer, empleado, agencia).</li>
+                <li><strong>Presupuestá</strong> cuánto cuesta delegarla vs. hacerla vos.</li>
+                <li><strong>Buscá candidatos</strong> en plataformas o referidos.</li>
+                <li><strong>Empezá con prueba</strong>: contratá por proyecto o por horas primero.</li>
+                <li><strong>Hacé seguimiento</strong> hasta que la persona domine la tarea.</li>
+            </ol>
+
+            <h3>🔵 Documentar · Tareas a sistematizar</h3>
+            <ol>
+                <li><strong>Creá un SOP</strong> (Procedimiento Operativo Estándar) con cada paso.</li>
+                <li><strong>Grabá un video</strong> haciendo la tarea mientras explicás.</li>
+                <li><strong>Buscá a alguien</strong> (empleado actual o nuevo) para enseñarle.</li>
+                <li><strong>Supervisá las primeras 3-5 ejecuciones</strong>.</li>
+                <li><strong>Ajustá el SOP</strong> según los problemas que surjan.</li>
+            </ol>
+
+            <h3>🔴 Eliminar · Tareas sin valor</h3>
+            <ol>
+                <li><strong>Preguntate</strong>: ¿qué pasaría si dejo de hacerla?</li>
+                <li><strong>Si nadie lo nota</strong>: dejá de hacerla por 2 semanas y medí el impacto.</li>
+                <li><strong>Si el impacto es nulo</strong>: eliminala definitivamente.</li>
+                <li><strong>Si el impacto es negativo</strong>: reagrúpala o simplificala.</li>
+            </ol>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés un <strong>negocio de pasapalos gourmet</strong> y hacés todo vos solo.
+                Cargás estas tareas típicas:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Tarea</th>
+                        <th>Impacto</th>
+                        <th>Competencia</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>📈 Planificación estratégica</td><td>10</td><td>9</td><td><span class="badge green">🟢 Mantener</span></td></tr>
+                    <tr><td>💰 Cierre de caja</td><td>9</td><td>8</td><td><span class="badge green">🟢 Mantener</span></td></tr>
+                    <tr><td>📊 Análisis financiero</td><td>9</td><td>5</td><td><span class="badge orange">🟠 Delegar</span></td></tr>
+                    <tr><td>📦 Control de inventario</td><td>7</td><td>4</td><td><span class="badge orange">🟠 Delegar</span></td></tr>
+                    <tr><td>📞 Atención al cliente</td><td>5</td><td>4</td><td><span class="badge red">🔴 Eliminar</span></td></tr>
+                    <tr><td>📱 Gestión de redes sociales</td><td>4</td><td>3</td><td><span class="badge red">🔴 Eliminar</span></td></tr>
+                    <tr><td>📋 Documentación de procesos</td><td>3</td><td>6</td><td><span class="badge blue">🔵 Documentar</span></td></tr>
+                    <tr><td>🧹 Limpieza y mantenimiento</td><td>2</td><td>2</td><td><span class="badge red">🔴 Eliminar</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3>Análisis de resultados</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Cuadrante</th>
+                        <th>Cantidad</th>
+                        <th>% del total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>🟢 Mantener</td><td>2</td><td>25%</td></tr>
+                    <tr><td>🟠 Delegar</td><td>2</td><td>25%</td></tr>
+                    <tr><td>🔵 Documentar</td><td>1</td><td>12,5%</td></tr>
+                    <tr><td>🔴 Eliminar</td><td>3</td><td>37,5%</td></tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Eliminar las 3 tareas rojas</strong>: la atención al cliente y redes sociales podés automatizarlas o reducirlas al mínimo. La limpieza, contratá a alguien por horas.</li>
+                <li><strong>Delegar las 2 tareas naranjas</strong>: contratá un contador para el análisis financiero y un ayudante para el inventario.</li>
+                <li><strong>Documentar la tarea azul</strong>: creá un SOP de procesos para que otro lo pueda mantener.</li>
+                <li><strong>Mantener y reforzar las 2 verdes</strong>: la estrategia y el cierre de caja son tuyos. No los sueltes.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">📊 Resultado del plan</span>
+                Si lográs eliminar las rojas y delegar las naranjas, <strong>liberás aproximadamente
+                50% de tu tiempo</strong> para enfocarte en las tareas core. Eso es enorme para un fundador.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, la lista completa de tareas con sus valores,
+                el gráfico de dispersión con los 4 cuadrantes, las recomendaciones y la descripción resumida.
+                Se ocultan automáticamente el formulario de carga y los botones de acción.</p>
+            </div>
+
+            <div class="danger-box">
+                <p><span class="title">⚠️ Guardá antes de cerrar</span>
+                Como esta herramienta <strong>no persiste datos</strong> en el navegador, el PDF es tu
+                único respaldo. Si cerrás la página sin guardar, perdés todo el análisis.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Hacé esto <strong>cada 3 meses</strong>: cargá tus tareas actuales, generá el PDF con
+                la fecha en el nombre (ej: <code>Delegación_Q3_2026.pdf</code>) y compará con el trimestre
+                anterior para ver si mejoraste.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no persiste datos en localStorage. Al recargar la página, se reinicia y vuelven a aparecer las 10 tareas de ejemplo. Guardá un PDF si querés conservar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué se cargan tareas de ejemplo automáticamente?</div>
+                <div class="a">Para que veas cómo funciona la herramienta al abrirla por primera vez. Podés eliminar cada tarea con el botón ✕ o simplemente ignorarlas y empezar a cargar las tuyas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "competencia del fundador"?</div>
+                <div class="a">Es tu nivel de habilidad, experiencia o comodidad haciendo esa tarea. Va del 1 (nada competente) al 10 (sos el mejor).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo evalúo el impacto estratégico?</div>
+                <div class="a">Preguntate: si dejo de hacer esta tarea, ¿el negocio pierde plata o deja de crecer? Si la respuesta es sí, el impacto es alto. Si no pasa nada, el impacto es bajo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si una tarea cae justo en el límite (5,5)?</div>
+                <div class="a">La herramienta clasifica con reglas claras: si impacto ≥5 y competencia ≥5 va a "Mantener". Si estás en el límite, ajustá el slider según tu intuición.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo tener más de 10 tareas?</div>
+                <div class="a">Sí, no hay límite. Pero para tomar decisiones claras, es mejor trabajar con las 10-15 tareas más relevantes. Si tenés 50, priorizá las que más tiempo te consumen.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo editar el nombre de una tarea?</div>
+                <div class="a">No directamente. Tenés que eliminarla y volver a crearla con el nombre corregido. Los sliders sí se pueden ajustar en cualquier momento.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "Potencial de delegación"?</div>
+                <div class="a">Es el porcentaje de tareas que NO son core (es decir, las que podés delegar, documentar o eliminar). Un potencial mayor al 60% significa que tenés mucho margen para liberar tu tiempo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuál es el orden ideal de acciones?</div>
+                <div class="a">Primero eliminá las rojas (no aportan nada). Después delegá las naranjas (urgentes). Después documentá las azules (a sistematizar). Y por último, reforzá las verdes (tu core).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Esta herramienta reemplaza a un coach o consultor?</div>
+                <div class="a">No, es una herramienta de autoevaluación. Un coach puede ayudarte a validar tus valoraciones y a diseñar un plan de acción más profundo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto si tengo empleados?</div>
+                <div class="a">Sí, y es especialmente útil. Podés cargar tareas tuyas y también tareas que tus empleados hacen, para ver si están bien distribuidas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cada cuánto debería revisar la matriz?</div>
+                <div class="a">Cada 3 meses está bien. Los negocios cambian, las tareas evolucionan. Una revisión trimestral te mantiene enfocado en lo que realmente importa.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Sé brutalmente honesto con la competencia</h3>
+            <p>La mayoría de los fundadores se sobreestiman en tareas técnicas (diseño, contabilidad, marketing). Si dudás, bajá 1 punto la competencia.</p>
+
+            <h3>2. Cargá las tareas que más tiempo te consumen</h3>
+            <p>No cargues tareas de 10 minutos. Enfocate en las que te llevan varias horas por semana. Ahí está el verdadero potencial de mejora.</p>
+
+            <h3>3. Revisá el cuadrante naranja primero</h3>
+            <p>Las tareas de "Delegar" son las que más rápido te van a liberar tiempo. Son importantes Y no sos bueno en ellas. Urgente.</p>
+
+            <h3>4. Empezá por contratar 1 sola persona</h3>
+            <p>No intentes delegar 5 tareas al mismo tiempo. Contratá a una persona polivalente y empezá a delegarle 2-3 tareas operativas.</p>
+
+            <h3>5. Documentá antes de delegar</h3>
+            <p>Si delegás sin documentar, vas a tener que explicar la tarea 5 veces al mes. Grabá un video de 5 minutos con cada paso y ahorrate horas.</p>
+
+            <h3>6. Revisá el impacto trimestralmente</h3>
+            <p>Una tarea puede ser de bajo impacto este trimestre y de alto impacto el próximo. Revisá tus clasificaciones cada 3 meses.</p>
+
+            <h3>7. Combiná con el Constructor de SOPs</h3>
+            <p>Para las tareas azules (Documentar), usá el Constructor de SOPs y creá manuales paso a paso. Juntas son una dupla perfecta.</p>
+
+            <h3>8. Combiná con el Tablero Kanban</h3>
+            <p>Una vez que decidas qué hacer con cada tarea, agregalas al Tablero Kanban para hacerles seguimiento hasta completarlas.</p>
+
+            <h3>9. Hacé una "limpieza" profunda cada 6 meses</h3>
+            <p>Cada 6 meses, revisá todas tus tareas y preguntate: ¿esto sigue teniendo sentido? Las tareas zombies (que se hacen por inercia) son las más peligrosas.</p>
+
+            <h3>10. Compartí el análisis con tu equipo</h3>
+            <p>Si tenés empleados, mostrales el análisis y discutí cómo pueden ayudar con las tareas naranjas y azules. La transparencia genera compromiso.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta, vas a poder <strong>recuperar entre 10 y 20 horas semanales</strong>
+                que hoy gastás en tareas operativas. Esas horas son oro: invertilas en vender, innovar
+                o simplemente descansar mejor.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con la <strong>Matriz de Delegación de Tareas</strong>:</p>
+            <div class="cards-grid">
+            <a href="constructor-sops.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📖 Constructor de SOPs</div>
+            <div class="card-desc">Documentá las tareas que decidiste delegar.</div>
+            </a>
+            <a href="tablero-kanban-operaciones.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📋 Tablero Kanban</div>
+            <div class="card-desc">Asigná y seguí las tareas delegadas hasta completarlas.</div>
+            </a>
+            <a href="okr-tracker.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🎯 OKR Tracker</div>
+            <div class="card-desc">Enfocate en lo estratégico una vez que delegaste lo operativo.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Matriz de Delegación de Tareas</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

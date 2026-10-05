@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rentabilidad por Producto · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Calculadora de Rentabilidad por Producto de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>📈 ENUMAPP · RENTABILIDAD POR PRODUCTO</h2>
+            <p>Análisis de márgenes y punto de equilibrio</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📈 Calculadora de Rentabilidad
+                    <small>· Margen y Punto de Equilibrio</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-calculadora-rentabilidad-producto.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Analizá la rentabilidad de cada producto, calculá su margen bruto y neto, y descubrí cuántas unidades necesitás vender para alcanzar el equilibrio.
+        </div>
+
+        <!-- ===== INPUTS ===== -->
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Nombre del Producto</label>
+                    <input type="text" id="nombreProducto" value="Pasapalos Gourmet" placeholder="Ej: Bandeja Premium" />
+                </div>
+                <div class="input-group">
+                    <label>Categoría</label>
+                    <input type="text" id="categoriaProducto" value="Alimentos" placeholder="Ej: Bebidas, Electrónica" />
+                </div>
+                <div class="input-group">
+                    <label>Precio de Venta Unitario ($)</label>
+                    <input type="number" id="precioUnitario" value="8000" step="100" min="1" />
+                </div>
+                <div class="input-group">
+                    <label>Costo Variable Unitario ($)</label>
+                    <input type="number" id="costoVariable" value="5500" step="100" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Costos Fijos Asignados ($/mes)</label>
+                    <input type="number" id="costosFijos" value="5000" step="1000" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Volumen Estimado de Ventas (unidades/mes)</label>
+                    <input type="number" id="volumenVentas" value="10" step="1" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Inflación / Devaluación Anual (%)</label>
+                    <input type="number" id="inflacionAnual" value="60" step="5" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Escenario de Ventas</label>
+                    <select id="escenarioVentas">
+                        <option value="1">Optimista (+20%)</option>
+                        <option value="2" selected>Realista (0%)</option>
+                        <option value="3">Pesimista (-20%)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- ===== RESULTADOS ===== -->
+        <div class="flex-row">
+            <span class="badge">📈 <strong>Rentabilidad del producto</strong> · actualización automática</span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:10px;">
+            <div class="result-card info">
+                <div class="label">Margen Bruto Unitario</div>
+                <div class="value" id="margenBrutoUnitario">$ 2.500</div>
+                <div class="sub" id="margenBrutoPct">31.3%</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">Margen Neto Unitario</div>
+                <div class="value" id="margenNetoUnitario">$ 2.000</div>
+                <div class="sub" id="margenNetoPct">25.0%</div>
+            </div>
+            <div class="result-card positive">
+                <div class="label">Rentabilidad Mensual (Neto)</div>
+                <div class="value" id="rentabilidadMensual">$ 20.000</div>
+                <div class="sub" id="rentabilidadMensualSub">con 10 unidades</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">Punto de Equilibrio</div>
+                <div class="value" id="puntoEquilibrio">2 unidades</div>
+                <div class="sub" id="puntoEquilibrioSub">$16.000 en ventas</div>
+            </div>
+        </div>
+
+        <!-- ===== RECOMENDACIÓN ===== -->
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendación Estratégica</h3>
+            <p id="recommendationText">Ajustá los parámetros para obtener una recomendación personalizada.</p>
+        </div>
+
+        <!-- ===== GRÁFICOS ===== -->
+        <div class="charts-grid">
+            <div class="chart-container medium">
+                <canvas id="marginChart"></canvas>
+            </div>
+            <div class="chart-container medium">
+                <canvas id="costStructureChart"></canvas>
+            </div>
+        </div>
+
+        <!-- ===== TABLA DE ESCENARIOS ===== -->
+        <div style="margin-top:20px;">
+            <details>
+                <summary style="font-weight:600; color:var(--color-text-secondary); cursor:pointer; padding:8px 0;">📋 Ver tabla de escenarios y sensibilidad</summary>
+                <div class="table-container">
+                    <table id="tablaEscenarios">
+                        <thead>
+                            <tr>
+                                <th>Escenario</th>
+                                <th>Precio</th>
+                                <th>Costo Var.</th>
+                                <th>Volumen</th>
+                                <th>Margen Neto %</th>
+                                <th>Rentabilidad Mensual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaEscenariosBody"></tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> Margen bruto = (Precio - Costo Variable) / Precio. Margen neto = (Precio - Costo Variable - Costo Fijo Unitario) / Precio.</span>
+            <span>🔄 Ajustá los parámetros para explorar diferentes escenarios.</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        (function() {
+            const nombreProducto = document.getElementById('nombreProducto');
+            const categoriaProducto = document.getElementById('categoriaProducto');
+            const precioUnitario = document.getElementById('precioUnitario');
+            const costoVariable = document.getElementById('costoVariable');
+            const costosFijos = document.getElementById('costosFijos');
+            const volumenVentas = document.getElementById('volumenVentas');
+            const inflacionAnual = document.getElementById('inflacionAnual');
+            const escenarioVentas = document.getElementById('escenarioVentas');
+
+            const margenBrutoUnitario = document.getElementById('margenBrutoUnitario');
+            const margenBrutoPct = document.getElementById('margenBrutoPct');
+            const margenNetoUnitario = document.getElementById('margenNetoUnitario');
+            const margenNetoPct = document.getElementById('margenNetoPct');
+            const rentabilidadMensual = document.getElementById('rentabilidadMensual');
+            const rentabilidadMensualSub = document.getElementById('rentabilidadMensualSub');
+            const puntoEquilibrio = document.getElementById('puntoEquilibrio');
+            const puntoEquilibrioSub = document.getElementById('puntoEquilibrioSub');
+            const recommendationText = document.getElementById('recommendationText');
+            const printDesc = document.getElementById('printDesc');
+            const tablaEscenariosBody = document.getElementById('tablaEscenariosBody');
+
+            const ctxMargin = document.getElementById('marginChart').getContext('2d');
+            const ctxCost = document.getElementById('costStructureChart').getContext('2d');
+            let chartMargin = null;
+            let chartCost = null;
+
+            function actualizar() {
+                const P = parseFloat(precioUnitario.value) || 1;
+                const CV = parseFloat(costoVariable.value) || 0;
+                const CF = parseFloat(costosFijos.value) || 0;
+                let Vol = parseFloat(volumenVentas.value) || 0;
+                const infla = parseFloat(inflacionAnual.value) || 0;
+                const escenario = parseInt(escenarioVentas.value) || 2;
+
+                const factorEscenario = escenario === 1 ? 1.2 : escenario === 3 ? 0.8 : 1;
+                Vol = Vol * factorEscenario;
+
+                const margenBruto = P - CV;
+                const margenBrutoPctVal = (margenBruto / P) * 100;
+
+                const CF_unitario = Vol > 0 ? CF / Vol : 0;
+                const margenNeto = margenBruto - CF_unitario;
+                const margenNetoPctVal = (margenNeto / P) * 100;
+
+                const rentabilidad = margenNeto * Vol;
+                const BEP_und = CF / margenBruto;
+                const BEP_ing = BEP_und * P;
+
+                margenBrutoUnitario.textContent = ENUMAPP_FMT.money(margenBruto);
+                margenBrutoPct.textContent = margenBrutoPctVal.toFixed(1) + '%';
+
+                margenNetoUnitario.textContent = ENUMAPP_FMT.money(margenNeto);
+                margenNetoPct.textContent = margenNetoPctVal.toFixed(1) + '%';
+
+                rentabilidadMensual.textContent = ENUMAPP_FMT.money(rentabilidad);
+                rentabilidadMensualSub.textContent = `con ${Math.round(Vol)} unidades`;
+
+                if (isFinite(BEP_und) && BEP_und > 0) {
+                    puntoEquilibrio.textContent = Math.round(BEP_und) + ' unidades';
+                    puntoEquilibrioSub.textContent = ENUMAPP_FMT.money(BEP_ing) + ' en ventas';
+                } else {
+                    puntoEquilibrio.textContent = '—';
+                    puntoEquilibrioSub.textContent = 'Sin equilibrio (margen ≤ 0)';
+                }
+
+                let recomendacion = '';
+                const nombre = nombreProducto.value || 'Producto';
+                if (margenBruto <= 0) {
+                    recomendacion = `🔴 <strong>Alerta crítica:</strong> El margen bruto de "${nombre}" es cero o negativo. Revisá tu precio de venta o reducí costos variables.`;
+                } else if (rentabilidad < 0) {
+                    const deficit = Math.abs(rentabilidad);
+                    const ajusteNecesario = (CF / (Vol * P)) * 100;
+                    recomendacion = `🟡 <strong>Ajuste necesario:</strong> "${nombre}" está generando una pérdida de ${ENUMAPP_FMT.money(deficit)} por mes. Para alcanzar el equilibrio, necesitás aumentar el precio un ${Math.ceil(ajusteNecesario)}% o reducir costos fijos.`;
+                } else if (rentabilidad > 0 && rentabilidad < CF * 0.1) {
+                    recomendacion = `🟢 <strong>Rentabilidad baja:</strong> "${nombre}" es rentable pero con margen ajustado (${ENUMAPP_FMT.money(rentabilidad)}/mes). Te recomendamos optimizar costos o aumentar volumen.`;
+                } else {
+                    recomendacion = `🟢 <strong>Excelente rentabilidad:</strong> "${nombre}" genera ${ENUMAPP_FMT.money(rentabilidad)} de ganancia neta mensual con un margen del ${margenNetoPctVal.toFixed(1)}%. El punto de equilibrio es de solo ${Math.round(BEP_und)} unidades.`;
+                }
+
+                if (infla > 0) {
+                    const costoFuturo = CV * (1 + infla / 100);
+                    const precioFuturo = P * (1 + infla / 100);
+                    recomendacion += ` <br><br>📌 <strong>Impacto inflacionario:</strong> Con una inflación del ${infla}% anual, tu costo variable subiría a ${ENUMAPP_FMT.money(costoFuturo)} y tu precio debería ajustarse a ${ENUMAPP_FMT.money(precioFuturo)} para mantener el margen.`;
+                }
+                recommendationText.innerHTML = recomendacion;
+
+                // Tabla de escenarios
+                const escenarios = [
+                    { nombre: 'Optimista (+20% vol)', factor: 1.2 },
+                    { nombre: 'Realista (base)', factor: 1.0 },
+                    { nombre: 'Pesimista (-20% vol)', factor: 0.8 }
+                ];
+                let tablaHTML = '';
+                const baseVol = parseFloat(volumenVentas.value) || 0;
+                escenarios.forEach(esc => {
+                    const volEsc = baseVol * esc.factor;
+                    const cfUnitEsc = volEsc > 0 ? CF / volEsc : 0;
+                    const mnEsc = (P - CV) - cfUnitEsc;
+                    const mnPctEsc = (mnEsc / P) * 100;
+                    const rentEsc = mnEsc * volEsc;
+                    tablaHTML += `<tr>
+                        <td>${esc.nombre}</td>
+                        <td>${ENUMAPP_FMT.money(P)}</td>
+                        <td>${ENUMAPP_FMT.money(CV)}</td>
+                        <td>${Math.round(volEsc)}</td>
+                        <td>${mnPctEsc.toFixed(1)}%</td>
+                        <td>${ENUMAPP_FMT.money(rentEsc)}</td>
+                    </tr>`;
+                });
+                tablaEscenariosBody.innerHTML = tablaHTML;
+
+                // Gráfico de márgenes
+                if (chartMargin) chartMargin.destroy();
+                chartMargin = new Chart(ctxMargin, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Margen Bruto', 'Margen Neto'],
+                        datasets: [{
+                            label: 'Valor Unitario ($)',
+                            data: [margenBruto, margenNeto],
+                            backgroundColor: ['rgba(43,123,228,0.8)', 'rgba(46,204,113,0.8)'],
+                            borderColor: ['#2b7be4', '#2ecc71'],
+                            borderWidth: 2, borderRadius: 6,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let val = context.parsed.y;
+                                        let label = context.dataIndex === 0 ? 'Margen Bruto' : 'Margen Neto';
+                                        let pct = context.dataIndex === 0 ? margenBrutoPctVal : margenNetoPctVal;
+                                        return `${label}: ${ENUMAPP_FMT.money(val)} (${pct.toFixed(1)}%)`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { ticks: { callback: ENUMAPP_UI.axisMoney } }
+                        }
+                    }
+                });
+
+                // Gráfico de estructura de costos
+                if (chartCost) chartCost.destroy();
+                const costoVariablePct = (CV / P) * 100;
+                const costoFijoPct = Vol > 0 ? (CF / (Vol * P)) * 100 : 0;
+                const margenPct = (margenNeto / P) * 100;
+
+                chartCost = new Chart(ctxCost, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Costo Variable', 'Costo Fijo Unitario', 'Margen Neto'],
+                        datasets: [{
+                            data: [costoVariablePct, costoFijoPct, margenPct],
+                            backgroundColor: ['#e67e22', '#7f8c8d', '#2ecc71'],
+                            borderColor: ['#d68910', '#6c7a7a', '#1e8449'],
+                            borderWidth: 2,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'right', labels: { font: { size: 12 }, color: '#0a2540' } },
+                            tooltip: {
+                                callbacks: {
+                                    label: c => `${c.label}: ${c.parsed.toFixed(1)}% del precio`
+                                }
+                            }
+                        }
+                    }
+                });
+
+                printDesc.innerHTML = `
+                    <strong>Producto:</strong> ${nombreProducto.value || 'Sin nombre'} &nbsp;|&nbsp; <strong>Categoría:</strong> ${categoriaProducto.value || 'Sin categoría'}<br>
+                    <strong>Precio:</strong> ${ENUMAPP_FMT.money(P)} &nbsp;|&nbsp; <strong>Costo Variable:</strong> ${ENUMAPP_FMT.money(CV)} &nbsp;|&nbsp; <strong>Costos Fijos:</strong> ${ENUMAPP_FMT.money(CF)}<br>
+                    <strong>Volumen:</strong> ${Math.round(Vol)} und/mes &nbsp;|&nbsp; <strong>Inflación anual:</strong> ${infla}%<br>
+                    <strong>Margen Bruto:</strong> ${margenBrutoPctVal.toFixed(1)}% &nbsp;|&nbsp; <strong>Margen Neto:</strong> ${margenNetoPctVal.toFixed(1)}%<br>
+                    <strong>Rentabilidad mensual:</strong> ${ENUMAPP_FMT.money(rentabilidad)} &nbsp;|&nbsp; <strong>Punto de equilibrio:</strong> ${Math.round(BEP_und)} und
+                `;
+            }
+
+            const inputs = [nombreProducto, categoriaProducto, precioUnitario, costoVariable, costosFijos, volumenVentas, inflacionAnual, escenarioVentas];
+            inputs.forEach(inp => {
+                inp.addEventListener('input', actualizar);
+                inp.addEventListener('change', actualizar);
+            });
+
+            actualizar();
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (chartMargin) chartMargin.resize();
+                    if (chartCost) chartCost.resize();
+                }, 200);
+            });
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ENUMAPP · Tus números, tu negocio, tu app.</title>
+    <!-- ===== ENUMAPP Favicon ===== -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="ENUMAPP · Tus números, tu negocio, tu app." />
+    <style>
+        /* ===== ESTILOS GENERALES (Misma línea visual) ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15);
+            padding: 35px 40px 45px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a2540;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+        h1 small {
+            font-size: 16px;
+            font-weight: 400;
+            color: #5b6f82;
+            margin-left: 8px;
+        }
+        .subtitle {
+            color: #5b6f82;
+            font-size: 15px;
+            border-left: 4px solid #2b7be4;
+            padding-left: 16px;
+            margin-bottom: 30px;
+            background: #f8fafc;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.5;
+        }
+
+        /* ===== BARRA DE NAVEGACIÓN INTERNA ===== */
+        .toc {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 18px 24px;
+            border: 1px solid #e9eef4;
+            margin-bottom: 30px;
+        }
+        .toc h3 {
+            font-size: 15px;
+            color: #0a2540;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 6px 24px;
+        }
+        .toc ul li a {
+            color: #2b7be4;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+        }
+        .toc ul li a:hover {
+            color: #1a5fb4;
+            padding-left: 4px;
+        }
+        .toc ul li a::before {
+            content: '→';
+            color: #7a8b9f;
+            font-weight: 400;
+        }
+
+        /* ===== SECCIONES ===== */
+        section {
+            margin-bottom: 34px;
+            scroll-margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0a2540;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed #e6edf5;
+            margin-bottom: 18px;
+        }
+
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1f3a5f;
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f3a5f;
+            margin: 14px 0 6px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #1f3a5f;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        ul, ol {
+            margin: 8px 0 14px 24px;
+        }
+
+        li {
+            font-size: 15px;
+            color: #1f3a5f;
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        strong {
+            color: #0a2540;
+        }
+
+        code {
+            background: #f0f4f8;
+            color: #1a5fb4;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ===== CAJAS DE INFORMACIÓN ===== */
+        .info-box {
+            background: #f0f7ff;
+            border-left: 6px solid #2b7be4;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .info-box .title {
+            font-weight: 700;
+            color: #0a2540;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .tip-box {
+            background: #e5f4eb;
+            border-left: 6px solid #2ecc71;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .tip-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .tip-box .title {
+            font-weight: 700;
+            color: #0f6e3f;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .warning-box {
+            background: #fef5e7;
+            border-left: 6px solid #e67e22;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .warning-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .warning-box .title {
+            font-weight: 700;
+            color: #b45b0b;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .danger-box {
+            background: #fce8e8;
+            border-left: 6px solid #e74c3c;
+            border-radius: 0 16px 16px 0;
+            padding: 16px 22px;
+            margin: 16px 0;
+        }
+        .danger-box p {
+            margin: 0;
+            font-size: 14.5px;
+        }
+        .danger-box .title {
+            font-weight: 700;
+            color: #b33c3c;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* ===== TABLA DE PASOS ===== */
+        .steps-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 18px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e9eef4;
+        }
+        .steps-table th {
+            background: #f0f4f8;
+            color: #1f3a5f;
+            font-weight: 600;
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 14px;
+            border-bottom: 2px solid #dce3ec;
+        }
+        .steps-table td {
+            padding: 12px 14px;
+            font-size: 14.5px;
+            color: #0a2540;
+            border-bottom: 1px solid #e9eef4;
+            vertical-align: top;
+        }
+        .steps-table tr:last-child td {
+            border-bottom: none;
+        }
+        .steps-table tr:hover td {
+            background: #fafcfe;
+        }
+        .steps-table .num {
+            width: 40px;
+            text-align: center;
+            font-weight: 700;
+            color: #2b7be4;
+        }
+
+        /* ===== BADGES Y CHIPS ===== */
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .badge.blue { background: #e7f2fa; color: #1a5a7a; }
+        .badge.green { background: #e5f4eb; color: #0f6e3f; }
+        .badge.orange { background: #fef5e7; color: #b45b0b; }
+        .badge.red { background: #fce8e8; color: #b33c3c; }
+
+        /* ===== TARJETAS DE MÉTRICAS ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .metric-card {
+            background: #f8fafc;
+            border: 1px solid #e9eef4;
+            border-radius: 16px;
+            padding: 16px 18px;
+            transition: 0.2s;
+        }
+        .metric-card:hover {
+            border-color: #2b7be4;
+            transform: translateY(-2px);
+        }
+        .metric-card .icon {
+            font-size: 22px;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .metric-card .name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a2540;
+            margin-bottom: 4px;
+        }
+        .metric-card .desc {
+            font-size: 13px;
+            color: #5b6f82;
+            line-height: 1.5;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            background: #f8fafc;
+            border: 1px solid #e9eef4;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+        .faq-item:hover {
+            border-color: #2b7be4;
+        }
+        .faq-item .q {
+            font-weight: 700;
+            color: #0a2540;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .faq-item .q::before {
+            content: '❓';
+            flex-shrink: 0;
+        }
+        .faq-item .a {
+            font-size: 14.5px;
+            color: #1f3a5f;
+            line-height: 1.6;
+            padding-left: 26px;
+        }
+        .faq-item .a::before {
+            content: '💡 ';
+        }
+
+        /* ===== PASO A PASO ILUSTRADO ===== */
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .flow-step {
+            flex: 1;
+            min-width: 160px;
+            background: #f8fafc;
+            border: 1px solid #e9eef4;
+            border-radius: 16px;
+            padding: 16px 14px;
+            text-align: center;
+            position: relative;
+        }
+        .flow-step .step-num {
+            width: 32px;
+            height: 32px;
+            background: #2b7be4;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        .flow-step .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a2540;
+            margin-bottom: 4px;
+        }
+        .flow-step .step-desc {
+            font-size: 12.5px;
+            color: #5b6f82;
+            line-height: 1.5;
+        }
+
+        /* ===== BOTÓN VOLVER ARRIBA ===== */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #2b7be4;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(43, 123, 228, 0.4);
+            transition: 0.2s;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .back-top:hover {
+            background: #1a5fb4;
+            transform: scale(1.1);
+        }
+        .back-top.visible {
+            display: flex;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-note {
+            margin-top: 40px;
+            border-top: 1px solid #e6edf5;
+            padding-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 14px;
+            color: #5b6f82;
+        }
+        .footer-note strong {
+            color: #0a2540;
+        }
+/* ===== FOOTER SECUNDARIO (links) ===== */
+.footer {
+    text-align: center;
+    padding: 40px 20px 20px;
+    font-size: 13px;
+    color: #7a8b9f;
+    border-top: 1px solid #e9eef4;
+    background: #ffffff;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+
+.footer p {
+    margin-bottom: 6px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-top: 14px;
+}
+
+.footer a {
+    color: #2b7be4;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.footer a:hover {
+    color: #1a5fb4;
+    text-decoration: underline;
+}
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            .toc ul {
+                grid-template-columns: 1fr;
+            }
+            .steps-table th,
+            .steps-table td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+            .back-top {
+                width: 44px;
+                height: 44px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* ===== IMPRESIÓN ===== */
+        @media print {
+            body {
+                background: white !important;
+                padding: 0.3in !important;
+                display: block !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                padding: 20px !important;
+                border-radius: 8px !important;
+                max-width: 100% !important;
+            }
+            .toc,
+            .back-top,
+            .no-print {
+                display: none !important;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            .info-box,
+            .tip-box,
+            .warning-box,
+            .danger-box {
+                border: 1px solid #000 !important;
+                background: #f9f9f9 !important;
+                border-left: 6px solid #000 !important;
+            }
+            .steps-table th {
+                background: #f4f4f4 !important;
+                border: 1px solid #000 !important;
+            }
+            .steps-table td {
+                border: 1px solid #000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <h1>
+            📖 Manual de Uso
+            <small>· Análisis de Estacionalidad</small>
+        </h1>
+        <div class="subtitle">
+            Guía completa para aprovechar al máximo la herramienta de análisis de patrones estacionales en ventas y costos.
+            Aprendé a identificar meses fuertes, planificar stock y tomar decisiones basadas en datos.
+        </div>
+
+        <!-- ===== ÍNDICE ===== -->
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#ingresar-datos">Cómo ingresar datos</a></li>
+                <li><a href="#calcular">Cómo calcular el análisis</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#graficos">Interpretar los gráficos</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#guardado">Guardado de datos</a></li>
+                <li><a href="#reiniciar">Reiniciar datos</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+            </ul>
+        </div>
+
+        <!-- ===== SECCIÓN 1: QUÉ ES ===== -->
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Análisis de Estacionalidad</strong> es una herramienta que te permite identificar patrones
+                en tus ventas y costos a lo largo de los 12 meses del año. Con estos datos, podés descubrir:
+            </p>
+            <ul>
+                <li>Cuáles son tus <strong>meses de alta temporada</strong> (más ventas).</li>
+                <li>Cuáles son tus <strong>meses de baja temporada</strong> (menos ventas).</li>
+                <li>Si tus ventas tienen una <strong>tendencia creciente o decreciente</strong>.</li>
+                <li>Qué tan relacionados están tus <strong>costos con tus ventas</strong>.</li>
+            </ul>
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Índice Estacional</span>
+                Es un número que expresa cada mes como porcentaje del promedio anual. Un índice de 120% significa
+                que ese mes vendiste un 20% más que el promedio. Un índice de 80% significa que vendiste un 20% menos.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 2: CUÁNDO USARLA ===== -->
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Planificar stock:</strong> Saber cuánto comprar en cada mes.</li>
+                <li><strong>Definir precios:</strong> Ajustar precios según la demanda estacional.</li>
+                <li><strong>Diseñar promociones:</strong> Impulsar ventas en meses flojos.</li>
+                <li><strong>Planificar vacaciones:</strong> Tomarte descanso en meses de baja.</li>
+                <li><strong>Presupuestar:</strong> Anticipar flujos de caja mensuales.</li>
+                <li><strong>Negociar con proveedores:</strong> Comprar en temporada baja cuando hay mejores precios.</li>
+            </ul>
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Actualizá los datos al menos una vez al mes. Después de 12 meses, vas a tener un análisis
+                sólido de tu negocio. Cuantos más meses de historia cargues, más precisas serán las predicciones.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 3: PRIMEROS PASOS ===== -->
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Tabla de datos</div>
+                    <div class="step-desc">12 filas, una por cada mes del año</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Botones de acción</div>
+                    <div class="step-desc">Calcular, Ejemplo, Reiniciar y PDF</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Tarjetas de resultados</div>
+                    <div class="step-desc">Promedios y meses extremos</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráficos</div>
+                    <div class="step-desc">Ventas, costos e índice estacional</div>
+                </div>
+            </div>
+
+            <h3>🔘 Barra de botones</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Botón</th>
+                        <th>Nombre</th>
+                        <th>Para qué sirve</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">📊</td>
+                        <td><strong>Calcular</strong></td>
+                        <td>Procesa los datos ingresados y genera los gráficos, tarjetas y recomendaciones.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">📋</td>
+                        <td><strong>Ejemplo</strong></td>
+                        <td>Carga datos de muestra para ver cómo funciona la herramienta.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">🗑️</td>
+                        <td><strong>Reiniciar</strong></td>
+                        <td>Borra todos los datos guardados y deja la tabla en blanco.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:22px;">📄</td>
+                        <td><strong>Generar Informe PDF</strong></td>
+                        <td>Abre el diálogo de impresión para guardar el análisis como PDF.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 4: INGRESAR DATOS ===== -->
+        <section id="ingresar-datos">
+            <h2>✍️ Cómo ingresar datos</h2>
+            <p>
+                En la tabla <strong>Datos mensuales</strong> vas a encontrar 12 filas (una por mes) y 2 columnas editables:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Columna</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">💰</td>
+                        <td><strong>Ventas ($)</strong> · Total facturado en el mes</td>
+                        <td>85.000</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">📉</td>
+                        <td><strong>Costos ($)</strong> · Todos los gastos del mes</td>
+                        <td>62.000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Pasos para ingresar datos</h3>
+            <ol>
+                <li>Hacé clic en la celda que querés completar (por ejemplo, "Enero · Ventas").</li>
+                <li>Escribí el número <strong>sin símbolos</strong> (ej: <code>85000</code>, no <code>$85.000</code>).</li>
+                <li>Presioná <code>Tab</code> para pasar a la siguiente celda o hacé clic en otra.</li>
+                <li>Los datos se <strong>guardan automáticamente</strong> mientras escribís.</li>
+            </ol>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Importante</span>
+                Si no tenés datos de algún mes, dejà el valor en <code>0</code>. No dejes la celda vacía porque puede
+                distorsionar los promedios.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Atajo útil</span>
+                Podés pegar datos desde una planilla de Excel. Copiá la columna de ventas y pegala directamente
+                sobre la primera celda. Los valores se distribuyen automáticamente hacia abajo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 5: CALCULAR ===== -->
+        <section id="calcular">
+            <h2>🖱️ Cómo calcular el análisis</h2>
+            <p>Una vez cargados los datos, tenés que presionar el botón para procesar la información.</p>
+
+            <h3>Opción 1: Cálculo manual</h3>
+            <ol>
+                <li>Completá todos los meses que tengas datos.</li>
+                <li>Hacé clic en el botón <span class="badge blue">📊 Calcular</span>.</li>
+                <li>El sistema genera automáticamente: tarjetas de resultados, recomendaciones y gráficos.</li>
+            </ol>
+
+            <h3>Opción 2: Cálculo automático al abrir</h3>
+            <p>
+                Si ya tenías datos guardados de una sesión anterior, la herramienta <strong>calcula todo automáticamente</strong>
+                al abrirse. No hace falta que presiones "Calcular" cada vez.
+            </p>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Nota</span>
+                Si modificás algún dato después de calcular, tenés que volver a presionar <strong>Calcular</strong>
+                para actualizar los resultados. Los gráficos no se actualizan solos con cada cambio.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 6: MÉTRICAS ===== -->
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de calcular, vas a ver 4 tarjetas con métricas clave:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">📈</span>
+                    <div class="name">Ventas Promedio</div>
+                    <div class="desc">El promedio mensual de tus ventas en los 12 meses. Es tu línea base para comparar cada mes.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📉</span>
+                    <div class="name">Costos Promedio</div>
+                    <div class="desc">El promedio mensual de tus costos. Comparalo con el promedio de ventas para ver tu margen.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔥</span>
+                    <div class="name">Mes de Mayor Ventas</div>
+                    <div class="desc">El mes con el índice estacional más alto. Indica tu pico de temporada.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">❄️</span>
+                    <div class="name">Mes de Menor Ventas</div>
+                    <div class="desc">El mes con el índice estacional más bajo. Momento ideal para planificar promociones.</div>
+                </div>
+            </div>
+
+            <h3>¿Qué es el índice estacional?</h3>
+            <p>El índice se calcula con esta fórmula:</p>
+            <div class="info-box">
+                <p style="text-align:center; font-size:16px; font-weight:700; color:#2b7be4; margin:8px 0;">
+                    Índice = (Ventas del mes ÷ Ventas promedio) × 100
+                </p>
+            </div>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Índice</th>
+                        <th>Interpretación</th>
+                        <th>Acción sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge green">> 120%</span></td>
+                        <td>Mes de <strong>alta temporada</strong></td>
+                        <td>Asegurar stock, subir precios, reforzar atención.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge blue">100%</span></td>
+                        <td>Mes <strong>promedio</strong></td>
+                        <td>Mantener operación normal.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge orange">80% – 100%</span></td>
+                        <td>Mes <strong>levemente bajo</strong></td>
+                        <td>Activar promociones suaves, cuidar márgenes.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge red">< 80%</span></td>
+                        <td>Mes de <strong>baja temporada</strong></td>
+                        <td>Campañas agresivas, fidelización, ajustar costos.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 7: GRÁFICOS ===== -->
+        <section id="graficos">
+            <h2>📈 Interpretar los gráficos</h2>
+            <p>La herramienta genera 3 gráficos que te ayudan a visualizar los patrones:</p>
+
+            <h3>1. Gráfico de Ventas</h3>
+            <p>
+                Muestra una <strong>línea azul</strong> con las ventas mes a mes y una <strong>línea roja punteada</strong>
+                que representa el promedio anual. Los puntos que están por encima de la línea roja indican meses buenos;
+                los que están por debajo, meses flojos.
+            </p>
+
+            <h3>2. Gráfico de Costos</h3>
+            <p>
+                Similar al anterior pero con los <strong>costos en naranja</strong>. Comparando ambos gráficos podés ver
+                si tus costos acompañan a tus ventas o se mantienen fijos.
+            </p>
+
+            <h3>3. Gráfico de Índice Estacional</h3>
+            <p>
+                Es el más importante. Muestra <strong>barras</strong> para cada mes:
+            </p>
+            <ul>
+                <li><span class="badge green">Verde</span> si el mes está por encima del promedio (índice ≥ 100%).</li>
+                <li><span class="badge orange">Naranja</span> si el mes está por debajo del promedio (índice < 100%).</li>
+                <li>Una <strong>línea roja punteada</strong> marca el 100% de referencia.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                Si ves muchas barras verdes juntas → alta temporada concentrada.
+                Si están dispersas → ventas más estables durante el año.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 8: RECOMENDACIONES ===== -->
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                Debajo de las tarjetas vas a encontrar una sección con recomendaciones generadas automáticamente
+                en base a tus datos. Puede incluir:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Tipo</th>
+                        <th>Qué significa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟢</td>
+                        <td><strong>Alta temporada</strong></td>
+                        <td>Meses con índice > 120%. Aprovechá para aumentar precios y stock.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Baja temporada</strong></td>
+                        <td>Meses con índice < 80%. Considerá promociones o descuentos.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📈</td>
+                        <td><strong>Tendencia positiva</strong></td>
+                        <td>Tus ventas crecen mes a mes. Buen momento para invertir.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📉</td>
+                        <td><strong>Tendencia negativa</strong></td>
+                        <td>Tus ventas caen. Revisá estrategia comercial y costos.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📊</td>
+                        <td><strong>Correlación ventas-costos</strong></td>
+                        <td>Indica si los costos siguen a las ventas o se comportan de forma independiente.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📌</td>
+                        <td><strong>Plan de acción</strong></td>
+                        <td>Resumen con los meses a preparar stock y los meses para promocionar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 9: EJEMPLO ===== -->
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés un negocio de <strong>pasapalos gourmet</strong>. Cargás los siguientes datos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Ventas</th>
+                        <th>Índice</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enero</td>
+                        <td>$8.500</td>
+                        <td>70%</td>
+                        <td><span class="badge red">Baja</span> post-fiestas</td>
+                    </tr>
+                    <tr>
+                        <td>Mayo</td>
+                        <td>$11.500</td>
+                        <td>95%</td>
+                        <td><span class="badge blue">Normal</span></td>
+                    </tr>
+                    <tr>
+                        <td>Noviembre</td>
+                        <td>$13.500</td>
+                        <td>112%</td>
+                        <td><span class="badge green">Alta</span> pre-fiestas</td>
+                    </tr>
+                    <tr>
+                        <td>Diciembre</td>
+                        <td>$15.500</td>
+                        <td>128%</td>
+                        <td><span class="badge green">Alta</span> fiestas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Con este análisis, la herramienta te diría:</p>
+
+            <div class="info-box">
+                <p><span class="title">🎯 Recomendación</span>
+                <strong>Alta temporada:</strong> Noviembre y Diciembre (índice > 120%). Prepará stock extra, considerá subir precios un 10-15%.<br>
+                <strong>Baja temporada:</strong> Enero y Febrero (índice < 80%). Lanzá promociones 2x1 o descuentos por volumen.<br>
+                <strong>Tendencia:</strong> Las ventas crecen en promedio un 5% mensual. Buen momento para invertir en marketing.</p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Noviembre:</strong> Comprá el doble de insumos y contratá personal temporal.</li>
+                <li><strong>Diciembre:</strong> Aumentá precios un 15% y ofrecé packs navideños.</li>
+                <li><strong>Enero-Febrero:</strong> Promoción "2x1 los martes" para mantener flujo.</li>
+                <li><strong>Marzo-Abril:</strong> Aprovechá para renovar equipamiento o capacitarte.</li>
+            </ol>
+        </section>
+
+        <!-- ===== SECCIÓN 10: PDF ===== -->
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión de tu navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, tarjetas de resultados, recomendaciones, gráficos y una
+                descripción resumen con los datos clave. Se ocultan automáticamente la tabla de ingreso de datos
+                y los botones de acción.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Formato recomendado</span>
+                Para una mejor lectura, elegí tamaño <strong>A4</strong> y orientación <strong>vertical</strong>.
+                Si tenés muchos datos, podés usar <strong>horizontal</strong>.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 11: GUARDADO ===== -->
+        <section id="guardado">
+            <h2>💾 Guardado de datos</h2>
+            <p>
+                Todos los datos que ingresás se guardan automáticamente en el <strong>almacenamiento local de tu navegador</strong>
+                (localStorage). Esto significa:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">✅</th>
+                        <th>Ventajas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">💯</td>
+                        <td>Los datos <strong>persisten</strong> aunque cierres el navegador o apagues la computadora.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔒</td>
+                        <td>Todo queda <strong>en tu dispositivo</strong>. No se envía nada a internet.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⚡</td>
+                        <td>Al abrir la herramienta, los datos <strong>aparecen automáticamente</strong>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="danger-box">
+                <p><span class="title">⚠️ Atención</span>
+                Si limpiás el historial, caché o datos de navegación de tu navegador, <strong>podrías perder la información</strong>.
+                Te recomendamos exportar un PDF del análisis cada mes para tener un respaldo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 12: REINICIAR ===== -->
+        <section id="reiniciar">
+            <h2>🗑️ Reiniciar datos</h2>
+            <p>Si querés empezar de cero (por ejemplo, para cargar un nuevo año):</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge red">🗑️ Reiniciar</span>.</li>
+                <li>Aparecerá una confirmación. Aceptá si estás seguro.</li>
+                <li>Todos los datos se borran y la tabla queda vacía.</li>
+            </ol>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Esta acción no se puede deshacer</span>
+                Antes de reiniciar, asegurate de haber guardado un PDF con el análisis actual. Una vez confirmado,
+                los datos se eliminan de forma permanente.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 13: FAQ ===== -->
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se comparten con alguien?</div>
+                <div class="a">No. Todo se guarda localmente en tu navegador. Nadie más tiene acceso a tu información.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si me equivoco al cargar un dato?</div>
+                <div class="a">Simplemente hacé clic en la celda, corregí el valor y presioná "Calcular" para actualizar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo analizar varios años a la vez?</div>
+                <div class="a">Esta herramienta está diseñada para analizar 12 meses. Si querés comparar años, guardá un PDF por año y comparalos manualmente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué hago si tengo meses sin datos?</div>
+                <div class="a">Dejá el valor en 0. El análisis se ajustará automáticamente al promedio real de los meses cargados.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué mis gráficos no se actualizan al cambiar un dato?</div>
+                <div class="a">Los gráficos se actualizan cuando presionás "Calcular". Si modificás un dato, tenés que volver a presionar el botón.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo exportar los datos a Excel?</div>
+                <div class="a">Actualmente no hay exportación directa a Excel, pero podés copiar los datos manualmente o generar un PDF con el análisis completo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántos meses necesito como mínimo para que el análisis sea útil?</div>
+                <div class="a">Con 6 meses ya podés ver patrones. Lo ideal son 12 meses para tener el ciclo completo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "correlación" en las recomendaciones?</div>
+                <div class="a">Es un número entre -1 y 1 que indica si los costos se mueven junto con las ventas. Cerca de 1 significa que cuando suben las ventas, también suben los costos. Cerca de 0 significa que son independientes.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo interpretó la tendencia?</div>
+                <div class="a">La tendencia es el cambio promedio mensual de tus ventas. Si es positiva, tus ventas crecen; si es negativa, decrecen.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si cargo datos en rojo (negativos)?</div>
+                <div class="a">La herramienta acepta números negativos pero están pensados para valores en pesos. Si tuviste pérdidas, restá ese monto a las ventas.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 14: TIPS ===== -->
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Cargá datos al cierre de cada mes</h3>
+            <p>Establecé una rutina el último día de cada mes para actualizar la información. Así el análisis siempre estará al día.</p>
+
+            <h3>2. Compará años anteriores</h3>
+            <p>Al final del año, guardá el PDF y empezá un nuevo set de datos. Comparar dos años te muestra si tu negocio crece o no.</p>
+
+            <h3>3. Usá el análisis para negociar con proveedores</h3>
+            <p>Si identificás meses de baja, podés negociar precios más bajos o plazos de pago extendidos con tus proveedores.</p>
+
+            <h3>4. Combiná con el Panel de KPIs</h3>
+            <p>Mientras el Panel de KPIs te da el detalle semanal, el Análisis de Estacionalidad te da la foto anual. Usalas juntas para tomar mejores decisiones.</p>
+
+            <h3>5. Planificá las vacaciones en meses bajos</h3>
+            <p>Si tu negocio tiene meses de baja claros, esos son los mejores momentos para tomarte unos días sin perder ventas.</p>
+
+            <h3>6. Ajustá promociones según el índice</h3>
+            <p>En meses con índice < 80%, lanzá promociones agresivas. En meses con índice > 120%, no descuentes, aprovechá para subir precios.</p>
+
+            <h3>7. Guardá un PDF cada trimestre</h3>
+            <p>Un PDF trimestral te sirve como respaldo histórico y para compartir con socios o contadores.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de 12 meses de uso continuo, vas a poder predecir con alta precisión
+                cuánto vas a vender en cada mes del año siguiente. ¡Eso es oro puro para tu planificación!</p>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Análisis de Estacionalidad</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+        <br>
+        <!-- ===== FOOTER ===== -->
+        <div>
+            <footer class="footer" align="center">
+                <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                        <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                        <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                        <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                        <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                        <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    </svg>
+                    <strong style="color:#0A2540; font-size:15px; letter-spacing:1.5px;">ENUMAPP</strong>
+                </div>
+                <p style="font-size:12px; color:#7a8b9f; font-style:italic; margin-bottom:8px;">Tus números, tu negocio, tu app.</p>
+                <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+                <div class="footer-links">
+                    <a href="suite.html">Inicio</a>
+                    <a href="contacto.html" target="_blank" rel="noopener noreferrer">Contacto</a>
+                    <a href="premium-proximamente.html" target="_blank" rel="noopener noreferrer">Activar Premium</a>
+                    <a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos y Condiciones</a>
+                    <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    <!-- ===== BOTÓN VOLVER ARRIBA ===== -->
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script>
+        // ===== SCROLL SUAVE PARA LOS ENLACES DEL ÍNDICE =====
+        document.querySelectorAll('.toc a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== MOSTRAR/OCULTAR BOTÓN VOLVER ARRIBA =====
+        const backTop = document.getElementById('backTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backTop.classList.add('visible');
+            } else {
+                backTop.classList.remove('visible');
+            }
+        });
+
+        // ===== ATAJOS DE TECLADO =====
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+P para imprimir
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                // Dejamos el comportamiento por defecto
+                return;
+            }
+            // Inicio para volver arriba
+            if (e.key === 'Home' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        });
+
+        console.log('📖 Manual de Uso del Análisis de Estacionalidad cargado.');
+    </script>
+</body>
+</html>

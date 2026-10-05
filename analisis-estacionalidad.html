@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Análisis de Estacionalidad · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Análisis de Estacionalidad de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>📅 ENUMAPP · ANÁLISIS DE ESTACIONALIDAD</h2>
+            <p>Patrones estacionales en ventas y costos</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📅 Análisis de Estacionalidad
+                    <small>· Patrones en ventas y costos</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-gestor-proveedores.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Identificá los meses de alta y baja temporada. Tomá decisiones de stock, precios y marketing basadas en datos.
+        </div>
+
+        <div class="flex-row no-print">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <button class="btn-primary" onclick="calcular()">📊 Calcular</button>
+                <button class="btn-secondary" onclick="cargarEjemplo()" style="background:#8e44ad;">📋 Ejemplo</button>
+                <button class="btn-danger" onclick="reiniciar()">🗑️ Reiniciar</button>
+            </div>
+            <button class="btn-pdf" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div class="form-section" style="overflow-x:auto;">
+            <h4>📝 Datos mensuales</h4>
+            <table class="table-container" style="border:none; margin-top:0;" id="dataTable">
+                <thead>
+                    <tr>
+                        <th style="text-align:left; padding-left:16px;">Mes</th>
+                        <th>Ventas ($)</th>
+                        <th>Costos ($)</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row" style="margin-top:0;">
+            <span class="badge">📈 <strong>Análisis de estacionalidad</strong></span>
+        </div>
+
+        <div class="results-grid-4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:10px;">
+            <div class="result-card info">
+                <div class="label">📈 Ventas Promedio</div>
+                <div class="value" id="valVentasPromedio">$0</div>
+                <div class="sub" id="subVentasPromedio">mensual</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">📉 Costos Promedio</div>
+                <div class="value" id="valCostosPromedio">$0</div>
+                <div class="sub" id="subCostosPromedio">mensual</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">🔥 Mes de Mayor Ventas</div>
+                <div class="value" id="valMesAlto">-</div>
+                <div class="sub" id="subMesAlto">índice estacional</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">❄️ Mes de Menor Ventas</div>
+                <div class="value" id="valMesBajo">-</div>
+                <div class="sub" id="subMesBajo">índice estacional</div>
+            </div>
+        </div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendaciones</h3>
+            <p id="recommendationText">Ingresá los datos mensuales y presioná "Calcular" para obtener recomendaciones.</p>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <canvas id="ventasChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="costosChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-container" style="height:280px;">
+            <canvas id="estacionalidadChart"></canvas>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> Índice > 100 = mes por encima del promedio. Índice < 100 = mes por debajo del promedio.</span>
+            <span>🔄 <span id="lastSaved">Listo</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+        let datos = {};
+        let chartVentas = null, chartCostos = null, chartEstacional = null;
+
+        const tableBody = document.getElementById('tableBody');
+        const valVentasPromedio = document.getElementById('valVentasPromedio');
+        const valCostosPromedio = document.getElementById('valCostosPromedio');
+        const valMesAlto = document.getElementById('valMesAlto');
+        const valMesBajo = document.getElementById('valMesBajo');
+        const subMesAlto = document.getElementById('subMesAlto');
+        const subMesBajo = document.getElementById('subMesBajo');
+        const recommendationText = document.getElementById('recommendationText');
+        const printDesc = document.getElementById('printDesc');
+        const lastSaved = document.getElementById('lastSaved');
+
+        // ===== PERSISTENCIA =====
+        function guardarEstacionalidad() {
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.ESTACIONALIDAD, datos);
+            lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', {
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        function cargarEstacionalidad() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.ESTACIONALIDAD);
+            if (data && typeof data === 'object') {
+                datos = data;
+                return true;
+            }
+            return false;
+        }
+
+        // ===== TABLA =====
+        function initTabla() {
+            let html = '';
+            MESES.forEach((mes) => {
+                const ventas = datos[mes]?.ventas || 0;
+                const costos = datos[mes]?.costos || 0;
+                html += `<tr>
+                    <td style="text-align:left; padding-left:16px; font-weight:600; color:var(--color-text);">${mes}</td>
+                    <td><input type="number" class="input-ventas" data-mes="${mes}" value="${ventas}" step="100" min="0" style="width:100%; padding:6px 8px; border:1.5px solid var(--color-border-input); border-radius:8px; text-align:center; font-family:inherit;" /></td>
+                    <td><input type="number" class="input-costos" data-mes="${mes}" value="${costos}" step="100" min="0" style="width:100%; padding:6px 8px; border:1.5px solid var(--color-border-input); border-radius:8px; text-align:center; font-family:inherit;" /></td>
+                </tr>`;
+            });
+            tableBody.innerHTML = html;
+
+            document.querySelectorAll('.input-ventas, .input-costos').forEach(inp => {
+                inp.addEventListener('change', guardarDesdeInputs);
+                inp.addEventListener('input', guardarDesdeInputs);
+            });
+        }
+
+        function guardarDesdeInputs() {
+            const ventasInputs = document.querySelectorAll('.input-ventas');
+            const costosInputs = document.querySelectorAll('.input-costos');
+            MESES.forEach((mes, i) => {
+                if (!datos[mes]) datos[mes] = {};
+                datos[mes].ventas = parseFloat(ventasInputs[i].value) || 0;
+                datos[mes].costos = parseFloat(costosInputs[i].value) || 0;
+            });
+            guardarEstacionalidad();
+        }
+
+        // ===== EJEMPLO =====
+        function cargarEjemplo() {
+            datos = {
+                'Enero': { ventas: 8500, costos: 6200 },
+                'Febrero': { ventas: 7800, costos: 5800 },
+                'Marzo': { ventas: 9200, costos: 6500 },
+                'Abril': { ventas: 10200, costos: 7200 },
+                'Mayo': { ventas: 11500, costos: 7800 },
+                'Junio': { ventas: 9800, costos: 7100 },
+                'Julio': { ventas: 8700, costos: 6400 },
+                'Agosto': { ventas: 8200, costos: 6100 },
+                'Septiembre': { ventas: 9500, costos: 6800 },
+                'Octubre': { ventas: 11200, costos: 7600 },
+                'Noviembre': { ventas: 13500, costos: 8500 },
+                'Diciembre': { ventas: 15500, costos: 9200 }
+            };
+            guardarEstacionalidad();
+            initTabla();
+            calcular();
+            ENUMAPP_UI.toast('✅ Datos de ejemplo cargados', 'success');
+        }
+
+        // ===== REINICIAR =====
+        function reiniciar() {
+            if (!ENUMAPP_UI.confirm('¿Borrar todos los datos?')) return;
+            datos = {};
+            ENUMAPP_STORAGE.remove(ENUMAPP_STORAGE.KEYS.ESTACIONALIDAD);
+            initTabla();
+            valVentasPromedio.textContent = '$0';
+            valCostosPromedio.textContent = '$0';
+            valMesAlto.textContent = '-';
+            valMesBajo.textContent = '-';
+            subMesAlto.textContent = 'índice estacional';
+            subMesBajo.textContent = 'índice estacional';
+            recommendationText.innerHTML = 'Ingresá los datos mensuales y presioná "Calcular" para obtener recomendaciones.';
+            if (chartVentas) { chartVentas.destroy(); chartVentas = null; }
+            if (chartCostos) { chartCostos.destroy(); chartCostos = null; }
+            if (chartEstacional) { chartEstacional.destroy(); chartEstacional = null; }
+            printDesc.innerHTML = '';
+            lastSaved.textContent = 'Sin datos';
+            ENUMAPP_UI.toast('✅ Datos reiniciados', 'success');
+        }
+
+        // ===== CÁLCULO =====
+        function calcular() {
+            const ventasInputs = document.querySelectorAll('.input-ventas');
+            const costosInputs = document.querySelectorAll('.input-costos');
+            const ventas = [], costos = [];
+
+            MESES.forEach((mes, i) => {
+                const v = parseFloat(ventasInputs[i].value) || 0;
+                const c = parseFloat(costosInputs[i].value) || 0;
+                ventas.push(v);
+                costos.push(c);
+                if (!datos[mes]) datos[mes] = {};
+                datos[mes].ventas = v;
+                datos[mes].costos = c;
+            });
+            guardarEstacionalidad();
+
+            const totalVentas = ventas.reduce((a, b) => a + b, 0);
+            const totalCostos = costos.reduce((a, b) => a + b, 0);
+            const promedioVentas = totalVentas / 12;
+            const promedioCostos = totalCostos / 12;
+
+            const indices = ventas.map(v => promedioVentas > 0 ? (v / promedioVentas) * 100 : 0);
+
+            let maxIdx = -1, minIdx = -1, maxVal = -Infinity, minVal = Infinity;
+            indices.forEach((idx, i) => {
+                if (idx > maxVal) { maxVal = idx; maxIdx = i; }
+                if (idx < minVal) { minVal = idx; minIdx = i; }
+            });
+
+            valVentasPromedio.textContent = ENUMAPP_FMT.money(promedioVentas);
+            valCostosPromedio.textContent = ENUMAPP_FMT.money(promedioCostos);
+            valMesAlto.textContent = MESES[maxIdx];
+            valMesBajo.textContent = MESES[minIdx];
+            subMesAlto.textContent = `índice ${maxVal.toFixed(1)}% (${ENUMAPP_FMT.money(ventas[maxIdx])})`;
+            subMesBajo.textContent = `índice ${minVal.toFixed(1)}% (${ENUMAPP_FMT.money(ventas[minIdx])})`;
+
+            let recs = [];
+            const mesesAltos = MESES.filter((_, i) => indices[i] > 120);
+            if (mesesAltos.length > 0) recs.push(`🟢 <strong>Alta temporada:</strong> ${mesesAltos.join(', ')} (índice > 120%). Aprovechá para aumentar precios y stock.`);
+
+            const mesesBajos = MESES.filter((_, i) => indices[i] < 80);
+            if (mesesBajos.length > 0) recs.push(`🔴 <strong>Baja temporada:</strong> ${mesesBajos.join(', ')} (índice < 80%). Considerá promociones o descuentos.`);
+
+            let tendencia = 0;
+            for (let i = 1; i < ventas.length; i++) {
+                tendencia += ventas[i - 1] > 0 ? (ventas[i] - ventas[i - 1]) / ventas[i - 1] : 0;
+            }
+            tendencia = (tendencia / 11) * 100;
+            if (tendencia > 5) recs.push(`📈 <strong>Tendencia positiva:</strong> Las ventas crecen en promedio un ${tendencia.toFixed(1)}% por mes.`);
+            else if (tendencia < -5) recs.push(`📉 <strong>Tendencia negativa:</strong> Las ventas caen en promedio un ${Math.abs(tendencia).toFixed(1)}% por mes.`);
+            else recs.push(`📊 <strong>Tendencia estable:</strong> Las ventas se mantienen en un rango constante.`);
+
+            let correlacion = 0;
+            if (totalVentas > 0 && totalCostos > 0) {
+                let num = 0, denV = 0, denC = 0;
+                for (let i = 0; i < 12; i++) {
+                    const dv = ventas[i] - promedioVentas;
+                    const dc = costos[i] - promedioCostos;
+                    num += dv * dc;
+                    denV += dv * dv;
+                    denC += dc * dc;
+                }
+                const den = Math.sqrt(denV * denC);
+                if (den > 0) correlacion = num / den;
+            }
+
+            if (correlacion > 0.7) recs.push(`📊 <strong>Alta correlación (${correlacion.toFixed(2)}):</strong> Los costos siguen a las ventas.`);
+            else if (correlacion < -0.7) recs.push(`📊 <strong>Correlación negativa (${correlacion.toFixed(2)}):</strong> Los costos no están alineados con las ventas.`);
+            else recs.push(`📊 <strong>Correlación moderada (${correlacion.toFixed(2)}):</strong> Los costos tienen cierta relación con las ventas.`);
+
+            recs.push(`📌 <strong>Plan de acción:</strong> Prepará stock en ${mesesAltos.length > 0 ? mesesAltos.join(', ') : 'los meses de alta'}. En ${mesesBajos.length > 0 ? mesesBajos.join(', ') : 'baja'}, enfocá en retención de clientes.`);
+
+            recommendationText.innerHTML = recs.map(r => `<div class="rec-item">• ${r}</div>`).join('');
+
+            // ===== GRÁFICOS =====
+            if (chartVentas) chartVentas.destroy();
+            chartVentas = new Chart(document.getElementById('ventasChart'), {
+                type: 'line',
+                data: {
+                    labels: MESES,
+                    datasets: [{
+                        label: 'Ventas ($)',
+                        data: ventas,
+                        borderColor: '#2b7be4',
+                        backgroundColor: 'rgba(43,123,228,0.05)',
+                        borderWidth: 3, pointRadius: 5, tension: 0.3, fill: false,
+                    }, {
+                        label: 'Promedio',
+                        data: Array(12).fill(promedioVentas),
+                        borderColor: '#e74c3c',
+                        borderDash: [6, 4],
+                        borderWidth: 2, pointRadius: 0, fill: false,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { font: { size: 12 }, color: '#0a2540' } },
+                        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + ENUMAPP_FMT.money(c.parsed.y) } }
+                    },
+                    scales: { y: { ticks: { callback: ENUMAPP_UI.axisMoney } } }
+                }
+            });
+
+            if (chartCostos) chartCostos.destroy();
+            chartCostos = new Chart(document.getElementById('costosChart'), {
+                type: 'line',
+                data: {
+                    labels: MESES,
+                    datasets: [{
+                        label: 'Costos ($)',
+                        data: costos,
+                        borderColor: '#e67e22',
+                        backgroundColor: 'rgba(230,126,34,0.05)',
+                        borderWidth: 3, pointRadius: 5, tension: 0.3, fill: false,
+                    }, {
+                        label: 'Promedio',
+                        data: Array(12).fill(promedioCostos),
+                        borderColor: '#e74c3c',
+                        borderDash: [6, 4],
+                        borderWidth: 2, pointRadius: 0, fill: false,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { font: { size: 12 }, color: '#0a2540' } },
+                        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + ENUMAPP_FMT.money(c.parsed.y) } }
+                    },
+                    scales: { y: { ticks: { callback: ENUMAPP_UI.axisMoney } } }
+                }
+            });
+
+            if (chartEstacional) chartEstacional.destroy();
+            chartEstacional = new Chart(document.getElementById('estacionalidadChart'), {
+                type: 'bar',
+                data: {
+                    labels: MESES,
+                    datasets: [{
+                        label: 'Índice Estacional (%)',
+                        data: indices,
+                        backgroundColor: indices.map(i => i >= 100 ? 'rgba(46,204,113,0.7)' : 'rgba(230,126,34,0.7)'),
+                        borderColor: indices.map(i => i >= 100 ? '#2ecc71' : '#e67e22'),
+                        borderWidth: 2, borderRadius: 4,
+                    }, {
+                        label: 'Línea base (100%)',
+                        data: Array(12).fill(100),
+                        type: 'line',
+                        borderColor: '#e74c3c',
+                        borderDash: [6, 4],
+                        borderWidth: 2, pointRadius: 0, fill: false,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { font: { size: 12 }, color: '#0a2540' } },
+                        tooltip: {
+                            callbacks: {
+                                label: c => c.datasetIndex === 0 ? 'Índice: ' + c.parsed.y.toFixed(1) + '%' : 'Base: 100%'
+                            }
+                        }
+                    },
+                    scales: { y: { min: 0, ticks: { callback: v => v + '%' } } }
+                }
+            });
+
+            printDesc.innerHTML = `
+                <strong>Ventas promedio:</strong> ${ENUMAPP_FMT.money(promedioVentas)} &nbsp;|&nbsp; <strong>Costos promedio:</strong> ${ENUMAPP_FMT.money(promedioCostos)}<br>
+                <strong>Mes de mayor venta:</strong> ${MESES[maxIdx]} (${maxVal.toFixed(1)}% del promedio)<br>
+                <strong>Mes de menor venta:</strong> ${MESES[minIdx]} (${minVal.toFixed(1)}% del promedio)<br>
+                <strong>Tendencia:</strong> ${tendencia.toFixed(1)}% mensual &nbsp;|&nbsp; <strong>Correlación:</strong> ${correlacion.toFixed(2)}
+            `;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        }
+
+        // ===== INICIALIZAR =====
+        if (!cargarEstacionalidad()) {
+            datos = {};
+            lastSaved.textContent = 'Sin datos';
+        } else {
+            lastSaved.textContent = 'Cargado desde guardado';
+        }
+        initTabla();
+
+        const tieneDatos = MESES.some(m => datos[m] && (datos[m].ventas > 0 || datos[m].costos > 0));
+        if (tieneDatos) {
+            calcular();
+        } else {
+            recommendationText.innerHTML = '📌 Ingresá los datos mensuales de ventas y costos, luego presioná "Calcular" para analizar la estacionalidad.';
+        }
+
+        window.addEventListener('beforeunload', guardarEstacionalidad);
+    </script>
+
+</body>
+</html>

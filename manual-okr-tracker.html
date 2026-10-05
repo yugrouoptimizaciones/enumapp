@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · OKR Tracker · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del OKR Tracker de ENUMAPP. Tus números, tu negocio, tu app." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE OKR TRACKER</h2>
+            <p>Objetivos y resultados clave trimestrales</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· OKR Tracker</small>
+                </h1>
+            </div>
+            <a href="okr-tracker.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para definir, trackear y revisar tus objetivos trimestrales con OKRs.
+            Aprendé a crear objetivos, agregar Key Results, registrar check-ins semanales y analizar el progreso real contra el esperado.
+        </div>
+
+        <!-- ===== ÍNDICE ===== -->
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#que-son-okr">¿Qué son los OKRs?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#trimestre">Selector de trimestre</a></li>
+                <li><a href="#crear-objetivo">Crear un objetivo</a></li>
+                <li><a href="#colores">Los 5 colores de objetivo</a></li>
+                <li><a href="#crear-kr">Crear un Key Result</a></li>
+                <li><a href="#checkins">Registrar check-ins</a></li>
+                <li><a href="#progreso">Cómo se calcula el progreso</a></li>
+                <li><a href="#estados">Los 4 estados de un KR</a></li>
+                <li><a href="#kpis">Interpretar los KPIs globales</a></li>
+                <li><a href="#benchmark">El benchmark esperado</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#filtros">Filtros y búsqueda</a></li>
+                <li><a href="#csv">Exportar a CSV</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+            </ul>
+        </div>
+
+        <!-- ===== SECCIÓN 1: QUÉ ES ===== -->
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>OKR Tracker</strong> es una herramienta para definir, trackear y revisar
+                <strong>objetivos trimestrales</strong> usando la metodología OKR
+                (<em>Objectives and Key Results</em>). Te permite alinear tus metas con acciones
+                medibles y hacer seguimiento semanal del progreso real.
+            </p>
+            <p>Con esta herramienta podés:</p>
+            <ul>
+                <li>Crear <strong>objetivos trimestrales</strong> con owner, estado y color.</li>
+                <li>Definir <strong>Key Results medibles</strong> dentro de cada objetivo.</li>
+                <li>Registrar <strong>check-ins semanales</strong> con historial completo.</li>
+                <li>Ver el <strong>progreso automático</strong> de cada KR y objetivo.</li>
+                <li>Comparar tu avance real contra un <strong>benchmark esperado</strong>.</li>
+                <li>Recibir <strong>recomendaciones automáticas</strong> según tu ritmo.</li>
+                <li>Exportar todo a <strong>CSV</strong> o generar un <strong>PDF</strong>.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: OKR</span>
+                Un <strong>OKR</strong> tiene 2 partes:
+                <strong>Objective</strong> = el "qué" (una meta inspiradora y cualitativa).
+                <strong>Key Results</strong> = el "cómo se mide" (resultados cuantificables).
+                Por ejemplo: "Aumentar rentabilidad" (O) → "Reducir costos a $35.000/mes" (KR).</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 2: QUÉ SON LOS OKRS ===== -->
+        <section id="que-son-okr">
+            <h2>📚 ¿Qué son los OKRs?</h2>
+            <p>
+                Los OKRs son un marco de gestión de objetivos creado en Intel en los años 70 y popularizado
+                por Google. Su idea central es simple: <strong>definir objetivos claros y medir resultados
+                concretos</strong>. Se revisan trimestralmente.
+            </p>
+
+            <h3>Estructura de un OKR</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Parte</th>
+                        <th>Qué es</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🎯 Objective</strong></td>
+                        <td>Cualitativo, inspirador, motivador. Responde "¿a dónde queremos ir?"</td>
+                        <td>"Aumentar la rentabilidad del negocio"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📊 Key Results</strong></td>
+                        <td>Cuantitativos, medibles, con fecha. Responden "¿cómo sabemos que llegamos?"</td>
+                        <td>"Reducir costos fijos de $50.000 a $35.000"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Reglas de oro de los OKRs</h3>
+            <ul>
+                <li><strong>Pocos objetivos</strong>: 2-3 por trimestre, no más.</li>
+                <li><strong>KRs medibles</strong>: siempre con número y unidad.</li>
+                <li><strong>KRs ambiciosos pero alcanzables</strong>: apuntá a un 70% de cumplimiento como éxito.</li>
+                <li><strong>Trimestrales</strong>: 3 meses es el ciclo ideal.</li>
+                <li><strong>Públicos y visibles</strong>: si no se ven, no se gestionan.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Objetivo + KR = OKR</span>
+                No confundas un objetivo con una tarea. "Hacer más marketing" no es un objetivo,
+                es una tarea. "Aumentar ventas un 25%" sí es un objetivo medible.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 3: CUÁNDO USARLA ===== -->
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Planificar el trimestre</strong>: al inicio de cada Q, definir 2-3 objetivos clave.</li>
+                <li><strong>Hacer seguimiento semanal</strong>: cada lunes, revisar y actualizar los KRs.</li>
+                <li><strong>Alinear a un equipo chico</strong>: cada persona ve sus objetivos y los del resto.</li>
+                <li><strong>Cerrar el trimestre</strong>: comparar resultados reales contra metas al final.</li>
+                <li><strong>Priorizar el trabajo</strong>: cuando tenés mil cosas para hacer, los OKRs te enfocan.</li>
+                <li><strong>Presentar resultados</strong>: exportar PDF para reuniones con socios o inversores.</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Antes de empezar</span>
+                No arranques con 10 objetivos. Elegí <strong>2-3 objetivos por trimestre</strong> con
+                2-4 KRs cada uno. Más de eso es imposible de gestionar y terminás abandonando.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 4: PRIMEROS PASOS ===== -->
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta por primera vez, vas a ver el trimestre actual vacío. La estructura es:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Elegí el trimestre</div>
+                    <div class="step-desc">Q1, Q2, Q3 o Q4</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Creá objetivos</div>
+                    <div class="step-desc">2-3 por trimestre</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Agregá KRs</div>
+                    <div class="step-desc">2-4 por objetivo</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Hacé check-ins</div>
+                    <div class="step-desc">Semanalmente</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Empezá con ejemplos</span>
+                Si es la primera vez que usás la herramienta, hacé clic en <strong>"📋 Ejemplos"</strong>
+                para cargar 3 objetivos con 7 KRs ya configurados. Es la mejor forma de entender cómo funciona
+                antes de cargar tus propios datos.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 5: TRIMESTRE ===== -->
+        <section id="trimestre">
+            <h2>📅 Selector de trimestre</h2>
+            <p>
+                Arriba de todo tenés 4 botones para elegir el trimestre y un campo para el año.
+                Toda la vista se filtra por el trimestre + año seleccionados.
+            </p>
+
+            <h3>Cómo funciona</h3>
+            <ol>
+                <li>Hacé clic en <strong>Q1, Q2, Q3 o Q4</strong> para cambiar de trimestre.</li>
+                <li>Escribí el año en el campo <strong>Año</strong> (por defecto el actual).</li>
+                <li>Toda la información (objetivos, KRs, KPIs, gráfico) se filtra por ese período.</li>
+            </ol>
+
+            <h3>Fechas de cada trimestre</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Trimestre</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Semanas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Q1</strong></td><td>1 de enero</td><td>31 de marzo</td><td>S1 - S13</td></tr>
+                    <tr><td><strong>Q2</strong></td><td>1 de abril</td><td>30 de junio</td><td>S1 - S13</td></tr>
+                    <tr><td><strong>Q3</strong></td><td>1 de julio</td><td>30 de septiembre</td><td>S1 - S13</td></tr>
+                    <tr><td><strong>Q4</strong></td><td>1 de octubre</td><td>31 de diciembre</td><td>S1 - S13</td></tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Cómo definir los trimestres</span>
+                Podés usar los trimestres calendario (Q1 = ene-mar) o alinearlos a tu negocio.
+                Por ejemplo, si tu negocio tiene temporada alta en verano, podés empezar el "Q1" en julio.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 6: CREAR OBJETIVO ===== -->
+        <section id="crear-objetivo">
+            <h2>➕ Crear un objetivo</h2>
+            <p>Para crear un objetivo, hacé clic en el botón <strong>➕ Nuevo Objetivo</strong>. Se abre un modal con 5 campos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Título</strong></td>
+                        <td>Meta inspiradora y cualitativa. Máximo 80 caracteres. <span class="badge red">Obligatorio</span></td>
+                        <td>"Aumentar rentabilidad del negocio"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Descripción</strong></td>
+                        <td>Contexto o detalle de la meta. Opcional, máximo 200 caracteres.</td>
+                        <td>"Mejorar margen neto y reducir costos operativos"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Owner</strong></td>
+                        <td>Persona responsable del objetivo. Opcional.</td>
+                        <td>"Juan", "María", "Equipo de ventas"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Estado</strong></td>
+                        <td>Activo, Completado o Archivado.</td>
+                        <td>Activo</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Color</strong></td>
+                        <td>Uno de los 5 colores en secuencia azul → rojo.</td>
+                        <td>Verde (crecimiento)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Estados de un objetivo</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge green">🟢 Activo</span></td>
+                        <td>Está en curso, lo estás trabajando este trimestre.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge blue">✅ Completado</span></td>
+                        <td>Terminaste y cumpliste el objetivo. Queda en el historial.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge gray">📦 Archivado</span></td>
+                        <td>Ya no es relevante o fue reemplazado. No aparece en gráficos.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 7: COLORES ===== -->
+        <section id="colores">
+            <h2>🎨 Los 5 colores de objetivo</h2>
+            <p>
+                Cada objetivo tiene un color que indica su <strong>"temperatura"</strong>: vas del
+                azul (frío, neutro) al rojo (caliente, crítico). Esto te permite ver de un vistazo
+                qué tipo de objetivo es sin leer el título.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card info" style="border-left: 6px solid #2b7be4;">
+                    <div class="card-title">🔵 Azul</div>
+                    <div class="card-cond">Estratégico</div>
+                    <div class="card-desc">Objetivo base, en marcha normal. Ej: "Mejorar atención al cliente".</div>
+                </div>
+                <div class="card positive" style="border-left: 6px solid #2ecc71;">
+                    <div class="card-title">🟢 Verde</div>
+                    <div class="card-cond">Crecimiento</div>
+                    <div class="card-desc">Objetivo de expansión o mejora. Ej: "Aumentar rentabilidad".</div>
+                </div>
+                <div class="card warning" style="border-left: 6px solid #f39c12;">
+                    <div class="card-title">🟡 Amarillo</div>
+                    <div class="card-cond">Mejora</div>
+                    <div class="card-desc">Objetivo que requiere atención moderada. Ej: "Optimizar procesos".</div>
+                </div>
+                <div class="card warning" style="border-left: 6px solid #e67e22;">
+                    <div class="card-title">🟠 Naranja</div>
+                    <div class="card-cond">Riesgo</div>
+                    <div class="card-desc">Objetivo bajo amenaza o con incertidumbre. Ej: "Recuperar clientes perdidos".</div>
+                </div>
+                <div class="card danger" style="border-left: 6px solid #e74c3c;">
+                    <div class="card-title">🔴 Rojo</div>
+                    <div class="card-cond">Crítico</div>
+                    <div class="card-desc">Objetivo urgente, que debe resolverse ya. Ej: "Reducir costos ante caída de ventas".</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo elegir el color</span>
+                Preguntate: ¿qué tan urgente es este objetivo? ¿Es algo que ya está funcionando (azul) o algo
+                que requiere acción inmediata (rojo)? El color es una guía visual, no hay reglas estrictas.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 8: CREAR KR ===== -->
+        <section id="crear-kr">
+            <h2>📊 Crear un Key Result</h2>
+            <p>
+                Dentro de cada tarjeta de objetivo, hacé clic en <strong>➕ Agregar Key Result</strong>.
+                Se abre un modal con 5 campos:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Título</strong></td>
+                        <td>Resultado medible. Máximo 100 caracteres. <span class="badge red">Obligatorio</span></td>
+                        <td>"Reducir costos fijos mensuales"</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Unidad</strong></td>
+                        <td>$ (pesos), % (porcentaje), # (unidades) o ✓ (binario 0/1).</td>
+                        <td>$</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Peso</strong></td>
+                        <td>Importancia del KR dentro del objetivo. De 0.5 a 3.0, por defecto 1.</td>
+                        <td>2 (KR muy importante)</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Valor inicial</strong></td>
+                        <td>Punto de partida. Si es nuevo, poné 0.</td>
+                        <td>50000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Valor objetivo</strong></td>
+                        <td>Meta a alcanzar. <span class="badge red">Obligatorio</span></td>
+                        <td>35000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Sobre la unidad</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Unidad</th>
+                        <th>Cuándo usar</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>$ Pesos</strong></td>
+                        <td>Métricas financieras.</td>
+                        <td>Facturación, costos, margen.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>% Porcentaje</strong></td>
+                        <td>Métricas relativas.</td>
+                        <td>Margen neto, satisfacción, conversión.</td>
+                    </tr>
+                    <tr>
+                        <td><strong># Unidades</strong></td>
+                        <td>Cantidades absolutas.</td>
+                        <td>Clientes nuevos, productos vendidos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>✓ Binario</strong></td>
+                        <td>Metas de "sí o no".</td>
+                        <td>Lanzar web, contratar a alguien.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Sobre el peso</h3>
+            <p>
+                El peso define <strong>cuánto aporta ese KR al progreso del objetivo</strong>.
+                Si un objetivo tiene 3 KRs con pesos 2, 1 y 1, el primero pesa el 50% del total.
+            </p>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Pesos típicos</span>
+                <strong>1.0</strong>: peso normal (por defecto). ·
+                <strong>2.0</strong>: KR crítico para el objetivo. ·
+                <strong>3.0</strong>: KR que si falla, el objetivo entero falla. ·
+                <strong>0.5</strong>: KR complementario, no esencial.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 9: CHECK-INS ===== -->
+        <section id="checkins">
+            <h2>📝 Registrar check-ins</h2>
+            <p>
+                Los <strong>check-ins</strong> son la forma de actualizar el valor actual de cada KR.
+                Se registran periódicamente (idealmente cada semana) y quedan guardados en un historial.
+            </p>
+
+            <h3>Cómo hacer un check-in</h3>
+            <ol>
+                <li>En cualquier KR, hacé clic en el botón <strong>📝 Check-in</strong>.</li>
+                <li>Se abre un modal con el valor actual del KR precargado.</li>
+                <li>Cambiá el valor al número actual.</li>
+                <li>Agregá un comentario opcional (ej: "Renegociación con proveedores").</li>
+                <li>Hacé clic en <strong>💾 Registrar Check-in</strong>.</li>
+            </ol>
+
+            <h3>Qué pasa al registrar</h3>
+            <ul>
+                <li>El <strong>valor actual</strong> del KR se actualiza al número que ingresaste.</li>
+                <li>Se guarda un <strong>registro histórico</strong> con la fecha y el comentario.</li>
+                <li>El <strong>progreso</strong> se recalcula automáticamente.</li>
+                <li>El <strong>gráfico</strong> agrega un nuevo punto en la semana correspondiente.</li>
+            </ul>
+
+            <h3>Sobre el historial</h3>
+            <p>
+                Dentro del modal de check-in vas a ver el <strong>historial completo</strong> de check-ins
+                de ese KR, ordenado del más reciente al más antiguo. Esto te permite ver cómo evolucionó
+                el KR en el tiempo.
+            </p>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No edites check-ins viejos</span>
+                Si te equivocaste en un check-in anterior, cargá uno nuevo con el valor correcto.
+                Así el historial refleja la evolución real y el gráfico se mantiene coherente.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Frecuencia recomendada</span>
+                Hacé check-ins <strong>una vez por semana</strong> (por ejemplo, cada lunes).
+                No es necesario hacerlos diarios: con 1 semanal ya tenés una curva clara de progreso.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 10: PROGRESO ===== -->
+        <section id="progreso">
+            <h2>📈 Cómo se calcula el progreso</h2>
+            <p>
+                El progreso de cada KR se calcula automáticamente en base a sus valores. La fórmula
+                cambia según si la meta es creciente o decreciente.
+            </p>
+
+            <h3>Meta creciente (valorObjetivo > valorInicial)</h3>
+            <div class="formula-box">
+                <div class="formula">Progreso = (Actual − Inicial) ÷ (Objetivo − Inicial)</div>
+                <div class="formula-desc">
+                    Ejemplo: inicial $0, objetivo $100, actual $60 → (60 − 0) ÷ (100 − 0) = 60%
+                </div>
+            </div>
+
+            <h3>Meta decreciente (valorObjetivo < valorInicial)</h3>
+            <div class="formula-box">
+                <div class="formula">Progreso = (Inicial − Actual) ÷ (Inicial − Objetivo)</div>
+                <div class="formula-desc">
+                    Ejemplo: inicial $50.000, objetivo $35.000, actual $42.000 → (50000 − 42000) ÷ (50000 − 35000) = 53%
+                </div>
+            </div>
+
+            <h3>Metas binarias (unidad = bool)</h3>
+            <div class="formula-box">
+                <div class="formula">Progreso = 0% si actual = 0 · 100% si actual = 1</div>
+                <div class="formula-desc">
+                    Ideal para metas de "sí o no" (lanzar web, contratar persona, etc.)
+                </div>
+            </div>
+
+            <h3>Progreso de un objetivo</h3>
+            <p>
+                El progreso de un objetivo es el <strong>promedio ponderado</strong> del progreso
+                de todos sus KRs, según el peso de cada uno.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Progreso Obj = Σ(Progreso KR × Peso KR) ÷ Σ(Peso KR)</div>
+                <div class="formula-desc">
+                    Ejemplo: KR1 al 60% (peso 2), KR2 al 40% (peso 1) → (0.6×2 + 0.4×1) ÷ 3 = 53%
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 El progreso se limita entre 0% y 100%</span>
+                No podés superar el 100% ni bajar del 0%. Si un KR supera la meta, se cuenta como 100%.
+                Si estás por debajo del valor inicial, se cuenta como 0%.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 11: ESTADOS ===== -->
+        <section id="estados">
+            <h2>🎭 Los 4 estados de un KR</h2>
+            <p>
+                Según el progreso, cada KR se clasifica automáticamente en uno de 4 estados. El color
+                de la barra de progreso y del badge cambian según el estado.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card danger">
+                    <div class="card-title">🔴 Crítico</div>
+                    <div class="card-cond">Progreso &lt; 40%</div>
+                    <div class="card-desc">
+                        Muy por debajo del ritmo. Necesitás actuar ya: revisar metas,
+                        pedir ayuda o redistribuir recursos.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-title">🟡 En riesgo</div>
+                    <div class="card-cond">Progreso 40% - 70%</div>
+                    <div class="card-desc">
+                        Vas atrasado pero no perdido. Intensificá el foco en este KR
+                        para llegar a tiempo.
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">🔵 En curso</div>
+                    <div class="card-cond">Progreso 70% - 100%</div>
+                    <div class="card-desc">
+                        Vas bien. Mantené el ritmo y completá lo que falta.
+                    </div>
+                </div>
+                <div class="card positive">
+                    <div class="card-title">✅ Cumplido</div>
+                    <div class="card-cond">Progreso = 100%</div>
+                    <div class="card-desc">
+                        ¡Objetivo cumplido! Marcalo como completado y festejalo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Los umbrales son editables</span>
+                Si querés cambiar los umbrales (40%, 70%, 100%), podés editarlos en el código de la
+                herramienta. Buscá la constante <code>UMBRALES</code> al inicio del script.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 12: KPIs ===== -->
+        <section id="kpis">
+            <h2>📊 Interpretar los KPIs globales</h2>
+            <p>Arriba de la lista de objetivos vas a ver 4 tarjetas con los KPIs del trimestre:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">🎯</span>
+                    <div class="name">Objetivos</div>
+                    <div class="desc">Cuántos objetivos activos tenés este trimestre.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Key Results</div>
+                    <div class="desc">Total de KRs cargados (suma de todos los objetivos).</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📈</span>
+                    <div class="name">Progreso ponderado</div>
+                    <div class="desc">Promedio global de todos los KRs, ponderado por peso. Con comparación contra benchmark.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔴</span>
+                    <div class="name">En riesgo</div>
+                    <div class="desc">Cuántos KRs están en estado crítico (menos del 40%).</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 13: BENCHMARK ===== -->
+        <section id="benchmark">
+            <h2>📉 El benchmark esperado</h2>
+            <p>
+                El <strong>benchmark</strong> es una referencia de "dónde deberías estar" a esta altura
+                del trimestre. Se calcula linealmente: si estás en la semana 5 de 13, deberías llevar
+                aproximadamente el 38% del progreso.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Benchmark = (Semana actual ÷ 13) × 100</div>
+                <div class="formula-desc">
+                    Ejemplo: semana 6 → (6 ÷ 13) × 100 = 46% esperado
+                </div>
+            </div>
+
+            <h3>Cómo se usa</h3>
+            <ul>
+                <li>En el <strong>gráfico</strong>, se dibuja como una línea gris punteada ascendente.</li>
+                <li>En el <strong>KPI de progreso</strong>, se muestra debajo del número principal.</li>
+                <li>En las <strong>recomendaciones</strong>, se compara tu progreso real contra el esperado.</li>
+            </ul>
+
+            <h3>Mensajes según la diferencia</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Diferencia</th>
+                        <th>Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="badge green">+8% o más</span></td><td>🚀 Muy por encima del ritmo esperado</td></tr>
+                    <tr><td><span class="badge green">0% a +8%</span></td><td>✅ Vas en ritmo</td></tr>
+                    <tr><td><span class="badge yellow">-5% a 0%</span></td><td>🟡 Levemente atrás</td></tr>
+                    <tr><td><span class="badge orange">-15% a -5%</span></td><td>🟠 Atrasado</td></tr>
+                    <tr><td><span class="badge red">Menos de -15%</span></td><td>🔴 Muy atrasado</td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 El benchmark es lineal, no mágico</span>
+                Asume progreso constante semana a semana. Si tu negocio tiene estacionalidad o
+                hitos específicos, ajustá tu lectura del benchmark a la realidad.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 14: GRÁFICO ===== -->
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico muestra la evolución del progreso semana a semana durante el trimestre
+                (13 semanas, de S1 a S13).
+            </p>
+
+            <h3>Elementos del gráfico</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Elemento</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="text-align:center; font-size:20px;">➡️</td><td><strong>Eje X</strong>: semanas S1 a S13 del trimestre.</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">⬆️</td><td><strong>Eje Y</strong>: porcentaje de progreso (0% a 100%).</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">╌╌</td><td><strong>Línea gris punteada</strong>: benchmark esperado (diagonal).</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">●</td><td><strong>Línea de color</strong>: un dataset por objetivo. El color corresponde al color del objetivo.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Cómo se construye la curva</h3>
+            <p>
+                Para cada semana, la herramienta calcula el progreso acumulado usando los check-ins
+                registrados <strong>hasta esa semana</strong>. Esto significa que:
+            </p>
+            <ul>
+                <li>Si no hay check-in en la semana S3, se usa el último valor conocido (de S2 o S1).</li>
+                <li>Cuando registrás un check-in, el punto de esa semana cambia.</li>
+                <li>Las semanas sin check-ins mantienen el valor plano (línea horizontal).</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Lectura rápida</span>
+                Si tu línea <strong>está por encima del benchmark</strong>, vas bien. Si está por
+                debajo, necesitás acelerar. Si toca el 100%, ya cumpliste el objetivo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 15: RECOMENDACIONES ===== -->
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                Debajo del gráfico, la herramienta genera un <strong>análisis completo</strong> con
+                recomendaciones según el estado del trimestre.
+            </p>
+
+            <h3>Tipos de recomendaciones</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Tipo</th>
+                        <th>Cuándo aparece</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="text-align:center; font-size:20px;">🔴</td><td><strong>Alerta de KRs críticos</strong></td><td>Cuando hay KRs con progreso menor al 40%.</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">🟡</td><td><strong>KRs en riesgo</strong></td><td>Cuando hay KRs entre 40% y 70%.</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">✅</td><td><strong>KRs al 70% o más</strong></td><td>Cuando hay KRs con buen progreso.</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">📈</td><td><strong>Benchmark</strong></td><td>Comparación de tu progreso global contra el esperado.</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">⏰</td><td><strong>Cierre de trimestre</strong></td><td>Cuando quedan 4 semanas o menos y el progreso es bajo.</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">📝</td><td><strong>Recordatorio de check-ins</strong></td><td>Cuando no registrás check-ins hace más de 7 días.</td></tr>
+                    <tr><td style="text-align:center; font-size:20px;">📅</td><td><strong>Trimestre no iniciado</strong></td><td>Cuando estás planificando un trimestre futuro.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 16: FILTROS ===== -->
+        <section id="filtros">
+            <h2>🔍 Filtros y búsqueda</h2>
+            <p>
+                La barra de filtros te permite ver solo un subconjunto de objetivos. Los KPIs globales
+                siguen mostrando el total del trimestre.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Filtro</th>
+                        <th>Opciones</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🔍 Buscar</strong></td>
+                        <td>Texto libre</td>
+                        <td>Buscar por título de objetivo, descripción o título de KR.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Owner</strong></td>
+                        <td>Lista dinámica</td>
+                        <td>Ver solo los objetivos de una persona (ej: para reunión 1 a 1).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estado</strong></td>
+                        <td>Activos / Todos / Completados / Archivados</td>
+                        <td>Por defecto muestra solo activos. Cambiá para ver historial.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Uso combinado</span>
+                Podés combinar filtros. Ejemplo: buscar "rentabilidad" + owner "Juan" + estado
+                "activos" para ver solo los objetivos activos de Juan relacionados con rentabilidad.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 17: CSV ===== -->
+        <section id="csv">
+            <h2>📊 Exportar a CSV</h2>
+            <p>
+                El botón <strong>📊 Exportar CSV</strong> genera un archivo con todos los objetivos
+                y KRs del trimestre actual, listo para abrir en Excel o Google Sheets.
+            </p>
+
+            <h3>Columnas del CSV</h3>
+            <ul>
+                <li><strong>Objetivo</strong>: título del objetivo.</li>
+                <li><strong>Owner</strong>: persona responsable.</li>
+                <li><strong>Estado</strong>: activo, completado o archivado.</li>
+                <li><strong>Color</strong>: color asignado al objetivo.</li>
+                <li><strong>Key Result</strong>: título del KR.</li>
+                <li><strong>Unidad</strong>: $, %, # o bool.</li>
+                <li><strong>Valor Inicial / Actual / Objetivo</strong>: los 3 valores del KR.</li>
+                <li><strong>Progreso (%)</strong>: porcentaje calculado.</li>
+                <li><strong>Estado KR</strong>: cumplido, enCurso, enRiesgo o critico.</li>
+                <li><strong>Peso</strong>: peso del KR dentro del objetivo.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Uso recomendado</span>
+                Exportá el CSV <strong>al cierre de cada trimestre</strong> para tener un historial
+                externo. Es tu respaldo si cambiás de navegador o limpiás los datos del navegador.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 18: PDF ===== -->
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar o compartir el estado del trimestre:</p>
+            <ol>
+                <li>Hacé clic en el botón <strong>📄 Generar Informe PDF</strong>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, todas las tarjetas de objetivos con sus KRs,
+                los KPIs globales, el gráfico de evolución, las recomendaciones y la tabla detalle.
+                Se ocultan automáticamente los filtros y los botones de acción.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Generá un PDF <strong>al final de cada trimestre</strong>. Es la foto de cómo cerró
+                el Q, y te sirve para presentar a tu equipo, socios o inversores.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 19: EJEMPLO ===== -->
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>
+                Imaginate que tenés una <strong>panadería artesanal</strong> y estás planificando
+                el Q4. Definís 3 objetivos con sus KRs:
+            </p>
+
+            <h3>Objetivo 1: Aumentar rentabilidad del negocio 🟢</h3>
+            <ul>
+                <li><strong>KR 1:</strong> Reducir costos fijos mensuales de $50.000 a $35.000 (peso 2)</li>
+                <li><strong>KR 2:</strong> Aumentar margen neto del 25% al 40% (peso 2)</li>
+                <li><strong>KR 3:</strong> Reducir gastos de publicidad de $8.000 a $5.000 (peso 1)</li>
+            </ul>
+
+            <h3>Objetivo 2: Mejorar atención al cliente 🔵</h3>
+            <ul>
+                <li><strong>KR 1:</strong> Reducir tiempo de respuesta del 100% al 50% (peso 2)</li>
+                <li><strong>KR 2:</strong> Aumentar satisfacción del 75% al 95% (peso 2)</li>
+            </ul>
+
+            <h3>Objetivo 3: Expandir canales de venta 🟡</h3>
+            <ul>
+                <li><strong>KR 1:</strong> Lanzar tienda online (binario, peso 3)</li>
+                <li><strong>KR 2:</strong> Sumar puntos de venta de 2 a 5 (peso 1)</li>
+            </ul>
+
+            <h3>Semana 6 del trimestre</h3>
+            <p>Después de 6 semanas, la herramienta te muestra:</p>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Progreso global</td><td>62%</td></tr>
+                    <tr><td>Benchmark esperado</td><td>46% (6/13)</td></tr>
+                    <tr><td>Estado</td><td><span class="badge green">✅ Vas en ritmo (+16%)</span></td></tr>
+                    <tr><td>KRs críticos</td><td>0</td></tr>
+                    <tr><td>KRs en riesgo</td><td>1 (Reducir gastos de publicidad, 40%)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Recomendaciones que generaría</h3>
+            <div class="info-box">
+                <p>
+                    ✅ <strong>5 KRs al 70% o más.</strong> Excelente ritmo, mantené el foco.<br>
+                    🟡 <strong>1 KR en riesgo.</strong> "Reducir gastos de publicidad" está al 40%. Considerá hacer check-ins más frecuentes.<br>
+                    📈 <strong>Vas por encima del ritmo esperado (+16%).</strong> A este ritmo, cerrarías el trimestre en ~100%.
+                </p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Mantener el foco</strong> en los KRs que van bien.</li>
+                <li><strong>Intensificar</strong> el trabajo en "Reducir gastos de publicidad" durante las próximas 2 semanas.</li>
+                <li><strong>Considerar</strong> subir la meta del objetivo verde si se cierra muy temprano.</li>
+                <li><strong>Documentar</strong> los aprendizajes al cierre del trimestre para aplicarlos en Q1.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                Los OKRs no son una lista de deseos. Son un <strong>sistema de foco</strong>.
+                Si todo va bien, es señal de que las metas eran poco ambiciosas. Si todo va mal,
+                eran demasiado ambiciosas. El objetivo es apuntar a un 70% de cumplimiento promedio.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 20: HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>OKR Tracker</strong>:</p>
+            <div class="cards-grid">
+                <a href="panel-kpis.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">📊 Panel de KPIs</div>
+                    <div class="card-desc">Seguimiento semanal de los 5 números clave. Los KPIs semanales alimentan los OKRs trimestrales.</div>
+                </a>
+                <a href="tablero-kanban-operaciones.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">📋 Tablero Kanban</div>
+                    <div class="card-desc">Para el día a día operativo. Los OKRs son el foco estratégico, el Kanban es la ejecución táctica.</div>
+                </a>
+                <a href="matriz-delegacion-tareas.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">🤝 Matriz de Delegación</div>
+                    <div class="card-desc">Decidí qué delegar para liberar tiempo y enfocarte en los objetivos estratégicos.</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 21: FAQ ===== -->
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">Sí. Todo se guarda en el almacenamiento local del navegador (localStorage). Al volver a abrir la herramienta, encontrás tus objetivos, KRs y check-ins tal como los dejaste.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántos objetivos debería tener por trimestre?</div>
+                <div class="a">La recomendación de la metodología OKR es 2-3 objetivos por trimestre. Más de eso es difícil de gestionar y terminás sin foco. Si tenés 4+, preguntate si son todos realmente importantes.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántos KRs por objetivo?</div>
+                <div class="a">Entre 2 y 4 KRs por objetivo. Menos de 2, es poca medición. Más de 4, es difícil trackear.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo editar un objetivo después de crearlo?</div>
+                <div class="a">Sí. Hacé clic en el botón ✏️ de cualquier tarjeta. Podés cambiar título, descripción, owner, estado y color. Los KRs y check-ins se mantienen.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si elimino un objetivo?</div>
+                <div class="a">Se eliminan también todos sus KRs y sus check-ins asociados. Es una acción en cascada. Pide confirmación antes de hacerlo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo cambiar el valor inicial de un KR ya creado?</div>
+                <div class="a">Sí. Hacé clic en ✏️ del KR y cambiá el valor inicial. El progreso se recalcula automáticamente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué mi progreso no cambia cuando actualizo el valor actual?</div>
+                <div class="a">Porque el valor actual solo se actualiza cuando registrás un check-in. Editar el KR directamente cambia la meta, no el valor actual. Para actualizar el valor, usá el botón 📝 Check-in.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa que un KR esté "en riesgo"?</div>
+                <div class="a">Que su progreso está entre el 40% y 70%. Vas atrasado pero a tiempo. Necesitás intensificar el foco para llegar al 100%.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar los OKRs para objetivos personales?</div>
+                <div class="a">Sí. La metodología OKR es universal. Podés usarla para objetivos del negocio o personales. Simplemente no los mezcles en el mismo trimestre.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es el benchmark y por qué importa?</div>
+                <div class="a">Es la referencia de "dónde deberías estar" según la semana del trimestre. Se calcula linealmente: semana 6 de 13 = 46% esperado. Te ayuda a saber si vas bien o atrasado sin esperar al final del trimestre.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo tener objetivos de varios años?</div>
+                <div class="a">Sí. Cambiá el año en el selector y creá objetivos para ese año. Cada combinación trimestre+año es independiente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si dos objetivos tienen el mismo color?</div>
+                <div class="a">No hay problema, es solo una guía visual. En el gráfico se verán como dos líneas del mismo color, así que considerá usar colores diferentes si tenés muchos objetivos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo exportar a Excel en lugar de CSV?</div>
+                <div class="a">El CSV se abre directamente en Excel con doble clic. Si tenés problemas con los acentos o decimales, importalo manualmente desde "Datos > Desde texto/CSV".</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se comparten entre dispositivos?</div>
+                <div class="a">No. Como toda la suite ENUMAPP, los datos quedan en el navegador de cada dispositivo. Para compartir, exportá el CSV o PDF y envialo por email.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué hago al final del trimestre?</div>
+                <div class="a">Marcá los objetivos cumplidos como "Completado". Los no cumplidos, decilos si archivarlos o pasarlos al siguiente trimestre. Generá un PDF de cierre y exportá el CSV. Después empezá el nuevo trimestre con objetivos frescos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo cambiar los umbrales de los estados (40%, 70%)?</div>
+                <div class="a">Sí, pero requiere editar el código. Buscá la constante <code>UMBRALES</code> al inicio del script y modificá los valores de <code>cumplido</code>, <code>enCurso</code> y <code>enRiesgo</code>.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 22: TIPS ===== -->
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Definí los OKRs antes de empezar el trimestre</h3>
+            <p>Lo ideal es tener los objetivos definidos la última semana del trimestre anterior. Así empezás el Q1 con foco claro desde el día 1.</p>
+
+            <h3>2. Hacé check-ins todos los lunes</h3>
+            <p>Es el mejor día: cerrás la semana anterior y planificás la nueva. 15 minutos por semana es suficiente.</p>
+
+            <h3>3. Apuntá al 70%, no al 100%</h3>
+            <p>Los OKRs deben ser ambiciosos. Si cumplís el 100% de todos tus KRs, es señal de que las metas eran poco ambiciosas. El 70% de cumplimiento promedio es el objetivo ideal.</p>
+
+            <h3>4. Escribí los KRs como resultados, no como tareas</h3>
+            <p>Mal KR: "Hacer 10 posts en Instagram". Buen KR: "Aumentar seguidores de 500 a 1.500". El primero es una tarea, el segundo es un resultado medible.</p>
+
+            <h3>5. Usá el peso con criterio</h3>
+            <p>No todos los KRs importan igual. Asignales pesos distintos para reflejar la importancia real. Un KR crítico con peso 3 pesa más que 3 KRs secundarios con peso 1.</p>
+
+            <h3>6. Compartí los OKRs con tu equipo</h3>
+            <p>Los OKRs son públicos. Si tenés equipo, todos deberían saber cuáles son los objetivos del trimestre. La transparencia genera compromiso.</p>
+
+            <h3>7. No cambies los OKRs a mitad del trimestre</h3>
+            <p>Si un objetivo ya no aplica, archivalo y creá uno nuevo. Pero no modifiques las metas de un KR a mitad del camino: eso invalida el seguimiento.</p>
+
+            <h3>8. Cerrá el trimestre con una retrospectiva</h3>
+            <p>Al final del Q, respondé: ¿Qué funcionó? ¿Qué no? ¿Qué haríamos distinto? Guardá el PDF del cierre y las conclusiones. Son la base para el próximo trimestre.</p>
+
+            <h3>9. Combiná con el Panel de KPIs</h3>
+            <p>El OKR Tracker es de mediano plazo (trimestral). El Panel de KPIs es de corto plazo (semanal). Juntos te dan la foto completa: KPIs semanales alimentan los OKRs trimestrales.</p>
+
+            <h3>10. Usá los colores para priorizar visualmente</h3>
+            <p>Si tenés muchos objetivos, los colores cálidos (naranja, rojo) indican dónde poner el foco primero. Es una guía rápida para tu atención.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de 2-3 trimestres usando OKRs, tu negocio va a tener <strong>foco, claridad y
+                ejecución disciplinada</strong>. Vas a dejar de hacer 20 cosas a medias y empezar a
+                hacer 3 cosas muy bien. Ese es el verdadero poder de los OKRs.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No conviertas los OKRs en una lista de tareas</span>
+                El error más común es llenar los KRs de tareas operativas. Los OKRs son para
+                <strong>resultados que mueven la aguja</strong>, no para gestionar el día a día.
+                Para el día a día, usá el Tablero Kanban.</p>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER NOTE ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · OKR Tracker</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <!-- ===== FOOTER COMPARTIDO ===== -->
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

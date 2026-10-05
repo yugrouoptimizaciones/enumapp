@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matriz de Propuesta de Valor · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Matriz de Propuesta de Valor de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>🎯 ENUMAPP · MATRIZ DE PROPUESTA DE VALOR</h2>
+            <p>Análisis del Ajuste Producto-Mercado</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    🎯 Matriz de Propuesta de Valor
+                    <small>· Ajuste Producto-Mercado</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-matriz-propuesta-valor.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Puntuá la importancia de cada dimensión y tu capacidad para resolverla. Descubrí dónde están las oportunidades de mejora.
+        </div>
+
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group"><label>Producto / Servicio</label><input type="text" id="productoNombre" value="Bandejas de Pasapalos" /></div>
+                <div class="input-group"><label>Segmento de Clientes</label><input type="text" id="segmentoNombre" value="Comercios minoristas / Particulares" /></div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="grid-2">
+            <div class="input-group">
+                <label>1. Resuelve un dolor real</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="imp1" min="0" max="10" step="0.5" value="9" style="flex:1;"><span id="imp1Val" style="font-weight:700;">9.0</span>
+                </div>
+                <label style="font-weight:400; color:var(--color-text-secondary); font-size:13px; margin-top:6px;">Nuestra capacidad</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="cap1" min="0" max="10" step="0.5" value="7" style="flex:1;"><span id="cap1Val" style="font-weight:700;">7.0</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>2. Genera un beneficio tangible</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="imp2" min="0" max="10" step="0.5" value="8" style="flex:1;"><span id="imp2Val" style="font-weight:700;">8.0</span>
+                </div>
+                <label style="font-weight:400; color:var(--color-text-secondary); font-size:13px; margin-top:6px;">Nuestra capacidad</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="cap2" min="0" max="10" step="0.5" value="8" style="flex:1;"><span id="cap2Val" style="font-weight:700;">8.0</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>3. Accesible / Fácil de obtener</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="imp3" min="0" max="10" step="0.5" value="7" style="flex:1;"><span id="imp3Val" style="font-weight:700;">7.0</span>
+                </div>
+                <label style="font-weight:400; color:var(--color-text-secondary); font-size:13px; margin-top:6px;">Nuestra capacidad</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="cap3" min="0" max="10" step="0.5" value="6" style="flex:1;"><span id="cap3Val" style="font-weight:700;">6.0</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>4. Precio competitivo</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="imp4" min="0" max="10" step="0.5" value="6" style="flex:1;"><span id="imp4Val" style="font-weight:700;">6.0</span>
+                </div>
+                <label style="font-weight:400; color:var(--color-text-secondary); font-size:13px; margin-top:6px;">Nuestra capacidad</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="cap4" min="0" max="10" step="0.5" value="8" style="flex:1;"><span id="cap4Val" style="font-weight:700;">8.0</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>5. Único / Diferenciado</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="imp5" min="0" max="10" step="0.5" value="9" style="flex:1;"><span id="imp5Val" style="font-weight:700;">9.0</span>
+                </div>
+                <label style="font-weight:400; color:var(--color-text-secondary); font-size:13px; margin-top:6px;">Nuestra capacidad</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="cap5" min="0" max="10" step="0.5" value="5" style="flex:1;"><span id="cap5Val" style="font-weight:700;">5.0</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>6. Confiable / Bajo riesgo</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="imp6" min="0" max="10" step="0.5" value="8" style="flex:1;"><span id="imp6Val" style="font-weight:700;">8.0</span>
+                </div>
+                <label style="font-weight:400; color:var(--color-text-secondary); font-size:13px; margin-top:6px;">Nuestra capacidad</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <input type="range" id="cap6" min="0" max="10" step="0.5" value="7" style="flex:1;"><span id="cap6Val" style="font-weight:700;">7.0</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row">
+            <span class="badge">📈 <strong>Diagnóstico de Valor</strong></span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:10px;">
+            <div class="result-card info">
+                <div class="label">Ajuste Promedio</div>
+                <div class="value" id="fitScore">85%</div>
+                <div class="sub">capacidad vs. importancia</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">Dimensión Más Crítica</div>
+                <div class="value" id="criticalDim" style="font-size:16px;">Diferenciación</div>
+                <div class="sub">mayor brecha</div>
+            </div>
+            <div class="result-card positive">
+                <div class="label">Fortaleza Principal</div>
+                <div class="value" id="strengthDim" style="font-size:16px;">Precio</div>
+                <div class="sub">mayor excedente</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">Brecha Total</div>
+                <div class="value" id="totalGap">+6.0</div>
+                <div class="sub">oportunidad neta</div>
+            </div>
+        </div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendación Estratégica</h3>
+            <p id="recommendationText">Ajustá los sliders para ver tu diagnóstico.</p>
+        </div>
+
+        <div class="chart-container tall">
+            <canvas id="radarChart"></canvas>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> Importancia (azul) vs. Nuestra Capacidad (verde).</span>
+            <span>🔄 Ajustá los sliders para explorar.</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        (function() {
+            const impSliders = [1,2,3,4,5,6].map(i => document.getElementById('imp' + i));
+            const capSliders = [1,2,3,4,5,6].map(i => document.getElementById('cap' + i));
+            const impLabels = [1,2,3,4,5,6].map(i => document.getElementById('imp' + i + 'Val'));
+            const capLabels = [1,2,3,4,5,6].map(i => document.getElementById('cap' + i + 'Val'));
+
+            const fitScore = document.getElementById('fitScore');
+            const criticalDim = document.getElementById('criticalDim');
+            const strengthDim = document.getElementById('strengthDim');
+            const totalGap = document.getElementById('totalGap');
+            const recommendationText = document.getElementById('recommendationText');
+            const printDesc = document.getElementById('printDesc');
+
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            let myChart = null;
+
+            const dimensionNames = ['Dolor real','Beneficio tangible','Accesibilidad','Precio competitivo','Diferenciación','Confianza'];
+
+            function actualizar() {
+                const importancia = impSliders.map(s => parseFloat(s.value) || 0);
+                const capacidad = capSliders.map(s => parseFloat(s.value) || 0);
+
+                impLabels.forEach((l, i) => l.textContent = importancia[i].toFixed(1));
+                capLabels.forEach((l, i) => l.textContent = capacidad[i].toFixed(1));
+
+                const gaps = importancia.map((i, idx) => i - capacidad[idx]);
+                const avgImp = importancia.reduce((a, b) => a + b, 0) / 6;
+                const avgCap = capacidad.reduce((a, b) => a + b, 0) / 6;
+                const fit = (avgCap / avgImp) * 100;
+                const fitDisplay = Math.min(100, Math.round(fit));
+                const gapSum = gaps.reduce((a, b) => a + b, 0);
+
+                let maxGap = -Infinity, maxIdx = 0, minGap = Infinity, minIdx = 0;
+                gaps.forEach((g, i) => {
+                    if (g > maxGap) { maxGap = g; maxIdx = i; }
+                    if (g < minGap) { minGap = g; minIdx = i; }
+                });
+
+                const critical = (maxGap > 0) ? dimensionNames[maxIdx] : 'Ninguna';
+                const strength = (minGap < 0) ? dimensionNames[minIdx] : 'Ninguna';
+
+                fitScore.textContent = fitDisplay + '%';
+                criticalDim.textContent = critical;
+                strengthDim.textContent = strength;
+                totalGap.textContent = (gapSum >= 0 ? '+' : '') + gapSum.toFixed(1);
+
+                let recomendacion = '';
+                if (gapSum > 5) {
+                    recomendacion = `🚀 <strong>Gran oportunidad.</strong> Brecha +${gapSum.toFixed(1)}. Enfocá en "${critical}".`;
+                } else if (gapSum > 0) {
+                    recomendacion = `📈 <strong>Buen ajuste.</strong> Brecha +${gapSum.toFixed(1)}. Trabajá en "${critical}".`;
+                } else if (gapSum > -3) {
+                    recomendacion = `✅ <strong>Ajuste casi perfecto.</strong> Brecha ${gapSum.toFixed(1)}.`;
+                } else {
+                    recomendacion = `⚠️ <strong>Sobredimensionado.</strong> Brecha ${gapSum.toFixed(1)}.`;
+                }
+                if (gaps[maxIdx] > 4 && maxGap > 0) {
+                    recomendacion += ` <br><br>🎯 <strong>Acción inmediata:</strong> La brecha en "${critical}" es de ${gaps[maxIdx].toFixed(1)} pts.`;
+                }
+                recommendationText.innerHTML = recomendacion;
+
+                if (myChart) myChart.destroy();
+                myChart = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: dimensionNames,
+                        datasets: [{
+                            label: 'Importancia (Mercado)',
+                            data: importancia,
+                            backgroundColor: 'rgba(43, 123, 228, 0.15)',
+                            borderColor: '#2b7be4', borderWidth: 3,
+                            pointBackgroundColor: '#2b7be4', pointBorderColor: '#fff',
+                            pointBorderWidth: 2, pointRadius: 5,
+                        }, {
+                            label: 'Nuestra Capacidad',
+                            data: capacidad,
+                            backgroundColor: 'rgba(46, 204, 113, 0.15)',
+                            borderColor: '#2ecc71', borderWidth: 3,
+                            pointBackgroundColor: '#2ecc71', pointBorderColor: '#fff',
+                            pointBorderWidth: 2, pointRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top', labels: { boxWidth: 15, padding: 15, font: { size: 13, weight: '600' }, color: '#0a2540' } },
+                            tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.r.toFixed(1)} / 10` } }
+                        },
+                        scales: {
+                            r: {
+                                min: 0, max: 10,
+                                ticks: { stepSize: 2, color: '#5b6f82', backdropColor: 'transparent', font: { size: 11 } },
+                                grid: { color: 'rgba(0,0,0,0.07)' },
+                                angleLines: { color: 'rgba(0,0,0,0.1)' },
+                                pointLabels: { color: '#1f3a5f', font: { size: 12, weight: '600' } }
+                            }
+                        }
+                    }
+                });
+
+                const producto = document.getElementById('productoNombre').value || 'Producto';
+                const segmento = document.getElementById('segmentoNombre').value || 'Segmento';
+                printDesc.innerHTML = `
+                    <strong>Producto:</strong> ${producto} &nbsp;|&nbsp; <strong>Segmento:</strong> ${segmento}<br>
+                    <strong>Ajuste:</strong> ${fitDisplay}% &nbsp;|&nbsp; <strong>Brecha:</strong> ${(gapSum >= 0 ? '+' : '') + gapSum.toFixed(1)}<br>
+                    <strong>Fortaleza:</strong> ${strength} &nbsp;|&nbsp; <strong>Debilidad:</strong> ${critical}
+                `;
+
+                document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+            }
+
+            [...impSliders, ...capSliders].forEach(s => {
+                s.addEventListener('input', actualizar);
+                s.addEventListener('change', actualizar);
+            });
+            document.getElementById('productoNombre').addEventListener('input', actualizar);
+            document.getElementById('segmentoNombre').addEventListener('input', actualizar);
+
+            actualizar();
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => { if (myChart) myChart.resize(); }, 200);
+            });
+        })();
+    </script>
+
+</body>
+</html>

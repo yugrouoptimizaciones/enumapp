@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador de Cashflow · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Simulador de Cashflow de ENUMAPP. Proyectá el efectivo de tu negocio mes a mes." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <!-- Encabezado para PDF -->
+        <div class="print-header">
+            <h2>💵 ENUMAPP · SIMULADOR DE FLUJO DE CAJA</h2>
+            <p>Proyección de efectivo y alerta de quiebre</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <!-- Header compartido -->
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    💵 Simulador de Flujo de Caja
+                    <small>· Cashflow</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-simulador-cashflow.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Proyectá mes a mes el saldo de tu negocio. Descubrí cuándo te quedarás sin efectivo
+            y tomá decisiones a tiempo.
+        </div>
+
+        <!-- ===== INPUTS ===== -->
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Saldo Inicial ($) <span class="hint">· efectivo disponible hoy</span></label>
+                    <input type="text" inputmode="decimal" id="saldoInicial" value="50000" />
+                </div>
+                <div class="input-group">
+                    <label>Ingresos Mensuales Promedio ($) <span class="hint">· ventas estimadas</span></label>
+                    <input type="text" inputmode="decimal" id="ingresosBase" value="30000" />
+                </div>
+                <div class="input-group">
+                    <label>Egresos Mensuales Promedio ($) <span class="hint">· costos fijos + variables</span></label>
+                    <input type="text" inputmode="decimal" id="egresosBase" value="35000" />
+                </div>
+                <div class="input-group">
+                    <label>Crecimiento de Ingresos (% mensual) <span class="hint">· ej. 2% por aumento de ventas</span></label>
+                    <input type="text" inputmode="decimal" id="crecimientoIngresos" value="2" />
+                </div>
+                <div class="input-group">
+                    <label>Inflación de Egresos (% mensual) <span class="hint">· ej. 4% por suba de costos</span></label>
+                    <input type="text" inputmode="decimal" id="inflacionEgresos" value="4" />
+                </div>
+                <div class="input-group">
+                    <label>Plazo de Proyección (meses) <span class="hint">· horizonte de simulación</span></label>
+                    <input type="text" inputmode="numeric" id="plazoMeses" value="12" />
+                </div>
+                <div class="input-group" style="grid-column: 1 / -1;">
+                    <label>Escenario de Riesgo <span class="hint">· ajusta ingresos y egresos para simular incertidumbre</span></label>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <input type="range" id="escenarioSlider" min="-20" max="20" step="1" value="0" style="flex:1;" />
+                        <span class="range-value" id="escenarioLabel" style="font-weight:700; color:var(--color-text); font-size:18px; margin-left:8px;">0%</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:13px; color:var(--color-text-muted); margin-top:4px;">
+                        <span>Optimista</span>
+                        <span>Realista</span>
+                        <span>Pesimista</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- ===== RESULTADOS ===== -->
+        <div class="flex-row">
+            <span class="badge">📈 <strong>Proyección de efectivo</strong> · actualización automática</span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div class="results-grid-4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:10px;">
+            <div class="result-card info" id="mesQuiebreCard">
+                <div class="label">Mes de Quiebre</div>
+                <div class="value" id="mesQuiebre">—</div>
+                <div class="sub" id="mesQuiebreSub">sin quiebre en el plazo</div>
+            </div>
+            <div class="result-card warning" id="saldoMinimoCard">
+                <div class="label">Saldo Mínimo</div>
+                <div class="value" id="saldoMinimo">$ 0</div>
+                <div class="sub" id="saldoMinimoSub">en el mes 0</div>
+            </div>
+            <div class="result-card positive" id="saldoFinalCard">
+                <div class="label">Saldo Final</div>
+                <div class="value" id="saldoFinal">$ 0</div>
+                <div class="sub" id="saldoFinalSub">al final del plazo</div>
+            </div>
+            <div class="result-card info" id="diasEfectivoCard">
+                <div class="label">Autonomía (meses)</div>
+                <div class="value" id="diasEfectivo">—</div>
+                <div class="sub" id="diasEfectivoSub">hasta quedarse sin efectivo</div>
+            </div>
+        </div>
+
+        <!-- ===== RECOMENDACIÓN ===== -->
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendación Estratégica</h3>
+            <p id="recommendationText">Ajustá los parámetros para obtener una recomendación personalizada.</p>
+        </div>
+
+        <!-- ===== TABLA ===== -->
+        <div style="margin-top:20px;">
+            <details>
+                <summary style="font-weight:600; color:var(--color-text-secondary); cursor:pointer; padding:8px 0;">📋 Ver tabla mes a mes</summary>
+                <div class="table-container">
+                    <table id="tablaCashflow">
+                        <thead>
+                            <tr>
+                                <th>Mes</th>
+                                <th>Ingresos</th>
+                                <th>Egresos</th>
+                                <th>Flujo Neto</th>
+                                <th>Saldo Acumulado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaBody"></tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+
+        <!-- ===== GRÁFICO ===== -->
+        <div class="chart-container">
+            <canvas id="cashflowChart"></canvas>
+        </div>
+
+        <!-- ===== FOOTER NOTE ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> El área sombreada muestra la evolución del saldo. Si la línea cruza el eje horizontal, significa quiebra.</span>
+            <span>🔄 Ajustá los parámetros para explorar diferentes escenarios.</span>
+        </div>
+
+        <!-- ===== FOOTER COMPARTIDO ===== -->
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <!-- Botón volver arriba -->
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <!-- ===== JS COMPARTIDO ===== -->
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+
+    <!-- ===== JS ESPECÍFICO ===== -->
+    <script>
+        (function() {
+            const saldoInicial = document.getElementById('saldoInicial');
+            const ingresosBase = document.getElementById('ingresosBase');
+            const egresosBase = document.getElementById('egresosBase');
+            const crecimientoIngresos = document.getElementById('crecimientoIngresos');
+            const inflacionEgresos = document.getElementById('inflacionEgresos');
+            const plazoMeses = document.getElementById('plazoMeses');
+            const escenarioSlider = document.getElementById('escenarioSlider');
+            const escenarioLabel = document.getElementById('escenarioLabel');
+
+            const mesQuiebre = document.getElementById('mesQuiebre');
+            const mesQuiebreSub = document.getElementById('mesQuiebreSub');
+            const mesQuiebreCard = document.getElementById('mesQuiebreCard');
+            const saldoMinimo = document.getElementById('saldoMinimo');
+            const saldoMinimoSub = document.getElementById('saldoMinimoSub');
+            const saldoMinimoCard = document.getElementById('saldoMinimoCard');
+            const saldoFinal = document.getElementById('saldoFinal');
+            const saldoFinalSub = document.getElementById('saldoFinalSub');
+            const saldoFinalCard = document.getElementById('saldoFinalCard');
+            const diasEfectivo = document.getElementById('diasEfectivo');
+            const diasEfectivoSub = document.getElementById('diasEfectivoSub');
+            const diasEfectivoCard = document.getElementById('diasEfectivoCard');
+            const recommendationText = document.getElementById('recommendationText');
+            const printDesc = document.getElementById('printDesc');
+            const tablaBody = document.getElementById('tablaBody');
+
+            const ctx = document.getElementById('cashflowChart').getContext('2d');
+            let myChart = null;
+
+            function toNumber(str) {
+                if (typeof str === 'string') return parseFloat(str.replace(',', '.')) || 0;
+                return parseFloat(str) || 0;
+            }
+
+            function actualizar() {
+                const S0 = toNumber(saldoInicial.value);
+                const I0 = toNumber(ingresosBase.value);
+                const E0 = toNumber(egresosBase.value);
+                const cI = toNumber(crecimientoIngresos.value);
+                const cE = toNumber(inflacionEgresos.value);
+                const meses = parseInt(plazoMeses.value.replace(',', '.')) || 12;
+                const escenario = parseFloat(escenarioSlider.value) || 0;
+
+                const ajusteIngresos = 1 - (escenario / 100);
+                const ajusteEgresos = 1 + (escenario / 100);
+
+                const mesesArray = Array.from({ length: meses }, (_, i) => i + 1);
+                const ingresos = [];
+                const egresos = [];
+                const flujos = [];
+                const saldos = [];
+                let saldo = S0;
+                let minSaldo = S0;
+                let mesMin = 0;
+                let quiebreMes = null;
+
+                for (let i = 0; i < meses; i++) {
+                    const mes = i + 1;
+                    const I_mes = I0 * Math.pow(1 + cI / 100, mes) * ajusteIngresos;
+                    const E_mes = E0 * Math.pow(1 + cE / 100, mes) * ajusteEgresos;
+                    ingresos.push(I_mes);
+                    egresos.push(E_mes);
+                    const flujo = I_mes - E_mes;
+                    flujos.push(flujo);
+                    saldo = saldo + flujo;
+                    saldos.push(saldo);
+
+                    if (saldo < minSaldo) { minSaldo = saldo; mesMin = mes; }
+                    if (saldo < 0 && quiebreMes === null) quiebreMes = mes;
+                }
+
+                const saldoFinalVal = saldos[saldos.length - 1];
+
+                // Tarjetas
+                if (quiebreMes !== null) {
+                    mesQuiebre.textContent = quiebreMes;
+                    mesQuiebreSub.textContent = `en el mes ${quiebreMes}`;
+                    mesQuiebreCard.className = 'result-card danger';
+                } else {
+                    mesQuiebre.textContent = '—';
+                    mesQuiebreSub.textContent = 'sin quiebre en el plazo';
+                    mesQuiebreCard.className = 'result-card info';
+                }
+
+                saldoMinimo.textContent = ENUMAPP_FMT.money(minSaldo);
+                saldoMinimoSub.textContent = `en el mes ${mesMin}`;
+                saldoMinimoCard.className = 'result-card ' + (minSaldo < 0 ? 'danger' : 'warning');
+
+                saldoFinal.textContent = ENUMAPP_FMT.money(saldoFinalVal);
+                saldoFinalSub.textContent = `al final del plazo (${meses} meses)`;
+                if (saldoFinalVal < 0) saldoFinalCard.className = 'result-card danger';
+                else if (saldoFinalVal > 0) saldoFinalCard.className = 'result-card positive';
+                else saldoFinalCard.className = 'result-card warning';
+
+                if (quiebreMes !== null) {
+                    diasEfectivo.textContent = quiebreMes;
+                    diasEfectivoSub.textContent = `meses de autonomía`;
+                    diasEfectivoCard.className = 'result-card danger';
+                } else {
+                    diasEfectivo.textContent = '> ' + meses;
+                    diasEfectivoSub.textContent = 'no hay quiebre en el plazo';
+                    diasEfectivoCard.className = 'result-card positive';
+                }
+
+                // Recomendación
+                let recomendacion = '';
+                if (quiebreMes !== null) {
+                    const deficit = Math.abs(minSaldo);
+                    const ingresoPromedio = ingresos.reduce((a, b) => a + b, 0) / meses;
+                    const egresoPromedio = egresos.reduce((a, b) => a + b, 0) / meses;
+                    const ajusteNecesario = (egresoPromedio - ingresoPromedio) / egresoPromedio * 100;
+                    if (ajusteNecesario > 0) {
+                        recomendacion = `🔴 <strong>Alerta de quiebre en el mes ${quiebreMes}.</strong> Tu saldo mínimo es de ${ENUMAPP_FMT.money(deficit)} negativo. Para sobrevivir, necesitás <strong>reducir egresos en un ${Math.ceil(ajusteNecesario)}%</strong> o <strong>aumentar ingresos en un ${Math.ceil(ajusteNecesario)}%</strong>.`;
+                    } else {
+                        recomendacion = `🔴 <strong>Alerta de quiebre en el mes ${quiebreMes}.</strong> Revisá tus costos fijos y buscá aumentar ingresos.`;
+                    }
+                } else {
+                    const margenSeguridad = ((S0 + saldoFinalVal) / 2) / (egresos.reduce((a, b) => a + b, 0) / meses);
+                    if (margenSeguridad > 2) {
+                        recomendacion = `🟢 <strong>Excelente salud financiera.</strong> Tu saldo final es positivo (${ENUMAPP_FMT.money(saldoFinalVal)}) y no hay quiebre en el horizonte.`;
+                    } else if (margenSeguridad > 1) {
+                        recomendacion = `🟡 <strong>Salud aceptable.</strong> Terminás con saldo positivo (${ENUMAPP_FMT.money(saldoFinalVal)}), pero el margen es ajustado.`;
+                    } else {
+                        recomendacion = `🟡 <strong>Margen muy ajustado.</strong> Aunque no hay quiebre, el saldo final es bajo (${ENUMAPP_FMT.money(saldoFinalVal)}).`;
+                    }
+                }
+                recommendationText.innerHTML = recomendacion;
+
+                // Tabla
+                let tablaHTML = '';
+                for (let i = 0; i < meses; i++) {
+                    const mes = i + 1;
+                    const ing = ingresos[i];
+                    const eg = egresos[i];
+                    const flujo = flujos[i];
+                    const saldoAcum = saldos[i];
+                    const cls = saldoAcum < 0 ? 'negative' : (saldoAcum > 0 ? 'positive' : '');
+                    tablaHTML += `<tr class="${cls}">
+                        <td>${mes}</td>
+                        <td>${ENUMAPP_FMT.money(ing)}</td>
+                        <td>${ENUMAPP_FMT.money(eg)}</td>
+                        <td>${flujo >= 0 ? '+' : ''}${ENUMAPP_FMT.money(flujo)}</td>
+                        <td>${ENUMAPP_FMT.money(saldoAcum)}</td>
+                    </tr>`;
+                }
+                tablaBody.innerHTML = tablaHTML;
+
+                // Gráfico
+                const labels = mesesArray.map(m => 'Mes ' + m);
+                if (myChart) myChart.destroy();
+
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Saldo Acumulado',
+                            data: saldos,
+                            borderColor: '#2b7be4',
+                            backgroundColor: 'rgba(43,123,228,0.1)',
+                            borderWidth: 3,
+                            pointRadius: 3,
+                            tension: 0.2,
+                            fill: true,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: c => `Saldo: ${ENUMAPP_FMT.money(c.parsed.y)}`
+                                }
+                            }
+                        },
+                        scales: {
+                            x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#5b6f82', maxTicksLimit: 15 } },
+                            y: {
+                                grid: { color: 'rgba(0,0,0,0.05)' },
+                                ticks: { color: '#5b6f82', callback: ENUMAPP_UI.axisMoney }
+                            }
+                        },
+                        plugins: [{
+                            id: 'zeroLine',
+                            afterDraw: function(chart) {
+                                const yScale = chart.scales.y;
+                                const yZero = yScale.getPixelForValue(0);
+                                const ctx2 = chart.ctx;
+                                ctx2.save();
+                                ctx2.setLineDash([6, 4]);
+                                ctx2.strokeStyle = '#e74c3c';
+                                ctx2.lineWidth = 1.5;
+                                ctx2.beginPath();
+                                ctx2.moveTo(chart.chartArea.left, yZero);
+                                ctx2.lineTo(chart.chartArea.right, yZero);
+                                ctx2.stroke();
+                                ctx2.restore();
+                                ctx2.save();
+                                ctx2.fillStyle = '#e74c3c';
+                                ctx2.font = 'bold 11px Segoe UI, sans-serif';
+                                ctx2.fillText('⚠️ Quiebre', chart.chartArea.left + 8, yZero - 4);
+                                ctx2.restore();
+                            }
+                        }]
+                    }
+                });
+
+                // Descripción PDF
+                printDesc.innerHTML = `
+                    <strong>Saldo inicial:</strong> ${ENUMAPP_FMT.money(S0)} &nbsp;|&nbsp; <strong>Ingresos base:</strong> ${ENUMAPP_FMT.money(I0)} &nbsp;|&nbsp; <strong>Egresos base:</strong> ${ENUMAPP_FMT.money(E0)}<br>
+                    <strong>Crecimiento ingresos:</strong> ${cI}% &nbsp;|&nbsp; <strong>Inflación egresos:</strong> ${cE}%<br>
+                    <strong>Plazo:</strong> ${meses} meses &nbsp;|&nbsp; <strong>Escenario:</strong> ${escenario >= 0 ? 'Pesimista' : 'Optimista'} (${escenario}%)<br>
+                    <strong>Mes de quiebre:</strong> ${quiebreMes !== null ? quiebreMes : 'Ninguno'} &nbsp;|&nbsp; <strong>Saldo final:</strong> ${ENUMAPP_FMT.money(saldoFinalVal)}
+                `;
+            }
+
+            const inputs = [saldoInicial, ingresosBase, egresosBase, crecimientoIngresos, inflacionEgresos, plazoMeses, escenarioSlider];
+            inputs.forEach(inp => {
+                inp.addEventListener('input', actualizar);
+                inp.addEventListener('change', actualizar);
+            });
+
+            escenarioSlider.addEventListener('input', function() {
+                escenarioLabel.textContent = (this.value >= 0 ? '+' : '') + this.value + '%';
+                actualizar();
+            });
+
+            actualizar();
+
+            // Fecha PDF
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        })();
+    </script>
+
+</body>
+</html>

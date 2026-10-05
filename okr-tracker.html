@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OKR Tracker · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="OKR Tracker de ENUMAPP. Definí y trackeá tus objetivos trimestrales." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/okr.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container" style="max-width:1200px;">
+
+        <div class="print-header">
+            <h2>🎯 ENUMAPP · OKR TRACKER</h2>
+            <p>Objetivos y resultados clave trimestrales</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <!-- ===== HEADER UNIFICADO ===== -->
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    🎯 OKR Tracker
+                    <small>· Objetivos trimestrales</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <a href="manual-okr-tracker.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+                <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Definí y trackeá tus objetivos trimestrales con OKRs. Alineá el equipo alrededor de metas medibles,
+            registrá check-ins semanales y visualizá el progreso real contra el esperado.
+        </div>
+
+        <!-- ===== SELECTOR DE TRIMESTRE ===== -->
+        <div class="quarter-selector no-print">
+            <div class="quarter-tabs">
+                <button class="quarter-tab" data-q="Q1" onclick="cambiarTrimestre('Q1')">Q1</button>
+                <button class="quarter-tab" data-q="Q2" onclick="cambiarTrimestre('Q2')">Q2</button>
+                <button class="quarter-tab" data-q="Q3" onclick="cambiarTrimestre('Q3')">Q3</button>
+                <button class="quarter-tab active" data-q="Q4" onclick="cambiarTrimestre('Q4')">Q4</button>
+            </div>
+            <div class="year-selector">
+                <label>Año:</label>
+                <input type="number" id="yearInput" value="2026" min="2020" max="2100" onchange="cambiarAnio(this.value)" />
+            </div>
+        </div>
+
+        <!-- ===== ACCIONES ===== -->
+        <div class="flex-row no-print">
+            <div class="flex-wrap">
+                <button class="btn-primary" onclick="abrirModalObjetivo()">➕ Nuevo Objetivo</button>
+                <button class="btn-secondary" onclick="cargarEjemplos()" style="background:#8e44ad;">📋 Ejemplos</button>
+                <button class="btn-secondary" onclick="exportarCSV()" style="background:#1d6f42;">📊 Exportar CSV</button>
+                <button class="btn-danger" onclick="reiniciarDatos()" style="background:#c0392b;">🗑️ Reiniciar</button>
+            </div>
+            <button class="btn-pdf" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <!-- ===== KPIs GLOBALES ===== -->
+        <div class="okr-kpi-grid">
+            <div class="okr-kpi-card">
+                <span class="kpi-icon">🎯</span>
+                <div class="kpi-label">Objetivos</div>
+                <div class="kpi-value" id="kpiObjetivos">0</div>
+                <div class="kpi-sub" id="kpiObjetivosSub">activos este trimestre</div>
+            </div>
+            <div class="okr-kpi-card">
+                <span class="kpi-icon">📊</span>
+                <div class="kpi-label">Key Results</div>
+                <div class="kpi-value" id="kpiKRs">0</div>
+                <div class="kpi-sub" id="kpiKRsSub">totales</div>
+            </div>
+            <div class="okr-kpi-card benchmark">
+                <span class="kpi-icon">📈</span>
+                <div class="kpi-label">Progreso ponderado</div>
+                <div class="kpi-value" id="kpiProgreso">0%</div>
+                <div class="kpi-bench" id="kpiBenchmark">Esperado: 0%</div>
+            </div>
+            <div class="okr-kpi-card">
+                <span class="kpi-icon">🔴</span>
+                <div class="kpi-label">En riesgo</div>
+                <div class="kpi-value" id="kpiEnRiesgo" style="color:#b33c3c;">0</div>
+                <div class="kpi-sub" id="kpiEnRiesgoSub">KRs críticos</div>
+            </div>
+        </div>
+
+        <!-- ===== FILTROS ===== -->
+        <div class="filter-bar no-print">
+            <input type="text" id="buscarInput" placeholder="🔍 Buscar objetivo o KR..." oninput="renderizarTodo()" />
+            <select id="filtroOwner" onchange="renderizarTodo()">
+                <option value="todos">Todos los owners</option>
+            </select>
+            <select id="filtroEstado" onchange="renderizarTodo()">
+                <option value="activos">Solo activos</option>
+                <option value="todos">Todos</option>
+                <option value="completado">Completados</option>
+                <option value="archivado">Archivados</option>
+            </select>
+        </div>
+
+        <!-- ===== LISTA DE OBJETIVOS ===== -->
+        <div id="objetivosContainer"></div>
+
+        <!-- ===== GRÁFICO ===== -->
+        <div class="chart-container no-print" style="height:380px;">
+            <div class="chart-title">📈 Evolución del progreso · <span id="chartTrimestreLabel">Q4 2026</span></div>
+            <canvas id="progresoChart"></canvas>
+        </div>
+
+        <!-- ===== RECOMENDACIONES ===== -->
+        <div class="recommendation-box">
+            <h3>🧠 Análisis del trimestre</h3>
+            <div id="recommendationsContainer">Cargá objetivos y KRs para ver recomendaciones personalizadas.</div>
+        </div>
+
+        <!-- ===== TABLA DETALLE ===== -->
+        <details class="detail-container no-print" style="margin-top:20px;">
+            <summary class="detail-summary">📋 Ver detalle completo de KRs</summary>
+            <div class="table-container">
+                <table id="tablaDetalle">
+                    <thead>
+                        <tr>
+                            <th>Objetivo</th>
+                            <th>Key Result</th>
+                            <th>Progreso</th>
+                            <th>Estado</th>
+                            <th>Peso</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDetalleBody"></tbody>
+                </table>
+            </div>
+        </details>
+
+        <!-- ===== FOOTER NOTE ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Tip:</strong> Revisá los OKRs cada lunes. Actualizá los check-ins semanalmente para ver la evolución real.</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <!-- ===== FOOTER COMPARTIDO ===== -->
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <!-- ===== MODAL OBJETIVO ===== -->
+    <div class="modal-overlay" id="modalObjetivo">
+        <div class="modal">
+            <h2>
+                <span id="modalObjetivoTitle">Nuevo Objetivo</span>
+                <button class="modal-close" onclick="cerrarModal('modalObjetivo')" style="background:transparent; border:none; font-size:24px; color:var(--color-text-faint); cursor:pointer; line-height:1; padding:0 4px;">×</button>
+            </h2>
+
+            <div class="input-group" style="margin-bottom:16px;">
+                <label>Título *</label>
+                <input type="text" id="objTitulo" placeholder="Ej: Aumentar rentabilidad del negocio" maxlength="80" />
+            </div>
+
+            <div class="input-group" style="margin-bottom:16px;">
+                <label>Descripción <span class="hint">· opcional</span></label>
+                <textarea id="objDescripcion" placeholder="Ej: Mejorar margen neto y reducir costos operativos en Q4" maxlength="200"></textarea>
+            </div>
+
+            <div class="grid-2" style="margin-bottom:16px;">
+                <div class="input-group">
+                    <label>Owner</label>
+                    <input type="text" id="objOwner" placeholder="Ej: Juan" maxlength="40" />
+                </div>
+                <div class="input-group">
+                    <label>Estado</label>
+                    <select id="objEstado">
+                        <option value="activo">🟢 Activo</option>
+                        <option value="completado">✅ Completado</option>
+                        <option value="archivado">📦 Archivado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group" style="margin-bottom:16px;">
+                <label>Color <span class="hint">· secuencia azul → rojo</span></label>
+                <div class="color-picker" id="colorPicker"></div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="cerrarModal('modalObjetivo')">Cancelar</button>
+                <button class="btn-primary" onclick="guardarObjetivo()">💾 Guardar Objetivo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL KEY RESULT ===== -->
+    <div class="modal-overlay" id="modalKR">
+        <div class="modal">
+            <h2>
+                <span id="modalKRTitle">Nuevo Key Result</span>
+                <button class="modal-close" onclick="cerrarModal('modalKR')" style="background:transparent; border:none; font-size:24px; color:var(--color-text-faint); cursor:pointer; line-height:1; padding:0 4px;">×</button>
+            </h2>
+
+            <div class="input-group" style="margin-bottom:16px;">
+                <label>Título *</label>
+                <input type="text" id="krTitulo" placeholder="Ej: Reducir costos fijos mensuales" maxlength="100" />
+            </div>
+
+            <div class="grid-2" style="margin-bottom:16px;">
+                <div class="input-group">
+                    <label>Unidad *</label>
+                    <select id="krUnidad">
+                        <option value="$">$ Pesos</option>
+                        <option value="%">% Porcentaje</option>
+                        <option value="#"># Unidades</option>
+                        <option value="bool">✓ Binario (0 / 1)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Peso <span class="hint">· 0.5 a 3.0</span></label>
+                    <input type="number" id="krPeso" value="1" min="0.5" max="3" step="0.5" />
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-bottom:16px;">
+                <div class="input-group">
+                    <label>Valor inicial *</label>
+                    <input type="number" id="krValorInicial" value="0" step="any" />
+                </div>
+                <div class="input-group">
+                    <label>Valor objetivo *</label>
+                    <input type="number" id="krValorObjetivo" value="100" step="any" />
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="cerrarModal('modalKR')">Cancelar</button>
+                <button class="btn-primary" onclick="guardarKR()">💾 Guardar KR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL CHECK-IN ===== -->
+    <div class="modal-overlay" id="modalCheckin">
+        <div class="modal">
+            <h2>
+                <span id="modalCheckinTitle">Check-in</span>
+                <button class="modal-close" onclick="cerrarModal('modalCheckin')" style="background:transparent; border:none; font-size:24px; color:var(--color-text-faint); cursor:pointer; line-height:1; padding:0 4px;">×</button>
+            </h2>
+
+            <div style="background:var(--color-primary-light); border-radius:var(--radius-md); padding:14px 18px; margin-bottom:16px; font-size:14px; color:var(--color-text-secondary); line-height:1.5;">
+                <strong id="checkinKRTitle">KR</strong><br>
+                <span id="checkinKRInfo" style="font-size:13px; color:var(--color-text-muted);"></span>
+            </div>
+
+            <div class="input-group" style="margin-bottom:16px;">
+                <label>Valor actual *</label>
+                <input type="number" id="checkinValor" step="any" />
+            </div>
+
+            <div class="input-group" style="margin-bottom:16px;">
+                <label>Comentario <span class="hint">· opcional</span></label>
+                <textarea id="checkinComentario" placeholder="Ej: Se renegociaron 3 contratos con proveedores" maxlength="200"></textarea>
+            </div>
+
+            <div id="checkinHistorialWrapper" style="display:none;">
+                <div class="checkin-history">
+                    <div class="hist-title">📅 Historial de check-ins</div>
+                    <div id="checkinHistorial"></div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="cerrarModal('modalCheckin')">Cancelar</button>
+                <button class="btn-primary" onclick="guardarCheckin()">💾 Registrar Check-in</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        // ============================================================
+        // ENUMAPP · OKR TRACKER
+        // ============================================================
+
+        // ===== CONSTANTES =====
+        const COLORES_OBJETIVO = [
+            { id: 'blue',   hex: '#2b7be4', emoji: '🔵', label: 'Estratégico' },
+            { id: 'green',  hex: '#2ecc71', emoji: '🟢', label: 'Crecimiento' },
+            { id: 'yellow', hex: '#f39c12', emoji: '🟡', label: 'Mejora' },
+            { id: 'orange', hex: '#e67e22', emoji: '🟠', label: 'Riesgo' },
+            { id: 'red',    hex: '#e74c3c', emoji: '🔴', label: 'Crítico' }
+        ];
+
+        const UMBRALES = {
+            cumplido: 1.0,
+            enCurso: 0.7,
+            enRiesgo: 0.4
+        };
+
+        const SEMANAS_TRIMESTRE = 13;
+
+        // ===== ESTADO =====
+        let data = {
+            objetivos: [],
+            keyResults: [],
+            checkIns: [],
+            config: {
+                trimestreActual: 'Q4',
+                anioActual: new Date().getFullYear(),
+                owners: []
+            }
+        };
+
+        let editingObjetivoId = null;
+        let editingKRId = null;
+        let currentObjetivoIdForKR = null;
+        let currentKRIdForCheckin = null;
+        let colorSeleccionado = 'blue';
+        let chart = null;
+        let inicializado = false;
+
+        // ============================================================
+        // AUXILIARES
+        // ============================================================
+        function generarId(prefix) {
+            return prefix + '_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        }
+
+        function fmt(num) {
+            return Math.round(num).toLocaleString('es-AR');
+        }
+
+        function fmtPct(num) {
+            return num.toFixed(0) + '%';
+        }
+
+        function formatearFecha(fecha) {
+            if (!fecha) return '—';
+            const d = new Date(fecha);
+            return d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        function formatearFechaCorta(fecha) {
+            if (!fecha) return '—';
+            const d = new Date(fecha);
+            return d.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit' });
+        }
+
+        function getColorInfo(colorId) {
+            return COLORES_OBJETIVO.find(c => c.id === colorId) || COLORES_OBJETIVO[0];
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ============================================================
+        // FECHAS DEL TRIMESTRE
+        // ============================================================
+        function getFechasTrimestre(trimestre, anio) {
+            const map = {
+                'Q1': { inicio: `${anio}-01-01`, fin: `${anio}-03-31` },
+                'Q2': { inicio: `${anio}-04-01`, fin: `${anio}-06-30` },
+                'Q3': { inicio: `${anio}-07-01`, fin: `${anio}-09-30` },
+                'Q4': { inicio: `${anio}-10-01`, fin: `${anio}-12-31` }
+            };
+            return map[trimestre] || map['Q4'];
+        }
+
+        function getSemanaActual(trimestre, anio) {
+            const { inicio } = getFechasTrimestre(trimestre, anio);
+            const hoy = new Date();
+            const fechaInicio = new Date(inicio + 'T00:00:00');
+            if (hoy < fechaInicio) return 0;
+            const diffMs = hoy - fechaInicio;
+            const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            return Math.min(SEMANAS_TRIMESTRE, Math.floor(diffDias / 7) + 1);
+        }
+
+        function getSemanaDeFecha(fecha, trimestre, anio) {
+            const { inicio, fin } = getFechasTrimestre(trimestre, anio);
+            const f = new Date(fecha);
+            const inicioD = new Date(inicio + 'T00:00:00');
+            const finD = new Date(fin + 'T23:59:59');
+            if (f < inicioD || f > finD) return null;
+            const diffMs = f - inicioD;
+            const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            return Math.min(SEMANAS_TRIMESTRE, Math.floor(diffDias / 7) + 1);
+        }
+
+        // ============================================================
+        // CÁLCULOS
+        // ============================================================
+        function calcularProgresoKR(kr) {
+            if (!kr) return 0;
+            const { valorInicial, valorObjetivo, valorActual, unidad } = kr;
+
+            if (unidad === 'bool') return valorActual >= 1 ? 1 : 0;
+
+            const rango = valorObjetivo - valorInicial;
+            if (rango === 0) return 0;
+
+            let progreso;
+            if (rango > 0) {
+                progreso = (valorActual - valorInicial) / rango;
+            } else {
+                progreso = (valorInicial - valorActual) / Math.abs(rango);
+            }
+
+            return Math.max(0, Math.min(1, progreso));
+        }
+
+        function getEstadoKR(progreso) {
+            if (progreso >= UMBRALES.cumplido) return 'cumplido';
+            if (progreso >= UMBRALES.enCurso) return 'enCurso';
+            if (progreso >= UMBRALES.enRiesgo) return 'enRiesgo';
+            return 'critico';
+        }
+
+        function getEstadoInfo(estado) {
+            const map = {
+                'cumplido': { label: 'Cumplido', color: '#0f6e3f', icon: '✅' },
+                'enCurso':  { label: 'En curso', color: '#1a5a7a', icon: '🔵' },
+                'enRiesgo': { label: 'En riesgo', color: '#b45b0b', icon: '🟡' },
+                'critico':  { label: 'Crítico', color: '#b33c3c', icon: '🔴' }
+            };
+            return map[estado] || map['critico'];
+        }
+
+        function getKRsDeObjetivo(objectiveId) {
+            return data.keyResults.filter(kr => kr.objectiveId === objectiveId);
+        }
+
+        function calcularProgresoObjetivo(obj) {
+            const krs = getKRsDeObjetivo(obj.id);
+            if (krs.length === 0) return 0;
+            const sumaPesos = krs.reduce((s, kr) => s + (kr.peso || 1), 0);
+            if (sumaPesos === 0) return 0;
+            const sumaProgresos = krs.reduce((s, kr) => s + (calcularProgresoKR(kr) * (kr.peso || 1)), 0);
+            return sumaProgresos / sumaPesos;
+        }
+
+        function calcularProgresoGlobal(objetivos) {
+            const krs = [];
+            objetivos.forEach(obj => krs.push(...getKRsDeObjetivo(obj.id)));
+            if (krs.length === 0) return 0;
+            const sumaPesos = krs.reduce((s, kr) => s + (kr.peso || 1), 0);
+            if (sumaPesos === 0) return 0;
+            const sumaProgresos = krs.reduce((s, kr) => s + (calcularProgresoKR(kr) * (kr.peso || 1)), 0);
+            return sumaProgresos / sumaPesos;
+        }
+
+        function formatearValor(valor, unidad) {
+            if (unidad === 'bool') return valor >= 1 ? 'Sí' : 'No';
+            if (unidad === '$') return '$' + fmt(valor);
+            if (unidad === '%') return fmt(valor) + '%';
+            return fmt(valor);
+        }
+
+        // ============================================================
+        // PERSISTENCIA (STORAGE UNIFICADO)
+        // ============================================================
+        function guardarOKR() {
+            if (!inicializado) return;
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.OKR, data);
+            const ahora = new Date();
+            document.getElementById('lastSaved').textContent = 'Guardado: ' + ahora.toLocaleTimeString('es-AR', {
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        function cargarOKR() {
+            const parsed = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.OKR);
+            if (parsed && typeof parsed === 'object') {
+                data = { ...data, ...parsed };
+                data.config = { ...data.config, ...(parsed.config || {}) };
+                return true;
+            }
+            return false;
+        }
+
+        // ============================================================
+        // TRIMESTRE
+        // ============================================================
+        function cambiarTrimestre(q) {
+            data.config.trimestreActual = q;
+            document.querySelectorAll('.quarter-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.q === q);
+            });
+            guardarOKR();
+            renderizarTodo();
+        }
+
+        function cambiarAnio(val) {
+            const anio = parseInt(val) || new Date().getFullYear();
+            data.config.anioActual = anio;
+            guardarOKR();
+            renderizarTodo();
+        }
+
+        function getObjetivosFiltradosPorTrimestre() {
+            const q = data.config.trimestreActual;
+            const a = data.config.anioActual;
+            return data.objetivos.filter(obj => obj.trimestre === q && obj.anio === a);
+        }
+
+        // ============================================================
+        // RENDERIZADO
+        // ============================================================
+        function renderizarTodo() {
+            const objetivos = getObjetivosFiltradosPorTrimestre();
+            const busqueda = (document.getElementById('buscarInput').value || '').toLowerCase().trim();
+            const filtroOwner = document.getElementById('filtroOwner').value;
+            const filtroEstado = document.getElementById('filtroEstado').value;
+
+            actualizarFiltroOwners();
+
+            let objetivosFiltrados = objetivos;
+
+            if (filtroEstado === 'activos') {
+                objetivosFiltrados = objetivosFiltrados.filter(o => o.estado === 'activo');
+            } else if (filtroEstado === 'completado') {
+                objetivosFiltrados = objetivosFiltrados.filter(o => o.estado === 'completado');
+            } else if (filtroEstado === 'archivado') {
+                objetivosFiltrados = objetivosFiltrados.filter(o => o.estado === 'archivado');
+            }
+
+            if (filtroOwner !== 'todos') {
+                objetivosFiltrados = objetivosFiltrados.filter(o => o.owner === filtroOwner);
+            }
+
+            if (busqueda) {
+                objetivosFiltrados = objetivosFiltrados.filter(o => {
+                    const krs = getKRsDeObjetivo(o.id);
+                    return o.titulo.toLowerCase().includes(busqueda) ||
+                           (o.descripcion || '').toLowerCase().includes(busqueda) ||
+                           krs.some(kr => kr.titulo.toLowerCase().includes(busqueda));
+                });
+            }
+
+            actualizarKPIs(objetivos);
+            renderizarObjetivos(objetivosFiltrados);
+            renderizarGrafico(objetivos);
+            generarRecomendaciones(objetivos);
+            renderizarTablaDetalle(objetivos);
+
+            const trimLabel = `${data.config.trimestreActual} ${data.config.anioActual}`;
+            document.getElementById('chartTrimestreLabel').textContent = trimLabel;
+            const krsTotal = objetivos.reduce((s, o) => s + getKRsDeObjetivo(o.id).length, 0);
+            document.getElementById('printDesc').innerHTML = `
+                <strong>Trimestre:</strong> ${trimLabel} &nbsp;|&nbsp;
+                <strong>Objetivos:</strong> ${objetivos.length} &nbsp;|&nbsp;
+                <strong>KRs:</strong> ${krsTotal} &nbsp;|&nbsp;
+                <strong>Progreso global:</strong> ${fmtPct(calcularProgresoGlobal(objetivos) * 100)}
+            `;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        }
+
+        function actualizarFiltroOwners() {
+            const select = document.getElementById('filtroOwner');
+            const currentVal = select.value;
+            const owners = [...new Set(data.objetivos.map(o => o.owner).filter(o => o))];
+            select.innerHTML = '<option value="todos">Todos los owners</option>';
+            owners.forEach(o => {
+                const opt = document.createElement('option');
+                opt.value = o;
+                opt.textContent = o;
+                select.appendChild(opt);
+            });
+            select.value = currentVal || 'todos';
+        }
+
+        function actualizarKPIs(objetivos) {
+            const activos = objetivos.filter(o => o.estado === 'activo');
+            const krs = [];
+            objetivos.forEach(o => krs.push(...getKRsDeObjetivo(o.id)));
+
+            document.getElementById('kpiObjetivos').textContent = activos.length;
+            document.getElementById('kpiObjetivosSub').textContent = activos.length === 1 ? 'activo este trimestre' : 'activos este trimestre';
+
+            document.getElementById('kpiKRs').textContent = krs.length;
+            document.getElementById('kpiKRsSub').textContent = krs.length === 1 ? 'total' : 'totales';
+
+            const progresoGlobal = calcularProgresoGlobal(objetivos);
+            const progresoPct = progresoGlobal * 100;
+            document.getElementById('kpiProgreso').textContent = fmtPct(progresoPct);
+
+            const semanaActual = getSemanaActual(data.config.trimestreActual, data.config.anioActual);
+            const semanaRef = semanaActual > 0 ? semanaActual : 1;
+            const esperado = (semanaRef / SEMANAS_TRIMESTRE) * 100;
+            const diff = progresoPct - esperado;
+
+            let benchMsg = '', benchColor = '#5b6f82';
+            if (semanaActual === 0) {
+                benchMsg = `Trimestre aún no empezó`;
+            } else if (diff >= 8) {
+                benchMsg = `🚀 Muy por encima (+${diff.toFixed(0)}%)`;
+                benchColor = '#0f6e3f';
+            } else if (diff >= 0) {
+                benchMsg = `✅ Vas en ritmo (+${diff.toFixed(0)}%)`;
+                benchColor = '#0f6e3f';
+            } else if (diff >= -5) {
+                benchMsg = `🟡 Levemente atrás (${diff.toFixed(0)}%)`;
+                benchColor = '#b45b0b';
+            } else if (diff >= -15) {
+                benchMsg = `🟠 Atrasado (${diff.toFixed(0)}%)`;
+                benchColor = '#b45b0b';
+            } else {
+                benchMsg = `🔴 Muy atrasado (${diff.toFixed(0)}%)`;
+                benchColor = '#b33c3c';
+            }
+
+            document.getElementById('kpiBenchmark').innerHTML =
+                `Esperado a S${semanaRef}: <strong>${esperado.toFixed(0)}%</strong><br><span style="color:${benchColor}; font-weight:600;">${benchMsg}</span>`;
+
+            const criticos = krs.filter(kr => calcularProgresoKR(kr) < UMBRALES.enRiesgo).length;
+            document.getElementById('kpiEnRiesgo').textContent = criticos;
+            document.getElementById('kpiEnRiesgoSub').textContent = criticos === 1 ? 'KR crítico' : 'KRs críticos';
+        }
+
+        function renderizarObjetivos(objetivos) {
+            const container = document.getElementById('objetivosContainer');
+
+            if (objetivos.length === 0) {
+                const trimLabel = `${data.config.trimestreActual} ${data.config.anioActual}`;
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <span class="icon">🎯</span>
+                        <div class="title">Sin objetivos en ${trimLabel}</div>
+                        <div class="desc">Definí tus objetivos trimestrales y los Key Results para trackear el progreso. Empezá con 2-3 objetivos claros.</div>
+                        <button class="btn-primary" onclick="abrirModalObjetivo()" style="margin-top:16px;">➕ Crear primer objetivo</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            objetivos.forEach(obj => {
+                const colorInfo = getColorInfo(obj.color);
+                const krs = getKRsDeObjetivo(obj.id);
+                const progresoObj = calcularProgresoObjetivo(obj);
+                const progresoPct = progresoObj * 100;
+
+                html += `
+                    <div class="objetivo-card color-${obj.color}">
+                        <div class="objetivo-header">
+                            <div class="objetivo-title-block">
+                                <div class="objetivo-title">
+                                    <span class="objetivo-dot" style="background:${colorInfo.hex};"></span>
+                                    ${escapeHtml(obj.titulo)}
+                                </div>
+                                ${obj.descripcion ? `<div class="objetivo-desc">${escapeHtml(obj.descripcion)}</div>` : ''}
+                                <div class="objetivo-meta">
+                                    ${obj.owner ? `<span class="meta-tag">👤 ${escapeHtml(obj.owner)}</span>` : ''}
+                                    <span class="meta-tag">📅 ${obj.trimestre} ${obj.anio}</span>
+                                    <span class="meta-tag estado-${obj.estado}">${getEstadoLabel(obj.estado)}</span>
+                                    <span class="meta-tag" style="background:${colorInfo.hex}22; color:${colorInfo.hex};">${colorInfo.emoji} ${colorInfo.label}</span>
+                                </div>
+                            </div>
+                            <div class="objetivo-actions no-print">
+                                <button class="btn-icon" onclick="abrirModalObjetivo('${obj.id}')" title="Editar objetivo">✏️</button>
+                                <button class="btn-icon danger" onclick="eliminarObjetivo('${obj.id}')" title="Eliminar objetivo">🗑️</button>
+                            </div>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill color-${obj.color}" style="width:${progresoPct}%;"></div>
+                        </div>
+                        <div class="progress-labels">
+                            <span>Progreso del objetivo</span>
+                            <strong>${fmtPct(progresoPct)}</strong>
+                        </div>
+
+                        <div class="krs-container">
+                            ${krs.length === 0
+                                ? `<div class="krs-empty">📊 Agregá al menos un Key Result para trackear el progreso</div>`
+                                : krs.map(kr => renderKR(kr)).join('')
+                            }
+                            <button class="btn-add-kr no-print" onclick="abrirModalKR('${obj.id}')">➕ Agregar Key Result</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderKR(kr) {
+            const progreso = calcularProgresoKR(kr);
+            const progresoPct = progreso * 100;
+            const estado = getEstadoKR(progreso);
+            const estadoInfo = getEstadoInfo(estado);
+            const formatVal = (v) => formatearValor(v, kr.unidad);
+
+            return `
+                <div class="kr-item">
+                    <div class="kr-header">
+                        <div class="kr-title">${escapeHtml(kr.titulo)}</div>
+                        <span class="kr-peso">peso ${kr.peso}</span>
+                        <div class="kr-actions no-print">
+                            <button class="btn-icon" onclick="abrirModalCheckin('${kr.id}')" title="Registrar check-in">📝</button>
+                            <button class="btn-icon" onclick="abrirModalKR(null, '${kr.id}')" title="Editar KR">✏️</button>
+                            <button class="btn-icon danger" onclick="eliminarKR('${kr.id}')" title="Eliminar KR">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="kr-values">
+                        <span class="kr-val-item">Inicial: <strong>${formatVal(kr.valorInicial)}</strong></span>
+                        <span style="color:var(--color-text-faint);">→</span>
+                        <span class="kr-val-item">Actual: <strong style="color:${estadoInfo.color};">${formatVal(kr.valorActual)}</strong></span>
+                        <span style="color:var(--color-text-faint);">→</span>
+                        <span class="kr-val-item">Meta: <strong>${formatVal(kr.valorObjetivo)}</strong></span>
+                    </div>
+                    <div class="kr-progress-bar">
+                        <div class="kr-progress-fill estado-${estado}" style="width:${progresoPct}%;"></div>
+                    </div>
+                    <div class="kr-progress-labels">
+                        <span class="kr-pct">${fmtPct(progresoPct)}</span>
+                        <span class="kr-estado-badge estado-${estado}">${estadoInfo.icon} ${estadoInfo.label}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getEstadoLabel(estado) {
+            const map = {
+                'activo': '🟢 Activo',
+                'completado': '✅ Completado',
+                'archivado': '📦 Archivado'
+            };
+            return map[estado] || estado;
+        }
+
+        // ============================================================
+        // GRÁFICO
+        // ============================================================
+        function renderizarGrafico(objetivos) {
+            const ctx = document.getElementById('progresoChart').getContext('2d');
+            if (chart) { chart.destroy(); chart = null; }
+
+            const labels = [];
+            for (let i = 1; i <= SEMANAS_TRIMESTRE; i++) labels.push('S' + i);
+
+            const benchmarkData = labels.map((_, i) => ((i + 1) / SEMANAS_TRIMESTRE) * 100);
+
+            const datasets = [{
+                label: 'Benchmark esperado',
+                data: benchmarkData,
+                borderColor: '#7a8b9f',
+                borderDash: [6, 4],
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false,
+                tension: 0
+            }];
+
+            objetivos.forEach(obj => {
+                if (obj.estado === 'archivado') return;
+                const colorInfo = getColorInfo(obj.color);
+                const krs = getKRsDeObjetivo(obj.id);
+                if (krs.length === 0) return;
+
+                const puntos = [];
+                for (let s = 1; s <= SEMANAS_TRIMESTRE; s++) {
+                    const krsProgreso = krs.map(kr => {
+                        const checkInsKR = data.checkIns.filter(ci => ci.keyResultId === kr.id);
+                        let ultimoValor = kr.valorInicial;
+                        checkInsKR.forEach(ci => {
+                            const semCI = getSemanaDeFecha(ci.fecha, obj.trimestre, obj.anio);
+                            if (semCI !== null && semCI <= s) ultimoValor = ci.valor;
+                        });
+                        const krTemp = { ...kr, valorActual: ultimoValor };
+                        return calcularProgresoKR(krTemp);
+                    });
+
+                    const sumaPesos = krs.reduce((sum, kr) => sum + (kr.peso || 1), 0);
+                    const progreso = sumaPesos > 0
+                        ? krsProgreso.reduce((sum, p, i) => sum + p * (krs[i].peso || 1), 0) / sumaPesos
+                        : 0;
+                    puntos.push(progreso * 100);
+                }
+
+                datasets.push({
+                    label: obj.titulo.length > 30 ? obj.titulo.substring(0, 30) + '…' : obj.titulo,
+                    data: puntos,
+                    borderColor: colorInfo.hex,
+                    backgroundColor: colorInfo.hex + '22',
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointBackgroundColor: colorInfo.hex,
+                    tension: 0.2,
+                    fill: false
+                });
+            });
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: { labels, datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { boxWidth: 12, padding: 15, font: { size: 12, weight: '600' }, color: '#0a2540', usePointStyle: true }
+                        },
+                        tooltip: {
+                            callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%` }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#5b6f82', font: { size: 11 } } },
+                        y: {
+                            min: 0, max: 100,
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            ticks: { color: '#5b6f82', callback: (v) => v + '%', font: { size: 11 } }
+                        }
+                    },
+                    interaction: { intersect: false, mode: 'index' }
+                }
+            });
+        }
+
+        // ============================================================
+        // RECOMENDACIONES
+        // ============================================================
+        function generarRecomendaciones(objetivos) {
+            const container = document.getElementById('recommendationsContainer');
+
+            if (objetivos.length === 0) {
+                container.innerHTML = `<div class="rec-item"><span class="rec-icon">📌</span> Cargá objetivos y KRs para ver recomendaciones personalizadas.</div>`;
+                return;
+            }
+
+            const krs = [];
+            objetivos.forEach(o => krs.push(...getKRsDeObjetivo(o.id)));
+
+            if (krs.length === 0) {
+                container.innerHTML = `<div class="rec-item"><span class="rec-icon">📊</span> Tus objetivos no tienen Key Results. Agregá al menos uno por objetivo para poder medir el progreso.</div>`;
+                return;
+            }
+
+            const recs = [];
+
+            const criticos = krs.filter(kr => calcularProgresoKR(kr) < UMBRALES.enRiesgo);
+            if (criticos.length > 0) {
+                recs.push(`🔴 <strong>${criticos.length} KR${criticos.length > 1 ? 's' : ''} en estado crítico</strong> (menos del 40%). Revisá si las metas son realistas o si necesitás recursos adicionales.`);
+            }
+
+            const enRiesgo = krs.filter(kr => {
+                const p = calcularProgresoKR(kr);
+                return p >= UMBRALES.enRiesgo && p < UMBRALES.enCurso;
+            });
+            if (enRiesgo.length > 0) {
+                recs.push(`🟡 <strong>${enRiesgo.length} KR${enRiesgo.length > 1 ? 's' : ''} en riesgo</strong> (40-70%). Considerá hacer check-ins más frecuentes para no perder el ritmo.`);
+            }
+
+            const cumplidos = krs.filter(kr => calcularProgresoKR(kr) >= UMBRALES.enCurso);
+            if (cumplidos.length > 0) {
+                recs.push(`✅ <strong>${cumplidos.length} KR${cumplidos.length > 1 ? 's' : ''} al 70% o más.</strong> Excelente ritmo, mantené el foco.`);
+            }
+
+            const semanaActual = getSemanaActual(data.config.trimestreActual, data.config.anioActual);
+            if (semanaActual > 0) {
+                const progresoGlobal = calcularProgresoGlobal(objetivos);
+                const progresoPct = progresoGlobal * 100;
+                const esperado = (semanaActual / SEMANAS_TRIMESTRE) * 100;
+                const diff = progresoPct - esperado;
+                const semanasRestantes = SEMANAS_TRIMESTRE - semanaActual;
+
+                let cierreProyectado = progresoPct;
+                if (semanaActual >= 2) {
+                    const ritmo = progresoPct / semanaActual;
+                    cierreProyectado = Math.min(100, ritmo * SEMANAS_TRIMESTRE);
+                }
+
+                if (diff >= 0) {
+                    recs.push(`📈 <strong>Vas por encima del ritmo esperado</strong> (+${diff.toFixed(0)}% vs benchmark). A este ritmo, cerrarías el trimestre en ~${cierreProyectado.toFixed(0)}%.`);
+                } else {
+                    recs.push(`📉 <strong>Vas por debajo del ritmo esperado</strong> (${diff.toFixed(0)}% vs benchmark). A este ritmo, cerrarías el trimestre en ~${cierreProyectado.toFixed(0)}%. Quedan ${semanasRestantes} semanas.`);
+                }
+
+                if (semanasRestantes <= 4 && progresoPct < 70) {
+                    recs.push(`⏰ <strong>Quedan solo ${semanasRestantes} semanas</strong> y el progreso es del ${progresoPct.toFixed(0)}%. Priorizá los KRs más importantes y considerá ajustar metas si es necesario.`);
+                }
+            } else {
+                recs.push(`📅 <strong>El trimestre aún no comenzó.</strong> Aprovechá para planificar los objetivos y definir metas claras.`);
+            }
+
+            const hoy = new Date();
+            const hace7dias = new Date(hoy.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const checkInsRecientes = data.checkIns.filter(ci => new Date(ci.fecha) >= hace7dias);
+            if (semanaActual > 0 && checkInsRecientes.length === 0 && krs.length > 0) {
+                recs.push(`📝 <strong>No registraste check-ins en los últimos 7 días.</strong> Actualizá los valores para mantener el seguimiento al día.`);
+            }
+
+            container.innerHTML = recs.map(r => `<div class="rec-item"><span class="rec-icon"></span><span>${r}</span></div>`).join('');
+        }
+
+        // ============================================================
+        // TABLA DETALLE
+        // ============================================================
+        function renderizarTablaDetalle(objetivos) {
+            const tbody = document.getElementById('tablaDetalleBody');
+            const filas = [];
+
+            objetivos.forEach(obj => {
+                const krs = getKRsDeObjetivo(obj.id);
+                krs.forEach(kr => {
+                    const progreso = calcularProgresoKR(kr);
+                    const estado = getEstadoKR(progreso);
+                    const info = getEstadoInfo(estado);
+                    filas.push(`
+                        <tr>
+                            <td>${escapeHtml(obj.titulo)}</td>
+                            <td>${escapeHtml(kr.titulo)}</td>
+                            <td><strong>${fmtPct(progreso * 100)}</strong></td>
+                            <td><span style="color:${info.color}; font-weight:600;">${info.icon} ${info.label}</span></td>
+                            <td>${kr.peso}</td>
+                        </tr>
+                    `);
+                });
+            });
+
+            tbody.innerHTML = filas.length > 0
+                ? filas.join('')
+                : '<tr><td colspan="5" style="text-align:center; color:var(--color-text-faint); padding:20px;">Sin KRs para mostrar</td></tr>';
+        }
+
+        // ============================================================
+        // MODALES · OBJETIVO
+        // ============================================================
+        function abrirModalObjetivo(id) {
+            editingObjetivoId = id || null;
+            document.getElementById('modalObjetivoTitle').textContent = id ? 'Editar Objetivo' : 'Nuevo Objetivo';
+
+            if (id) {
+                const obj = data.objetivos.find(o => o.id === id);
+                if (obj) {
+                    document.getElementById('objTitulo').value = obj.titulo;
+                    document.getElementById('objDescripcion').value = obj.descripcion || '';
+                    document.getElementById('objOwner').value = obj.owner || '';
+                    document.getElementById('objEstado').value = obj.estado || 'activo';
+                    colorSeleccionado = obj.color || 'blue';
+                }
+            } else {
+                document.getElementById('objTitulo').value = '';
+                document.getElementById('objDescripcion').value = '';
+                document.getElementById('objOwner').value = '';
+                document.getElementById('objEstado').value = 'activo';
+                colorSeleccionado = 'blue';
+            }
+
+            renderizarColorPicker();
+            ENUMAPP_UI.openModal('modalObjetivo');
+            setTimeout(() => document.getElementById('objTitulo').focus(), 100);
+        }
+
+        function renderizarColorPicker() {
+            const container = document.getElementById('colorPicker');
+            container.innerHTML = COLORES_OBJETIVO.map(c => `
+                <div class="color-option ${colorSeleccionado === c.id ? 'selected' : ''}"
+                     style="background:${c.hex};"
+                     data-color="${c.id}"
+                     onclick="seleccionarColor('${c.id}')"
+                     title="${c.label}">
+                    ${colorSeleccionado === c.id ? '✓' : ''}
+                </div>
+            `).join('');
+        }
+
+        function seleccionarColor(id) {
+            colorSeleccionado = id;
+            renderizarColorPicker();
+        }
+
+        function guardarObjetivo() {
+            const titulo = document.getElementById('objTitulo').value.trim();
+            if (!titulo) { ENUMAPP_UI.toast('El título es obligatorio', 'warning'); return; }
+
+            const objData = {
+                titulo,
+                descripcion: document.getElementById('objDescripcion').value.trim(),
+                owner: document.getElementById('objOwner').value.trim(),
+                estado: document.getElementById('objEstado').value,
+                color: colorSeleccionado,
+                trimestre: data.config.trimestreActual,
+                anio: data.config.anioActual,
+                modificado: new Date().toISOString()
+            };
+
+            if (editingObjetivoId) {
+                const idx = data.objetivos.findIndex(o => o.id === editingObjetivoId);
+                if (idx !== -1) data.objetivos[idx] = { ...data.objetivos[idx], ...objData };
+            } else {
+                data.objetivos.push({
+                    id: generarId('obj'),
+                    ...objData,
+                    creado: new Date().toISOString()
+                });
+            }
+
+            cerrarModal('modalObjetivo');
+            guardarOKR();
+            renderizarTodo();
+            ENUMAPP_UI.toast('✅ Objetivo guardado', 'success');
+        }
+
+        function eliminarObjetivo(id) {
+            const obj = data.objetivos.find(o => o.id === id);
+            if (!obj) return;
+
+            const krs = getKRsDeObjetivo(id);
+            const msg = krs.length > 0
+                ? `¿Eliminar el objetivo "${obj.titulo}" y sus ${krs.length} Key Results?`
+                : `¿Eliminar el objetivo "${obj.titulo}"?`;
+
+            if (!ENUMAPP_UI.confirm(msg)) return;
+
+            const krIds = krs.map(kr => kr.id);
+            data.checkIns = data.checkIns.filter(ci => !krIds.includes(ci.keyResultId));
+            data.keyResults = data.keyResults.filter(kr => kr.objectiveId !== id);
+            data.objetivos = data.objetivos.filter(o => o.id !== id);
+
+            guardarOKR();
+            renderizarTodo();
+            ENUMAPP_UI.toast('🗑️ Objetivo eliminado', 'info');
+        }
+
+        // ============================================================
+        // MODALES · KEY RESULT
+        // ============================================================
+        function abrirModalKR(objectiveId, krId) {
+            editingKRId = krId || null;
+            currentObjetivoIdForKR = objectiveId;
+            document.getElementById('modalKRTitle').textContent = krId ? 'Editar Key Result' : 'Nuevo Key Result';
+
+            if (krId) {
+                const kr = data.keyResults.find(k => k.id === krId);
+                if (kr) {
+                    document.getElementById('krTitulo').value = kr.titulo;
+                    document.getElementById('krUnidad').value = kr.unidad;
+                    document.getElementById('krPeso').value = kr.peso;
+                    document.getElementById('krValorInicial').value = kr.valorInicial;
+                    document.getElementById('krValorObjetivo').value = kr.valorObjetivo;
+                    currentObjetivoIdForKR = kr.objectiveId;
+                }
+            } else {
+                document.getElementById('krTitulo').value = '';
+                document.getElementById('krUnidad').value = '$';
+                document.getElementById('krPeso').value = 1;
+                document.getElementById('krValorInicial').value = 0;
+                document.getElementById('krValorObjetivo').value = 100;
+            }
+
+            ENUMAPP_UI.openModal('modalKR');
+            setTimeout(() => document.getElementById('krTitulo').focus(), 100);
+        }
+
+        function guardarKR() {
+            const titulo = document.getElementById('krTitulo').value.trim();
+            if (!titulo) { ENUMAPP_UI.toast('El título es obligatorio', 'warning'); return; }
+
+            const valorInicial = parseFloat(document.getElementById('krValorInicial').value);
+            const valorObjetivo = parseFloat(document.getElementById('krValorObjetivo').value);
+            const peso = parseFloat(document.getElementById('krPeso').value) || 1;
+
+            if (isNaN(valorInicial) || isNaN(valorObjetivo)) {
+                ENUMAPP_UI.toast('Los valores inicial y objetivo son obligatorios', 'warning');
+                return;
+            }
+
+            const krData = {
+                titulo,
+                unidad: document.getElementById('krUnidad').value,
+                valorInicial,
+                valorObjetivo,
+                peso: Math.max(0.5, Math.min(3, peso)),
+                modificado: new Date().toISOString()
+            };
+
+            if (editingKRId) {
+                const idx = data.keyResults.findIndex(k => k.id === editingKRId);
+                if (idx !== -1) data.keyResults[idx] = { ...data.keyResults[idx], ...krData };
+            } else {
+                data.keyResults.push({
+                    id: generarId('kr'),
+                    objectiveId: currentObjetivoIdForKR,
+                    valorActual: valorInicial,
+                    ...krData,
+                    creado: new Date().toISOString()
+                });
+            }
+
+            cerrarModal('modalKR');
+            guardarOKR();
+            renderizarTodo();
+            ENUMAPP_UI.toast('✅ Key Result guardado', 'success');
+        }
+
+        function eliminarKR(id) {
+            const kr = data.keyResults.find(k => k.id === id);
+            if (!kr) return;
+            if (!ENUMAPP_UI.confirm(`¿Eliminar el KR "${kr.titulo}" y sus check-ins asociados?`)) return;
+
+            data.checkIns = data.checkIns.filter(ci => ci.keyResultId !== id);
+            data.keyResults = data.keyResults.filter(k => k.id !== id);
+
+            guardarOKR();
+            renderizarTodo();
+            ENUMAPP_UI.toast('🗑️ KR eliminado', 'info');
+        }
+
+        // ============================================================
+        // MODALES · CHECK-IN
+        // ============================================================
+        function abrirModalCheckin(krId) {
+            currentKRIdForCheckin = krId;
+            const kr = data.keyResults.find(k => k.id === krId);
+            if (!kr) return;
+
+            document.getElementById('modalCheckinTitle').textContent = 'Check-in';
+            document.getElementById('checkinKRTitle').textContent = kr.titulo;
+            document.getElementById('checkinKRInfo').textContent =
+                `Último: ${formatearValor(kr.valorActual, kr.unidad)} · Meta: ${formatearValor(kr.valorObjetivo, kr.unidad)}`;
+
+            document.getElementById('checkinValor').value = kr.valorActual;
+            document.getElementById('checkinValor').step = kr.unidad === 'bool' ? 1 : 'any';
+            document.getElementById('checkinValor').min = kr.unidad === 'bool' ? 0 : '';
+            document.getElementById('checkinValor').max = kr.unidad === 'bool' ? 1 : '';
+            document.getElementById('checkinComentario').value = '';
+
+            const checkIns = data.checkIns
+                .filter(ci => ci.keyResultId === krId)
+                .sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+            const histWrapper = document.getElementById('checkinHistorialWrapper');
+            const histContainer = document.getElementById('checkinHistorial');
+
+            if (checkIns.length > 0) {
+                histWrapper.style.display = 'block';
+                histContainer.innerHTML = checkIns.map(ci => `
+                    <div class="checkin-item">
+                        <span class="ci-fecha">${formatearFechaCorta(ci.fecha)}</span>
+                        <span class="ci-valor">${formatearValor(ci.valor, kr.unidad)}</span>
+                        <span class="ci-comentario">${ci.comentario ? escapeHtml(ci.comentario) : '—'}</span>
+                    </div>
+                `).join('');
+            } else {
+                histWrapper.style.display = 'none';
+            }
+
+            ENUMAPP_UI.openModal('modalCheckin');
+            setTimeout(() => document.getElementById('checkinValor').focus(), 100);
+        }
+
+        function guardarCheckin() {
+            const kr = data.keyResults.find(k => k.id === currentKRIdForCheckin);
+            if (!kr) return;
+
+            const valor = parseFloat(document.getElementById('checkinValor').value);
+            if (isNaN(valor)) { ENUMAPP_UI.toast('Ingresá un valor válido', 'warning'); return; }
+
+            const comentario = document.getElementById('checkinComentario').value.trim();
+
+            data.checkIns.push({
+                id: generarId('ci'),
+                keyResultId: kr.id,
+                valor,
+                comentario,
+                fecha: new Date().toISOString()
+            });
+
+            kr.valorActual = valor;
+            kr.modificado = new Date().toISOString();
+
+            cerrarModal('modalCheckin');
+            guardarOKR();
+            renderizarTodo();
+            ENUMAPP_UI.toast('✅ Check-in registrado', 'success');
+        }
+
+        // ============================================================
+        // MODAL HELPERS
+        // ============================================================
+        function cerrarModal(id) {
+            ENUMAPP_UI.closeModal(id);
+            editingObjetivoId = null;
+            editingKRId = null;
+            currentObjetivoIdForKR = null;
+            currentKRIdForCheckin = null;
+        }
+
+        // ============================================================
+        // EJEMPLOS
+        // ============================================================
+        function cargarEjemplos() {
+            if (data.objetivos.length > 0) {
+                if (!ENUMAPP_UI.confirm('Esto agregará objetivos de ejemplo al trimestre actual. ¿Continuar?')) return;
+            }
+
+            const q = data.config.trimestreActual;
+            const a = data.config.anioActual;
+
+            const ejemplosObjetivos = [
+                {
+                    titulo: 'Aumentar rentabilidad del negocio',
+                    descripcion: 'Mejorar margen neto y reducir costos operativos',
+                    owner: 'Juan', color: 'green',
+                    krs: [
+                        { titulo: 'Reducir costos fijos mensuales', unidad: '$', valorInicial: 50000, valorObjetivo: 35000, valorActual: 42000, peso: 2, comentario: 'Renegociación con proveedores' },
+                        { titulo: 'Aumentar margen neto', unidad: '%', valorInicial: 25, valorObjetivo: 40, valorActual: 34, peso: 2, comentario: 'Ajuste de precios' },
+                        { titulo: 'Reducir gastos de publicidad', unidad: '$', valorInicial: 8000, valorObjetivo: 5000, valorActual: 7200, peso: 1, comentario: 'Optimización de campañas' }
+                    ]
+                },
+                {
+                    titulo: 'Mejorar atención al cliente',
+                    descripcion: 'Reducir tiempos de respuesta y aumentar satisfacción',
+                    owner: 'María', color: 'blue',
+                    krs: [
+                        { titulo: 'Reducir tiempo de respuesta', unidad: '%', valorInicial: 100, valorObjetivo: 50, valorActual: 65, peso: 2, comentario: 'Implementación de FAQ' },
+                        { titulo: 'Aumentar satisfacción del cliente', unidad: '%', valorInicial: 75, valorObjetivo: 95, valorActual: 82, peso: 2, comentario: 'Encuestas post-venta' }
+                    ]
+                },
+                {
+                    titulo: 'Expandir canales de venta',
+                    descripcion: 'Sumar nuevos canales digitales y presenciales',
+                    owner: 'Carlos', color: 'yellow',
+                    krs: [
+                        { titulo: 'Lanzar tienda online', unidad: 'bool', valorInicial: 0, valorObjetivo: 1, valorActual: 1, peso: 3, comentario: 'Tienda online funcionando' },
+                        { titulo: 'Sumar puntos de venta', unidad: '#', valorInicial: 2, valorObjetivo: 5, valorActual: 3, peso: 1, comentario: 'Nuevo local en zona norte' }
+                    ]
+                }
+            ];
+
+            const hoy = new Date();
+
+            ejemplosObjetivos.forEach(eo => {
+                const objId = generarId('obj');
+                data.objetivos.push({
+                    id: objId,
+                    titulo: eo.titulo, descripcion: eo.descripcion,
+                    trimestre: q, anio: a,
+                    owner: eo.owner, estado: 'activo', color: eo.color,
+                    creado: hoy.toISOString(), modificado: hoy.toISOString()
+                });
+
+                eo.krs.forEach(krEj => {
+                    const krId = generarId('kr');
+                    data.keyResults.push({
+                        id: krId, objectiveId: objId,
+                        titulo: krEj.titulo, unidad: krEj.unidad,
+                        valorInicial: krEj.valorInicial, valorObjetivo: krEj.valorObjetivo,
+                        valorActual: krEj.valorActual, peso: krEj.peso,
+                        creado: hoy.toISOString(), modificado: hoy.toISOString()
+                    });
+
+                    const checkin1 = new Date(hoy.getTime() - 14 * 24 * 60 * 60 * 1000);
+                    const checkin2 = new Date(hoy.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+                    data.checkIns.push({
+                        id: generarId('ci'), keyResultId: krId,
+                        valor: krEj.valorInicial,
+                        comentario: 'Punto de partida',
+                        fecha: checkin1.toISOString()
+                    });
+
+                    data.checkIns.push({
+                        id: generarId('ci'), keyResultId: krId,
+                        valor: krEj.valorActual,
+                        comentario: krEj.comentario || 'Avance semanal',
+                        fecha: checkin2.toISOString()
+                    });
+                });
+            });
+
+            guardarOKR();
+            renderizarTodo();
+            ENUMAPP_UI.toast('✅ Se cargaron 3 objetivos con 7 KRs de ejemplo', 'success');
+        }
+
+        // ============================================================
+        // EXPORTAR CSV
+        // ============================================================
+        function exportarCSV() {
+            const objetivos = getObjetivosFiltradosPorTrimestre();
+            if (objetivos.length === 0) {
+                ENUMAPP_UI.toast('No hay objetivos para exportar', 'warning');
+                return;
+            }
+
+            let csv = '\uFEFF';
+            csv += 'Objetivo;Owner;Estado;Color;Key Result;Unidad;Valor Inicial;Valor Actual;Valor Objetivo;Progreso (%);Estado KR;Peso\n';
+
+            objetivos.forEach(obj => {
+                const krs = getKRsDeObjetivo(obj.id);
+                if (krs.length === 0) {
+                    csv += `"${obj.titulo}";"${obj.owner || ''}";"${obj.estado}";"${obj.color}";(sin KRs);;;;0;critico;0\n`;
+                } else {
+                    krs.forEach(kr => {
+                        const progreso = calcularProgresoKR(kr) * 100;
+                        const estado = getEstadoKR(calcularProgresoKR(kr));
+                        csv += `"${obj.titulo}";"${obj.owner || ''}";"${obj.estado}";"${obj.color}";"${kr.titulo}";"${kr.unidad}";${kr.valorInicial};${kr.valorActual};${kr.valorObjetivo};${progreso.toFixed(1)};"${estado}";${kr.peso}\n`;
+                    });
+                }
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            const trimLabel = `${data.config.trimestreActual}_${data.config.anioActual}`;
+            link.setAttribute('download', `okr_${trimLabel}_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            ENUMAPP_UI.toast('✅ CSV exportado', 'success');
+        }
+
+        // ============================================================
+        // REINICIAR
+        // ============================================================
+        function reiniciarDatos() {
+            if (!ENUMAPP_UI.confirm('⚠️ ¿Borrar TODOS los datos de OKRs?')) return;
+            if (!ENUMAPP_UI.confirm('✅ Confirmación final: se eliminarán todos los objetivos, KRs y check-ins. ¿Continuar?')) return;
+
+            data = {
+                objetivos: [],
+                keyResults: [],
+                checkIns: [],
+                config: {
+                    trimestreActual: data.config.trimestreActual,
+                    anioActual: data.config.anioActual,
+                    owners: []
+                }
+            };
+            ENUMAPP_STORAGE.remove(ENUMAPP_STORAGE.KEYS.OKR);
+            renderizarTodo();
+            guardarOKR();
+            ENUMAPP_UI.toast('✅ Datos reiniciados', 'success');
+        }
+
+        // ============================================================
+        // INICIALIZACIÓN
+        // ============================================================
+        (function init() {
+            if (cargarOKR()) {
+                // Datos cargados
+                renderizarTodo();
+                inicializado = true;
+                guardarOKR(); // Fuerza el label con la hora actual
+            } else {
+                // Sin datos: render vacío
+                renderizarTodo();
+                inicializado = true;
+                document.getElementById('lastSaved').textContent = 'Sin datos';
+            }
+
+            // Setear año en el input
+            document.getElementById('yearInput').value = data.config.anioActual;
+
+            // Setear tab activa
+            document.querySelectorAll('.quarter-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.q === data.config.trimestreActual);
+            });
+
+            window.addEventListener('beforeunload', guardarOKR);
+
+            console.log('🎯 ENUMAPP · OKR Tracker cargado');
+        })();
+    </script>
+
+</body>
+</html>

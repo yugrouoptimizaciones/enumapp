@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Panel de KPIs · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Panel de KPIs de ENUMAPP. Tus números, tu negocio, tu app." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <!-- Encabezado para PDF -->
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE PANEL DE KPIs</h2>
+            <p>Seguimiento semanal de los números del negocio</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <!-- Header compartido -->
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Panel de KPIs</small>
+                </h1>
+            </div>
+            <a href="panel-kpis.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para hacer seguimiento semanal de los 5 números clave de tu negocio.
+            Aprendé a cargar datos, definir metas, interpretar los indicadores y detectar tendencias.
+        </div>
+
+        <!-- ===== ÍNDICE ===== -->
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#cargar">Cómo cargar una semana</a></li>
+                <li><a href="#kpis">Los 5 KPIs explicados</a></li>
+                <li><a href="#metas">Configurar metas</a></li>
+                <li><a href="#semaforo">El semáforo de colores</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#tabla">Historial de semanas</a></li>
+                <li><a href="#excel">Exportar a Excel</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#reiniciar">Reiniciar datos</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <!-- ===== SECCIÓN 1: QUÉ ES ===== -->
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Panel de KPIs</strong> es una herramienta de seguimiento semanal que te permite
+                <strong>medir los 5 números más importantes de tu negocio</strong> y compararlos contra metas
+                que vos mismo definís.
+            </p>
+            <p>Los 5 indicadores que se monitorean son:</p>
+            <ul>
+                <li>💰 <strong>Ingresos</strong>: total facturado en la semana.</li>
+                <li>📉 <strong>Gastos</strong>: total gastado en la semana.</li>
+                <li>💵 <strong>Flujo de Caja</strong>: ingresos − gastos.</li>
+                <li>👥 <strong>Nuevos Clientes</strong>: cantidad captada en la semana.</li>
+                <li>📊 <strong>Margen Bruto</strong>: (ingresos − gastos) ÷ ingresos.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: KPI</span>
+                KPI significa <em>Key Performance Indicator</em> (Indicador Clave de Rendimiento).
+                Es un número que, si lo mirás cada semana, te dice <strong>si tu negocio va bien o mal</strong>
+                sin necesidad de revisar mil planillas.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 2: CUÁNDO USARLA ===== -->
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Cerrar la semana</strong> con un panorama claro de tus números.</li>
+                <li><strong>Detectar problemas temprano</strong>: si los ingresos bajan dos semanas seguidas, lo ves al instante.</li>
+                <li><strong>Evaluar el efecto</strong> de una promoción, un aumento de precios o una campaña.</li>
+                <li><strong>Comparar semanas</strong> entre sí para ver tendencias.</li>
+                <li><strong>Tomar decisiones basadas en datos</strong>, no en intuición.</li>
+                <li><strong>Tener un historial anual</strong> para analizar al final del año.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Establecé un <strong>día fijo de la semana</strong> (por ejemplo, domingo a la noche o lunes a la mañana)
+                para cargar los datos. La consistencia es lo que hace valioso al panel.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 3: PRIMEROS PASOS ===== -->
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta por primera vez, no hay datos cargados. Vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Configurar metas</div>
+                    <div class="step-desc">Definí tus objetivos semanales</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Cargar la semana</div>
+                    <div class="step-desc">Ingresos, gastos y clientes</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Guardar</div>
+                    <div class="step-desc">Se almacena en el historial</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Analizar</div>
+                    <div class="step-desc">Ver KPIs, gráfico y recomendaciones</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Modo prueba</span>
+                Si querés ver cómo funciona antes de cargar tus datos, hacé clic en el botón
+                <span class="badge gray">📋 Ejemplos</span> y se cargarán 8 semanas de demostración.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 4: CARGAR ===== -->
+        <section id="cargar">
+            <h2>✍️ Cómo cargar una semana</h2>
+            <p>El formulario de carga tiene <strong>4 campos</strong>. Todos son editables y los resultados se actualizan en tiempo real.</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Ingresos ($)</strong></td>
+                        <td>Todo lo que facturaste o cobraste en la semana.</td>
+                        <td>10200</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Gastos ($)</strong></td>
+                        <td>Todos los gastos de la semana (fijos + variables).</td>
+                        <td>6800</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Nuevos Clientes</strong></td>
+                        <td>Cantidad de clientes nuevos que compraron por primera vez.</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Nota / Observación</strong></td>
+                        <td>Comentario corto para recordar qué pasó esa semana.</td>
+                        <td>Promoción 2x1</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Pasos para guardar</h3>
+            <ol>
+                <li>Completá los 3 campos numéricos y la nota (opcional).</li>
+                <li>Hacé clic en el botón <span class="badge blue">💾 Guardar Semana</span>.</li>
+                <li>Los datos se agregan al historial y aparecen en el gráfico.</li>
+                <li>Los campos se limpian automáticamente para la próxima semana.</li>
+            </ol>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Importante</span>
+                Si no ingresás al menos un valor, la herramienta no permite guardar. Necesita al menos
+                un dato para registrar la semana.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Atajo de teclado</span>
+                Podés guardar la semana rápidamente con <code>Ctrl+S</code> (o <code>Cmd+S</code> en Mac).
+                La herramienta intercepta la tecla y ejecuta el guardado.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 5: KPIs ===== -->
+        <section id="kpis">
+            <h2>📊 Los 5 KPIs explicados</h2>
+            <p>Después de guardar, la herramienta calcula y muestra 5 tarjetas con los indicadores:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">💰</span>
+                    <div class="name">Ingresos</div>
+                    <div class="desc">Total facturado en la semana. Se compara con la meta de ingresos.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📉</span>
+                    <div class="name">Gastos</div>
+                    <div class="desc">Total gastado en la semana. Se compara con la meta de gastos (menor es mejor).</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💵</span>
+                    <div class="name">Flujo de Caja</div>
+                    <div class="desc">Ingresos − Gastos. Es la plata que realmente te queda (o te falta).</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">👥</span>
+                    <div class="name">Nuevos Clientes</div>
+                    <div class="desc">Cantidad de clientes nuevos que captaste en la semana.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Margen Bruto</div>
+                    <div class="desc">(Ingresos − Gastos) ÷ Ingresos × 100. Es tu rentabilidad porcentual.</div>
+                </div>
+            </div>
+
+            <h3>Fórmulas utilizadas</h3>
+
+            <div class="formula-box">
+                <div class="formula">Flujo de Caja = Ingresos − Gastos</div>
+                <div class="formula-desc">Puede ser positivo (ganancia) o negativo (pérdida).</div>
+            </div>
+
+            <div class="formula-box">
+                <div class="formula">Margen Bruto = (Ingresos − Gastos) ÷ Ingresos × 100</div>
+                <div class="formula-desc">Ejemplo: ($10.200 − $6.800) ÷ $10.200 = 33,3%</div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Sobre el margen</span>
+                Un margen del 30% o más se considera saludable para la mayoría de los negocios.
+                Si tu margen es menor al 15%, tenés poco espacio para maniobrar.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 6: METAS ===== -->
+        <section id="metas">
+            <h2>⚙️ Configurar metas</h2>
+            <p>
+                Las metas son tus objetivos semanales. La herramienta las usa para comparar y colorear
+                cada KPI. Se configuran una sola vez y se guardan en el navegador.
+            </p>
+
+            <h3>Cómo acceder</h3>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge gray">⚙️ Metas</span>.</li>
+                <li>Se abre una ventana con 4 campos editables.</li>
+                <li>Ajustá los valores y hacé clic en <strong>💾 Guardar Metas</strong>.</li>
+            </ol>
+
+            <h3>Las 4 metas configurables</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Meta</th>
+                        <th>Descripción</th>
+                        <th>Valor por defecto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Meta de Ingresos</strong></td>
+                        <td>Cuánto querés facturar por semana.</td>
+                        <td>$10.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Meta de Gastos</strong></td>
+                        <td>Cuánto querés gastar como máximo por semana.</td>
+                        <td>$7.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Meta de Nuevos Clientes</strong></td>
+                        <td>Cuántos clientes nuevos querés captar por semana.</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Meta de Margen Bruto</strong></td>
+                        <td>Qué porcentaje de margen querés alcanzar.</td>
+                        <td>30%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Cómo definir metas realistas</span>
+                Mirá tus últimas 4 semanas y sacá un promedio. Sumale un 10-20% como objetivo.
+                Metas demasiado ambiciosas desmotivan; demasiado bajas no te exigen.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Importante</span>
+                Los gastos funcionan al revés que los otros KPIs: <strong>gastar menos es mejor</strong>.
+                La herramienta lo tiene en cuenta al colorear (verde si estás por debajo de la meta).</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 7: SEMÁFORO ===== -->
+        <section id="semaforo">
+            <h2>🚦 El semáforo de colores</h2>
+            <p>
+                Cada tarjeta de KPI tiene un <strong>punto de color</strong> que indica cómo estás respecto
+                a la meta. Es un sistema de semáforo simple:
+            </p>
+
+            <h3>Para KPIs que se miden "más es mejor"</h3>
+            <p>Ingresos, Nuevos Clientes y Margen Bruto:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Rango</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge green">🟢</span></td>
+                        <td>≥ 100%</td>
+                        <td>Meta cumplida. Excelente trabajo.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge orange">🟡</span></td>
+                        <td>70% – 99%</td>
+                        <td>Cerca de la meta. Seguí empujando.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge red">🔴</span></td>
+                        <td>&lt; 70%</td>
+                        <td>Muy por debajo. Necesitás actuar.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Para Gastos (se mide "menos es mejor")</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Rango</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge green">🟢</span></td>
+                        <td>≤ 80%</td>
+                        <td>Gastos bajo control. Bien.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge orange">🟡</span></td>
+                        <td>81% – 100%</td>
+                        <td>Cerca del límite. Monitorear.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge red">🔴</span></td>
+                        <td>&gt; 100%</td>
+                        <td>Te pasaste de la meta. Revisar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 8: RECOMENDACIONES ===== -->
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                Debajo de los KPIs, la herramienta genera <strong>recomendaciones personalizadas</strong>
+                según tu desempeño. Puede incluir:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Tipo</th>
+                        <th>Cuándo aparece</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">✅</td>
+                        <td><strong>Meta cumplida</strong></td>
+                        <td>Cuando un KPI supera el 100% de su meta.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⚠️</td>
+                        <td><strong>Alerta</strong></td>
+                        <td>Cuando estás por debajo del 70% de la meta.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Gasto excedido</strong></td>
+                        <td>Cuando gastás más del 100% de la meta.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📈</td>
+                        <td><strong>Comparación semanal</strong></td>
+                        <td>Cuando ingresos o clientes crecen más del 10% vs la semana anterior.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">📉</td>
+                        <td><strong>Caída</strong></td>
+                        <td>Cuando ingresos o clientes caen más del 10% vs la semana anterior.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo usarlas</span>
+                Leé las recomendaciones al final de cada semana. Te dicen <strong>qué está funcionando
+                y qué no</strong>, sin que tengas que analizar los datos vos mismo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 9: GRÁFICO ===== -->
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico muestra la <strong>evolución de tus KPIs en las últimas semanas</strong>.
+                Tiene 3 líneas y 2 ejes verticales:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Línea</th>
+                        <th>Eje</th>
+                        <th>Qué muestra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">🔵</td>
+                        <td><strong>Azul</strong> · Ingresos</td>
+                        <td>Izquierdo ($)</td>
+                        <td>Cuánto facturaste cada semana.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🟢</td>
+                        <td><strong>Verde</strong> · Flujo de Caja</td>
+                        <td>Izquierdo ($)</td>
+                        <td>Cuánta plata te quedó libre cada semana.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🟠</td>
+                        <td><strong>Naranja</strong> · Nuevos Clientes</td>
+                        <td>Derecho (#)</td>
+                        <td>Cuántos clientes nuevos captaste.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué buscar en el gráfico</h3>
+            <ul>
+                <li><strong>Tendencia ascendente</strong>: tus ventas crecen. Buen signo.</li>
+                <li><strong>Línea verde por encima de cero</strong>: siempre ganás plata.</li>
+                <li><strong>Línea verde por debajo de cero</strong>: en algunas semanas perdiste plata.</li>
+                <li><strong>Picos y valles</strong>: identificá qué pasó en las semanas que más/menos vendiste.</li>
+                <li><strong>Línea naranja estable</strong>: captación de clientes constante.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                Si las tres líneas suben al mismo tiempo, estás en un <strong>buen momento</strong>.
+                Si la azul sube pero la verde baja, estás facturando más pero ganando menos:
+                están subiendo los costos.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 10: TABLA ===== -->
+        <section id="tabla">
+            <h2>📋 Historial de semanas</h2>
+            <p>
+                Debajo del gráfico hay una sección plegable con el <strong>detalle completo de todas
+                las semanas guardadas</strong>. Hacé clic en "📋 Ver historial de semanas" para expandirla.
+            </p>
+
+            <h3>Columnas de la tabla</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Columna</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Semana</strong></td>
+                        <td>Número de semana y fecha.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ingresos</strong></td>
+                        <td>Facturación de esa semana.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gastos</strong></td>
+                        <td>Gastos de esa semana.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flujo Caja</strong></td>
+                        <td>Diferencia entre ingresos y gastos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clientes</strong></td>
+                        <td>Nuevos clientes captados.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Margen</strong></td>
+                        <td>Porcentaje de margen bruto.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nota</strong></td>
+                        <td>Observación que cargaste.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Límite de semanas</span>
+                La herramienta guarda hasta <strong>52 semanas</strong> (un año). Cuando superás ese
+                número, se elimina automáticamente la más antigua.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 11: EXCEL ===== -->
+        <section id="excel">
+            <h2>📊 Exportar a Excel</h2>
+            <p>
+                Podés exportar todo el historial a un archivo CSV compatible con Excel o Google Sheets.
+            </p>
+
+            <h3>Pasos</h3>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge gray">📊 Exportar a Excel</span>.</li>
+                <li>Se descarga automáticamente un archivo <code>.csv</code>.</li>
+                <li>Abrilo con Excel haciendo doble clic.</li>
+            </ol>
+
+            <h3>Contenido del archivo</h3>
+            <p>El CSV incluye una fila por cada semana con:</p>
+            <ul>
+                <li>Número de semana</li>
+                <li>Fecha</li>
+                <li>Ingresos</li>
+                <li>Gastos</li>
+                <li>Flujo de Caja</li>
+                <li>Clientes</li>
+                <li>Margen (%)</li>
+                <li>Nota</li>
+            </ul>
+            <p>Al final del archivo, se agrega una fila con las metas configuradas.</p>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Uso recomendado</span>
+                Exportá el CSV <strong>cada 3 meses</strong> para tener un respaldo. Es la mejor forma
+                de no perder datos si cambiás de computadora o navegador.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Formato de números</span>
+                El CSV usa punto como separador decimal. Si Excel está configurado en español,
+                puede interpretar los decimales de forma incorrecta. Podés importarlo manualmente
+                desde "Datos &gt; Desde texto/CSV" y elegir el separador correcto.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 12: PDF ===== -->
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar una captura del panel o compartirlo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, las 5 tarjetas de KPIs, las recomendaciones,
+                el gráfico de evolución y la tabla de historial. Se ocultan automáticamente los campos
+                de carga, el modal y los botones.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Uso recomendado</span>
+                Generá un PDF <strong>al final de cada mes</strong> y guardalo con el nombre del mes
+                (ej: <code>KPIs_2026-09.pdf</code>). Al final del año tendrás 12 PDFs para analizar.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 13: REINICIAR ===== -->
+        <section id="reiniciar">
+            <h2>🗑️ Reiniciar datos</h2>
+            <p>Si querés empezar de cero (por ejemplo, para un nuevo año):</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge red">🗑️ Reiniciar</span>.</li>
+                <li>Aparece una <strong>primera confirmación</strong>. Aceptá si estás seguro.</li>
+                <li>Aparece una <strong>segunda confirmación</strong> (doble seguro).</li>
+                <li>Todos los datos se borran y las metas vuelven a los valores por defecto.</li>
+            </ol>
+
+            <div class="danger-box">
+                <p><span class="title">⚠️ Esta acción no se puede deshacer</span>
+                Antes de reiniciar, asegurate de haber <strong>exportado el CSV</strong> o
+                <strong>generado un PDF</strong>. Una vez confirmado, no hay forma de recuperar los datos.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Por qué hay doble confirmación</span>
+                Para evitar borrados accidentales. Si tocaste el botón sin querer, la segunda
+                confirmación te da la oportunidad de cancelar.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 14: EJEMPLO ===== -->
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés un <strong>local de comida saludable</strong> y cargaste las últimas 4 semanas:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Semana</th>
+                        <th>Ingresos</th>
+                        <th>Gastos</th>
+                        <th>Flujo Caja</th>
+                        <th>Clientes</th>
+                        <th>Margen</th>
+                        <th>Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1</td>
+                        <td>$8.500</td>
+                        <td>$6.200</td>
+                        <td>$2.300</td>
+                        <td>4</td>
+                        <td>27,1%</td>
+                        <td>Semana tranquila</td>
+                    </tr>
+                    <tr>
+                        <td>#2</td>
+                        <td>$10.200</td>
+                        <td>$6.800</td>
+                        <td>$3.400</td>
+                        <td>6</td>
+                        <td>33,3%</td>
+                        <td>Promo especial</td>
+                    </tr>
+                    <tr>
+                        <td>#3</td>
+                        <td>$7.800</td>
+                        <td>$7.500</td>
+                        <td>$300</td>
+                        <td>3</td>
+                        <td>3,8%</td>
+                        <td>Baja de ventas</td>
+                    </tr>
+                    <tr>
+                        <td>#4</td>
+                        <td>$11.500</td>
+                        <td>$7.200</td>
+                        <td>$4.300</td>
+                        <td>7</td>
+                        <td>37,4%</td>
+                        <td>Buena semana</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Con metas configuradas en $10.000 de ingresos, $7.000 de gastos, 5 clientes y 30% de margen:</p>
+
+            <h3>Análisis semana #4</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>KPI</th>
+                        <th>Valor</th>
+                        <th>Meta</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ingresos</td>
+                        <td>$11.500</td>
+                        <td>$10.000</td>
+                        <td><span class="badge green">115% ✅</span></td>
+                    </tr>
+                    <tr>
+                        <td>Gastos</td>
+                        <td>$7.200</td>
+                        <td>$7.000</td>
+                        <td><span class="badge orange">103% ⚠️</span></td>
+                    </tr>
+                    <tr>
+                        <td>Nuevos Clientes</td>
+                        <td>7</td>
+                        <td>5</td>
+                        <td><span class="badge green">140% ✅</span></td>
+                    </tr>
+                    <tr>
+                        <td>Margen</td>
+                        <td>37,4%</td>
+                        <td>30%</td>
+                        <td><span class="badge green">125% ✅</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Recomendaciones que generaría</h3>
+            <div class="info-box">
+                <p>
+                    • ✅ Ingresos superan la meta! Mantené el impulso.<br>
+                    • 🟡 Gastos cerca del límite. Monitoreá de cerca.<br>
+                    • 🌟 Excelente captación de clientes!<br>
+                    • 💰 Excelente margen!<br>
+                    • 📈 Ingresos crecieron un 47% vs semana pasada.<br>
+                    • 👥 Clientes crecieron un 133% vs semana pasada.
+                </p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Buen momento general</strong>: aprovechá para reforzar lo que funcionó.</li>
+                <li><strong>Revisar gastos</strong>: estás apenas por encima de la meta. ¿Hay algo recortable?</li>
+                <li><strong>Identificar el éxito</strong>: ¿qué pasó en la semana #4 que generó estos números? Replicalo.</li>
+                <li><strong>Cuidado con la semana #3</strong>: ¿qué la hizo tan mala? Evitá repetirlo.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                El valor del panel no está en una semana aislada, sino en la <strong>tendencia</strong>.
+                Con 8-12 semanas de datos vas a poder ver patrones claros: si mejorás, si empeorás
+                o si estás estancado.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 15: FAQ ===== -->
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">Sí. Esta herramienta guarda todo en el almacenamiento local del navegador (localStorage). Al volver a abrirla, encontrás el historial y las metas tal como los dejaste.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo cargar más de una semana por día?</div>
+                <div class="a">Sí, no hay restricción. Cada vez que hacés clic en "Guardar Semana" se registra una nueva entrada. Podés cargar varias semanas seguidas si estás actualizando datos atrasados.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si me equivoco al cargar un valor?</div>
+                <div class="a">Una vez guardado, no se puede editar desde la interfaz. Pero podés eliminarlo y volver a cargarlo, o directamente reiniciar todo y recargar. Si son datos puntuales, guardá un CSV con la corrección manual.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa el margen bruto negativo?</div>
+                <div class="a">Significa que los gastos fueron mayores que los ingresos esa semana. Estás perdiendo plata. La recomendación te lo va a marcar como alerta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Las metas se pueden cambiar después de haber cargado datos?</div>
+                <div class="a">Sí. Las metas son independientes del historial. Si las cambiás, todos los KPIs se recalculan automáticamente contra las nuevas metas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto para varios productos o sucursales?</div>
+                <div class="a">No de forma nativa. La herramienta está diseñada para un negocio global. Si querés analizar por producto, podés llevar un panel por separado en distintos navegadores o dispositivos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los ingresos y gastos incluyen IVA?</div>
+                <div class="a">Depende de cómo lo cargues. Lo recomendable es cargar valores netos (sin IVA) si sos Responsable Inscripto, o valores totales si sos Monotributista. La clave es ser consistente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué cuenta como "nuevo cliente"?</div>
+                <div class="a">Un cliente que compró por primera vez en esa semana. No cuenta un cliente recurrente que vuelve a comprar. Si no distinguís, podés poner el total de clientes.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El CSV exportado abre bien en Excel?</div>
+                <div class="a">Sí. El archivo incluye BOM UTF-8 para que las tildes y caracteres especiales se vean bien. Los números usan punto decimal, que Excel normalmente interpreta bien.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si supero las 52 semanas?</div>
+                <div class="a">La semana más antigua se elimina automáticamente para hacer lugar. Es un sistema circular: siempre tenés las últimas 52 semanas disponibles.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo borrar una sola semana sin reiniciar todo?</div>
+                <div class="a">No directamente desde la interfaz. Si te equivocaste, podés reiniciar todo y volver a cargar. O exportar el CSV, editarlo y empezar de cero.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Sirve para negocios estacionales?</div>
+                <div class="a">Sí, pero tenelo en cuenta. Podés tener semanas muy buenas y muy malas. El valor está en la tendencia general y en comparar la misma semana del año anterior si llevás varios años.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 16: TIPS ===== -->
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Cargá siempre el mismo día</h3>
+            <p>Elegí un día fijo (ej: domingo a la noche) y respetalo. La consistencia es lo que hace valioso el panel.</p>
+
+            <h3>2. Anotá todo lo relevante en la nota</h3>
+            <p>La nota es tu memoria futura. "Promo 2x1", "Feríado", "Campaña Instagram". Cuando veas el gráfico en 3 meses, vas a entender los picos y valles.</p>
+
+            <h3>3. Revisá el margen antes que los ingresos</h3>
+            <p>Un negocio puede facturar mucho pero ganar poco. El margen es el número que realmente importa para la salud financiera.</p>
+
+            <h3>4. Usá el panel como disparador de decisiones</h3>
+            <p>Si dos semanas seguidas los ingresos bajan, algo hay que cambiar. El panel te da la alerta, vos decidís la acción.</p>
+
+            <h3>5. Exportá el CSV cada 3 meses</h3>
+            <p>Es tu respaldo. Si cambiás de navegador o se borran los datos, podés reconstruir el historial.</p>
+
+            <h3>6. Definí metas trimestrales</h3>
+            <p>Cada 3 meses, ajustá las metas. Subí el listón si vas bien; bajalo un poco si fue un trimestre difícil.</p>
+
+            <h3>7. Combiná con el Simulador de Cashflow</h3>
+            <p>El Panel de KPIs te da la foto semanal; el Cashflow te da la proyección anual. Usalas juntas para tener control total.</p>
+
+            <h3>8. Generá PDF mensual</h3>
+            <p>Cada fin de mes, guardá un PDF con el nombre del mes. Es tu archivo histórico y te sirve para presentar a socios o contadores.</p>
+
+            <h3>9. No te obsesiones con una sola semana</h3>
+            <p>Una semana mala puede pasar. Lo que importa es la tendencia de 4-8 semanas. No tomes decisiones drásticas por un solo dato negativo.</p>
+
+            <h3>10. Compartí el panel con tu equipo</h3>
+            <p>Si tenés empleados, mostrales los KPIs cada semana. La transparencia genera compromiso con los objetivos.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de 3 meses usando el panel, vas a poder <strong>anticipar problemas</strong> antes
+                de que se vuelvan graves y <strong>reconocer patrones</strong> que no veías. Eso es
+                tener el control del negocio.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Panel de KPIs</strong>:</p>
+            <div class="cards-grid">
+                <a href="okr-tracker.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">🎯 OKR Tracker</div>
+                    <div class="card-desc">Convertí los KPIs semanales en objetivos trimestrales medibles con OKRs.</div>
+                </a>
+                <a href="simulador-cashflow.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">💵 Simulador de Cashflow</div>
+                    <div class="card-desc">Proyectá tu flujo de caja anual usando los datos de tus KPIs semanales.</div>
+                </a>
+                <a href="dashboard-unificado.html" class="card info" style="text-decoration:none; color:inherit;">
+                    <div class="card-title">📊 Dashboard Unificado</div>
+                    <div class="card-desc">Vista consolidada de todas las métricas del negocio en un solo lugar.</div>
+                </a>
+            </div>
+        </section>
+        <!-- ===== FOOTER NOTE ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Panel de KPIs</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <!-- ===== FOOTER COMPARTIDO ===== -->
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Botón volver arriba -->
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <!-- JS compartido -->
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        // Fecha para el PDF
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

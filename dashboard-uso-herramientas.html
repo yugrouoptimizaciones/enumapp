@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Uso · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Dashboard de uso y adopción de herramientas de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container" style="max-width:1300px;">
+
+        <div class="print-header">
+            <h2>🛠️ ENUMAPP · DASHBOARD DE USO</h2>
+            <p>Adopción y frecuencia de uso por herramienta</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    🛠️ Dashboard de Uso
+                    <small>· Adopción de herramientas</small>
+                </h1>
+            </div>
+            <a href="suite.html" class="back-link">← Volver al inicio</a>
+        </header>
+
+        <div class="subtitle">
+            Trackeá cuántas veces se usa cada herramienta y detectá oportunidades de mejora.
+        </div>
+
+        <div class="flex-row no-print">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <button class="btn-primary" onclick="abrirModal()">➕ Registrar Uso</button>
+                <button class="btn-secondary" onclick="cargarEjemplos()" style="background:#8e44ad;">📋 Cargar Ejemplos</button>
+                <button class="btn-secondary" onclick="exportarCSV()" style="background:#1d6f42;">📊 Exportar CSV</button>
+                <button class="btn-danger" onclick="reiniciarDatos()" style="background:#c0392b;">🗑️ Reiniciar</button>
+            </div>
+            <button class="btn-pdf" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div class="flex-row" style="margin:20px 0 8px;">
+            <span class="badge">📊 <strong>Resumen general</strong></span>
+        </div>
+
+        <div class="ukpi-grid" style="grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));">
+            <div class="ukpi-card"><span class="ukpi-icon">🛠️</span><div class="ukpi-value" id="statHerramientas">0</div><div class="ukpi-label">Herramientas</div><div class="ukpi-source" id="statHerramientasSub">en catálogo</div></div>
+            <div class="ukpi-card green"><span class="ukpi-icon">👆</span><div class="ukpi-value" id="statUsos">0</div><div class="ukpi-label">Usos totales</div><div class="ukpi-source" id="statUsosSub">acumulados</div></div>
+            <div class="ukpi-card orange"><span class="ukpi-icon">⏱️</span><div class="ukpi-value" id="statTiempoTotal">0</div><div class="ukpi-label">Minutos</div><div class="ukpi-source" id="statTiempoTotalSub">en la suite</div></div>
+            <div class="ukpi-card purple"><span class="ukpi-icon">⭐</span><div class="ukpi-value" id="statTopTool" style="font-size:16px;">—</div><div class="ukpi-label">Top</div><div class="ukpi-source" id="statTopToolSub">más usada</div></div>
+            <div class="ukpi-card red"><span class="ukpi-icon">💤</span><div class="ukpi-value" id="statSinUsar">0</div><div class="ukpi-label">Sin usar</div><div class="ukpi-source" id="statSinUsarSub">nunca abiertas</div></div>
+            <div class="ukpi-card"><span class="ukpi-icon">📊</span><div class="ukpi-value" id="statPromedioUso">0</div><div class="ukpi-label">Promedio</div><div class="ukpi-source" id="statPromedioUsoSub">por herramienta</div></div>
+        </div>
+
+        <div class="filter-bar no-print">
+            <label>🔍 Filtros:</label>
+            <input type="text" id="buscarHerramienta" placeholder="Buscar herramienta..." oninput="renderizarTodo()" />
+            <select id="filtroModulo" onchange="renderizarTodo()">
+                <option value="todos">Todos los módulos</option>
+                <option value="Estrategia">🎯 Estrategia</option>
+                <option value="Finanzas">💰 Finanzas</option>
+                <option value="Operaciones">⚙️ Operaciones</option>
+                <option value="Administración">🧾 Administración</option>
+                <option value="Contenido">📦 Contenido</option>
+                <option value="Métricas">📊 Métricas</option>
+                <option value="General">🌐 General</option>
+            </select>
+            <select id="filtroEstado" onchange="renderizarTodo()">
+                <option value="todos">Todos los estados</option>
+                <option value="verde">🟢 Populares</option>
+                <option value="amarillo">🟡 Uso medio</option>
+                <option value="rojo">🔴 Poco usadas</option>
+                <option value="sin-uso">⚫ Sin usar</option>
+            </select>
+        </div>
+
+        <div class="charts-grid no-print">
+            <div class="chart-container medium">
+                <div class="chart-title">📊 Top 10 herramientas más usadas</div>
+                <canvas id="chartTopTools"></canvas>
+            </div>
+            <div class="chart-container medium">
+                <div class="chart-title">🎯 Adopción por módulo</div>
+                <canvas id="chartModulos"></canvas>
+            </div>
+        </div>
+
+        <div class="flex-row" style="margin-top:24px;">
+            <span class="badge">🏆 <strong>Ranking Top 6</strong></span>
+        </div>
+
+        <div id="rankingGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:14px; margin:16px 0;"></div>
+
+        <div class="flex-row" style="margin-top:24px;">
+            <span class="badge">📋 <strong>Detalle completo</strong></span>
+        </div>
+
+        <div class="table-container">
+            <table id="tablaHerramientas">
+                <thead>
+                    <tr>
+                        <th>Herramienta</th>
+                        <th>Módulo</th>
+                        <th>Usos</th>
+                        <th>Tiempo (min)</th>
+                        <th>Prom. min/uso</th>
+                        <th>Último uso</th>
+                        <th>Estado</th>
+                        <th class="no-print">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaBody"></tbody>
+            </table>
+        </div>
+
+        <div class="recommendation-box">
+            <h3>🧠 Análisis y Recomendaciones</h3>
+            <div id="recommendationText">Agregá tu primer registro de uso para ver recomendaciones.</div>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> 🟢 popular · 🟡 uso medio · 🔴 poco usada · ⚫ sin usar.</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="dashboard-unificado.html">Dashboard Unificado</a>
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">Registrar Uso de Herramienta</h2>
+            <div class="input-group full" style="margin-bottom:14px;">
+                <label>Herramienta *</label>
+                <select id="usoHerramienta" style="padding:10px 14px; border:1.5px solid var(--color-border-input); border-radius:12px; font-size:14px; background:var(--color-bg-input); font-family:inherit; width:100%;">
+                    <option value="">Seleccioná una herramienta...</option>
+                </select>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div class="input-group"><label>Usos *</label><input type="number" id="usoCantidad" value="1" min="1" step="1" /></div>
+                <div class="input-group"><label>Tiempo (min)</label><input type="number" id="usoTiempo" value="10" min="0" step="1" /></div>
+            </div>
+            <div class="input-group" style="margin-top:14px;"><label>Fecha de uso *</label><input type="date" id="usoFecha" /></div>
+            <div class="input-group" style="margin-top:14px;"><label>Notas</label><input type="text" id="usoNotas" placeholder="Ej: Usada para calcular precios" /></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn-primary" onclick="guardarUso()">💾 Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        const CATALOGO = [
+            { id: 'test-ajuste', nombre: 'Test de Ajuste de Mercado', icono: '🧭', modulo: 'Estrategia', url: 'test-ajuste-mercado.html' },
+            { id: 'matriz-valor', nombre: 'Matriz de Propuesta de Valor', icono: '🎯', modulo: 'Estrategia', url: 'matriz-propuesta-valor.html' },
+            { id: 'matriz-delegacion', nombre: 'Matriz de Delegación', icono: '🤝', modulo: 'Estrategia', url: 'matriz-delegacion-tareas.html' },
+            { id: 'okr-tracker', nombre: 'OKR Tracker', icono: '🎯', modulo: 'Estrategia', url: 'okr-tracker.html' },
+            { id: 'panel-kpis', nombre: 'Panel de KPIs', icono: '📊', modulo: 'Finanzas', url: 'panel-kpis.html' },
+            { id: 'simulador-cashflow', nombre: 'Simulador de Cashflow', icono: '💵', modulo: 'Finanzas', url: 'simulador-cashflow.html' },
+            { id: 'simulador-equilibrio', nombre: 'Punto de Equilibrio', icono: '⚖️', modulo: 'Finanzas', url: 'simulador-equilibrio.html' },
+            { id: 'rentabilidad', nombre: 'Rentabilidad por Producto', icono: '📈', modulo: 'Finanzas', url: 'calculadora-rentabilidad-producto.html' },
+            { id: 'fijador-precios', nombre: 'Fijador de Precios', icono: '💰', modulo: 'Finanzas', url: 'fijador-precios-antiinflacion.html' },
+            { id: 'estacionalidad', nombre: 'Análisis de Estacionalidad', icono: '📅', modulo: 'Finanzas', url: 'analisis-estacionalidad.html' },
+            { id: 'kanban', nombre: 'Tablero Kanban', icono: '📋', modulo: 'Operaciones', url: 'tablero-kanban-operaciones.html' },
+            { id: 'sops', nombre: 'Constructor de SOPs', icono: '📖', modulo: 'Operaciones', url: 'constructor-sops.html' },
+            { id: 'inventario', nombre: 'Gestión de Inventario', icono: '📦', modulo: 'Operaciones', url: 'gestion-inventario.html' },
+            { id: 'proveedores', nombre: 'Gestor de Proveedores', icono: '🏢', modulo: 'Operaciones', url: 'gestor-proveedores.html' },
+            { id: '5porques', nombre: 'Análisis de Causa Raíz', icono: '🔍', modulo: 'Operaciones', url: 'cinco_porques.html' },
+            { id: 'fiscal', nombre: 'Planificación Fiscal', icono: '💰', modulo: 'Administración', url: 'asistente-planificacion-fiscal.html' },
+            { id: 'importacion', nombre: 'Calculadora de Importación', icono: '📦', modulo: 'Administración', url: 'calculadora-importacion.html' },
+            { id: 'kit-redes', nombre: 'Kit de Redes Sociales', icono: '📱', modulo: 'Contenido', url: 'kit-redes-sociales.html' },
+            { id: 'dash-yt', nombre: 'Dashboard YouTube', icono: '📺', modulo: 'Métricas', url: 'dashboard-youtube.html' },
+            { id: 'dash-email', nombre: 'Dashboard Email', icono: '📧', modulo: 'Métricas', url: 'dashboard-email.html' },
+            { id: 'dash-unificado', nombre: 'Dashboard Unificado', icono: '📊', modulo: 'Métricas', url: 'dashboard-unificado.html' },
+            { id: 'contacto', nombre: 'Contacto', icono: '💬', modulo: 'General', url: 'contacto.html' },
+            { id: 'premium', nombre: 'Activar Premium', icono: '⭐', modulo: 'General', url: 'premium-proximamente.html' }
+        ];
+
+        let usos = [];
+        let editingId = null;
+        let chartTopTools = null, chartModulos = null;
+
+        const tablaBody = document.getElementById('tablaBody');
+        const rankingGrid = document.getElementById('rankingGrid');
+        const recommendationText = document.getElementById('recommendationText');
+        const lastSaved = document.getElementById('lastSaved');
+        const printDesc = document.getElementById('printDesc');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const usoHerramienta = document.getElementById('usoHerramienta');
+
+        function generarId() { return Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
+
+        function formatearFecha(f) {
+            if (!f) return '—';
+            const d = new Date(f + 'T00:00:00');
+            return d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: '2-digit' });
+        }
+
+        /* ===== GUARDAR / CARGAR (STORAGE UNIFICADO) ===== */
+        function guardarUsoHerramientas() {
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.USO_HERRAMIENTAS, usos);
+            lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function cargarUsoHerramientas() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.USO_HERRAMIENTAS, null);
+            if (Array.isArray(data) && data.length >= 0) {
+                usos = data;
+                if (usos.length > 0) lastSaved.textContent = 'Cargado desde guardado';
+                else lastSaved.textContent = 'Sin datos';
+                return true;
+            }
+            return false;
+        }
+
+        function initSelect() {
+            let html = '<option value="">Seleccioná una herramienta...</option>';
+            const modulos = [...new Set(CATALOGO.map(t => t.modulo))];
+            modulos.forEach(mod => {
+                html += `<optgroup label="${mod}">`;
+                CATALOGO.filter(t => t.modulo === mod).forEach(t => {
+                    html += `<option value="${t.id}">${t.icono} ${t.nombre}</option>`;
+                });
+                html += `</optgroup>`;
+            });
+            usoHerramienta.innerHTML = html;
+        }
+
+        function abrirModal(id = null) {
+            editingId = id;
+            modalTitle.textContent = id ? '✏️ Editar Registro' : 'Registrar Uso de Herramienta';
+            if (id) {
+                const u = usos.find(x => x.id === id);
+                if (u) {
+                    usoHerramienta.value = u.herramientaId || '';
+                    document.getElementById('usoCantidad').value = u.cantidad || 1;
+                    document.getElementById('usoTiempo').value = u.tiempo || 0;
+                    document.getElementById('usoFecha').value = u.fecha || '';
+                    document.getElementById('usoNotas').value = u.notas || '';
+                }
+            } else {
+                usoHerramienta.value = '';
+                document.getElementById('usoCantidad').value = 1;
+                document.getElementById('usoTiempo').value = 10;
+                document.getElementById('usoFecha').value = new Date().toISOString().slice(0, 10);
+                document.getElementById('usoNotas').value = '';
+            }
+            modalOverlay.classList.add('active');
+        }
+
+        function cerrarModal() {
+            modalOverlay.classList.remove('active');
+            editingId = null;
+        }
+
+        function guardarUso() {
+            const herramientaId = usoHerramienta.value;
+            if (!herramientaId) { ENUMAPP_UI.toast('Seleccioná una herramienta', 'warning'); return; }
+            const uso = {
+                id: editingId || generarId(),
+                herramientaId,
+                cantidad: parseInt(document.getElementById('usoCantidad').value) || 1,
+                tiempo: parseInt(document.getElementById('usoTiempo').value) || 0,
+                fecha: document.getElementById('usoFecha').value,
+                notas: document.getElementById('usoNotas').value.trim()
+            };
+            if (editingId) {
+                const idx = usos.findIndex(u => u.id === editingId);
+                if (idx !== -1) usos[idx] = uso;
+            } else usos.push(uso);
+            cerrarModal();
+            renderizarTodo();
+            guardarUsoHerramientas();
+            ENUMAPP_UI.toast('✅ Registro guardado', 'success');
+        }
+
+        function eliminarUso(id) {
+            if (!ENUMAPP_UI.confirm('¿Eliminar este registro?')) return;
+            usos = usos.filter(u => u.id !== id);
+            renderizarTodo();
+            guardarUsoHerramientas();
+        }
+
+        function calcularMetricas() {
+            return CATALOGO.map(t => {
+                const registros = usos.filter(u => u.herramientaId === t.id);
+                const totalUsos = registros.reduce((s, u) => s + (u.cantidad || 0), 0);
+                const totalTiempo = registros.reduce((s, u) => s + (u.tiempo || 0), 0);
+                const ultimoUso = registros.length > 0 ? registros.map(u => u.fecha).filter(f => f).sort().reverse()[0] : null;
+                const promMin = totalUsos > 0 ? totalTiempo / totalUsos : 0;
+                return { ...t, totalUsos, totalTiempo, ultimoUso, promMin, registros: registros.length };
+            });
+        }
+
+        function calcularEstado(uso, maxUso) {
+            if (uso === 0) return { color: 'red', label: 'Sin usar' };
+            const ratio = maxUso > 0 ? uso / maxUso : 0;
+            if (ratio >= 0.6) return { color: 'green', label: 'Popular' };
+            if (ratio >= 0.25) return { color: 'yellow', label: 'Uso medio' };
+            return { color: 'red', label: 'Poco usada' };
+        }
+
+        function renderizarTodo() {
+            const metricas = calcularMetricas();
+            const buscar = document.getElementById('buscarHerramienta').value.toLowerCase().trim();
+            const filtroModulo = document.getElementById('filtroModulo').value;
+            const filtroEstado = document.getElementById('filtroEstado').value;
+
+            let metricasFiltradas = metricas;
+            if (buscar) metricasFiltradas = metricasFiltradas.filter(m => m.nombre.toLowerCase().includes(buscar) || m.modulo.toLowerCase().includes(buscar));
+            if (filtroModulo !== 'todos') metricasFiltradas = metricasFiltradas.filter(m => m.modulo === filtroModulo);
+
+            const maxUso = Math.max(...metricas.map(m => m.totalUsos), 1);
+            if (filtroEstado !== 'todos') {
+                metricasFiltradas = metricasFiltradas.filter(m => {
+                    const estado = calcularEstado(m.totalUsos, maxUso);
+                    if (filtroEstado === 'sin-uso') return estado.label === 'Sin usar';
+                    return estado.color === filtroEstado;
+                });
+            }
+
+            const totalHerramientas = metricas.length;
+            const totalUsos = metricas.reduce((s, m) => s + m.totalUsos, 0);
+            const totalTiempo = metricas.reduce((s, m) => s + m.totalTiempo, 0);
+            const topTool = [...metricas].sort((a, b) => b.totalUsos - a.totalUsos)[0];
+            const sinUsar = metricas.filter(m => m.totalUsos === 0).length;
+            const promedioUso = totalHerramientas > 0 ? totalUsos / totalHerramientas : 0;
+
+            document.getElementById('statHerramientas').textContent = totalHerramientas;
+            document.getElementById('statUsos').textContent = ENUMAPP_FMT.number(totalUsos);
+            document.getElementById('statUsosSub').textContent = 'registros: ' + usos.length;
+            document.getElementById('statTiempoTotal').textContent = ENUMAPP_FMT.number(totalTiempo);
+            document.getElementById('statTiempoTotalSub').textContent = totalTiempo >= 60 ? Math.round(totalTiempo / 60) + ' horas' : 'minutos';
+            document.getElementById('statTopTool').textContent = topTool && topTool.totalUsos > 0 ? topTool.icono + ' ' + topTool.nombre : '—';
+            document.getElementById('statTopToolSub').textContent = topTool && topTool.totalUsos > 0 ? topTool.totalUsos + ' usos' : 'sin datos';
+            document.getElementById('statSinUsar').textContent = sinUsar;
+            document.getElementById('statSinUsarSub').textContent = sinUsar === 1 ? 'nunca abierta' : 'nunca abiertas';
+            document.getElementById('statPromedioUso').textContent = ENUMAPP_FMT.number(promedioUso);
+            document.getElementById('statPromedioUsoSub').textContent = 'por herramienta';
+
+            // Ranking
+            const top6 = [...metricas].sort((a, b) => b.totalUsos - a.totalUsos).slice(0, 6);
+            if (top6.length > 0 && top6[0].totalUsos > 0) {
+                let html = '';
+                top6.forEach((t, i) => {
+                    let rankColor = '#dce3ec';
+                    if (i === 0) rankColor = 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)';
+                    else if (i === 1) rankColor = 'linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%)';
+                    else if (i === 2) rankColor = 'linear-gradient(135deg, #cd7f32 0%, #e8a862 100%)';
+                    html += `<div class="product-card" style="display:flex; align-items:center; gap:14px;">
+                        <div style="width:36px; height:36px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px; color:${i < 3 ? '#0a2540' : '#5b6f82'}; background:${rankColor}; flex-shrink:0;">${i + 1}</div>
+                        <div style="flex:1;">
+                            <div style="font-weight:700; color:var(--color-text); font-size:14.5px;">${t.icono} ${t.nombre}</div>
+                            <div style="font-size:12px; color:var(--color-text-muted);">${t.modulo} · ${t.totalTiempo} min</div>
+                        </div>
+                        <div style="font-weight:800; color:var(--color-primary); font-size:18px;">${t.totalUsos}</div>
+                    </div>`;
+                });
+                rankingGrid.innerHTML = html;
+            } else {
+                rankingGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--color-text-faint);">Sin datos de uso. Registrá el primero.</div>`;
+            }
+
+            // Tabla
+            if (metricasFiltradas.length === 0) {
+                tablaBody.innerHTML = `<tr><td colspan="8" style="padding:30px; text-align:center; color:var(--color-text-faint);">No hay herramientas que coincidan.</td></tr>`;
+            } else {
+                const ordenadas = [...metricasFiltradas].sort((a, b) => b.totalUsos - a.totalUsos);
+                let html = '';
+                ordenadas.forEach(m => {
+                    const estado = calcularEstado(m.totalUsos, maxUso);
+                    const esTop = m.totalUsos > 0 && m.totalUsos === maxUso;
+                    html += `<tr class="${esTop ? 'top-row' : ''}">
+                        <td style="text-align:left;"><strong>${m.icono} ${m.nombre}</strong><br><span style="font-size:11px; color:var(--color-text-faint);">${m.registros} registro(s)</span></td>
+                        <td><span class="badge blue" style="font-size:10px;">${m.modulo}</span></td>
+                        <td><strong>${ENUMAPP_FMT.number(m.totalUsos)}</strong></td>
+                        <td>${ENUMAPP_FMT.number(m.totalTiempo)}</td>
+                        <td>${m.promMin.toFixed(1)}</td>
+                        <td>${formatearFecha(m.ultimoUso)}</td>
+                        <td><span class="kpi-status ${estado.color}" style="display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; background:var(--color-${estado.color === 'green' ? 'success' : estado.color === 'yellow' ? 'warning' : 'danger'});"></span>${estado.label}</td>
+                        <td class="no-print"><button class="btn-primary" onclick="registrarUsoRapido('${m.id}')" style="padding:4px 10px; font-size:11px; border-radius:20px;">+1</button></td>
+                    </tr>`;
+                });
+                tablaBody.innerHTML = html;
+            }
+
+            renderizarGraficos(metricas);
+            generarRecomendaciones(metricas, totalUsos, totalTiempo, topTool, sinUsar);
+
+            printDesc.innerHTML = `
+                <strong>Total herramientas:</strong> ${totalHerramientas} &nbsp;|&nbsp; <strong>Usos totales:</strong> ${ENUMAPP_FMT.number(totalUsos)} &nbsp;|&nbsp; <strong>Tiempo total:</strong> ${ENUMAPP_FMT.number(totalTiempo)} min<br>
+                <strong>Herramienta top:</strong> ${topTool && topTool.totalUsos > 0 ? topTool.nombre : 'Sin datos'} &nbsp;|&nbsp; <strong>Sin usar:</strong> ${sinUsar}
+            `;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        }
+
+        function registrarUsoRapido(herramientaId) {
+            usos.push({
+                id: generarId(), herramientaId, cantidad: 1, tiempo: 10,
+                fecha: new Date().toISOString().slice(0, 10), notas: 'Registro rápido'
+            });
+            renderizarTodo();
+            guardarUsoHerramientas();
+            ENUMAPP_UI.toast('✅ +1 registrado', 'success');
+        }
+
+        function renderizarGraficos(metricas) {
+            if (chartTopTools) chartTopTools.destroy();
+            const ctx1 = document.getElementById('chartTopTools').getContext('2d');
+            const top10 = [...metricas].sort((a, b) => b.totalUsos - a.totalUsos).slice(0, 10).filter(m => m.totalUsos > 0);
+
+            if (top10.length === 0) {
+                chartTopTools = new Chart(ctx1, { type: 'bar', data: { labels: ['Sin datos'], datasets: [{ label: 'Usos', data: [0], backgroundColor: '#dce3ec' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+            } else {
+                chartTopTools = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: top10.map(t => t.icono + ' ' + t.nombre.substring(0, 20)),
+                        datasets: [{ label: 'Usos', data: top10.map(t => t.totalUsos), backgroundColor: top10.map((_, i) => i === 0 ? 'rgba(46,204,113,0.8)' : 'rgba(43,123,228,0.7)'), borderRadius: 6 }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                    }
+                });
+            }
+
+            if (chartModulos) chartModulos.destroy();
+            const ctx2 = document.getElementById('chartModulos').getContext('2d');
+            const modulos = {};
+            metricas.forEach(m => { if (!modulos[m.modulo]) modulos[m.modulo] = 0; modulos[m.modulo] += m.totalUsos; });
+            const modulosLabels = Object.keys(modulos).filter(k => modulos[k] > 0);
+            const modulosData = modulosLabels.map(k => modulos[k]);
+
+            if (modulosLabels.length === 0) {
+                chartModulos = new Chart(ctx2, { type: 'doughnut', data: { labels: ['Sin datos'], datasets: [{ data: [1], backgroundColor: ['#dce3ec'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+            } else {
+                const colores = { 'Estrategia': '#2b7be4', 'Finanzas': '#2ecc71', 'Operaciones': '#e67e22', 'Administración': '#6b3fa0', 'Contenido': '#1f3a5f', 'Métricas': '#16a085', 'General': '#7f8c8d' };
+                chartModulos = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: { labels: modulosLabels, datasets: [{ data: modulosData, backgroundColor: modulosLabels.map(m => colores[m] || '#7f8c8d'), borderColor: '#ffffff', borderWidth: 2 }] },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'right', labels: { font: { size: 11 }, boxWidth: 12, padding: 10 } } }
+                    }
+                });
+            }
+        }
+
+        function generarRecomendaciones(metricas, totalUsos, totalTiempo, topTool, sinUsar) {
+            if (usos.length === 0) {
+                recommendationText.innerHTML = '📌 Agregá tu primer registro de uso. Podés usar "➕ Registrar Uso" o los botones "+1" de la tabla.';
+                return;
+            }
+            let recs = [];
+            if (usos.length < 5) recs.push(`📊 Tenés ${usos.length} registro(s). Cargá más datos para ver tendencias.`);
+
+            if (topTool && topTool.totalUsos > 0) {
+                recs.push(`⭐ <strong>Más usada:</strong> ${topTool.icono} "${topTool.nombre}" con ${topTool.totalUsos} usos y ${topTool.totalTiempo} minutos.`);
+            }
+
+            if (sinUsar > 0) {
+                const lista = metricas.filter(m => m.totalUsos === 0).slice(0, 5).map(m => m.icono + ' ' + m.nombre).join(', ');
+                recs.push(`💤 <strong>${sinUsar} sin usar:</strong> ${lista}. Considerá promocionarlas.`);
+            }
+
+            const modulos = {};
+            metricas.forEach(m => { if (!modulos[m.modulo]) modulos[m.modulo] = { usos: 0 }; modulos[m.modulo].usos += m.totalUsos; });
+            const mejorMod = Object.entries(modulos).sort((a, b) => b[1].usos - a[1].usos)[0];
+            if (mejorMod && mejorMod[1].usos > 0) recs.push(`🎯 <strong>Módulo más usado:</strong> ${mejorMod[0]} con ${mejorMod[1].usos} usos.`);
+
+            if (totalUsos >= 50 && sinUsar === 0) recs.push(`🎉 <strong>¡Excelente adopción!</strong> Todas las herramientas se usan.`);
+            else if (totalUsos >= 20) recs.push(`📈 <strong>Buena adopción:</strong> ${totalUsos} usos totales.`);
+            else recs.push(`🌱 <strong>Adopción inicial:</strong> ${totalUsos} usos totales.`);
+
+            recommendationText.innerHTML = recs.map(r => `<div style="margin:6px 0;">• ${r}</div>`).join('');
+        }
+
+        function exportarCSV() {
+            if (usos.length === 0) { ENUMAPP_UI.toast('No hay datos para exportar', 'warning'); return; }
+            let csv = '\uFEFFHerramienta;Modulo;Cantidad;Tiempo (min);Fecha;Notas\n';
+            const ordenados = [...usos].sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
+            ordenados.forEach(u => {
+                const t = CATALOGO.find(x => x.id === u.herramientaId);
+                csv += `${t ? t.nombre : u.herramientaId};${t ? t.modulo : ''};${u.cantidad};${u.tiempo};${u.fecha};${(u.notas || '').replace(/;/g, ',')}\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `tool_usage_${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+            ENUMAPP_UI.toast('✅ CSV exportado', 'success');
+        }
+
+        function reiniciarDatos() {
+            if (!ENUMAPP_UI.confirm('⚠️ ¿Borrar TODOS los registros?')) return;
+            if (!ENUMAPP_UI.confirm('✅ Confirmación final: ¿Eliminar todo?')) return;
+            usos = [];
+            ENUMAPP_STORAGE.remove(ENUMAPP_STORAGE.KEYS.USO_HERRAMIENTAS);
+            renderizarTodo();
+            guardarUsoHerramientas();
+            ENUMAPP_UI.toast('✅ Dashboard reiniciado', 'success');
+        }
+
+        function cargarEjemplos() {
+            if (usos.length > 0 && !ENUMAPP_UI.confirm('Agregar ejemplos a los existentes. ¿Continuar?')) return;
+            const hoy = new Date();
+            const ejemplos = [
+                { herramientaId: 'panel-kpis', cantidad: 8, tiempo: 12, dias: -20 },
+                { herramientaId: 'panel-kpis', cantidad: 5, tiempo: 8, dias: -13 },
+                { herramientaId: 'simulador-cashflow', cantidad: 5, tiempo: 25, dias: -18 },
+                { herramientaId: 'fijador-precios', cantidad: 7, tiempo: 15, dias: -15 },
+                { herramientaId: 'rentabilidad', cantidad: 4, tiempo: 30, dias: -12 },
+                { herramientaId: 'kanban', cantidad: 6, tiempo: 8, dias: -7 },
+                { herramientaId: 'inventario', cantidad: 4, tiempo: 15, dias: -9 },
+                { herramientaId: 'kit-redes', cantidad: 4, tiempo: 18, dias: -5 },
+                { herramientaId: 'dash-yt', cantidad: 5, tiempo: 10, dias: -7 },
+                { herramientaId: 'dash-email', cantidad: 4, tiempo: 8, dias: -4 }
+            ];
+            ejemplos.forEach(e => {
+                const fecha = new Date(hoy);
+                fecha.setDate(fecha.getDate() + e.dias);
+                usos.push({ id: generarId(), herramientaId: e.herramientaId, cantidad: e.cantidad, tiempo: e.tiempo, fecha: fecha.toISOString().slice(0, 10), notas: '' });
+            });
+            renderizarTodo();
+            guardarUsoHerramientas();
+            ENUMAPP_UI.toast('✅ ' + ejemplos.length + ' registros cargados', 'success');
+        }
+
+        initSelect();
+        if (!cargarUsoHerramientas()) {
+            lastSaved.textContent = 'Sin datos';
+        }
+        renderizarTodo();
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) cerrarModal();
+        });
+        modalOverlay.addEventListener('click', function(e) { if (e.target === modalOverlay) cerrarModal(); });
+        window.addEventListener('beforeunload', guardarUsoHerramientas);
+    </script>
+
+</body>
+</html>

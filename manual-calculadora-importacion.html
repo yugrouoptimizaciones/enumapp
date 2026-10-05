@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Calculadora de Importación · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso de la Calculadora de Importación de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE CALCULADORA DE IMPORTACIÓN</h2>
+            <p>Proyección de costos reales con aranceles y brecha cambiaria</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Calculadora de Costos de Importación</small>
+                </h1>
+            </div>
+            <a href="calculadora-importacion.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para proyectar el costo real de una importación en pesos, calcular el costo
+            por unidad y fijar el precio de venta recomendado con margen de ganancia.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#cif">Valor CIF y base imponible</a></li>
+                <li><a href="#aranceles">Aranceles e impuestos</a></li>
+                <li><a href="#brecha">Brecha cambiaria</a></li>
+                <li><a href="#resultados">Interpretar los resultados</a></li>
+                <li><a href="#margen">Margen de ganancia</a></li>
+                <li><a href="#fijacion">Cómo fijar el precio final</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                La <strong>Calculadora de Costos de Importación</strong> es una herramienta que te permite
+                proyectar el <strong>costo real en pesos de una importación</strong>, incluyendo todos
+                los aranceles, impuestos, gastos operativos y la brecha cambiaria. Además calcula el
+                <strong>costo por unidad</strong> y el <strong>precio de venta recomendado</strong> con el
+                margen de ganancia que elijas.
+            </p>
+            <p>Con esta herramienta podés:</p>
+            <ul>
+                <li>Calcular el <strong>Valor CIF</strong> (base imponible de la importación).</li>
+                <li>Sumar los <strong>aranceles e impuestos</strong>: Derechos de Importación, Tasa de Estadística e IVA.</li>
+                <li>Ver el <strong>costo total en USD y en pesos</strong>.</li>
+                <li>Calcular el <strong>costo unitario real</strong> de cada producto.</li>
+                <li>Simular el impacto de la <strong>brecha cambiaria</strong> con un slider.</li>
+                <li>Fijar el <strong>precio de venta</strong> aplicando tu margen de ganancia.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Costo real de reposición</span>
+                El costo de importar un producto <strong>no es solo el precio FOB</strong>. Hay que
+                sumarle flete, seguro, aranceles, tasa de estadística, IVA, gastos de despacho y el
+                impacto del tipo de cambio real. Ese es el <strong>costo real</strong> con el que
+                tenés que fijar tus precios de venta.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Planificar una importación</strong> antes de cerrar el pedido con el proveedor.</li>
+                <li><strong>Comparar proveedores</strong> del exterior: si bien uno es más barato en FOB, quizás otro tenga menos flete.</li>
+                <li><strong>Fijar precios de venta</strong>: el costo unitario real es la base para tu margen.</li>
+                <li><strong>Simular escenarios cambiarios</strong>: ¿qué pasa si la brecha sube del 5% al 15%?</li>
+                <li><strong>Evaluar la rentabilidad</strong> de un producto importado.</li>
+                <li><strong>Presupuestar reposiciones</strong> de mercadería importada.</li>
+                <li><strong>Justificar precios ante clientes</strong> que cuestionan el valor.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Usala <strong>antes de cada importación</strong>, no después. Así podés ajustar precios
+                y condiciones con tu proveedor antes de cerrar el pedido. Es la mejor forma de no
+                comerte un sobrecosto inesperado.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, se cargan valores de ejemplo. Vas a ver esta estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos de la importación</div>
+                    <div class="step-desc">FOB, flete, unidades, aranceles</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Brecha cambiaria</div>
+                    <div class="step-desc">Slider de 0% a 30%</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Margen de ganancia</div>
+                    <div class="step-desc">% para calcular precio venta</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Resultados</div>
+                    <div class="step-desc">7 tarjetas con los cálculos</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cálculo en tiempo real</span>
+                Cada vez que modificás un campo, los resultados y el tipo de cambio real se
+                <strong>recalculan automáticamente</strong>. No hay botón de "Calcular".</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>10 campos</strong>. Te explico cada uno:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Valor FOB (USD)</strong></td>
+                        <td>Valor de la mercadería en el puerto de origen, sin flete ni seguro.</td>
+                        <td>USD 10.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Flete + Seguro (USD)</strong></td>
+                        <td>Lo que pagás por transportar la mercadería y asegurarla.</td>
+                        <td>USD 1.200</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Cantidad de unidades</strong></td>
+                        <td>Cuántas unidades traés en total.</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Alícuota Derechos de Importación (%)</strong></td>
+                        <td>Porcentaje según el NCM (posición arancelaria) del producto.</td>
+                        <td>1,5% (según NCM)</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Tasa de Estadística (%)</strong></td>
+                        <td>Impuesto fijo del 2,5% sobre el CIF (excepto casos especiales).</td>
+                        <td>2,5%</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Impuestos internos / IVA (%)</strong></td>
+                        <td>IVA u otros impuestos internos sobre CIF + DI + Tasa. Generalmente 21% para reventa o 0% si es para uso propio.</td>
+                        <td>0% (a cuenta IVA)</td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td><strong>Otros gastos (USD)</strong></td>
+                        <td>Gestoría, despachante, gastos portuarios, honorarios.</td>
+                        <td>USD 350</td>
+                    </tr>
+                    <tr>
+                        <td class="num">8</td>
+                        <td><strong>Dólar oficial (ARS)</strong></td>
+                        <td>Cotización mayorista del dólar oficial al día de la fecha.</td>
+                        <td>$1.510</td>
+                    </tr>
+                    <tr>
+                        <td class="num">9</td>
+                        <td><strong>Margen de ganancia (%)</strong></td>
+                        <td>Porcentaje de ganancia que querés aplicar al costo unitario.</td>
+                        <td>30%</td>
+                    </tr>
+                    <tr>
+                        <td class="num">10</td>
+                        <td><strong>Brecha cambiaria (%)</strong></td>
+                        <td>Diferencia entre el dólar oficial y el paralelo, si tenés que comprar divisas.</td>
+                        <td>5% (realista)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 ¿Dónde consulto el NCM?</span>
+                El <strong>NCM</strong> (Nomenclatura Común del Mercosur) es el código que identifica
+                tu producto. Podés consultarlo en el sitio del <strong>ARCA</strong> (ex AFIP) o
+                preguntarle a tu despachante. De ese código depende la alícuota de Derechos de Importación.</p>
+            </div>
+        </section>
+
+        <section id="cif">
+            <h2>💵 Valor CIF y base imponible</h2>
+            <p>
+                El <strong>Valor CIF</strong> es la suma del FOB + Flete + Seguro. Es la
+                <strong>base imponible</strong> sobre la cual se calculan todos los aranceles e impuestos.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">CIF = FOB + Flete + Seguro</div>
+                <div class="formula-desc">
+                    Ejemplo: USD 10.000 + USD 1.200 = <strong>USD 11.200</strong>
+                </div>
+            </div>
+
+            <h3>Por qué se llama "CIF"</h3>
+            <ul>
+                <li><strong>C</strong>: Cost (costo de la mercadería = FOB).</li>
+                <li><strong>I</strong>: Insurance (seguro de la carga).</li>
+                <li><strong>F</strong>: Freight (flete internacional).</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Importante</span>
+                Los <strong>derechos de importación y la tasa de estadística se calculan sobre el CIF</strong>,
+                no sobre el FOB. Por eso el CIF es la base imponible. Cuanto más alto sea el CIF,
+                más impuestos vas a pagar.</p>
+            </div>
+        </section>
+
+        <section id="aranceles">
+            <h2>💰 Aranceles e impuestos</h2>
+            <p>La herramienta calcula 3 tipos de cargas sobre el CIF:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Cómo se calcula</th>
+                        <th>Valor típico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Derechos de Importación (DI)</strong></td>
+                        <td>CIF × Alícuota según NCM</td>
+                        <td>0% a 35% según producto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tasa de Estadística (TE)</strong></td>
+                        <td>CIF × 2,5% (fijo, con excepciones)</td>
+                        <td>2,5%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IVA / Impuestos internos</strong></td>
+                        <td>(CIF + DI + TE) × Alícuota</td>
+                        <td>21% (o 10,5%)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Alícuotas típicas de Derechos de Importación</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de producto</th>
+                        <th>Alícuota DI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Insumos para la industria</td><td>0% a 2%</td></tr>
+                    <tr><td>Bienes de capital (maquinaria)</td><td>0% a 5%</td></tr>
+                    <tr><td>Bienes de consumo final</td><td>20% a 35%</td></tr>
+                    <tr><td>Textiles y calzado</td><td>35%</td></tr>
+                    <tr><td>Electrónica</td><td>0% a 20% según producto</td></tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Verificá el NCM</span>
+                La alícuota depende del <strong>código NCM específico</strong> de tu producto.
+                Consultá con tu despachante antes de cargar los valores. Un error en el NCM puede
+                cambiar radicalmente el costo final.</p>
+            </div>
+        </section>
+
+        <section id="brecha">
+            <h2>📊 Brecha cambiaria</h2>
+            <p>
+                La <strong>brecha cambiaria</strong> es la diferencia entre el <strong>dólar oficial</strong>
+                y el <strong>dólar paralelo</strong> (o "blue"). Se expresa como porcentaje.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Tipo de Cambio Real = Dólar Oficial × (1 + Brecha / 100)</div>
+                <div class="formula-desc">
+                    Ejemplo: $1.510 × (1 + 5/100) = $1.585,50
+                </div>
+            </div>
+
+            <h3>Cómo interpretar la brecha</h3>
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-title">🟢 Brecha baja</div>
+                    <div class="card-range">0% - 10%</div>
+                    <div class="card-desc">
+                        Escenario de estabilidad cambiaria. Podés planificar con relativa certeza.
+                        El impacto en el costo es moderado.
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">🔵 Brecha moderada</div>
+                    <div class="card-range">10% - 20%</div>
+                    <div class="card-desc">
+                        Escenario de tensión cambiaria. Los costos suben significativamente.
+                        Considerá trasladar el aumento al precio final.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-title">🟠 Brecha alta</div>
+                    <div class="card-range">20% - 30%</div>
+                    <div class="card-desc">
+                        Escenario de inestabilidad. El costo real sube fuerte.
+                        Revisá la viabilidad de la importación.
+                    </div>
+                </div>
+                <div class="card danger">
+                    <div class="card-title">🔴 Brecha extrema</div>
+                    <div class="card-range">&gt; 30%</div>
+                    <div class="card-desc">
+                        Escenario de crisis. El costo real se dispara.
+                        Considerá postergar la importación o buscar alternativas locales.
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 ¿Por qué se aplica la brecha?</span>
+                Si para importar tenés que acceder al dólar paralelo (porque el oficial no alcanza),
+                tu <strong>costo real de compra de divisas</strong> es el paralelo, no el oficial.
+                La brecha refleja esa diferencia.</p>
+            </div>
+        </section>
+
+        <section id="resultados">
+            <h2>📈 Interpretar los resultados</h2>
+            <p>La herramienta muestra 7 tarjetas con los resultados. Te explico cada una:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">💵</span>
+                    <div class="name">Valor CIF</div>
+                    <div class="desc">FOB + Flete + Seguro. Es la base sobre la que se calculan los aranceles.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Total Aranceles + Impuestos</div>
+                    <div class="desc">Suma de DI + TE + IVA. Se muestra en USD.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💰</span>
+                    <div class="name">Costo Total (USD)</div>
+                    <div class="desc">CIF + Aranceles + Otros gastos. Es el costo total en dólares.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💱</span>
+                    <div class="name">Tipo de Cambio Real</div>
+                    <div class="desc">Dólar oficial + brecha. Es el tipo de cambio que usás para convertir a pesos.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💸</span>
+                    <div class="name">Costo Final en Pesos</div>
+                    <div class="desc">Costo total USD × Tipo de cambio real. Es el costo total en pesos.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📦</span>
+                    <div class="name">Costo por Unidad</div>
+                    <div class="desc">Costo final en pesos ÷ Cantidad de unidades. Es tu costo real por unidad.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🏷️</span>
+                    <div class="name">Precio Venta Recomendado</div>
+                    <div class="desc">Costo por unidad × (1 + margen). Es el precio mínimo para tu margen objetivo.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="margen">
+            <h2>🎯 Margen de ganancia</h2>
+            <p>
+                El <strong>margen de ganancia</strong> es el porcentaje que querés ganar sobre el costo.
+                La herramienta lo usa para calcular el precio de venta recomendado.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Precio Venta = Costo Unitario × (1 + Margen / 100)</div>
+                <div class="formula-desc">
+                    Ejemplo: $190.220 × (1 + 30/100) = <strong>$247.286</strong>
+                </div>
+            </div>
+
+            <h3>Qué margen elegir</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Margen</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>20% - 30%</strong></td>
+                        <td>Productos de alta rotación, commodities, competencia intensa.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>30% - 50%</strong></td>
+                        <td>Productos con valor agregado, marca propia, clientes específicos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>50% - 100%+</strong></td>
+                        <td>Productos exclusivos, nichos, o con alto valor percibido.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Margen vs. markup</span>
+                El <strong>margen</strong> se calcula sobre el precio de venta. El <strong>markup</strong>
+                se calcula sobre el costo. Esta herramienta usa margen sobre el precio implícito en
+                el costo, que en la práctica funciona como markup. Consultá con tu contador si
+                necesitás precisión total.</p>
+            </div>
+        </section>
+
+        <section id="fijacion">
+            <h2>🏷️ Cómo fijar el precio final</h2>
+            <p>
+                El <strong>Precio Venta Recomendado</strong> es el mínimo que deberías cobrar para
+                alcanzar tu margen objetivo. Pero hay otros factores a considerar:
+            </p>
+
+            <h3>Checklist para fijar el precio final</h3>
+            <ol>
+                <li><strong>Costo unitario real</strong>: ¿está bien calculado? Incluí todos los gastos.</li>
+                <li><strong>Margen objetivo</strong>: ¿es realista para tu mercado?</li>
+                <li><strong>Precio de la competencia</strong>: ¿tu precio es competitivo?</li>
+                <li><strong>Percepción del cliente</strong>: ¿tu producto justifica el precio?</li>
+                <li><strong>Impuestos de venta</strong>: ¿tu precio incluye IVA?</li>
+                <li><strong>Comisiones de venta</strong>: si vendés por marketplaces, sumá esas comisiones.</li>
+                <li><strong>Logística de entrega</strong>: si el envío es gratis, agregalo al precio.</li>
+            </ol>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No olvides los costos post-importación</span>
+                El "costo unitario" que calcula la herramienta <strong>solo incluye la importación</strong>.
+                Si vas a revender, sumale: almacenamiento, comisiones, envío al cliente, packaging,
+                garantías, etc.</p>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Precio psicológico</span>
+                Un precio de $247.286 puede redondearse a <strong>$249.900</strong> o <strong>$249.999</strong>.
+                Redondear al alza te da margen extra y el cliente lo percibe mejor que un número exacto.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que querés importar <strong>100 unidades de un producto electrónico</strong>.
+                Estos son tus datos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Valor FOB</td><td>USD 10.000</td></tr>
+                    <tr><td>Flete + Seguro</td><td>USD 1.200</td></tr>
+                    <tr><td>Cantidad de unidades</td><td>100</td></tr>
+                    <tr><td>Derechos de Importación</td><td>1,5%</td></tr>
+                    <tr><td>Tasa de Estadística</td><td>2,5%</td></tr>
+                    <tr><td>IVA</td><td>0%</td></tr>
+                    <tr><td>Otros gastos</td><td>USD 350</td></tr>
+                    <tr><td>Dólar oficial</td><td>$1.510</td></tr>
+                    <tr><td>Brecha cambiaria</td><td>5%</td></tr>
+                    <tr><td>Margen de ganancia</td><td>30%</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Resultados que calcularía la herramienta</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Valor CIF</td><td>USD 11.200</td></tr>
+                    <tr><td>Total Aranceles + Impuestos</td><td>USD 448</td></tr>
+                    <tr><td>Costo Total (USD)</td><td>USD 11.998</td></tr>
+                    <tr><td>Tipo de Cambio Real</td><td>$1.585,50</td></tr>
+                    <tr><td>Costo Final en Pesos (Total)</td><td>$19.022.000</td></tr>
+                    <tr><td>Costo por Unidad</td><td>$190.220</td></tr>
+                    <tr><td>Precio Venta Recomendado</td><td>$247.286</td></tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Verificar si $190.220 por unidad es competitivo</strong> en el mercado local.</li>
+                <li><strong>Comparar con productos nacionales</strong>: si hay opción local más barata, quizás no convenga importar.</li>
+                <li><strong>Vender a $247.286 o más</strong> para alcanzar el 30% de margen.</li>
+                <li><strong>Simular con otras brechas</strong>: mové el slider al 15% y 25% para ver el impacto.</li>
+                <li><strong>Negociar con el proveedor</strong> si el costo final es demasiado alto.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Análisis de sensibilidad</span>
+                Movete el slider de brecha cambiaria a distintos valores para ver cómo cambia el
+                <strong>tipo de cambio real</strong>. Con brecha del 5% pagás $1.585 por dólar.
+                Con brecha del 20%, el tipo de cambio sube a $1.812. El costo final sube un 14%.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar el análisis o compartirlo con tu socio o contador:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, las 7 tarjetas de resultados, el nombre
+                del producto y una descripción resumida con todos los parámetros clave.
+                Se ocultan automáticamente los campos de entrada.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Guardá un PDF <strong>por cada importación que analices</strong>, con el nombre del
+                producto y la fecha en el archivo. Así vas a tener un historial de cómo evolucionaron
+                tus costos de importación con el tiempo.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al cerrar el navegador, los valores vuelven a los defaults. Guardá un PDF si querés conservar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es el "Valor CIF"?</div>
+                <div class="a">Es la suma del FOB + Flete + Seguro. Es la base imponible sobre la cual se calculan todos los aranceles e impuestos de importación.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es el NCM y por qué importa?</div>
+                <div class="a">Es el código que identifica tu producto en el sistema aduanero. De ese código depende la alícuota de Derechos de Importación y si tenés algún régimen especial. Consultalo con tu despachante.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa la "Tasa de Estadística"?</div>
+                <div class="a">Es un impuesto fijo del 2,5% sobre el CIF que se paga en casi todas las importaciones. Tiene algunas excepciones para regímenes especiales.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el IVA está en 0% por defecto?</div>
+                <div class="a">Porque si vas a revender el producto, el IVA de importación es "a cuenta" del IVA de venta. Se acredita después. Si el producto es para uso propio o no gravado, deberías cargar el 21%.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es la brecha cambiaria?</div>
+                <div class="a">Es la diferencia entre el dólar oficial y el paralelo, expresada en porcentaje. Si para importar accedés al paralelo, tu costo real de compra de dólares es mayor que el oficial.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo fijo el margen de ganancia?</div>
+                <div class="a">Depende de tu mercado. En productos de alta competencia, márgenes del 20-30%. En nichos o productos diferenciados, podés ir al 50% o más. Probá varios valores y verificá la competitividad.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Este precio ya incluye el IVA de venta?</div>
+                <div class="a">No. El precio de venta recomendado es el precio de costo + margen. Si sos Responsable Inscripto, tenés que agregar el IVA por fuera del precio, salvo que quieras incluirlo en el precio de lista.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Los valores de aranceles están actualizados?</div>
+                <div class="a">Los valores por defecto son referencias típicas. Las alícuotas de DI dependen del NCM de tu producto. Siempre consultá con tu despachante o en el sitio oficial de ARCA.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto para servicios además de productos?</div>
+                <div class="a">No directamente. Esta herramienta está pensada para importación de bienes físicos con flete y seguro. Los servicios tienen otra estructura impositiva.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si el costo por unidad es muy alto?</div>
+                <div class="a">Podés: 1) Negociar mejor precio FOB con tu proveedor, 2) Buscar un flete más barato, 3) Importar mayor cantidad para diluir costos fijos, o 4) Replantear la importación.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo comparo dos proveedores?</div>
+                <div class="a">Cargá los datos del proveedor A, guardá el PDF. Después cargá los datos del proveedor B, guardá otro PDF. Comparalos lado a lado.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Verificá siempre el NCM</h3>
+            <p>La alícuota de DI depende del NCM. Un error puede costarte miles de dólares. Consultá con tu despachante antes de cerrar el pedido.</p>
+
+            <h3>2. Sumá los costos post-importación</h3>
+            <p>El "costo unitario" de la herramienta solo incluye la importación. Sumale almacenamiento, comisiones, packaging, envío. Ese es tu costo real.</p>
+
+            <h3>3. Simulá con distintos valores de brecha</h3>
+            <p>La brecha cambiaria puede variar rápido. Simulá con 5%, 15% y 25% para tener un rango de precios y saber cuánto podés aguantar.</p>
+
+            <h3>4. Guardá un PDF por importación</h3>
+            <p>Con el nombre del producto y la fecha. Es tu historial de costos y te sirve para comparar con futuras importaciones.</p>
+
+            <h3>5. Negociá con el proveedor usando los números</h3>
+            <p>Mostrale los costos reales: "Con tu FOB actual, mi costo unitario es X. Necesito bajar el FOB a Y para ser competitivo".</p>
+
+            <h3>6. Considerá importar en mayor cantidad</h3>
+            <p>Los costos fijos (flete, despacho, otros gastos) se diluyen con más unidades. Si podés comprar más, el costo unitario baja.</p>
+
+            <h3>7. Combiná con el Fijador de Precios Anti-Inflación</h3>
+            <p>Una vez que tenés el costo de importación, usá el fijador para ajustar tu precio de venta mes a mes según la inflación.</p>
+
+            <h3>8. Combiná con la Calculadora de Rentabilidad</h3>
+            <p>Verificá si el precio de venta sugerido te deja un margen neto positivo después de todos tus gastos fijos.</p>
+
+            <h3>9. Estudiá los tratados internacionales</h3>
+            <p>Si tu proveedor está en un país con tratado comercial (Mercosur, Chile, etc.), podés tener aranceles reducidos. Consultalo antes de importar.</p>
+
+            <h3>10. Revisá los regímenes especiales</h3>
+            <p>Hay regímenes que permiten importar con aranceles reducidos o simplificados (courier, muestras, bienes de capital). Investigá si aplica a tu caso.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta, vas a poder <strong>planificar cada importación con
+                precisión</strong>, saber el costo real unitario y fijar precios de venta que te
+                garanticen el margen deseado. Eso es la diferencia entre importar con ganancia o
+                comerte los costos ocultos.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con la <strong>Calculadora de Importación</strong>:</p>
+            <div class="cards-grid">
+            <a href="asistente-planificacion-fiscal.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">💰 Planificación Fiscal</div>
+            <div class="card-desc">Los costos de importación impactan tu carga fiscal como RI.</div>
+            </a>
+            <a href="gestor-proveedores.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🏢 Gestor de Proveedores</div>
+            <div class="card-desc">Compará proveedores internacionales incluyendo costos de importación.</div>
+            </a>
+            <a href="gestion-inventario.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📦 Gestión de Inventario</div>
+            <div class="card-desc">Calculá el punto de pedido para productos importados con lead time largo.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Calculadora de Costos de Importación</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

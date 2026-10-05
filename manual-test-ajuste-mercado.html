@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Test de Ajuste de Mercado · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Test de Ajuste de Mercado de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE TEST DE AJUSTE DE MERCADO</h2>
+            <p>¿Autoempleo o negocio escalable? Diagnóstico personalizado</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Test de Ajuste de Mercado</small>
+                </h1>
+            </div>
+            <a href="test-ajuste-mercado.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para descubrir si tu emprendimiento está orientado al autoempleo o tiene
+            potencial para escalar como negocio. Respondé 10 preguntas y obtené un diagnóstico personalizado.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#datos">Datos personales</a></li>
+                <li><a href="#preguntas">Las 10 preguntas</a></li>
+                <li><a href="#escala">Escala de respuestas (1-5)</a></li>
+                <li><a href="#dimensiones">Las 3 dimensiones</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#perfiles">Los 3 perfiles</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Test de Ajuste de Mercado</strong> es un cuestionario de autoevaluación que te ayuda
+                a descubrir si tu emprendimiento está orientado al <strong>autoempleo</strong> (vivir de tu trabajo)
+                o al <strong>crecimiento escalable</strong> (construir un negocio que puede crecer sin vos).
+            </p>
+            <p>El test evalúa 10 aspectos clave de tu mentalidad y capacidad como emprendedor y genera un diagnóstico con:</p>
+            <ul>
+                <li>Un <strong>puntaje total</strong> sobre 50 puntos.</li>
+                <li>Una <strong>clasificación</strong>: Autoempleo, Transición o Escalable.</li>
+                <li>Un análisis por <strong>3 dimensiones</strong>: Mentalidad, Operativa y Visión.</li>
+                <li><strong>Recomendaciones personalizadas</strong> según tus debilidades.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Autoempleo vs. Escalable</span>
+                <strong>Autoempleo</strong>: vos sos el negocio. Si no trabajás, no facturás.
+                <strong>Escalable</strong>: el negocio funciona con sistemas y equipo, y puede crecer sin depender 100% de vos.
+                <br><br>Ninguno es mejor que el otro. La clave es <strong>saber cuál querés</strong> y alinear tus acciones con esa meta.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Este test es ideal para:</p>
+            <ul>
+                <li><strong>Empezar un emprendimiento</strong>: definir qué tipo de negocio querés construir.</li>
+                <li><strong>Reevaluar tu rumbo</strong> después de un tiempo en marcha.</li>
+                <li><strong>Antes de buscar inversión</strong>: ver si tu perfil es compatible con inversores.</li>
+                <li><strong>Antes de contratar personal</strong>: saber si estás listo para delegar.</li>
+                <li><strong>Revisión personal</strong>: entender tus propias limitaciones y fortalezas.</li>
+                <li><strong>Conversaciones con mentores</strong>: tener un diagnóstico objetivo de partida.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Respondé con honestidad, no con lo que "debería ser". El valor del test está en
+                <strong>identificar dónde estás hoy</strong>, no dónde te gustaría estar.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos personales</div>
+                    <div class="step-desc">Tu nombre y emprendimiento</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">10 preguntas</div>
+                    <div class="step-desc">Con sliders del 1 al 5</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Resultados</div>
+                    <div class="step-desc">Puntaje y dimensiones</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráfico + consejo</div>
+                    <div class="step-desc">Análisis visual y recomendación</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Ejemplo precargado</span>
+                El test viene con respuestas precargadas de ejemplo ("Juan Pérez · Pasapalos Gourmet")
+                para que veas cómo funciona. Podés modificar todo libremente.</p>
+            </div>
+        </section>
+
+        <section id="datos">
+            <h2>📝 Datos personales</h2>
+            <p>Antes de las preguntas, hay 2 campos de texto simples:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tu Nombre</strong></td>
+                        <td>Tu nombre para personalizar el informe.</td>
+                        <td>María Gómez</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre del Emprendimiento</strong></td>
+                        <td>El nombre de tu negocio o proyecto.</td>
+                        <td>Panadería La Floresta</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Por qué importa</span>
+                Estos datos aparecen en el informe PDF. Si vas a compartir el diagnóstico con un mentor,
+                socio o inversor, tener tus datos completos le da más contexto.</p>
+            </div>
+        </section>
+
+        <section id="preguntas">
+            <h2>❓ Las 10 preguntas</h2>
+            <p>
+                El test evalúa 10 aspectos clave a través de preguntas simples. Cada pregunta tiene
+                <strong>2 extremos opuestos</strong> y vos elegís dónde te ubicás.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Pregunta</th>
+                        <th>Extremo izquierdo</th>
+                        <th>Extremo derecho</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">1</td><td><strong>Objetivo principal</strong></td><td>Autoempleo (vivir dignamente)</td><td>Escalable (crear valor y vender)</td></tr>
+                    <tr><td class="num">2</td><td><strong>Delegar tareas</strong></td><td>No, hago todo yo</td><td>Sí, desde el inicio</td></tr>
+                    <tr><td class="num">3</td><td><strong>Tiempo de inversión</strong></td><td>3 meses (corto)</td><td>2+ años (largo)</td></tr>
+                    <tr><td class="num">4</td><td><strong>Plan a 5 años</strong></td><td>No tengo plan</td><td>Plan detallado y medible</td></tr>
+                    <tr><td class="num">5</td><td><strong>Inversión externa</strong></td><td>No, solo capital propio</td><td>Sí, busco activamente</td></tr>
+                    <tr><td class="num">6</td><td><strong>Control del negocio</strong></td><td>Muy importante (no cedo)</td><td>Poco importante (cedo para crecer)</td></tr>
+                    <tr><td class="num">7</td><td><strong>Resolver problemas</strong></td><td>Lo resuelvo yo mismo</td><td>Contrato a un experto</td></tr>
+                    <tr><td class="num">8</td><td><strong>Actitud al riesgo</strong></td><td>Evito el riesgo</td><td>Tomo riesgos calculados</td></tr>
+                    <tr><td class="num">9</td><td><strong>Estrategia vs. Operación</strong></td><td>90% operativo</td><td>90% estratégico</td></tr>
+                    <tr><td class="num">10</td><td><strong>Visión de futuro</strong></td><td>Mantenerlo como está</td><td>Expandir a nuevos mercados</td></tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No hay respuestas correctas</span>
+                No es un test de "aptitud emprendedora". Es un test de <strong>alineación</strong>.
+                Podés ser un gran emprendedor de autoempleo. Lo importante es saber qué querés
+                y actuar en consecuencia.</p>
+            </div>
+        </section>
+
+        <section id="escala">
+            <h2>📏 Escala de respuestas (1-5)</h2>
+            <p>
+                Cada pregunta tiene un <strong>slider del 1 al 5</strong>. El 1 representa el extremo izquierdo
+                y el 5 el extremo derecho.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Significado general</th>
+                        <th>Ejemplo (Pregunta 1)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>Totalmente orientado al extremo izquierdo.</td><td>Quiero autoempleo puro.</td></tr>
+                    <tr><td><strong>2</strong></td><td>Mayormente orientado al extremo izquierdo.</td><td>Prefiero autoempleo pero no descarto crecer.</td></tr>
+                    <tr><td><strong>3</strong></td><td>Zona intermedia o de transición.</td><td>No lo tengo definido.</td></tr>
+                    <tr><td><strong>4</strong></td><td>Mayormente orientado al extremo derecho.</td><td>Quiero crecer pero con cuidado.</td></tr>
+                    <tr><td><strong>5</strong></td><td>Totalmente orientado al extremo derecho.</td><td>Quiero construir un negocio escalable.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 No hay un valor "mejor"</span>
+                Un 5 no es mejor que un 1. Lo importante es que tus respuestas reflejen lo que
+                <strong>realmente pensás y hacés</strong>, no lo que creés que "deberías" responder.</p>
+            </div>
+        </section>
+
+        <section id="dimensiones">
+            <h2>🎨 Las 3 dimensiones</h2>
+            <p>
+                Las 10 preguntas se agrupan en <strong>3 dimensiones</strong>. Cada dimensión tiene su propio promedio
+                y su propia interpretación.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-title">🧠 Mentalidad Emprendedora</div>
+                    <div class="card-range">Preguntas 1, 2, 3</div>
+                    <div class="card-desc">
+                        Evalúa tu objetivo (vivir vs. crecer), tu disposición a delegar y tu paciencia
+                        para esperar resultados. Mide si tenés la cabeza de un emprendedor escalable.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">⚙️ Capacidad Operativa</div>
+                    <div class="card-range">Preguntas 4, 5, 6</div>
+                    <div class="card-desc">
+                        Evalúa si tenés plan a largo plazo, si estás dispuesto a buscar inversión y
+                        cuánto te aferrás al control. Mide tu estructura para crecer.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🔭 Visión de Crecimiento</div>
+                    <div class="card-range">Preguntas 7, 8, 9, 10</div>
+                    <div class="card-desc">
+                        Evalúa cómo resolvés problemas, tu actitud al riesgo, tu balance estrategia/operación
+                        y tu visión de futuro. Mide tu proyección de largo plazo.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Cómo se calculan</h3>
+            <div class="formula-box">
+                <div class="formula">Mentalidad = (P1 + P2 + P3) ÷ 3</div>
+                <div class="formula-desc">Promedio de las 3 primeras preguntas.</div>
+            </div>
+            <div class="formula-box">
+                <div class="formula">Operativa = (P4 + P5 + P6) ÷ 3</div>
+                <div class="formula-desc">Promedio de las 3 siguientes.</div>
+            </div>
+            <div class="formula-box">
+                <div class="formula">Visión = (P7 + P8 + P9 + P10) ÷ 4</div>
+                <div class="formula-desc">Promedio de las 4 últimas.</div>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de responder, vas a ver 6 tarjetas con los resultados:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">🎯</span>
+                    <div class="name">Puntaje Total</div>
+                    <div class="desc">Suma de las 10 preguntas. Va de 10 a 50 puntos. Determina tu clasificación general.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🏷️</span>
+                    <div class="name">Clasificación</div>
+                    <div class="desc">Autoempleo, Transición o Negocio Escalable. Es el resumen de tu perfil.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🧠</span>
+                    <div class="name">Mentalidad Emprendedora</div>
+                    <div class="desc">Promedio de preguntas 1-3. Valores bajos indican mentalidad de autoempleo.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">⚙️</span>
+                    <div class="name">Capacidad Operativa</div>
+                    <div class="desc">Promedio de preguntas 4-6. Valores bajos indican falta de estructura para crecer.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔭</span>
+                    <div class="name">Visión de Crecimiento</div>
+                    <div class="desc">Promedio de preguntas 7-10. Valores bajos indican cortoplacismo.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📊</span>
+                    <div class="name">Benchmark</div>
+                    <div class="desc">Comparación con perfiles típicos. Te dice con qué tipo de emprendedor te parecés.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="perfiles">
+            <h2>🎭 Los 3 perfiles</h2>
+            <p>Según tu puntaje total, caés en uno de estos 3 perfiles:</p>
+
+            <div class="cards-grid">
+                <div class="card warning">
+                    <div class="card-title">🔧 Perfil Autoempleo</div>
+                    <div class="card-range">Puntaje: 10-25</div>
+                    <div class="card-desc">
+                        Priorizás la estabilidad y el control. Te enfocás en el día a día.
+                        Tu negocio depende 100% de vos. Es un modelo válido, pero no escala.
+                    </div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">🚀 Perfil en Transición</div>
+                    <div class="card-range">Puntaje: 26-35</div>
+                    <div class="card-desc">
+                        Tenés visión de crecimiento, pero aún operás de manera muy práctica.
+                        Necesitás delegar más y planificar mejor para escalar.
+                    </div>
+                </div>
+                <div class="card positive">
+                    <div class="card-title">🌟 Perfil Escalable</div>
+                    <div class="card-range">Puntaje: 36-50</div>
+                    <div class="card-desc">
+                        Tenés mentalidad de growth, delegás y planificás. Estás listo para
+                        escalar con inversión y equipo. Perfil típico de startups.
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Ninguno es mejor</span>
+                Cada perfil es válido según lo que querés en la vida. Un negocio de autoempleo puede
+                dar mucha más libertad y tranquilidad que una startup estresante. La clave es
+                <strong>que tu modelo de negocio coincida con tu perfil personal</strong>.</p>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico es de <strong>barras horizontales</strong>, una por cada pregunta.
+                El color de cada barra indica el nivel:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Valor</th>
+                        <th>Significado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge orange">🟠</span></td>
+                        <td>1-2</td>
+                        <td>Orientación al autoempleo. Etiqueta: 🔧 Autoempleo</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge blue">🔵</span></td>
+                        <td>3</td>
+                        <td>Zona de transición. Etiqueta: 🔄 Transición</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;"><span class="badge green">🟢</span></td>
+                        <td>4-5</td>
+                        <td>Orientación escalable. Etiqueta: 🚀 Escalable</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué buscar en el gráfico</h3>
+            <ul>
+                <li><strong>Muchas barras naranjas</strong>: tu perfil es marcadamente de autoempleo.</li>
+                <li><strong>Muchas barras verdes</strong>: tenés mentalidad escalable.</li>
+                <li><strong>Mezcla equilibrada</strong>: estás en transición. Podés ir para cualquiera de los dos lados.</li>
+                <li><strong>Preguntas específicas con color diferente</strong>: son tus áreas de mejora puntuales.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                Mirá la <strong>pregunta con el valor más bajo</strong>. Esa es tu mayor barrera
+                para escalar. Trabajarla primero tiene el mayor impacto.</p>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                La herramienta genera recomendaciones personalizadas según cuántas dimensiones tenés
+                en nivel bajo (menos de 3 puntos).
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Debilidades detectadas</th>
+                        <th>Tipo de recomendación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>0 dimensiones bajas</strong></td>
+                        <td>🌟 Felicitación. Perfil altamente escalable. Foco en ejecución.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 dimensión baja</strong></td>
+                        <td>📈 Reconocimiento + sugerencia de trabajar en el área específica.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2 o 3 dimensiones bajas</strong></td>
+                        <td>🛠️ Lista de áreas de mejora + plan de acción por prioridad.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo usar las recomendaciones</span>
+                Cuando aparecen 2 o más debilidades, la herramienta sugiere empezar por la más crítica
+                (la de menor puntaje). Establecé metas trimestrales para mejorarla y considerá buscar
+                un mentor o asesor.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que sos <strong>María</strong> y tenés una <strong>panadería artesanal</strong>.
+                Respondés el test así:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Pregunta</th>
+                        <th>Respuesta</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1. Objetivo</td><td>2</td><td>Mayormente autoempleo.</td></tr>
+                    <tr><td>2. Delegar</td><td>2</td><td>Prefiere hacer todo ella.</td></tr>
+                    <tr><td>3. Tiempo de inversión</td><td>3</td><td>Dispuesta a esperar un tiempo medio.</td></tr>
+                    <tr><td>4. Plan 5 años</td><td>2</td><td>No tiene plan estructurado.</td></tr>
+                    <tr><td>5. Inversión externa</td><td>1</td><td>Solo capital propio.</td></tr>
+                    <tr><td>6. Control</td><td>4</td><td>Le cuesta soltar el control.</td></tr>
+                    <tr><td>7. Resolver problemas</td><td>3</td><td>Depende del problema.</td></tr>
+                    <tr><td>8. Riesgo</td><td>2</td><td>Evita riesgos.</td></tr>
+                    <tr><td>9. Estrategia vs. Operación</td><td>2</td><td>90% operativa.</td></tr>
+                    <tr><td>10. Visión futuro</td><td>2</td><td>Mantenerlo como está.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Resultados que mostraría la herramienta</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Puntaje Total</td>
+                        <td>23 / 50</td>
+                        <td>Perfil claro de autoempleo.</td>
+                    </tr>
+                    <tr>
+                        <td>Clasificación</td>
+                        <td>Autoempleo</td>
+                        <td>Microemprendimiento.</td>
+                    </tr>
+                    <tr>
+                        <td>Mentalidad Emprendedora</td>
+                        <td>2.3</td>
+                        <td>Orientación al autoempleo.</td>
+                    </tr>
+                    <tr>
+                        <td>Capacidad Operativa</td>
+                        <td>2.3</td>
+                        <td>Falta de estructura para crecer.</td>
+                    </tr>
+                    <tr>
+                        <td>Visión de Crecimiento</td>
+                        <td>2.3</td>
+                        <td>Cortoplacismo y aversión al riesgo.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Recomendación que generaría</h3>
+            <div class="info-box">
+                <p>
+                    🛠️ <strong>Perfil con varias áreas de mejora:</strong><br>
+                    - Mentalidad Emprendedora (objetivo cortoplacista, poca delegación, impaciencia)<br>
+                    - Capacidad Operativa (falta de plan, aversión a inversión, excesivo control)<br>
+                    - Visión de Crecimiento (resuelve todo sola, evita riesgos, poco estratégica)<br><br>
+                    <strong>Plan de acción:</strong> Empezá por la más crítica y establecé metas
+                    trimestrales. Considerá un mentor o asesor.
+                </p>
+            </div>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Aceptar el perfil actual</strong>: si María quiere un negocio de autoempleo, el test confirma que está alineada. Perfecto.</li>
+                <li><strong>Si quiere escalar</strong>: tiene que empezar por <strong>delegar</strong> una tarea clave esta semana.</li>
+                <li><strong>Plan a 5 años</strong>: escribir un plan básico con objetivos medibles.</li>
+                <li><strong>Buscar un mentor</strong>: alguien que ya haya escalado un negocio similar.</li>
+                <li><strong>Empezar a planificar</strong>: reservar 2 horas semanales para trabajar "en" el negocio.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                Un puntaje de 23 es <strong>perfectamente válido si querés autoempleo</strong>.
+                El test no te dice que estás mal: te dice dónde estás. La decisión de moverte
+                hacia el perfil escalable es tuya.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu diagnóstico o compartirlo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, nombre y emprendimiento, las 6 tarjetas
+                de resultados, la recomendación personalizada, el gráfico de barras y la descripción
+                resumida con las puntuaciones por dimensión.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Guardá un PDF cada 6 meses y compará cómo evolucionan tus puntajes. Si estás
+                <strong>trabajando para escalar</strong>, deberías ver mejoras en las dimensiones
+                año tras año.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al cerrar el navegador, los valores vuelven a los defaults de ejemplo. Guardá un PDF si querés conservar el resultado.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Un puntaje bajo es malo?</div>
+                <div class="a">No. Un puntaje bajo significa que estás orientado al autoempleo, no al crecimiento escalable. Es perfectamente válido. El test no te dice si sos "buen" o "mal" emprendedor: te dice qué tipo de emprendedor sos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo cambiar mi perfil con el tiempo?</div>
+                <div class="a">Sí. Si empezás a delegar, planificar y pensar en grande, tu puntaje sube con el tiempo. El perfil no es una condena, es un punto de partida.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué hay 3 dimensiones y no solo un puntaje?</div>
+                <div class="a">Porque podés tener alta mentalidad pero baja operativa (querés crecer pero no sabés cómo). Las dimensiones te dan un diagnóstico más específico de dónde trabajar.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Sirve si ya tengo un negocio grande?</div>
+                <div class="a">Sí. Incluso con negocio grande, si tu puntaje sigue siendo de autoempleo, significa que el negocio depende demasiado de vos. Eso es un riesgo a mediano plazo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El test es científico?</div>
+                <div class="a">No es un test psicométrico validado. Es una herramienta de autodiagnóstico basada en las características comunes de emprendimientos de autoempleo vs. escalables. Toma el resultado como una guía, no como un veredicto.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué las preguntas 7-10 cuentan menos que las 1-3?</div>
+                <div class="a">Porque la dimensión de "Visión" tiene 4 preguntas y las otras 3. Cada dimensión se promedia por separado, así todas pesan igual en el análisis dimensional.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa estar en "Transición"?</div>
+                <div class="a">Que estás a mitad de camino. Podés ir hacia el autoempleo estabilizado o hacia el escalamiento. Es un momento ideal para tomar decisiones conscientes.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Tengo que responder en orden?</div>
+                <div class="a">No, podés responder en el orden que quieras. Los sliders se actualizan independientemente y el resultado se recalcula al instante.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es el "Benchmark"?</div>
+                <div class="a">Es una comparación con perfiles típicos. Te dice si tu puntaje se parece más a un microemprendedor típico, a alguien en transición, o a un emprendedor escalable (tipo startup).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo compartir el resultado con mi equipo?</div>
+                <div class="a">Sí. Generá el PDF y compartilo. Es útil para conversaciones sobre el futuro del negocio y qué rol querés tener como fundador.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué hago si quiero escalar pero tengo puntaje bajo?</div>
+                <div class="a">Empezá por las 3 dimensiones. Primero trabajá la mentalidad (objetivo, delegar, paciencia). Después la operativa (plan, inversión, soltar control). Y por último la visión (estrategia, riesgo, futuro).</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Respondé sin pensar en el "debería"</h3>
+            <p>La tentación es responder como creés que un emprendedor exitoso respondería. Pero el valor está en reflejar tu realidad actual, no tu ideal.</p>
+
+            <h3>2. Respondé varias veces en distintos momentos</h3>
+            <p>Tu estado emocional afecta las respuestas. Hacé el test cuando estés tranquilo y volvé a hacerlo en 3 meses. Compará los cambios.</p>
+
+            <h3>3. Usalo antes de buscar inversión</h3>
+            <p>Los inversores buscan perfiles escalables. Si tu puntaje es bajo, vas a tener dificultades. Mejoralo antes de ir a buscar capital.</p>
+
+            <h3>4. Combiná con la Matriz de Delegación de Tareas</h3>
+            <p>Si querés escalar pero tu problema es "hago todo yo", usá la Matriz de Delegación para identificar qué soltar primero.</p>
+
+            <h3>5. Combiná con la Matriz de Propuesta de Valor</h3>
+            <p>El Test te dice tu perfil como emprendedor. La Matriz de Propuesta de Valor te dice qué tan bien tu producto encaja con el mercado. Juntas dan una visión completa.</p>
+
+            <h3>6. Compartilo con tu socio o mentor</h3>
+            <p>Es una excelente herramienta para conversaciones difíciles. "Mirá, mi puntaje es de autoempleo. ¿Vamos juntos hacia el escalable o aceptamos el modelo actual?"</p>
+
+            <h3>7. No te acomplejes con el resultado</h3>
+            <p>Hay miles de negocios de autoempleo muy exitosos y rentables. No escalar no es un fracaso. Es una decisión de vida.</p>
+
+            <h3>8. Enfocate en una sola dimensión por vez</h3>
+            <p>Si querés subir tu puntaje, no trabajes las 3 dimensiones al mismo tiempo. Elegí una, establecé un plan trimestral y volvé a medir.</p>
+
+            <h3>9. Guardá el PDF con fecha</h3>
+            <p>Hacelo cada 6 meses. Después de 2 años vas a tener 4 PDFs que muestran tu evolución real como emprendedor.</p>
+
+            <h3>10. Usalo con tu equipo directivo</h3>
+            <p>Si tenés socios o un equipo directivo, que cada uno lo haga. Es un excelente punto de partida para conversaciones sobre la visión del negocio.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar este test, vas a tener <strong>claridad sobre qué tipo de negocio querés construir</strong>
+                y qué habilidades necesitás desarrollar. Esa claridad es el primer paso para tomar
+                decisiones estratégicas alineadas con tu proyecto de vida.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Test de Ajuste de Mercado</strong>:</p>
+            <div class="cards-grid">
+            <a href="matriz-propuesta-valor.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">🎯 Matriz de Propuesta de Valor</div>
+                <div class="card-desc">Validá tu propuesta de valor según el perfil detectado.</div>
+            </a>
+            <a href="matriz-delegacion-tareas.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">🤝 Matriz de Delegación</div>
+                <div class="card-desc">Definí qué delegar para alinearte con tu modelo de negocio.</div>
+            </a>
+            <a href="okr-tracker.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">🎯 OKR Tracker</div>
+                <div class="card-desc">Convertí tu perfil en objetivos trimestrales medibles.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Test de Ajuste de Mercado</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

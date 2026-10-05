@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fijador de Precios Anti-Inflación · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Fijador de Precios Anti-Inflación de ENUMAPP. Protegé tus márgenes frente a la inflación." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>💰 ENUMAPP · FIJADOR DE PRECIOS ANTI-INFLACIÓN</h2>
+            <p>Ajuste dinámico de precios según inflación y costo de reposición</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    💰 Fijador de Precios Anti-Inflación
+                    <small>· Protegé tus márgenes</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-fijador-precios.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Calculá el precio de venta necesario para mantener tu margen real frente a la inflación y la devaluación. Simulá escenarios y obtené recomendaciones.
+        </div>
+
+        <!-- ===== INPUTS ===== -->
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Precio de Venta Actual ($) <span class="hint">· tu precio hoy</span></label>
+                    <input type="number" id="precioActual" value="8000" step="100" min="1" />
+                </div>
+                <div class="input-group">
+                    <label>Costo de Reposición Actual ($) <span class="hint">· lo que te cuesta hoy reponer</span></label>
+                    <input type="number" id="costoActual" value="5500" step="100" min="1" />
+                </div>
+                <div class="input-group">
+                    <label>Margen Bruto Deseado (%) <span class="hint">· margen sobre ventas</span></label>
+                    <input type="number" id="margenDeseado" value="35" step="1" min="1" max="90" />
+                    <span class="hint">(actual: <span id="margenActualDisplay">31.3%</span>)</span>
+                </div>
+                <div class="input-group">
+                    <label>Inflación / Devaluación Esperada (% mensual) <span class="hint">· proyección</span></label>
+                    <input type="number" id="inflacionMensual" value="5" step="0.5" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Plazo de Proyección (meses) <span class="hint">· horizonte de simulación</span></label>
+                    <input type="number" id="plazoMeses" value="12" step="1" min="1" max="60" />
+                </div>
+                <div class="input-group">
+                    <label>Frecuencia de Ajuste de Precios <span class="hint">· cada cuánto actualizás</span></label>
+                    <select id="frecuencia">
+                        <option value="1">Mensual</option>
+                        <option value="3" selected>Trimestral</option>
+                        <option value="6">Semestral</option>
+                        <option value="12">Anual</option>
+                    </select>
+                </div>
+                <div class="input-group" style="grid-column: 1 / -1;">
+                    <label>Escenarios de Inflación (opcional) <span class="hint">· para comparar</span></label>
+                    <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+                        <div style="flex:1; min-width:120px;">
+                            <label style="font-weight:400; font-size:13px; color:var(--color-text-muted);">Optimista</label>
+                            <input type="number" id="inflaOpt" value="3" step="0.5" min="0" style="width:100%;" />
+                        </div>
+                        <div style="flex:1; min-width:120px;">
+                            <label style="font-weight:400; font-size:13px; color:var(--color-text-muted);">Realista</label>
+                            <input type="number" id="inflaReal" value="5" step="0.5" min="0" style="width:100%;" />
+                        </div>
+                        <div style="flex:1; min-width:120px;">
+                            <label style="font-weight:400; font-size:13px; color:var(--color-text-muted);">Pesimista</label>
+                            <input type="number" id="inflaPes" value="8" step="0.5" min="0" style="width:100%;" />
+                        </div>
+                        <span class="hint" style="margin-top:6px;">% mensual</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- ===== RESULTADOS ===== -->
+        <div class="flex-row">
+            <span class="badge">📈 <strong>Proyección de precios y márgenes</strong> · actualización automática</span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:10px;">
+            <div class="result-card info" style="grid-column: span 2;">
+                <div class="label">Precio de Venta Recomendado (mes 1)</div>
+                <div class="value" id="precioRecomendado">$ 8.400</div>
+                <div class="sub" id="precioRecomSub">para mantener margen del 35%</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">Margen Real Proyectado</div>
+                <div class="value" id="margenProyectado">35.0%</div>
+                <div class="sub">al final del plazo</div>
+            </div>
+            <div class="result-card positive">
+                <div class="label">Ajuste Acumulado</div>
+                <div class="value" id="ajusteAcumulado">+79.6%</div>
+                <div class="sub">aumento total recomendado</div>
+            </div>
+        </div>
+
+        <!-- ===== RECOMENDACIÓN ===== -->
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendación Estratégica</h3>
+            <p id="recommendationText">Ajustá los parámetros para obtener una recomendación personalizada.</p>
+        </div>
+
+        <!-- ===== TABLA ===== -->
+        <div style="margin-top:20px;">
+            <details>
+                <summary style="font-weight:600; color:var(--color-text-secondary); cursor:pointer; padding:8px 0;">📋 Ver tabla de proyección mensual</summary>
+                <div class="table-container">
+                    <table id="tablaProyeccion">
+                        <thead>
+                            <tr>
+                                <th>Mes</th>
+                                <th>Costo Reposición</th>
+                                <th>Precio Venta</th>
+                                <th>Margen Real</th>
+                                <th>Inflación acum.</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaBody"></tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+
+        <!-- ===== GRÁFICO ===== -->
+        <div class="chart-container tall">
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <!-- ===== NOTA DE ESCALAS ===== -->
+        <div class="chart-note">
+            <span>📌 <strong>Escalas del gráfico:</strong></span>
+            <span>🔵 Precio de venta → Eje izquierdo (pesos $)</span>
+            <span>🟠 Costo de reposición → Eje izquierdo (pesos $)</span>
+            <span>🟢 Margen real → <strong>Eje derecho</strong> (porcentaje %)</span>
+        </div>
+
+        <!-- ===== FOOTER NOTE ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> El precio de venta se ajusta para mantener el margen bruto real. El costo de reposición sube con la inflación.</span>
+            <span>🔄 Ajustá los parámetros para explorar diferentes escenarios.</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        (function() {
+            const precioActual = document.getElementById('precioActual');
+            const costoActual = document.getElementById('costoActual');
+            const margenDeseado = document.getElementById('margenDeseado');
+            const inflacionMensual = document.getElementById('inflacionMensual');
+            const plazoMeses = document.getElementById('plazoMeses');
+            const frecuencia = document.getElementById('frecuencia');
+            const inflaOpt = document.getElementById('inflaOpt');
+            const inflaReal = document.getElementById('inflaReal');
+            const inflaPes = document.getElementById('inflaPes');
+
+            const precioRecomendado = document.getElementById('precioRecomendado');
+            const precioRecomSub = document.getElementById('precioRecomSub');
+            const margenProyectado = document.getElementById('margenProyectado');
+            const ajusteAcumulado = document.getElementById('ajusteAcumulado');
+            const margenActualDisplay = document.getElementById('margenActualDisplay');
+            const recommendationText = document.getElementById('recommendationText');
+            const printDesc = document.getElementById('printDesc');
+            const tablaBody = document.getElementById('tablaBody');
+
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            let myChart = null;
+
+            function actualizar() {
+                const P0 = parseFloat(precioActual.value) || 1;
+                const C0 = parseFloat(costoActual.value) || 1;
+                const margenDes = parseFloat(margenDeseado.value) || 1;
+                const infla = parseFloat(inflacionMensual.value) || 0;
+                const meses = parseInt(plazoMeses.value) || 12;
+                const freq = parseInt(frecuencia.value) || 3;
+
+                const margenActual = ((P0 - C0) / P0) * 100;
+                margenActualDisplay.textContent = margenActual.toFixed(1) + '%';
+
+                const mesesArray = Array.from({ length: meses }, (_, i) => i + 1);
+                const costos = [];
+                const precios = [];
+                const margenes = [];
+                let precio = P0;
+
+                for (let i = 0; i < meses; i++) {
+                    const mes = i + 1;
+                    const costoRepos = C0 * Math.pow(1 + infla / 100, i + 1);
+                    costos.push(costoRepos);
+
+                    if (mes % freq === 0 || i === 0) {
+                        const precioNuevo = costoRepos / (1 - margenDes / 100);
+                        precio = precioNuevo;
+                    }
+                    precios.push(precio);
+                    const margenReal = ((precio - costoRepos) / precio) * 100;
+                    margenes.push(margenReal);
+                }
+
+                const precioInicial = precios[0];
+                const precioFinal = precios[precios.length - 1];
+                const margenFinal = margenes[margenes.length - 1];
+                const ajusteTotal = ((precioFinal - P0) / P0) * 100;
+
+                precioRecomendado.textContent = ENUMAPP_FMT.money(precioInicial);
+                precioRecomSub.textContent = `para mantener margen del ${margenDes}%`;
+                margenProyectado.textContent = margenFinal.toFixed(1) + '%';
+                ajusteAcumulado.textContent = (ajusteTotal >= 0 ? '+' : '') + ajusteTotal.toFixed(1) + '%';
+
+                let recomendacion = '';
+                if (infla <= 2) {
+                    recomendacion = `🟢 Inflación baja (${infla}% mensual). Podés ajustar precios semestral o anualmente. El precio inicial sugerido es ${ENUMAPP_FMT.money(precioInicial)}.`;
+                } else if (infla <= 5) {
+                    recomendacion = `🟡 Inflación moderada (${infla}% mensual). Te recomendamos ajustar precios ${freq === 1 ? 'mensualmente' : freq === 3 ? 'trimestralmente' : freq === 6 ? 'semestralmente' : 'anualmente'}. El precio inicial sugerido es ${ENUMAPP_FMT.money(precioInicial)}, con aumentos acumulados del ${ajusteTotal.toFixed(1)}% en ${meses} meses.`;
+                } else {
+                    recomendacion = `🔴 Inflación alta (${infla}% mensual). Ajustá precios mensualmente. El precio inicial sugerido es ${ENUMAPP_FMT.money(precioInicial)}, con aumentos acumulados del ${ajusteTotal.toFixed(1)}% en ${meses} meses.`;
+                }
+
+                if (freq > 3 && infla > 5) {
+                    recomendacion += ` ⚠️ Recomendamos aumentar la frecuencia de ajuste (ej. mensual) para no perder margen entre ajustes.`;
+                }
+                recommendationText.innerHTML = recomendacion;
+
+                // Tabla
+                let tablaHTML = '';
+                for (let i = 0; i < meses; i++) {
+                    const mes = i + 1;
+                    const costo = costos[i];
+                    const precio = precios[i];
+                    const margen = margenes[i];
+                    const inflaAcumMes = (Math.pow(1 + infla / 100, mes) - 1) * 100;
+                    const highlight = (mes % freq === 0 || mes === 1) ? 'style="background:var(--color-success-bg); font-weight:600;"' : '';
+                    tablaHTML += `<tr ${highlight}>
+                        <td>${mes}</td>
+                        <td>${ENUMAPP_FMT.money(costo)}</td>
+                        <td>${ENUMAPP_FMT.money(precio)}</td>
+                        <td>${margen.toFixed(1)}%</td>
+                        <td>${inflaAcumMes.toFixed(1)}%</td>
+                    </tr>`;
+                }
+                tablaBody.innerHTML = tablaHTML;
+
+                // Gráfico
+                const labels = mesesArray.map(m => 'Mes ' + m);
+                if (myChart) myChart.destroy();
+
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Costo de Reposición',
+                            data: costos,
+                            borderColor: '#e67e22',
+                            backgroundColor: 'rgba(230,126,34,0.05)',
+                            borderWidth: 3, pointRadius: 2, tension: 0.2, fill: false,
+                        }, {
+                            label: 'Precio de Venta',
+                            data: precios,
+                            borderColor: '#2b7be4',
+                            backgroundColor: 'rgba(43,123,228,0.05)',
+                            borderWidth: 3, pointRadius: 3, tension: 0.2, fill: false,
+                        }, {
+                            label: 'Margen Real (%)',
+                            data: margenes,
+                            borderColor: '#2ecc71',
+                            backgroundColor: 'rgba(46,204,113,0.1)',
+                            borderWidth: 2, pointRadius: 2, tension: 0.2, fill: false,
+                            yAxisID: 'y1',
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { boxWidth: 15, padding: 15, font: { size: 12, weight: '600' }, color: '#0a2540' }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        let val = context.parsed.y;
+                                        if (context.datasetIndex === 2) return `${label}: ${val.toFixed(1)}%`;
+                                        return `${label}: ${ENUMAPP_FMT.money(val)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'rgba(0,0,0,0.05)' },
+                                ticks: { color: '#5b6f82', maxTicksLimit: 15 }
+                            },
+                            y: {
+                                type: 'linear',
+                                position: 'left',
+                                title: { display: true, text: 'Pesos ($)', color: '#0a2540', font: { weight: 'bold' } },
+                                grid: { color: 'rgba(0,0,0,0.05)' },
+                                ticks: { color: '#5b6f82', callback: ENUMAPP_UI.axisMoney }
+                            },
+                            y1: {
+                                type: 'linear',
+                                position: 'right',
+                                title: { display: true, text: 'Margen (%)', color: '#2ecc71', font: { weight: 'bold' } },
+                                grid: { display: false },
+                                ticks: { color: '#2ecc71', callback: v => v.toFixed(1) + '%' }
+                            }
+                        },
+                        interaction: { intersect: false, mode: 'index' }
+                    }
+                });
+
+                printDesc.innerHTML = `
+                    <strong>Precio actual:</strong> ${ENUMAPP_FMT.money(P0)} &nbsp;|&nbsp; <strong>Costo actual:</strong> ${ENUMAPP_FMT.money(C0)}<br>
+                    <strong>Margen deseado:</strong> ${margenDes}% &nbsp;|&nbsp; <strong>Inflación:</strong> ${infla}% mensual<br>
+                    <strong>Plazo:</strong> ${meses} meses &nbsp;|&nbsp; <strong>Frecuencia:</strong> ${freq} meses<br>
+                    <strong>Precio inicial sugerido:</strong> ${ENUMAPP_FMT.money(precioInicial)} &nbsp;|&nbsp; <strong>Ajuste acumulado:</strong> ${ajusteTotal.toFixed(1)}%
+                `;
+            }
+
+            const inputs = [precioActual, costoActual, margenDeseado, inflacionMensual, plazoMeses, frecuencia, inflaOpt, inflaReal, inflaPes];
+            inputs.forEach(inp => {
+                inp.addEventListener('input', actualizar);
+                inp.addEventListener('change', actualizar);
+            });
+
+            inflaReal.addEventListener('input', function() {
+                if (this === document.activeElement) {
+                    inflacionMensual.value = this.value;
+                    actualizar();
+                }
+            });
+            inflacionMensual.addEventListener('input', function() {
+                if (this === document.activeElement) {
+                    inflaReal.value = this.value;
+                }
+            });
+
+            actualizar();
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => { if (myChart) myChart.resize(); }, 200);
+            });
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Punto de Equilibrio · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Simulador de Punto de Equilibrio de ENUMAPP. Con ciclo de inventario y tiempo a la meta." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>⚖️ ENUMAPP · PUNTO DE EQUILIBRIO + CICLO</h2>
+            <p>Simulación de rentabilidad con métricas de tiempo y ciclo</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    ⚖️ Simulador de Punto de Equilibrio
+                    <small>· con Ciclo de Inventario</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-simulador-equilibrio.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Descubrí cuántas unidades necesitás vender, cuánto ganás por ciclo y cuánto tiempo te llevará alcanzar tu meta de ganancia.
+        </div>
+
+        <!-- INPUTS -->
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Precio de Venta por Unidad ($)</label>
+                    <input type="number" id="precio" value="8000" step="100" min="1" />
+                </div>
+                <div class="input-group">
+                    <label>Costo Variable por Unidad ($)</label>
+                    <input type="number" id="costoVariable" value="5500" step="100" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Costos Fijos Totales ($) <span class="hint">· mensuales</span></label>
+                    <input type="number" id="costosFijos" value="5000" step="1000" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Volumen Estimado de Ventas (unidades) <span class="hint">· por ciclo</span></label>
+                    <input type="number" id="volumenVentas" value="10" step="1" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Objetivo de Ganancia ($)</label>
+                    <input type="number" id="objetivoGanancia" value="250000" step="500" min="0" />
+                </div>
+                <div class="input-group">
+                    <label>Duración del Ciclo de Ventas (días) <span class="hint">· tiempo para vender el lote</span></label>
+                    <input type="number" id="diasCiclo" value="7" step="1" min="1" />
+                </div>
+                <div class="input-group">
+                    <label>Unidades por Ciclo de Compra <span class="hint">· tamaño del lote que comprás</span></label>
+                    <input type="number" id="unidadesCiclo" value="10" step="1" min="1" />
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- RESULTADOS -->
+        <div class="flex-row">
+            <span class="badge">📈 <strong>Métricas financieras y de tiempo</strong> · actualización automática</span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div id="errorMsg" style="display:none; background:var(--color-danger-bg); color:var(--color-danger-dark); padding:12px 20px; border-radius:16px; margin-bottom:15px; font-weight:600; border:1px solid var(--color-danger-border);">
+            ⚠️ <span id="errorText"></span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-top:10px;">
+            <div class="result-card info">
+                <div class="label">Margen de Contribución</div>
+                <div class="value" id="mcDisplay">$ 2.500</div>
+                <div class="sub" id="mcPctDisplay">31,3% sobre ventas</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">Punto de Equilibrio (unid.)</div>
+                <div class="value" id="bepUnidades">2</div>
+                <div class="sub">unidades necesarias</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">Punto de Equilibrio ($)</div>
+                <div class="value" id="bepIngresos">$ 16.000</div>
+                <div class="sub">facturación mínima</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">Unidades para Objetivo</div>
+                <div class="value" id="objUnidades">102</div>
+                <div class="sub" id="objSub">para ganar $250.000</div>
+            </div>
+
+            <div class="result-card positive" style="grid-column: span 2;">
+                <div class="label">Ganancia / Pérdida Estimada (actual)</div>
+                <div class="value" id="gananciaDisplay">$ 20.000</div>
+                <div class="sub" id="gananciaSub">con 10 unidades vendidas</div>
+            </div>
+            <div class="result-card info" style="grid-column: span 2;">
+                <div class="label">Margen de Seguridad</div>
+                <div class="value" id="seguridadDisplay">80,0%</div>
+                <div class="sub" id="seguridadSub">caída en ventas antes de pérdidas</div>
+            </div>
+
+            <div class="result-card info" style="grid-column: span 1;">
+                <div class="label">Beneficio Neto por Ciclo</div>
+                <div class="value" id="beneficioCiclo">$ 23.833</div>
+                <div class="sub" id="beneficioCicloSub">restando CF proporcionales</div>
+            </div>
+            <div class="result-card info" style="grid-column: span 1;">
+                <div class="label">Margen por Ciclo (bruto)</div>
+                <div class="value" id="margenCiclo">$ 25.000</div>
+                <div class="sub">CM × unidades por ciclo</div>
+            </div>
+            <div class="result-card warning" style="grid-column: span 2;">
+                <div class="label">Ciclos Necesarios para la Meta</div>
+                <div class="value" id="ciclosNecesarios">10,5</div>
+                <div class="sub" id="ciclosSub">≈ 11 ciclos de compra/venta</div>
+            </div>
+            <div class="result-card positive" style="grid-column: span 2;">
+                <div class="label">⏱️ Tiempo Estimado para Alcanzar la Meta</div>
+                <div class="value" id="tiempoMeta">73 días</div>
+                <div class="sub" id="tiempoMetaSub">≈ 2,4 meses (10,5 ciclos × 7 días)</div>
+            </div>
+        </div>
+
+        <!-- GRÁFICO -->
+        <div class="chart-container tall">
+            <canvas id="equilibrioChart"></canvas>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Punto de Equilibrio</strong> = CF / (P - CV) &nbsp;|&nbsp; <strong>Beneficio por ciclo</strong> = (CM × UnidCiclo) − (CF × díasCiclo/30)</span>
+            <span>🔄 Actualizá cualquier valor para ver el cambio en tiempo real.</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        (function() {
+            const precio = document.getElementById('precio');
+            const cv = document.getElementById('costoVariable');
+            const cf = document.getElementById('costosFijos');
+            const vol = document.getElementById('volumenVentas');
+            const obj = document.getElementById('objetivoGanancia');
+            const dias = document.getElementById('diasCiclo');
+            const unidCiclo = document.getElementById('unidadesCiclo');
+
+            const mcDisplay = document.getElementById('mcDisplay');
+            const mcPctDisplay = document.getElementById('mcPctDisplay');
+            const bepUnidades = document.getElementById('bepUnidades');
+            const bepIngresos = document.getElementById('bepIngresos');
+            const objUnidades = document.getElementById('objUnidades');
+            const objSub = document.getElementById('objSub');
+            const gananciaDisplay = document.getElementById('gananciaDisplay');
+            const gananciaSub = document.getElementById('gananciaSub');
+            const seguridadDisplay = document.getElementById('seguridadDisplay');
+            const seguridadSub = document.getElementById('seguridadSub');
+            const beneficioCiclo = document.getElementById('beneficioCiclo');
+            const beneficioCicloSub = document.getElementById('beneficioCicloSub');
+            const margenCiclo = document.getElementById('margenCiclo');
+            const ciclosNecesarios = document.getElementById('ciclosNecesarios');
+            const ciclosSub = document.getElementById('ciclosSub');
+            const tiempoMeta = document.getElementById('tiempoMeta');
+            const tiempoMetaSub = document.getElementById('tiempoMetaSub');
+            const errorMsg = document.getElementById('errorMsg');
+            const errorText = document.getElementById('errorText');
+
+            const ctx = document.getElementById('equilibrioChart').getContext('2d');
+            let myChart = null;
+
+            function calcular() {
+                const P = parseFloat(precio.value) || 0;
+                const CV = parseFloat(cv.value) || 0;
+                const CF = parseFloat(cf.value) || 0;
+                const Vol = parseFloat(vol.value) || 0;
+                const Obj = parseFloat(obj.value) || 0;
+                const Dias = parseFloat(dias.value) || 1;
+                const UnidCiclo = parseFloat(unidCiclo.value) || 1;
+
+                const CM = P - CV;
+                const esValido = (CM > 0) && (P > 0);
+
+                if (!esValido) {
+                    errorMsg.style.display = 'block';
+                    if (CM <= 0) errorText.textContent = 'El precio es menor o igual al costo variable. Margen de contribución no positivo.';
+                    else errorText.textContent = 'Ingresá valores válidos.';
+                    [mcDisplay, mcPctDisplay, bepUnidades, bepIngresos, objUnidades, objSub,
+                     gananciaDisplay, gananciaSub, seguridadDisplay, seguridadSub,
+                     beneficioCiclo, beneficioCicloSub, margenCiclo,
+                     ciclosNecesarios, ciclosSub, tiempoMeta, tiempoMetaSub].forEach(el => el.textContent = '--');
+                    if (myChart) { myChart.destroy(); myChart = null; }
+                    return;
+                } else {
+                    errorMsg.style.display = 'none';
+                }
+
+                const BEP_und = CF / CM;
+                const BEP_ing = BEP_und * P;
+                const Obj_und = (CF + Obj) / CM;
+                const Ganancia_est = (Vol * CM) - CF;
+                const Seguridad = (Vol > 0) ? ((Vol - BEP_und) / Vol) * 100 : 0;
+
+                const CF_prop = CF * (Dias / 30);
+                const MargenBrutoCiclo = UnidCiclo * CM;
+                const BeneficioNetoCiclo = MargenBrutoCiclo - CF_prop;
+
+                let ciclos = 0;
+                if (BeneficioNetoCiclo > 0) ciclos = Obj / BeneficioNetoCiclo;
+                else if (Obj === 0) ciclos = 0;
+                else ciclos = Infinity;
+
+                const diasNecesarios = ciclos * Dias;
+                const meses = diasNecesarios / 30;
+
+                mcDisplay.textContent = ENUMAPP_FMT.money(CM);
+                mcPctDisplay.textContent = ((CM / P) * 100).toFixed(1) + '% sobre ventas';
+                bepUnidades.textContent = ENUMAPP_FMT.number(BEP_und);
+                bepIngresos.textContent = ENUMAPP_FMT.money(BEP_ing);
+
+                if (Obj > 0) {
+                    objUnidades.textContent = ENUMAPP_FMT.number(Obj_und);
+                    objSub.textContent = 'para ganar ' + ENUMAPP_FMT.money(Obj);
+                } else {
+                    objUnidades.textContent = '—';
+                    objSub.textContent = 'Sin objetivo definido';
+                }
+
+                gananciaDisplay.textContent = ENUMAPP_FMT.money(Ganancia_est);
+                gananciaSub.textContent = `con ${ENUMAPP_FMT.number(Vol)} unidades vendidas`;
+                const gCard = gananciaDisplay.closest('.result-card');
+                gCard.className = 'result-card ' + (Ganancia_est >= 0 ? 'positive' : 'danger');
+                gCard.style.gridColumn = 'span 2';
+
+                if (Vol > 0) {
+                    seguridadDisplay.textContent = ENUMAPP_FMT.percent(Seguridad);
+                    seguridadSub.textContent = (Seguridad >= 0) ? 'caída en ventas antes de pérdidas' : '⚠️ por debajo del equilibrio';
+                } else {
+                    seguridadDisplay.textContent = '—';
+                    seguridadSub.textContent = 'sin volumen estimado';
+                }
+
+                margenCiclo.textContent = ENUMAPP_FMT.money(MargenBrutoCiclo);
+                beneficioCiclo.textContent = (BeneficioNetoCiclo > 0) ? ENUMAPP_FMT.money(BeneficioNetoCiclo) : '—';
+                beneficioCicloSub.textContent = (BeneficioNetoCiclo > 0) ?
+                    `restando CF proporcionales (${ENUMAPP_FMT.money(CF_prop)})` :
+                    'costo fijo supera el margen bruto';
+
+                if (Obj === 0) {
+                    ciclosNecesarios.textContent = '0';
+                    ciclosSub.textContent = 'Sin objetivo';
+                } else if (!isFinite(ciclos) || BeneficioNetoCiclo <= 0) {
+                    ciclosNecesarios.textContent = '∞';
+                    ciclosSub.textContent = 'Nunca se alcanza (pérdida por ciclo)';
+                } else {
+                    ciclosNecesarios.textContent = ciclos.toFixed(1);
+                    ciclosSub.textContent = `≈ ${Math.ceil(ciclos)} ciclos de compra/venta`;
+                }
+
+                if (Obj === 0) {
+                    tiempoMeta.textContent = '0 días';
+                    tiempoMetaSub.textContent = 'Sin objetivo';
+                } else if (!isFinite(ciclos) || BeneficioNetoCiclo <= 0) {
+                    tiempoMeta.textContent = '∞';
+                    tiempoMetaSub.textContent = 'Nunca se alcanza';
+                } else {
+                    tiempoMeta.textContent = `${Math.round(diasNecesarios)} días`;
+                    tiempoMetaSub.textContent = `≈ ${meses.toFixed(1)} meses (${Math.ceil(ciclos)} ciclos × ${Dias} días)`;
+                }
+
+                // Gráfico
+                const maxX = Math.max(BEP_und * 1.8, Vol * 1.5, Obj_und * 1.2, 10);
+                const step = Math.max(1, Math.round(maxX / 20));
+                const labels = [];
+                const revenueData = [];
+                const costData = [];
+                const fixedData = [];
+
+                for (let i = 0; i <= maxX + step; i += step) {
+                    labels.push(Math.round(i));
+                    revenueData.push(i * P);
+                    costData.push(CF + (i * CV));
+                    fixedData.push(CF);
+                }
+
+                const bepPoint = { x: BEP_und, y: BEP_ing };
+                const objPoint = (Obj > 0) ? { x: Obj_und, y: Obj_und * P } : null;
+                const volPoint = (Vol > 0) ? { x: Vol, y: Vol * P } : null;
+
+                if (myChart) myChart.destroy();
+
+                const datasets = [{
+                    label: 'Ingresos Totales',
+                    data: revenueData,
+                    borderColor: '#2b7be4',
+                    backgroundColor: 'rgba(43,123,228,0.05)',
+                    borderWidth: 3, pointRadius: 0, tension: 0.1, fill: false,
+                }, {
+                    label: 'Costos Totales',
+                    data: costData,
+                    borderColor: '#e67e22',
+                    backgroundColor: 'rgba(230,126,34,0.05)',
+                    borderWidth: 3, pointRadius: 0, tension: 0.1, fill: false,
+                }, {
+                    label: 'Costos Fijos',
+                    data: fixedData,
+                    borderColor: '#7f8c8d',
+                    borderDash: [6, 4],
+                    borderWidth: 2, pointRadius: 0, fill: false,
+                }, {
+                    label: 'Punto de Equilibrio',
+                    data: [bepPoint],
+                    backgroundColor: '#e74c3c',
+                    borderColor: '#e74c3c',
+                    pointRadius: 10, pointStyle: 'circle', showLine: false, borderWidth: 2,
+                }];
+
+                if (objPoint) {
+                    datasets.push({
+                        label: 'Objetivo de Ganancia',
+                        data: [objPoint],
+                        backgroundColor: '#2b7be4',
+                        borderColor: '#2b7be4',
+                        pointRadius: 8, pointStyle: 'triangle', showLine: false, borderWidth: 2,
+                    });
+                }
+                if (volPoint) {
+                    datasets.push({
+                        label: 'Volumen Actual',
+                        data: [volPoint],
+                        backgroundColor: '#27ae60',
+                        borderColor: '#27ae60',
+                        pointRadius: 8, pointStyle: 'rectRot', showLine: false, borderWidth: 2,
+                    });
+                }
+
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels, datasets },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { boxWidth: 15, padding: 15, font: { size: 12, weight: '600' }, color: '#0a2540' }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.dataset.label || '';
+                                        if (context.datasetIndex >= 3) {
+                                            return `${label}: ${ENUMAPP_FMT.money(context.parsed.y)} (${ENUMAPP_FMT.number(context.parsed.x)} unid.)`;
+                                        }
+                                        return `${label}: ${ENUMAPP_FMT.money(context.parsed.y)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: { display: true, text: 'Unidades Vendidas', color: '#0a2540', font: { weight: 'bold' } },
+                                grid: { color: 'rgba(0,0,0,0.05)' },
+                                ticks: { color: '#5b6f82' }
+                            },
+                            y: {
+                                title: { display: true, text: 'Pesos ($)', color: '#0a2540', font: { weight: 'bold' } },
+                                grid: { color: 'rgba(0,0,0,0.05)' },
+                                ticks: { color: '#5b6f82', callback: ENUMAPP_UI.axisMoney }
+                            }
+                        },
+                        interaction: { intersect: false, mode: 'index' }
+                    },
+                    plugins: [{
+                        id: 'customLines',
+                        afterDraw: function(chart) {
+                            const yScale = chart.scales.y;
+                            const xScale = chart.scales.x;
+                            const ctx2 = chart.ctx;
+                            const xBEP = xScale.getPixelForValue(BEP_und);
+                            const yBEP = yScale.getPixelForValue(BEP_ing);
+                            if (xBEP >= 0 && xBEP <= chart.width && yBEP >= 0 && yBEP <= chart.height) {
+                                ctx2.save();
+                                ctx2.setLineDash([4, 4]);
+                                ctx2.strokeStyle = '#e74c3c';
+                                ctx2.lineWidth = 1.5;
+                                ctx2.beginPath();
+                                ctx2.moveTo(xBEP, yBEP);
+                                ctx2.lineTo(xBEP, yScale.getPixelForValue(0));
+                                ctx2.stroke();
+                                ctx2.beginPath();
+                                ctx2.moveTo(xBEP, yBEP);
+                                ctx2.lineTo(xScale.getPixelForValue(0), yBEP);
+                                ctx2.stroke();
+                                ctx2.restore();
+                                ctx2.save();
+                                ctx2.fillStyle = '#e74c3c';
+                                ctx2.font = 'bold 11px Segoe UI, sans-serif';
+                                ctx2.fillText(`BEP: ${ENUMAPP_FMT.number(BEP_und)} unid.`, xBEP + 8, yBEP - 5);
+                                ctx2.restore();
+                            }
+                        }
+                    }]
+                });
+            }
+
+            const inputs = [precio, cv, cf, vol, obj, dias, unidCiclo];
+            inputs.forEach(inp => {
+                inp.addEventListener('input', calcular);
+                inp.addEventListener('change', calcular);
+            });
+
+            calcular();
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        })();
+    </script>
+
+</body>
+</html>

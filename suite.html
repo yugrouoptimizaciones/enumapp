@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suite · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Suite de herramientas ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="public-page">
+
+    <!-- HEADER PÚBLICO -->
+    <header class="public-header">
+        <a href="suite.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="40" height="40">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="logo-text">
+                <span class="brand">ENUMAPP</span>
+                <span class="tagline">Suite de herramientas</span>
+            </div>
+        </a>
+        <nav class="header-nav">
+            <a href="contacto.html" class="header-link">💬 Contacto</a>
+            <a href="premium-proximamente.html" class="premium-status-badge" id="premiumBadge">⭐ Activar Premium</a>
+            <button onclick="cerrarSesion(event)" class="header-link" id="userInfo" style="background:transparent; border:none; cursor:pointer; font-family:inherit;">👤 Usuario</button>
+        </nav>
+    </header>
+
+    <!-- HERO HUB -->
+    <section style="max-width:1300px; margin:0 auto; padding:40px 40px 20px; text-align:center;">
+        <h1 style="font-size:38px; font-weight:800; color:var(--color-text); margin-bottom:12px; display:block; border:none; padding:0;">Bienvenido a tu <span style="color:var(--color-primary);">Suite ENUMAPP</span></h1>
+        <p style="font-size:17px; color:var(--color-text-muted); max-width:700px; margin:0 auto 24px; line-height:1.6;">17 herramientas listas para usar. Elegí por dónde empezar.</p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:20px;">
+            <span style="background:var(--color-info-bg); color:var(--color-info-dark); padding:8px 18px; border-radius:40px; font-size:14px; font-weight:600;">🛠️ 17 herramientas</span>
+            <span style="background:var(--color-success-bg); color:var(--color-success-dark); padding:8px 18px; border-radius:40px; font-size:14px; font-weight:600;">🎯 4 módulos</span>
+            <span style="background:var(--color-warning-bg); color:var(--color-warning-dark); padding:8px 18px; border-radius:40px; font-size:14px; font-weight:600;">📊 Todas listas para usar</span>
+        </div>
+    </section>
+
+    <!-- FILTROS -->
+    <div style="max-width:1300px; margin:0 auto; padding:0 40px;">
+        <div class="filter-bar">
+            <input type="text" id="buscarTool" placeholder="🔍 Buscar herramienta..." oninput="renderizarHerramientas()" />
+            <select id="filtroModulo" onchange="renderizarHerramientas()">
+                <option value="todos">Todos los módulos</option>
+                <option value="Estrategia">🎯 Estrategia</option>
+                <option value="Finanzas">💰 Finanzas</option>
+                <option value="Operaciones">⚙️ Operaciones</option>
+                <option value="Administración">🧾 Administración</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- TOOLS GRID -->
+    <div style="max-width:1300px; margin:0 auto; padding:0 40px 60px;" id="toolsGrid"></div>
+
+    <footer class="enumapp-footer" style="max-width:1300px; margin:20px auto 0;">
+        <div class="footer-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+            </svg>
+            <strong>ENUMAPP</strong>
+        </div>
+        <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+        <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+        <div class="footer-links">
+            <a href="suite.html">Inicio</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="premium-proximamente.html">Activar Premium</a>
+            <a href="terminos.html">Términos y Condiciones</a>
+            <a href="privacidad.html">Política de Privacidad</a>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        // ===== CATÁLOGO DE HERRAMIENTAS =====
+        const HERRAMIENTAS = [
+            // Estrategia
+            { icono: '🧭', nombre: 'Test de Ajuste de Mercado', cat: 'Estrategia', desc: 'Autoempleo vs escalable.', url: 'test-ajuste-mercado.html', manual: 'manual-test-ajuste-mercado.html' },
+            { icono: '🎯', nombre: 'Matriz de Propuesta de Valor', cat: 'Estrategia', desc: '6 dimensiones para validar tu producto.', url: 'matriz-propuesta-valor.html', manual: 'manual-matriz-propuesta-valor.html' },
+            { icono: '🤝', nombre: 'Matriz de Delegación', cat: 'Estrategia', desc: 'Decidí qué delegar en 4 cuadrantes.', url: 'matriz-delegacion-tareas.html', manual: 'manual-matriz-delegacion.html' },
+            { icono: '🎯', nombre: 'OKR Tracker', cat: 'Estrategia', desc: 'Objetivos trimestrales con Key Results.', url: 'okr-tracker.html', manual: 'manual-okr-tracker.html' },
+            // Finanzas
+            { icono: '📊', nombre: 'Panel de KPIs', cat: 'Finanzas', desc: '5 KPIs semanales con semáforos.', url: 'panel-kpis.html', manual: 'manual-panel-kpis.html' },
+            { icono: '💵', nombre: 'Simulador de Cashflow', cat: 'Finanzas', desc: 'Proyección mes a mes.', url: 'simulador-cashflow.html', manual: 'manual-simulador-cashflow.html' },
+            { icono: '⚖️', nombre: 'Punto de Equilibrio', cat: 'Finanzas', desc: 'BEP y ciclos de inventario.', url: 'simulador-equilibrio.html', manual: 'manual-simulador-equilibrio.html' },
+            { icono: '📈', nombre: 'Rentabilidad por Producto', cat: 'Finanzas', desc: 'Márgenes bruto, neto y BEP.', url: 'calculadora-rentabilidad-producto.html', manual: 'manual-calculadora-rentabilidad-producto.html' },
+            { icono: '💰', nombre: 'Fijador de Precios', cat: 'Finanzas', desc: 'Ajuste mensual vs inflación.', url: 'fijador-precios-antiinflacion.html', manual: 'manual-fijador-precios-antiinflacion.html' },
+            { icono: '📅', nombre: 'Análisis de Estacionalidad', cat: 'Finanzas', desc: 'Meses fuertes y débiles.', url: 'analisis-estacionalidad.html', manual: 'manual-analisis-estacionalidad.html' },
+            // Operaciones
+            { icono: '📋', nombre: 'Tablero Kanban', cat: 'Operaciones', desc: 'Tareas con drag & drop.', url: 'tablero-kanban-operaciones.html', manual: 'manual-tablero-kanban.html' },
+            { icono: '📖', nombre: 'Constructor de SOPs', cat: 'Operaciones', desc: 'Manuales de procesos.', url: 'constructor-sops.html', manual: 'manual-constructor-sops.html' },
+            { icono: '📦', nombre: 'Gestión de Inventario', cat: 'Operaciones', desc: 'Punto de pedido y EOQ.', url: 'gestion-inventario.html', manual: 'manual-gestion-inventario.html' },
+            { icono: '🏢', nombre: 'Gestor de Proveedores', cat: 'Operaciones', desc: 'Comparativa ponderada.', url: 'gestor-proveedores.html', manual: 'manual-gestor-proveedores.html' },
+            { icono: '🔍', nombre: 'Análisis de Causa Raíz', cat: 'Operaciones', desc: 'Los 5 Porqués de Lean.', url: 'cinco_porques.html', manual: 'manual-cinco-porques.html' },
+            // Administración
+            { icono: '💰', nombre: 'Planificación Fiscal', cat: 'Administración', desc: 'Monotributo vs RI.', url: 'asistente-planificacion-fiscal.html', manual: 'manual-asistente-planificacion-fiscal.html' },
+            { icono: '📦', nombre: 'Calculadora de Importación', cat: 'Administración', desc: 'Costo real + aranceles.', url: 'calculadora-importacion.html', manual: 'manual-calculadora-importacion.html' }
+        ];
+
+        // ===== RENDERIZAR GRID =====
+        function renderizarHerramientas() {
+            const buscar = document.getElementById('buscarTool').value.toLowerCase().trim();
+            const filtro = document.getElementById('filtroModulo').value;
+
+            let filtradas = HERRAMIENTAS;
+            if (buscar) {
+                filtradas = filtradas.filter(h =>
+                    h.nombre.toLowerCase().includes(buscar) ||
+                    h.desc.toLowerCase().includes(buscar) ||
+                    h.cat.toLowerCase().includes(buscar)
+                );
+            }
+            if (filtro !== 'todos') filtradas = filtradas.filter(h => h.cat === filtro);
+
+            const grid = document.getElementById('toolsGrid');
+
+            if (filtradas.length === 0) {
+                grid.innerHTML = `<div class="empty-state">
+                    <span class="icon">🔍</span>
+                    <div class="title">Sin resultados</div>
+                    <div class="desc">Probá con otro término de búsqueda o quitá los filtros.</div>
+                </div>`;
+                return;
+            }
+
+            // Agrupar por categoría si no hay filtro de módulo específico
+            const mostrarAgrupado = (filtro === 'todos' && !buscar);
+
+            if (mostrarAgrupado) {
+                const categorias = ['Estrategia', 'Finanzas', 'Operaciones', 'Administración'];
+                let html = '';
+                categorias.forEach(cat => {
+                    const tools = filtradas.filter(h => h.cat === cat);
+                    if (tools.length === 0) return;
+                    const iconoCat = tools[0].icono;
+                    html += `<h2 style="font-size:22px; font-weight:700; color:var(--color-text); margin:30px 0 16px; display:flex; align-items:center; gap:10px; border:none; padding:0;">
+                        ${getIconoModulo(cat)} ${cat}
+                        <span style="font-size:14px; font-weight:400; color:var(--color-text-muted);">(${tools.length} herramientas)</span>
+                    </h2>`;
+                    html += `<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px;">`;
+                    tools.forEach(h => {
+                        html += renderizarCard(h);
+                    });
+                    html += `</div>`;
+                });
+                grid.innerHTML = html;
+            } else {
+                let html = `<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px;">`;
+                filtradas.forEach(h => {
+                    html += renderizarCard(h);
+                });
+                html += `</div>`;
+                grid.innerHTML = html;
+            }
+        }
+
+        function getIconoModulo(cat) {
+            const iconos = {
+                'Estrategia': '🎯',
+                'Finanzas': '💰',
+                'Operaciones': '⚙️',
+                'Administración': '🧾'
+            };
+            return iconos[cat] || '📦';
+        }
+
+        function renderizarCard(h) {
+            return `<div class="module-card" style="position:relative;">
+                <span class="mod-icon">${h.icono}</span>
+                <h3>${h.nombre}</h3>
+                <p style="font-size:13px; color:var(--color-primary); font-weight:600; margin-bottom:8px;">${h.cat}</p>
+                <p style="margin-bottom:16px;">${h.desc}</p>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <a href="${h.url}" class="btn-primary btn-small" style="text-decoration:none; display:inline-flex;">🚀 Abrir</a>
+                    <a href="${h.manual}" class="btn-secondary btn-small" style="text-decoration:none; display:inline-flex; background:#6c7a7a;">📖 Manual</a>
+                </div>
+            </div>`;
+        }
+
+        // ===== CERRAR SESIÓN (con ENUMAPP_AUTH) =====
+        function cerrarSesion(e) {
+            if (e) e.preventDefault();
+            if (!ENUMAPP_UI.confirm('¿Cerrar sesión? Se borrará tu registro (los datos de las herramientas se conservan).')) return;
+            ENUMAPP_AUTH.cerrarSesion();
+        }
+
+        // ===== VERIFICAR REGISTRO =====
+        const registro = ENUMAPP_AUTH.getUsuario();
+        if (registro) {
+            document.getElementById('userInfo').textContent = '👤 ' + (registro.nombre || 'Usuario');
+        } else {
+            // No registrado: redirigir a index
+            window.location.href = 'index.html';
+        }
+
+        // ===== BADGE PREMIUM =====
+        if (ENUMAPP_AUTH.isPremium()) {
+            const badge = document.getElementById('premiumBadge');
+            badge.className = 'premium-status-badge premium';
+            badge.innerHTML = '⭐ PREMIUM';
+            badge.href = 'suite.html';
+        }
+
+        // ===== INIT =====
+        renderizarHerramientas();
+
+        console.log('🏠 ENUMAPP · Suite cargada');
+    </script>
+
+</body>
+</html>

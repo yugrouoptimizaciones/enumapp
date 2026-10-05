@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Unificado · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Dashboard Unificado de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container" style="max-width:1300px;">
+
+        <div class="print-header">
+            <h2>📊 ENUMAPP · DASHBOARD UNIFICADO</h2>
+            <p>Todas las herramientas y métricas en un solo lugar</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📊 Dashboard Unificado
+                    <small>· Todas las herramientas y métricas</small>
+                </h1>
+            </div>
+            <button onclick="window.print()" class="btn-pdf no-print" style="padding:10px 24px; font-size:14px;">📄 Generar Informe PDF</button>
+        </header>
+
+        <div class="subtitle">
+            Vista completa de todas las herramientas, kits y dashboards. Los dashboards muestran métricas en tiempo real.
+        </div>
+
+        <!-- ===== TABS ===== -->
+        <div class="tabs-nav no-print">
+            <button class="tab-btn active" onclick="cambiarTab('inicio', event)">🏠 Inicio <span class="tab-count">4</span></button>
+            <button class="tab-btn" onclick="cambiarTab('herramientas', event)">🛠️ Herramientas <span class="tab-count">17</span></button>
+            <button class="tab-btn" onclick="cambiarTab('kits', event)">📦 Kits y Contenido <span class="tab-count">8</span></button>
+            <button class="tab-btn" onclick="cambiarTab('metricas', event)">📊 Métricas Integradas <span class="tab-count">3</span></button>
+            <button class="tab-btn" onclick="cambiarTab('todo', event)">📋 Todo</button>
+        </div>
+
+        <!-- ============ TAB INICIO ============ -->
+        <div class="tab-content active" id="tab-inicio">
+            <h2>🎯 Resumen Ejecutivo</h2>
+            <p style="color:var(--color-text-secondary); margin-bottom:16px;">Estado actual del ecosistema ENUMAPP.</p>
+
+            <div class="ukpi-grid">
+                <div class="ukpi-card">
+                    <span class="ukpi-icon">🛠️</span>
+                    <div class="ukpi-value">17</div>
+                    <div class="ukpi-label">Herramientas</div>
+                    <div class="ukpi-source">6 módulos</div>
+                </div>
+                <div class="ukpi-card green">
+                    <span class="ukpi-icon">📦</span>
+                    <div class="ukpi-value">8</div>
+                    <div class="ukpi-label">Kits y recursos</div>
+                    <div class="ukpi-source">contenido listo</div>
+                </div>
+                <div class="ukpi-card orange">
+                    <span class="ukpi-icon">📺</span>
+                    <div class="ukpi-value" id="kpiYtVideos">0</div>
+                    <div class="ukpi-label">Videos cargados</div>
+                    <div class="ukpi-source">dashboard YouTube</div>
+                </div>
+                <div class="ukpi-card purple">
+                    <span class="ukpi-icon">📧</span>
+                    <div class="ukpi-value" id="kpiEmailsCargados">0</div>
+                    <div class="ukpi-label">Emails</div>
+                    <div class="ukpi-source">secuencia post-registro</div>
+                </div>
+                <div class="ukpi-card red">
+                    <span class="ukpi-icon">📬</span>
+                    <div class="ukpi-value" id="kpiTotalEnviados">0</div>
+                    <div class="ukpi-label">Emails enviados</div>
+                    <div class="ukpi-source">acumulado</div>
+                </div>
+                <div class="ukpi-card">
+                    <span class="ukpi-icon">👁️</span>
+                    <div class="ukpi-value" id="kpiTotalVistas">0</div>
+                    <div class="ukpi-label">Vistas YouTube</div>
+                    <div class="ukpi-source">acumulado</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo usar este dashboard</span>
+                <strong>1.</strong> Andá a "Métricas Integradas" para ver YouTube y Email.<br>
+                <strong>2.</strong> En "Herramientas" y "Kits" tenés acceso directo a cada recurso.<br>
+                <strong>3.</strong> Generá un PDF para compartir con tu equipo.</p>
+            </div>
+
+            <h3>🚀 Accesos rápidos</h3>
+            <div class="product-grid">
+                <a href="suite.html" style="text-decoration:none; color:inherit;" class="product-card">
+                    <div class="nombre">🏠 Ir a la Suite</div>
+                    <div class="detalle">Accedé a las 19 herramientas desde el índice principal.</div>
+                </a>
+                <a href="dashboard-youtube.html" style="text-decoration:none; color:inherit;" class="product-card">
+                    <div class="nombre">📺 Dashboard YouTube</div>
+                    <div class="detalle">Métricas de tus videos: vistas, retención, CTR, suscriptores.</div>
+                </a>
+                <a href="dashboard-email.html" style="text-decoration:none; color:inherit;" class="product-card">
+                    <div class="nombre">📧 Dashboard Email</div>
+                    <div class="detalle">Apertura, CTR y conversión de tu secuencia post-registro.</div>
+                </a>
+                <a href="kit-redes-sociales.html" style="text-decoration:none; color:inherit;" class="product-card">
+                    <div class="nombre">📱 Kit de Redes Sociales</div>
+                    <div class="detalle">30+ piezas listas: posts, bios, plantillas, reels.</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ============ TAB HERRAMIENTAS ============ -->
+        <div class="tab-content" id="tab-herramientas">
+            <h2>🛠️ Herramientas por Módulo</h2>
+            <p style="color:var(--color-text-secondary); margin-bottom:16px;">16 herramientas organizadas en 6 módulos.</p>
+
+            <h3>🎯 Módulo 1 · Estrategia</h3>
+            <div class="product-grid">
+                <a href="test-ajuste-mercado.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🧭 Test de Ajuste de Mercado</div>
+                    <div class="detalle">Autoempleo vs. escalable en 10 preguntas.</div>
+                </a>
+                <a href="matriz-propuesta-valor.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🎯 Matriz de Propuesta de Valor</div>
+                    <div class="detalle">6 dimensiones para validar tu producto.</div>
+                </a>
+                <a href="matriz-delegacion-tareas.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🤝 Matriz de Delegación</div>
+                    <div class="detalle">4 cuadrantes para decidir qué delegar.</div>
+                </a>
+                <a href="okr-tracker.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🎯 OKR Tracker</div>
+                    <div class="detalle">Objetivos trimestrales con Key Results.</div>
+                </a>
+            </div>
+
+            <h3>💰 Módulo 2 · Finanzas</h3>
+            <div class="product-grid">
+                <a href="panel-kpis.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📊 Panel de KPIs</div>
+                    <div class="detalle">5 KPIs semanales con semáforos.</div>
+                </a>
+                <a href="simulador-cashflow.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">💵 Simulador de Cashflow</div>
+                    <div class="detalle">Proyección de saldo mes a mes.</div>
+                </a>
+                <a href="simulador-equilibrio.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">⚖️ Punto de Equilibrio</div>
+                    <div class="detalle">Ciclo de inventario y tiempo a la meta.</div>
+                </a>
+                <a href="calculadora-rentabilidad-producto.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📈 Rentabilidad por Producto</div>
+                    <div class="detalle">Margen bruto, neto y BEP.</div>
+                </a>
+                <a href="fijador-precios-antiinflacion.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">💰 Fijador de Precios</div>
+                    <div class="detalle">Ajuste mensual vs inflación.</div>
+                </a>
+                <a href="analisis-estacionalidad.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📅 Análisis de Estacionalidad</div>
+                    <div class="detalle">Meses fuertes y débiles con índices.</div>
+                </a>
+            </div>
+
+            <h3>⚙️ Módulo 3 · Operaciones</h3>
+            <div class="product-grid">
+                <a href="tablero-kanban-operaciones.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📋 Tablero Kanban</div>
+                    <div class="detalle">Gestión visual con drag & drop.</div>
+                </a>
+                <a href="constructor-sops.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📖 Constructor de SOPs</div>
+                    <div class="detalle">Manuales paso a paso.</div>
+                </a>
+                <a href="gestion-inventario.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📦 Gestión de Inventario</div>
+                    <div class="detalle">Punto de pedido, EOQ y proyección.</div>
+                </a>
+                <a href="gestor-proveedores.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🏢 Gestor de Proveedores</div>
+                    <div class="detalle">Comparativa con puntaje ponderado.</div>
+                </a>
+                <a href="cinco_porques.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🔍 Análisis de Causa Raíz</div>
+                    <div class="detalle">Los 5 Porqués de Lean.</div>
+                </a>
+            </div>
+
+            <h3>🧾 Módulo 4 · Administración</h3>
+            <div class="product-grid">
+                <a href="asistente-planificacion-fiscal.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">💰 Planificación Fiscal</div>
+                    <div class="detalle">Monotributo vs Responsable Inscripto.</div>
+                </a>
+                <a href="calculadora-importacion.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📦 Calculadora de Importación</div>
+                    <div class="detalle">Costo real con aranceles y brecha.</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ============ TAB KITS ============ -->
+        <div class="tab-content" id="tab-kits">
+            <h2>📦 Kits y Recursos de Contenido</h2>
+            <p style="color:var(--color-text-secondary); margin-bottom:16px;">Todo el contenido listo para publicar y promocionar.</p>
+
+            <div class="product-grid">
+                <a href="kit-redes-sociales.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📱 Kit de Redes Sociales</div>
+                    <div class="detalle">30+ piezas: posts, bios, reels.</div>
+                </a>
+                <a href="banners-portadas.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🎨 Banners y Portadas</div>
+                    <div class="detalle">12 piezas con medidas exactas.</div>
+                </a>
+                <a href="kit-shorts.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🎬 Kit Completo de Shorts</div>
+                    <div class="detalle">40+ guiones de 30-60 segundos.</div>
+                </a>
+                <a href="guiones-youtube.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🎥 Guiones para YouTube</div>
+                    <div class="detalle">19 guiones de tutoriales.</div>
+                </a>
+                <a href="calendario-youtube.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📅 Calendario YouTube</div>
+                    <div class="detalle">Estrategia de 4 meses con 17 videos.</div>
+                </a>
+                <a href="guion-onboarding-youtube.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">🎓 Guion de Onboarding</div>
+                    <div class="detalle">Video especial de 10 minutos.</div>
+                </a>
+                <a href="secuencia-emails-post-registro.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">📧 Secuencia de Emails</div>
+                    <div class="detalle">7 emails automatizados en 30 días.</div>
+                </a>
+                <a href="plantillas-html-emails.html" class="product-card" style="text-decoration:none; color:inherit;">
+                    <div class="nombre">💻 Plantillas HTML Emails</div>
+                    <div class="detalle">7 plantillas HTML responsive.</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ============ TAB MÉTRICAS ============ -->
+        <div class="tab-content" id="tab-metricas">
+            <h2>📊 Métricas Integradas</h2>
+            <p style="color:var(--color-text-secondary); margin-bottom:16px;">Datos consolidados de YouTube y Email desde los dashboards.</p>
+
+            <h3>📈 KPIs en vivo</h3>
+            <div class="ukpi-grid" id="kpisLive">
+                <div class="ukpi-card">
+                    <span class="ukpi-icon">📺</span>
+                    <div class="ukpi-value" id="liveYtVideos">0</div>
+                    <div class="ukpi-label">Videos cargados</div>
+                    <div class="ukpi-source">YouTube</div>
+                </div>
+                <div class="ukpi-card green">
+                    <span class="ukpi-icon">👁️</span>
+                    <div class="ukpi-value" id="liveYtVistas">0</div>
+                    <div class="ukpi-label">Vistas totales</div>
+                    <div class="ukpi-source">YouTube</div>
+                </div>
+                <div class="ukpi-card orange">
+                    <span class="ukpi-icon">👥</span>
+                    <div class="ukpi-value" id="liveYtSubs">0</div>
+                    <div class="ukpi-label">Suscriptores netos</div>
+                    <div class="ukpi-source">YouTube</div>
+                </div>
+                <div class="ukpi-card purple">
+                    <span class="ukpi-icon">🖱️</span>
+                    <div class="ukpi-value" id="liveYtCTR">0%</div>
+                    <div class="ukpi-label">CTR promedio</div>
+                    <div class="ukpi-source">YouTube</div>
+                </div>
+                <div class="ukpi-card red">
+                    <span class="ukpi-icon">📧</span>
+                    <div class="ukpi-value" id="liveEmails">0</div>
+                    <div class="ukpi-label">Emails cargados</div>
+                    <div class="ukpi-source">Email</div>
+                </div>
+                <div class="ukpi-card">
+                    <span class="ukpi-icon">📬</span>
+                    <div class="ukpi-value" id="liveEmailsEnviados">0</div>
+                    <div class="ukpi-label">Emails enviados</div>
+                    <div class="ukpi-source">Email</div>
+                </div>
+                <div class="ukpi-card green">
+                    <span class="ukpi-icon">👁️</span>
+                    <div class="ukpi-value" id="liveEmailApertura">0%</div>
+                    <div class="ukpi-label">Apertura promedio</div>
+                    <div class="ukpi-source">Email</div>
+                </div>
+                <div class="ukpi-card orange">
+                    <span class="ukpi-icon">🖱️</span>
+                    <div class="ukpi-value" id="liveEmailCTR">0%</div>
+                    <div class="ukpi-label">CTR promedio</div>
+                    <div class="ukpi-source">Email</div>
+                </div>
+            </div>
+
+            <div class="metric-section">
+                <div class="metric-header">
+                    <div class="metric-title">📺 <span>Dashboard YouTube</span></div>
+                    <a href="dashboard-youtube.html" class="metric-link no-print">📊 Abrir dashboard →</a>
+                </div>
+                <div class="metric-mini-grid" id="ytMetricsGrid"></div>
+                <div class="charts-grid" style="margin-top:20px;">
+                    <div class="chart-container medium">
+                        <div class="chart-title">📈 Evolución de vistas</div>
+                        <canvas id="unifiedYtVistas"></canvas>
+                    </div>
+                    <div class="chart-container medium">
+                        <div class="chart-title">📊 CTR y retención</div>
+                        <canvas id="unifiedYtCTR"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-section">
+                <div class="metric-header">
+                    <div class="metric-title">📧 <span>Dashboard Email Marketing</span></div>
+                    <a href="dashboard-email.html" class="metric-link no-print">📊 Abrir dashboard →</a>
+                </div>
+                <div class="metric-mini-grid" id="emailMetricsGrid"></div>
+                <div class="charts-grid" style="margin-top:20px;">
+                    <div class="chart-container medium">
+                        <div class="chart-title">📬 Apertura y CTR por email</div>
+                        <canvas id="unifiedEmailApertura"></canvas>
+                    </div>
+                    <div class="chart-container medium">
+                        <div class="chart-title">👥 Enviados y conversiones</div>
+                        <canvas id="unifiedEmailConv"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo se cargan los datos</span>
+                Este dashboard lee automáticamente el <strong>localStorage</strong> de YouTube y Email.</p>
+            </div>
+        </div>
+
+        <!-- ============ TAB TODO ============ -->
+        <div class="tab-content" id="tab-todo">
+            <h2>📋 Vista Completa</h2>
+            <p style="color:var(--color-text-secondary); margin-bottom:16px;">Todas las herramientas, kits y dashboards.</p>
+
+            <h3>🛠️ Herramientas (17)</h3>
+            <div class="product-grid">
+                <a href="test-ajuste-mercado.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🧭 Test de Ajuste</div><div class="detalle">Autoempleo vs escalable.</div></a>
+                <a href="matriz-propuesta-valor.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🎯 Propuesta de Valor</div><div class="detalle">6 dimensiones.</div></a>
+                <a href="matriz-delegacion-tareas.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🤝 Delegación</div><div class="detalle">4 cuadrantes.</div></a>
+                <a href="okr-tracker.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🎯 OKR Tracker</div><div class="detalle">Objetivos trimestrales.</div></a>
+                <a href="panel-kpis.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📊 Panel de KPIs</div><div class="detalle">5 indicadores.</div></a>
+                <a href="simulador-cashflow.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">💵 Cashflow</div><div class="detalle">Proyección mensual.</div></a>
+                <a href="simulador-equilibrio.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">⚖️ Equilibrio</div><div class="detalle">BEP y ciclos.</div></a>
+                <a href="calculadora-rentabilidad-producto.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📈 Rentabilidad</div><div class="detalle">Márgenes por producto.</div></a>
+                <a href="fijador-precios-antiinflacion.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">💰 Fijador de Precios</div><div class="detalle">Ajuste vs inflación.</div></a>
+                <a href="analisis-estacionalidad.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📅 Estacionalidad</div><div class="detalle">Meses fuertes/débiles.</div></a>
+                <a href="tablero-kanban-operaciones.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📋 Kanban</div><div class="detalle">Tareas con drag&drop.</div></a>
+                <a href="constructor-sops.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📖 SOPs</div><div class="detalle">Manuales de procesos.</div></a>
+                <a href="gestion-inventario.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📦 Inventario</div><div class="detalle">Stock y reposición.</div></a>
+                <a href="gestor-proveedores.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🏢 Proveedores</div><div class="detalle">Comparativa ponderada.</div></a>
+                <a href="cinco_porques.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🔍 5 Porqués</div><div class="detalle">Causa raíz Lean.</div></a>
+                <a href="asistente-planificacion-fiscal.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">💰 Fiscal</div><div class="detalle">Monotributo vs RI.</div></a>
+                <a href="calculadora-importacion.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📦 Importación</div><div class="detalle">Costo real + aranceles.</div></a>
+            </div>
+
+            <h3 style="margin-top:32px;">📦 Kits y Contenido (8)</h3>
+            <div class="product-grid">
+                <a href="kit-redes-sociales.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📱 Kit Redes</div><div class="detalle">30+ piezas.</div></a>
+                <a href="banners-portadas.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🎨 Banners</div><div class="detalle">12 piezas.</div></a>
+                <a href="kit-shorts.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🎬 Shorts</div><div class="detalle">40+ guiones.</div></a>
+                <a href="guiones-youtube.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🎥 Guiones YT</div><div class="detalle">19 guiones.</div></a>
+                <a href="calendario-youtube.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📅 Calendario</div><div class="detalle">4 meses.</div></a>
+                <a href="guion-onboarding-youtube.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🎓 Onboarding</div><div class="detalle">Video 10 min.</div></a>
+                <a href="secuencia-emails-post-registro.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📧 Secuencia</div><div class="detalle">7 emails.</div></a>
+                <a href="plantillas-html-emails.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">💻 Plantillas</div><div class="detalle">7 HTML.</div></a>
+            </div>
+
+            <h3 style="margin-top:32px;">📊 Dashboards (3)</h3>
+            <div class="product-grid">
+                <a href="dashboard-youtube.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📺 Dashboard YouTube</div><div class="detalle">Vistas, CTR, suscriptores.</div></a>
+                <a href="dashboard-email.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📧 Dashboard Email</div><div class="detalle">Apertura, CTR, conversión.</div></a>
+                <a href="dashboard-uso-herramientas.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🛠️ Uso de Herramientas</div><div class="detalle">Adopción y frecuencia.</div></a>
+            </div>
+
+            <h3 style="margin-top:32px;">🌐 Otras páginas</h3>
+            <div class="product-grid">
+                <a href="contacto.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">💬 Contacto</div><div class="detalle">Formulario y soporte.</div></a>
+                <a href="premium-proximamente.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">⭐ Premium</div><div class="detalle">Lista de espera.</div></a>
+                <a href="terminos.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">📄 Términos</div><div class="detalle">Términos de uso.</div></a>
+                <a href="privacidad.html" class="product-card" style="text-decoration:none; color:inherit;"><div class="nombre">🔒 Privacidad</div><div class="detalle">Política de datos.</div></a>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Dashboard Unificado</strong> · ENUMAPP</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+        function cambiarTab(tabId, event) {
+            if (event) event.preventDefault();
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            if (event) event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ===== LECTURA UNIFICADA DE DATOS (vía ENUMAPP_STORAGE) ===== */
+        function leerYoutubeData() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.YOUTUBE_METRICS, null);
+            return Array.isArray(data) ? data : [];
+        }
+        function leerEmailData() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.EMAIL_METRICS, null);
+            return Array.isArray(data) ? data : [];
+        }
+
+        function actualizarKpisInicio() {
+            const videos = leerYoutubeData();
+            const emails = leerEmailData();
+            document.getElementById('kpiYtVideos').textContent = videos.length;
+            document.getElementById('kpiEmailsCargados').textContent = emails.length;
+            document.getElementById('kpiTotalEnviados').textContent = ENUMAPP_FMT.number(emails.reduce((s, e) => s + (e.enviados || 0), 0));
+            document.getElementById('kpiTotalVistas').textContent = ENUMAPP_FMT.number(videos.reduce((s, v) => s + (v.vistas || 0), 0));
+        }
+
+        function actualizarKpisMetricas() {
+            const videos = leerYoutubeData();
+            const emails = leerEmailData();
+            const totalVistas = videos.reduce((s, v) => s + (v.vistas || 0), 0);
+            const totalSubs = videos.reduce((s, v) => s + (v.subs || 0), 0);
+            const ctrProm = videos.length > 0 ? videos.reduce((s, v) => s + (v.ctr || 0), 0) / videos.length : 0;
+
+            document.getElementById('liveYtVideos').textContent = videos.length;
+            document.getElementById('liveYtVistas').textContent = ENUMAPP_FMT.number(totalVistas);
+            document.getElementById('liveYtSubs').textContent = ENUMAPP_FMT.number(totalSubs);
+            document.getElementById('liveYtCTR').textContent = ctrProm.toFixed(1) + '%';
+
+            const totalEnviados = emails.reduce((s, e) => s + (e.enviados || 0), 0);
+            const totalAperturas = emails.reduce((s, e) => s + (e.aperturas || 0), 0);
+            const totalClics = emails.reduce((s, e) => s + (e.clics || 0), 0);
+            const aperturaProm = totalEnviados > 0 ? (totalAperturas / totalEnviados) * 100 : 0;
+            const ctrPromEmail = totalEnviados > 0 ? (totalClics / totalEnviados) * 100 : 0;
+
+            document.getElementById('liveEmails').textContent = emails.length;
+            document.getElementById('liveEmailsEnviados').textContent = ENUMAPP_FMT.number(totalEnviados);
+            document.getElementById('liveEmailApertura').textContent = aperturaProm.toFixed(1) + '%';
+            document.getElementById('liveEmailCTR').textContent = ctrPromEmail.toFixed(1) + '%';
+
+            renderizarMetricasMiniYt(videos);
+            renderizarMetricasMiniEmail(emails);
+        }
+
+        function renderizarMetricasMiniYt(videos) {
+            const grid = document.getElementById('ytMetricsGrid');
+            if (!grid) return;
+            if (videos.length === 0) {
+                grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1; padding:24px;">
+                    <span class="icon">📺</span>
+                    <div class="title">Sin datos de YouTube</div>
+                    <div class="desc">Cargá tus primeros videos en el dashboard de YouTube.</div>
+                    <a href="dashboard-youtube.html" class="action-btn">Ir al Dashboard →</a>
+                </div>`;
+                return;
+            }
+            const totalVistas = videos.reduce((s, v) => s + (v.vistas || 0), 0);
+            const totalSubs = videos.reduce((s, v) => s + (v.subs || 0), 0);
+            const retProm = videos.reduce((s, v) => s + (v.retencion || 0), 0) / videos.length;
+            const ctrProm = videos.reduce((s, v) => s + (v.ctr || 0), 0) / videos.length;
+            grid.innerHTML = `
+                <div class="metric-mini"><div class="mm-value">${ENUMAPP_FMT.number(totalVistas)}</div><div class="mm-label">Vistas</div><div class="mm-sub">prom: ${ENUMAPP_FMT.number(totalVistas / videos.length)}</div></div>
+                <div class="metric-mini"><div class="mm-value">${ENUMAPP_FMT.number(totalSubs)}</div><div class="mm-label">Suscriptores</div><div class="mm-sub">total</div></div>
+                <div class="metric-mini"><div class="mm-value">${retProm.toFixed(1)}%</div><div class="mm-label">Retención</div><div class="mm-sub">meta: >40%</div></div>
+                <div class="metric-mini"><div class="mm-value">${ctrProm.toFixed(1)}%</div><div class="mm-label">CTR</div><div class="mm-sub">meta: >4%</div></div>
+            `;
+        }
+
+        function renderizarMetricasMiniEmail(emails) {
+            const grid = document.getElementById('emailMetricsGrid');
+            if (!grid) return;
+            if (emails.length === 0) {
+                grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1; padding:24px;">
+                    <span class="icon">📧</span>
+                    <div class="title">Sin datos de Email</div>
+                    <div class="desc">Cargá tus primeros emails en el dashboard de Email.</div>
+                    <a href="dashboard-email.html" class="action-btn">Ir al Dashboard →</a>
+                </div>`;
+                return;
+            }
+            const totalEnviados = emails.reduce((s, e) => s + (e.enviados || 0), 0);
+            const totalAperturas = emails.reduce((s, e) => s + (e.aperturas || 0), 0);
+            const totalClics = emails.reduce((s, e) => s + (e.clics || 0), 0);
+            const totalConversiones = emails.reduce((s, e) => s + (e.conversiones || 0), 0);
+            const aperturaProm = totalEnviados > 0 ? (totalAperturas / totalEnviados) * 100 : 0;
+            const ctrProm = totalEnviados > 0 ? (totalClics / totalEnviados) * 100 : 0;
+            grid.innerHTML = `
+                <div class="metric-mini"><div class="mm-value">${ENUMAPP_FMT.number(totalEnviados)}</div><div class="mm-label">Enviados</div><div class="mm-sub">total</div></div>
+                <div class="metric-mini"><div class="mm-value">${aperturaProm.toFixed(1)}%</div><div class="mm-label">Apertura</div><div class="mm-sub">meta: >40%</div></div>
+                <div class="metric-mini"><div class="mm-value">${ctrProm.toFixed(1)}%</div><div class="mm-label">CTR</div><div class="mm-sub">meta: >15%</div></div>
+                <div class="metric-mini"><div class="mm-value">${ENUMAPP_FMT.number(totalConversiones)}</div><div class="mm-label">Conversiones</div><div class="mm-sub">total</div></div>
+            `;
+        }
+
+        let chartYtVistas = null, chartYtCTR = null, chartEmailApertura = null, chartEmailConv = null;
+
+        function renderizarGraficos() {
+            const videos = leerYoutubeData().sort((a, b) => (a.fecha || '').localeCompare(b.fecha || ''));
+            const emails = leerEmailData().sort((a, b) => a.dia - b.dia);
+
+            // YouTube vistas
+            const ctx1 = document.getElementById('unifiedYtVistas');
+            if (ctx1) {
+                if (chartYtVistas) chartYtVistas.destroy();
+                if (videos.length === 0) {
+                    chartYtVistas = new Chart(ctx1, { type: 'line', data: { labels: ['Sin datos'], datasets: [{ label: 'Vistas', data: [0], borderColor: '#dce3ec' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+                } else {
+                    chartYtVistas = new Chart(ctx1, {
+                        type: 'line',
+                        data: {
+                            labels: videos.map(v => v.num ? 'V' + v.num : '#'),
+                            datasets: [{ label: 'Vistas', data: videos.map(v => v.vistas || 0), borderColor: '#2b7be4', backgroundColor: 'rgba(43,123,228,0.1)', borderWidth: 3, pointRadius: 4, tension: 0.3, fill: true }]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ENUMAPP_FMT.number(c.parsed.y) } } }, scales: { y: { beginAtZero: true } } }
+                    });
+                }
+            }
+
+            // YouTube CTR
+            const ctx2 = document.getElementById('unifiedYtCTR');
+            if (ctx2) {
+                if (chartYtCTR) chartYtCTR.destroy();
+                if (videos.length === 0) {
+                    chartYtCTR = new Chart(ctx2, { type: 'bar', data: { labels: ['Sin datos'], datasets: [{ label: 'CTR', data: [0], backgroundColor: '#dce3ec' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+                } else {
+                    chartYtCTR = new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: videos.map(v => v.num ? 'V' + v.num : '#'),
+                            datasets: [
+                                { label: 'CTR %', data: videos.map(v => v.ctr || 0), backgroundColor: 'rgba(43,123,228,0.75)', borderRadius: 6, yAxisID: 'y' },
+                                { label: 'Retención %', data: videos.map(v => v.retencion || 0), backgroundColor: 'rgba(46,204,113,0.75)', borderRadius: 6, yAxisID: 'y1' }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12 } } },
+                            scales: {
+                                y: { position: 'left', beginAtZero: true },
+                                y1: { position: 'right', beginAtZero: true, max: 100, grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Email apertura/CTR
+            const ctx3 = document.getElementById('unifiedEmailApertura');
+            if (ctx3) {
+                if (chartEmailApertura) chartEmailApertura.destroy();
+                if (emails.length === 0) {
+                    chartEmailApertura = new Chart(ctx3, { type: 'bar', data: { labels: ['Sin datos'], datasets: [{ label: 'Apertura', data: [0], backgroundColor: '#dce3ec' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+                } else {
+                    chartEmailApertura = new Chart(ctx3, {
+                        type: 'bar',
+                        data: {
+                            labels: emails.map(e => 'Día ' + e.dia),
+                            datasets: [
+                                { label: 'Apertura %', data: emails.map(e => (e.enviados || 0) > 0 ? ((e.aperturas || 0) / e.enviados) * 100 : 0), backgroundColor: 'rgba(43,123,228,0.75)', borderRadius: 6 },
+                                { label: 'CTR %', data: emails.map(e => (e.enviados || 0) > 0 ? ((e.clics || 0) / e.enviados) * 100 : 0), backgroundColor: 'rgba(46,204,113,0.75)', borderRadius: 6 }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12 } }, tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y.toFixed(1) + '%' } } },
+                            scales: { y: { beginAtZero: true, ticks: { callback: v => v + '%' } } }
+                        }
+                    });
+                }
+            }
+
+            // Email conv
+            const ctx4 = document.getElementById('unifiedEmailConv');
+            if (ctx4) {
+                if (chartEmailConv) chartEmailConv.destroy();
+                if (emails.length === 0) {
+                    chartEmailConv = new Chart(ctx4, { type: 'line', data: { labels: ['Sin datos'], datasets: [{ label: 'Enviados', data: [0], borderColor: '#dce3ec' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+                } else {
+                    chartEmailConv = new Chart(ctx4, {
+                        type: 'line',
+                        data: {
+                            labels: emails.map(e => 'Día ' + e.dia),
+                            datasets: [
+                                { label: 'Enviados', data: emails.map(e => e.enviados || 0), borderColor: '#2b7be4', backgroundColor: 'rgba(43,123,228,0.1)', borderWidth: 3, pointRadius: 4, tension: 0.3, fill: true, yAxisID: 'y' },
+                                { label: 'Conversiones', data: emails.map(e => e.conversiones || 0), borderColor: '#2ecc71', backgroundColor: 'rgba(46,204,113,0.1)', borderWidth: 3, pointRadius: 4, tension: 0.3, fill: true, yAxisID: 'y1' }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12 } } },
+                            scales: {
+                                y: { position: 'left', beginAtZero: true, ticks: { callback: ENUMAPP_UI.axisMoney } },
+                                y1: { position: 'right', beginAtZero: true, grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarKpisInicio();
+            actualizarKpisMetricas();
+            renderizarGraficos();
+            setInterval(function() {
+                actualizarKpisInicio();
+                actualizarKpisMetricas();
+            }, 5000);
+        });
+    </script>
+
+</body>
+</html>

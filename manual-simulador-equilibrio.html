@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Simulador de Punto de Equilibrio · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Simulador de Punto de Equilibrio de ENUMAPP. Tus números, tu negocio, tu app." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE PUNTO DE EQUILIBRIO</h2>
+            <p>Simulación de rentabilidad con ciclo de inventario</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Simulador de Punto de Equilibrio</small>
+                </h1>
+            </div>
+            <a href="simulador-equilibrio.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para calcular tu punto de equilibrio, analizar el ciclo de inventario y
+            descubrir cuánto tiempo te llevará alcanzar tu meta de ganancia.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#margen-contribucion">Margen de contribución</a></li>
+                <li><a href="#punto-equilibrio">Punto de equilibrio</a></li>
+                <li><a href="#objetivo">Objetivo de ganancia</a></li>
+                <li><a href="#seguridad">Margen de seguridad</a></li>
+                <li><a href="#ciclo">Ciclo de inventario</a></li>
+                <li><a href="#metricas">Todas las métricas explicadas</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Simulador de Punto de Equilibrio + Ciclo de Inventario</strong> es una calculadora
+                avanzada que combina dos análisis en uno:
+            </p>
+            <ul>
+                <li><strong>Punto de equilibrio:</strong> cuántas unidades necesitás vender para no perder dinero.</li>
+                <li><strong>Ciclo de inventario:</strong> cuánto ganás por cada ciclo de compra-venta y cuánto tiempo necesitás para llegar a tu meta.</li>
+            </ul>
+            <p>
+                A diferencia de una calculadora simple, esta te permite ver la <strong>dimensión temporal</strong> de
+                tu rentabilidad: no es lo mismo ganar $250.000 en 1 mes que en 6 meses.
+            </p>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Punto de Equilibrio</span>
+                Es el número mínimo de unidades que tenés que vender para <strong>cubrir todos tus costos</strong>.
+                Por debajo de ese número, perdés. Por encima, empezás a ganar.</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Definir metas de ventas</strong> realistas y alcanzables.</li>
+                <li><strong>Planificar compras</strong> según el tamaño del ciclo de inventario.</li>
+                <li><strong>Calcular el tiempo</strong> que tardarás en llegar a un objetivo de ganancia.</li>
+                <li><strong>Simular escenarios</strong>: ¿qué pasa si vendo 5 unidades más por ciclo?</li>
+                <li><strong>Evaluar productos</strong> antes de lanzarlos.</li>
+                <li><strong>Negociar con proveedores</strong>: saber cuánto necesitás comprar para justificar un descuento.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Usala antes de hacer una <strong>inversión importante</strong> (compra de stock, contratación de personal,
+                alquiler de local). Te va a dar una idea clara de cuánto necesitás vender para que valga la pena.</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos base</div>
+                    <div class="step-desc">Precio, costo y costos fijos</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Volumen y objetivo</div>
+                    <div class="step-desc">Cuánto vendés y cuánto querés ganar</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Ciclo de inventario</div>
+                    <div class="step-desc">Días del ciclo y unidades por lote</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Resultados</div>
+                    <div class="step-desc">Métricas financieras y de tiempo</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Importante</span>
+                La herramienta se recalcula <strong>en tiempo real</strong>: cada vez que modificás un campo,
+                los resultados y el gráfico se actualizan automáticamente. No hay que presionar ningún botón.</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>7 campos</strong>. Acá te explico cada uno:</p>
+
+            <h3>Datos base del producto</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Precio de Venta por Unidad</strong></td>
+                        <td>Lo que cobrás por cada unidad.</td>
+                        <td>$8.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Costo Variable por Unidad</strong></td>
+                        <td>Lo que te cuesta cada unidad: materia prima, insumos, comisiones.</td>
+                        <td>$5.500</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Costos Fijos Totales</strong></td>
+                        <td>Tus gastos mensuales que no dependen del volumen: alquiler, sueldos, servicios.</td>
+                        <td>$5.000/mes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Volumen y objetivo</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Volumen Estimado de Ventas</strong></td>
+                        <td>Cuántas unidades esperás vender por ciclo.</td>
+                        <td>10 unidades</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Objetivo de Ganancia</strong></td>
+                        <td>Cuánta plata querés ganar (en total, hasta llegar al objetivo).</td>
+                        <td>$250.000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ciclo de inventario</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Duración del Ciclo de Ventas</strong></td>
+                        <td>Cuántos días tardás en vender un lote completo.</td>
+                        <td>7 días</td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td><strong>Unidades por Ciclo de Compra</strong></td>
+                        <td>Cuántas unidades comprás en cada pedido al proveedor.</td>
+                        <td>10 unidades</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué es un "ciclo de inventario"?</h3>
+            <p>
+                Es el período completo entre que <strong>comprás un lote de mercadería, lo vendés y volvés a comprar</strong>.
+                Por ejemplo, si comprás 10 unidades cada 7 días, ese es tu ciclo.
+            </p>
+
+            <div class="info-box">
+                <p><span class="title">💡 Ejemplo</span>
+                Comprás 10 bandejas al proveedor un lunes. Las vendés todas en una semana (7 días).
+                El lunes siguiente comprás 10 más. Tu ciclo es de <strong>7 días</strong> con <strong>10 unidades por ciclo</strong>.</p>
+            </div>
+        </section>
+
+        <section id="margen-contribucion">
+            <h2>💰 Margen de contribución</h2>
+            <p>
+                El <strong>margen de contribución</strong> es la diferencia entre el precio de venta y el costo variable.
+                Es la plata que "contribuye" a cubrir tus costos fijos y luego generar ganancia.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Margen de Contribución = Precio − Costo Variable</div>
+                <div class="formula-desc">
+                    Ejemplo: si vendés a $8.000 y el costo variable es $5.500, tu margen es $2.500 (31,3%).
+                </div>
+            </div>
+
+            <h3>Por qué es importante</h3>
+            <ul>
+                <li>Cada unidad vendida <strong>aporta $2.500</strong> para cubrir los costos fijos.</li>
+                <li>Una vez cubiertos los costos fijos, <strong>cada unidad extra es ganancia neta</strong>.</li>
+                <li>Si el margen es 0 o negativo, no podés cubrir los costos ni vender mucho: perdés plata.</li>
+            </ul>
+
+            <div class="danger-box">
+                <p><span class="title">⚠️ Alerta</span>
+                Si el precio es menor o igual al costo variable, la herramienta te muestra un mensaje de error.
+                <strong>No podés operar así</strong>. Cada venta te genera pérdida. Urgente revisar precios o costos.</p>
+            </div>
+        </section>
+
+        <section id="punto-equilibrio">
+            <h2>⚖️ Punto de equilibrio</h2>
+            <p>
+                El punto de equilibrio es la cantidad de unidades que necesitás vender para <strong>cubrir exactamente
+                todos tus costos</strong>. Ni ganás ni perdés.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Punto de Equilibrio (unid.) = Costos Fijos ÷ Margen de Contribución</div>
+                <div class="formula-desc">
+                    Ejemplo: $5.000 de CF ÷ $2.500 de margen = 2 unidades.
+                </div>
+            </div>
+
+            <h3>Interpretación</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Situación</th>
+                        <th>Qué significa</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vendés <strong>menos</strong> que el BEP</td>
+                        <td>Estás perdiendo plata.</td>
+                        <td>Aumentar volumen o reducir costos fijos.</td>
+                    </tr>
+                    <tr>
+                        <td>Vendés <strong>exactamente</strong> el BEP</td>
+                        <td>Ni ganás ni perdés.</td>
+                        <td>Necesitás vender más para ser rentable.</td>
+                    </tr>
+                    <tr>
+                        <td>Vendés <strong>más</strong> que el BEP</td>
+                        <td>Cada unidad extra es ganancia neta.</td>
+                        <td>Buen trabajo. Podés invertir la ganancia.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Regla de oro</span>
+                Cuanto <strong>más bajo sea tu BEP</strong>, mejor. Significa que necesitás vender menos para no perder.
+                Si el BEP es más alto que tu volumen estimado, tenés un producto frágil.</p>
+            </div>
+        </section>
+
+        <section id="objetivo">
+            <h2>🎯 Objetivo de ganancia</h2>
+            <p>
+                Este campo define <strong>cuánta plata querés ganar en total</strong> (antes de impuestos).
+                La herramienta calcula cuántas unidades necesitás vender para llegar a esa meta.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Unidades para el objetivo = (Costos Fijos + Objetivo) ÷ Margen de Contribución</div>
+                <div class="formula-desc">
+                    Ejemplo: para ganar $250.000 con CF de $5.000 y margen de $2.500, necesitás 102 unidades.
+                </div>
+            </div>
+
+            <h3>Cómo usar este campo</h3>
+            <ul>
+                <li><strong>Meta realista:</strong> empezá con un objetivo alcanzable en 3-6 meses.</li>
+                <li><strong>Meta ambiciosa:</strong> si es muy alta, la herramienta te muestra que necesitás muchos ciclos.</li>
+                <li><strong>Meta 0:</strong> si no querés proyectar una meta, dejalo en 0. La herramienta te muestra los cálculos base sin este parámetro.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Consejo</span>
+                Poné un objetivo que sea <strong>entre 3 y 12 veces tus costos fijos mensuales</strong>.
+                Metas más altas requieren mucho tiempo o cambios profundos en el negocio.</p>
+            </div>
+        </section>
+
+        <section id="seguridad">
+            <h2>🛡️ Margen de seguridad</h2>
+            <p>
+                El <strong>margen de seguridad</strong> te dice <strong>cuánto pueden bajar tus ventas</strong>
+                antes de empezar a perder plata. Es un indicador clave de la salud del negocio.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Margen de Seguridad = (Ventas − Punto de Equilibrio) ÷ Ventas × 100</div>
+                <div class="formula-desc">
+                    Ejemplo: vendés 10 unidades y tu BEP es 2, entonces tu margen es (10 − 2) ÷ 10 = 80%.
+                </div>
+            </div>
+
+            <h3>Cómo interpretarlo</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge green">&gt; 50%</span></td>
+                        <td>Muy seguro. Puede caer la mitad de tus ventas y seguís ganando.</td>
+                        <td>Podés invertir o escalar.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge blue">20% – 50%</span></td>
+                        <td>Seguridad moderada. Tenés colchón pero no es enorme.</td>
+                        <td>Mantener y monitorear.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge orange">0% – 20%</span></td>
+                        <td>Margen ajustado. Una caída chica te deja al límite.</td>
+                        <td>Revisar precios o costos.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge red">&lt; 0%</span></td>
+                        <td>Estás por debajo del BEP. Perdés plata.</td>
+                        <td>Urgente: aumentar volumen o reducir costos.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="ciclo">
+            <h2>🔄 Ciclo de inventario</h2>
+            <p>
+                Esta sección de la herramienta analiza el <strong>ciclo completo de compra-venta</strong>: cuánto
+                ganás por ciclo y cuántos ciclos necesitás para llegar a tu meta.
+            </p>
+
+            <h3>Beneficio neto por ciclo</h3>
+            <p>Es la plata que realmente ganás en un ciclo, después de descontar los costos fijos proporcionales al período.</p>
+
+            <div class="formula-box">
+                <div class="formula">Beneficio Neto por Ciclo = (Margen × Unid. por Ciclo) − (CF × Días ÷ 30)</div>
+                <div class="formula-desc">
+                    Ejemplo: ($2.500 × 10) − ($5.000 × 7/30) = $25.000 − $1.167 = $23.833
+                </div>
+            </div>
+
+            <h3>Margen bruto por ciclo</h3>
+            <p>
+                Es cuánta plata generás en un ciclo <strong>sin descontar los costos fijos</strong>. Se calcula como:
+                Margen de Contribución × Unidades por ciclo.
+            </p>
+
+            <h3>Ciclos necesarios y tiempo</h3>
+            <p>
+                La herramienta divide tu objetivo por el beneficio neto por ciclo para saber cuántos ciclos
+                necesitás. Después multiplica por los días del ciclo para saber el <strong>tiempo total</strong>.
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="t-title">Ciclo 1</div>
+                    <div class="t-desc">Ganás $23.833. Todavía muy lejos del objetivo.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="t-title">Ciclo 5</div>
+                    <div class="t-desc">Acumulás $119.165. Ya casi a mitad de camino.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="t-title">Ciclo 10</div>
+                    <div class="t-desc">Acumulás $238.330. Casi en el objetivo.</div>
+                </div>
+                <div class="timeline-item success">
+                    <div class="t-title">Ciclo 11</div>
+                    <div class="t-desc">¡Objetivo alcanzado! Total ganado: $262.163.</div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Si el beneficio por ciclo es negativo</span>
+                Si el costo fijo proporcional al ciclo es mayor que el margen bruto por ciclo, nunca vas a llegar
+                a la meta. La herramienta te avisa con "∞" en los ciclos necesarios.</p>
+            </div>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Todas las métricas explicadas</h2>
+            <p>Esta es la lista completa de las métricas que calcula la herramienta:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">💰</span>
+                    <div class="name">Margen de Contribución</div>
+                    <div class="desc">Lo que queda por unidad después de pagar el costo variable. Se muestra en $ y en %.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">⚖️</span>
+                    <div class="name">Punto de Equilibrio (unid.)</div>
+                    <div class="desc">Cuántas unidades necesitás vender para cubrir todos los costos.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💵</span>
+                    <div class="name">Punto de Equilibrio ($)</div>
+                    <div class="desc">Cuánto necesitás facturar para cubrir todos los costos.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🎯</span>
+                    <div class="name">Unidades para Objetivo</div>
+                    <div class="desc">Cuántas unidades necesitás vender para llegar a tu meta de ganancia.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📈</span>
+                    <div class="name">Ganancia / Pérdida Estimada</div>
+                    <div class="desc">Cuánto ganás (o perdés) con el volumen actual estimado.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🛡️</span>
+                    <div class="name">Margen de Seguridad</div>
+                    <div class="desc">Cuánto pueden bajar tus ventas antes de empezar a perder.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔄</span>
+                    <div class="name">Beneficio Neto por Ciclo</div>
+                    <div class="desc">Ganancia real por cada ciclo, después de los CF proporcionales.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💼</span>
+                    <div class="name">Margen Bruto por Ciclo</div>
+                    <div class="desc">Plata generada por ciclo sin descontar los costos fijos.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔁</span>
+                    <div class="name">Ciclos Necesarios</div>
+                    <div class="desc">Cuántos ciclos de compra-venta necesitás para llegar a tu meta.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">⏱️</span>
+                    <div class="name">Tiempo Estimado</div>
+                    <div class="desc">Cuántos días (y meses) tardarás en alcanzar tu objetivo.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>El gráfico principal muestra la relación entre unidades vendidas y dinero. Tiene 4 elementos clave:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Elemento</th>
+                        <th>Descripción</th>
+                        <th>Qué muestra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔵</td>
+                        <td><strong>Línea azul</strong></td>
+                        <td>Ingresos totales. Sube linealmente: cada unidad vendida suma $8.000.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟠</td>
+                        <td><strong>Línea naranja</strong></td>
+                        <td>Costos totales = Costos fijos + (Costo variable × unidades).</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">⚫</td>
+                        <td><strong>Línea gris punteada</strong></td>
+                        <td>Costos fijos. Es constante: no cambia con el volumen.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Punto rojo</strong></td>
+                        <td>Punto de equilibrio. Donde se cruzan ingresos y costos totales.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔺</td>
+                        <td><strong>Triángulo azul</strong></td>
+                        <td>Punto de objetivo de ganancia.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔶</td>
+                        <td><strong>Rombo verde</strong></td>
+                        <td>Tu volumen actual de ventas.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cómo leerlo</h3>
+            <ul>
+                <li>Antes del BEP: la línea naranja está <strong>por encima</strong> de la azul. Perdés plata.</li>
+                <li>Después del BEP: la línea azul está <strong>por encima</strong> de la naranja. Ganás plata.</li>
+                <li>El ancho entre ambas líneas después del BEP es tu <strong>ganancia acumulada</strong>.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Tip visual</span>
+                Si tu "rombo verde" está muy a la derecha del "punto rojo", estás en zona segura.
+                Si está muy cerca, tenés un margen ajustado.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que vendés <strong>pasapalos gourmet</strong> y querés analizar el producto estrella:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Precio de venta</td>
+                        <td>$8.000</td>
+                    </tr>
+                    <tr>
+                        <td>Costo variable</td>
+                        <td>$5.500</td>
+                    </tr>
+                    <tr>
+                        <td>Costos fijos mensuales</td>
+                        <td>$5.000</td>
+                    </tr>
+                    <tr>
+                        <td>Volumen por ciclo</td>
+                        <td>10 unidades</td>
+                    </tr>
+                    <tr>
+                        <td>Días por ciclo</td>
+                        <td>7 días</td>
+                    </tr>
+                    <tr>
+                        <td>Objetivo de ganancia</td>
+                        <td>$250.000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Resultados</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Margen de Contribución</td>
+                        <td>$2.500 (31,3%)</td>
+                        <td>Cada unidad aporta $2.500 para cubrir costos fijos.</td>
+                    </tr>
+                    <tr>
+                        <td>Punto de Equilibrio</td>
+                        <td>2 unidades ($16.000)</td>
+                        <td>Con vender 2 unidades ya cubrís todos los costos.</td>
+                    </tr>
+                    <tr>
+                        <td>Ganancia estimada actual</td>
+                        <td>$20.000/mes</td>
+                        <td>Con 10 unidades vendidas por ciclo, ganás $20.000 al mes.</td>
+                    </tr>
+                    <tr>
+                        <td>Margen de Seguridad</td>
+                        <td>80%</td>
+                        <td>Podés caer hasta 8 unidades y seguir ganando.</td>
+                    </tr>
+                    <tr>
+                        <td>Beneficio neto por ciclo</td>
+                        <td>$23.833</td>
+                        <td>Restando CF proporcionales a 7 días.</td>
+                    </tr>
+                    <tr>
+                        <td>Ciclos para la meta</td>
+                        <td>10,5 ciclos</td>
+                        <td>≈ 11 ciclos de compra-venta.</td>
+                    </tr>
+                    <tr>
+                        <td>Tiempo estimado</td>
+                        <td>73 días (≈2,4 meses)</td>
+                        <td>En 11 ciclos de 7 días llegás a los $250.000.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>El producto es rentable y seguro.</strong> El margen de seguridad del 80% es excelente.</li>
+                <li><strong>Podés escalar.</strong> Si duplicás las unidades por ciclo a 20, el beneficio por ciclo sube a $48.833.</li>
+                <li><strong>Podés bajar el tiempo a la meta.</strong> Si el ciclo dura 5 días en lugar de 7, llegás en 52 días.</li>
+                <li><strong>Podés aumentar el objetivo.</strong> Con este producto, metas de $500.000 son alcanzables en 5 meses.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Insight clave</span>
+                El <strong>tiempo para la meta</strong> depende de 3 variables: el beneficio por ciclo, el tamaño del lote
+                y la duración del ciclo. Para acelerar, podés: <strong>vender más por ciclo</strong>, <strong>acortar el ciclo</strong>
+                o <strong>aumentar el margen</strong>.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, todas las tarjetas de resultados, el gráfico con sus puntos
+                clave y descripción resumida. Se ocultan automáticamente los campos de entrada y los botones.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Tip</span>
+                Guardá un PDF cada vez que cambies los parámetros importantes (precio, costos, objetivo).
+                Así tenés un histórico de cómo evolucionó tu análisis.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al cerrar el navegador, los valores vuelven a los defaults. Si querés conservar un análisis, guardalo como PDF.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué diferencia hay entre el punto de equilibrio y el objetivo de ganancia?</div>
+                <div class="a">El BEP es el mínimo para no perder. El objetivo es la meta de ganancia que querés alcanzar. El BEP siempre es menor que el objetivo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué es el "margen de contribución"?</div>
+                <div class="a">Es la plata que le queda a cada unidad después de pagar el costo variable. Esa plata "contribuye" a cubrir los costos fijos y luego generar ganancia.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el beneficio por ciclo es distinto del margen bruto por ciclo?</div>
+                <div class="a">El margen bruto por ciclo es solo (margen × unidades). El beneficio por ciclo también descuenta los costos fijos proporcionales a los días del ciclo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo elijo el tamaño del ciclo?</div>
+                <div class="a">El tamaño del ciclo debe ser igual a tu volumen real de ventas por período. Si vendés 10 unidades cada 7 días, ese es tu ciclo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si el costo fijo es mayor al margen bruto por ciclo?</div>
+                <div class="a">La herramienta te avisa con "∞" en los ciclos necesarios. Significa que nunca llegás a la meta porque perdés plata en cada ciclo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto para varios productos?</div>
+                <div class="a">Sí, pero de a uno. Cambiá los valores y analizá cada producto por separado. Guardá un PDF de cada uno para comparar.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿La herramienta incluye IVA o impuestos?</div>
+                <div class="a">No. Los cálculos son con valores netos. Si sos Responsable Inscripto, el IVA no afecta tu rentabilidad (lo trasladás al cliente). Si sos Monotributista, el precio incluye todo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto si vendo servicios?</div>
+                <div class="a">Sí. Reemplazá "unidades" por "horas" o "servicios". Los cálculos funcionan igual.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa el "margen de seguridad"?</div>
+                <div class="a">Es el porcentaje que pueden caer tus ventas antes de que empieces a perder plata. Un margen de seguridad del 80% significa que si tus ventas caen hasta un 80%, seguís en equilibrio.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el gráfico muestra líneas y puntos?</div>
+                <div class="a">Las líneas son continuas (ingresos, costos). Los puntos marcan ubicaciones específicas (BEP, objetivo, volumen actual) que no forman parte de una línea.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si pongo objetivo de ganancia 0?</div>
+                <div class="a">La herramienta trata este caso como "sin objetivo". El gráfico no muestra el triángulo azul y las métricas de tiempo y ciclos se ajustan.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Achicá el ciclo para acelerar la meta</h3>
+            <p>Si tu ciclo es de 7 días, probá con 5 o 4. Vas a llegar a la meta mucho antes porque el beneficio por ciclo se acumula más rápido.</p>
+
+            <h3>2. Vendé más por ciclo</h3>
+            <p>Aumentar las unidades por ciclo aumenta el beneficio bruto y reduce el impacto de los costos fijos proporcionales. Es la palanca más directa para mejorar.</p>
+
+            <h3>3. Revisá el margen de seguridad cada mes</h3>
+            <p>Un margen del 80% es cómodo. Si baja del 30%, revisá urgente tu estructura de costos o subí precios.</p>
+
+            <h3>4. Usá la herramienta antes de invertir</h3>
+            <p>Antes de comprar stock grande o alquilar un local, simulá cuántos ciclos necesitás para recuperar la inversión.</p>
+
+            <h3>5. Combiná con la Calculadora de Rentabilidad</h3>
+            <p>Mientras la Calculadora de Rentabilidad te da el margen neto unitario, este simulador te da la dimensión temporal. Usalas juntas.</p>
+
+            <h3>6. Documentá el punto de equilibrio</h3>
+            <p>Guardá un PDF con tu BEP actual. Cuando cambien los costos, comparás y sabés si te alejaste del equilibrio.</p>
+
+            <h3>7. Revisá el impacto de aumentar el objetivo</h3>
+            <p>Duplicá el objetivo y mirá cómo cambia el tiempo. Si el tiempo se vuelve demasiado largo, replanteá la meta.</p>
+
+            <h3>8. Ajustá según estacionalidad</h3>
+            <p>En meses de alta temporada, tu ciclo puede ser más corto. En baja, más largo. Recalculá el tiempo a la meta con cada escenario.</p>
+
+            <h3>9. Compará varios productos</h3>
+            <p>Guardá un PDF por producto. Compará: ¿cuál tiene mejor BEP? ¿Cuál genera más beneficio por ciclo? Ahí están las oportunidades.</p>
+
+            <h3>10. Fijate el "peso" del ciclo en los costos fijos</h3>
+            <p>Si el CF proporcional al ciclo es muy alto respecto al margen, tu producto es frágil. Considerá ciclos más largos o reducir CF.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Con esta herramienta vas a saber <strong>cuánto vender, cuándo vender y en cuánto tiempo</strong> llegás
+                a tu meta. Es la combinación perfecta entre rentabilidad y tiempo.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Simulador de Punto de Equilibrio</strong>:</p>
+            <div class="cards-grid">
+                <a href="simulador-cashflow.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">💵 Simulador de Cashflow</div>
+                <div class="card-desc">Proyectá tu flujo de caja anual con el BEP como meta mínima.</div>
+                </a>
+                <a href="calculadora-rentabilidad-producto.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">📈 Rentabilidad por Producto</div>
+                <div class="card-desc">Identificá los productos que más aportan al punto de equilibrio.</div>
+                </a>
+                <a href="panel-kpis.html" class="card info" style="text-decoration:none; color:inherit;">
+                <div class="card-title">📊 Panel de KPIs</div>
+                <div class="card-desc">Seguí tus ingresos semanales contra el BEP.</div>
+                </a>
+            </div>
+        </section>
+        
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Simulador de Punto de Equilibrio + Ciclo de Inventario</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

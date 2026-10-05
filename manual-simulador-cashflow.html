@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Simulador de Cashflow · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso del Simulador de Cashflow de ENUMAPP. Tus números, tu negocio, tu app." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <!-- Encabezado para PDF -->
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE SIMULADOR DE CASHFLOW</h2>
+            <p>Proyección de efectivo y alerta de quiebre</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <!-- Header compartido -->
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Simulador de Flujo de Caja (Cashflow)</small>
+                </h1>
+            </div>
+            <a href="simulador-cashflow.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para proyectar el efectivo de tu negocio, detectar cuándo podrías quedarte sin caja
+            y tomar decisiones a tiempo para evitar la quiebra.
+        </div>
+
+        <!-- ===== ÍNDICE ===== -->
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#crecimiento">Crecimiento de ingresos</a></li>
+                <li><a href="#inflacion">Inflación de egresos</a></li>
+                <li><a href="#escenarios">Escenarios de riesgo</a></li>
+                <li><a href="#metricas">Interpretar las métricas</a></li>
+                <li><a href="#quiebre">Mes de quiebre y autonomía</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#tabla">Tabla mes a mes</a></li>
+                <li><a href="#recomendaciones">Recomendaciones automáticas</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <!-- ===== SECCIÓN 1: QUÉ ES ===== -->
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                El <strong>Simulador de Flujo de Caja (Cashflow)</strong> es una calculadora que te permite
+                <strong>proyectar el efectivo de tu negocio mes a mes</strong> y descubrir cuándo te vas a quedar
+                sin caja si las cosas siguen como están.
+            </p>
+            <p>Con esta herramienta podés responder preguntas como:</p>
+            <ul>
+                <li>¿Cuántos meses puedo aguantar si vendo menos de lo esperado?</li>
+                <li>¿Cuándo necesito pedir un préstamo para no fundirme?</li>
+                <li>¿Cuánto necesito vender para no caer en quiebra?</li>
+                <li>¿Qué pasa si mis costos suben un 5% mensual?</li>
+                <li>¿Cuál es el mejor y peor escenario posible?</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Flujo de Caja</span>
+                El flujo de caja es el <strong>dinero que entra y sale</strong> de tu negocio en un período.
+                No es lo mismo que la ganancia contable: podés tener ganancia pero quedarte sin efectivo
+                si tus clientes no te pagan a tiempo o si tenés que adelantar compras.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Por qué importa</span>
+                El 82% de los negocios que quiebran lo hacen <strong>por falta de caja</strong>, no por falta de
+                rentabilidad. Podés ser rentable en el papel pero quebrar si no tenés efectivo para pagar sueldos
+                o proveedores en el momento justo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 2: CUÁNDO USARLA ===== -->
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Planificar el año</strong> y anticipar meses difíciles.</li>
+                <li><strong>Evaluar un préstamo</strong> o inversión antes de pedirlo.</li>
+                <li><strong>Decidir si podés contratar</strong> a alguien nuevo.</li>
+                <li><strong>Verificar si tus precios alcanzan</strong> para cubrir la inflación de costos.</li>
+                <li><strong>Preparar un plan de contingencia</strong> para meses de baja demanda.</li>
+                <li><strong>Negociar plazos con proveedores</strong> con datos concretos en mano.</li>
+                <li><strong>Simular el impacto de una crisis</strong> antes de que suceda.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Actualizala <strong>cada vez que cambie un supuesto importante</strong>: suba de costos, nuevo
+                cliente grande, cambio de precios, contratación de personal. Es una herramienta viva.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 3: PRIMEROS PASOS ===== -->
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, vas a ver la siguiente estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Datos base</div>
+                    <div class="step-desc">Saldo, ingresos y egresos actuales</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Parámetros de evolución</div>
+                    <div class="step-desc">Crecimiento e inflación mensual</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Escenario de riesgo</div>
+                    <div class="step-desc">Slider de -20% a +20%</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Resultados</div>
+                    <div class="step-desc">Quiebre, saldo mínimo y final</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Importante</span>
+                La herramienta viene con <strong>valores de ejemplo precargados</strong> que simulan un negocio
+                típico. Podés modificar cualquier campo y los resultados se actualizan <strong>en tiempo real</strong>,
+                sin presionar ningún botón.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 4: CAMPOS ===== -->
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>6 campos numéricos + 1 slider</strong>. Te explico cada uno:</p>
+
+            <h3>Datos actuales del negocio</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Saldo Inicial</strong></td>
+                        <td>El efectivo disponible HOY en caja y banco.</td>
+                        <td>$50.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Ingresos Mensuales Promedio</strong></td>
+                        <td>Lo que facturás por mes en promedio.</td>
+                        <td>$30.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Egresos Mensuales Promedio</strong></td>
+                        <td>Todos los gastos del mes (fijos + variables).</td>
+                        <td>$35.000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Proyección temporal</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Crecimiento de Ingresos</strong></td>
+                        <td>Cuánto esperás que crezcan tus ventas cada mes (%).</td>
+                        <td>2% mensual</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Inflación de Egresos</strong></td>
+                        <td>Cuánto esperás que suban tus costos cada mes (%).</td>
+                        <td>4% mensual</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Plazo de Proyección</strong></td>
+                        <td>Cuántos meses querés proyectar hacia adelante.</td>
+                        <td>12 meses</td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td><strong>Escenario de Riesgo</strong></td>
+                        <td>Slider que ajusta ingresos y egresos según optimismo/pesimismo.</td>
+                        <td>0% (realista)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Cómo obtener tu saldo inicial</span>
+                Sumá el efectivo en caja + saldo en cuentas bancarias + dinero disponible en billeteras virtuales.
+                No incluyas inversiones a plazo ni cheques a cobrar.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 5: CRECIMIENTO ===== -->
+        <section id="crecimiento">
+            <h2>📈 Crecimiento de ingresos</h2>
+            <p>
+                Este campo define <strong>cuánto crecen tus ventas cada mes</strong>. Es un porcentaje compuesto:
+                el crecimiento se aplica sobre el valor del mes anterior.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Ingresos Mes N = Ingresos base × (1 + Crecimiento)^N</div>
+                <div class="formula-desc">
+                    Ejemplo: con $30.000 base y 2% mensual, en el mes 12 los ingresos son $38.046.
+                </div>
+            </div>
+
+            <h3>Cómo elegir el valor</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Escenario</th>
+                        <th>Crecimiento típico</th>
+                        <th>Cuándo usarlo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Negocio estable</strong></td>
+                        <td>0% – 1%</td>
+                        <td>Ventas planchadas, sin estrategias de crecimiento activas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crecimiento moderado</strong></td>
+                        <td>2% – 4%</td>
+                        <td>Buenas prácticas de marketing, clientes fieles, mejora continua.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crecimiento agresivo</strong></td>
+                        <td>5% – 10%</td>
+                        <td>Inversión fuerte en marketing, nuevos canales, productos nuevos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decrecimiento</strong></td>
+                        <td>Negativo</td>
+                        <td>Crisis, competencia fuerte, pérdida de clientes.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Cuidado con el optimismo</span>
+                Un crecimiento del 5% mensual sostenido durante 12 meses implica un <strong>+79% anual</strong>.
+                Es posible, pero requiere trabajo. Sé realista o vas a proyectar una caja que no se va a cumplir.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 6: INFLACIÓN ===== -->
+        <section id="inflacion">
+            <h2>📉 Inflación de egresos</h2>
+            <p>
+                Este campo define <strong>cuánto suben tus costos cada mes</strong>. En Argentina, es clave porque
+                si tus costos suben más rápido que tus ingresos, vas a fundirte aunque vendas más.
+            </p>
+
+            <div class="info-box">
+                <p><span class="title">💡 La "carrera" entre ingresos y egresos</span>
+                Lo importante no es solo el crecimiento de ingresos, sino la <strong>diferencia entre
+                crecimiento e inflación</strong>. Si tus ingresos crecen al 2% y tus costos al 5%, tu
+                <strong>margen se achica</strong> mes a mes.</p>
+            </div>
+
+            <h3>Cómo elegir el valor</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Situación</th>
+                        <th>Inflación típica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Inflación baja (contexto estable)</td>
+                        <td>1% – 3% mensual</td>
+                    </tr>
+                    <tr>
+                        <td>Inflación moderada (Argentina 2024-2025)</td>
+                        <td>3% – 5% mensual</td>
+                    </tr>
+                    <tr>
+                        <td>Inflación alta (contexto de crisis)</td>
+                        <td>5% – 10% mensual</td>
+                    </tr>
+                    <tr>
+                        <td>Hiperinflación</td>
+                        <td>Más del 10% mensual</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Diferencia clave</span>
+                El <strong>crecimiento de ingresos</strong> refleja cuánto más vendés (en volumen real).
+                La <strong>inflación de egresos</strong> refleja cuánto suben los precios de lo que comprás.
+                Lo que importa es la <strong>diferencia</strong>: si crecés al 3% pero la inflación es del 5%,
+                en términos reales tu negocio está perdiendo 2% de margen cada mes.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 7: ESCENARIOS ===== -->
+        <section id="escenarios">
+            <h2>🎲 Escenarios de riesgo</h2>
+            <p>
+                El slider de escenario permite <strong>simular optimismo o pesimismo</strong> en un solo movimiento.
+                Ajusta automáticamente ingresos y egresos en direcciones opuestas.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-title">🟢 Optimista</div>
+                    <div class="card-range">-20% a -1%</div>
+                    <div class="card-desc">Ingresos suben (×1.20) y egresos bajan (×0.80). Escenario ideal.</div>
+                </div>
+                <div class="card info">
+                    <div class="card-title">🔵 Realista</div>
+                    <div class="card-range">0%</div>
+                    <div class="card-desc">Sin ajustes. Los datos se proyectan tal cual los cargaste.</div>
+                </div>
+                <div class="card danger">
+                    <div class="card-title">🔴 Pesimista</div>
+                    <div class="card-range">+1% a +20%</div>
+                    <div class="card-desc">Ingresos bajan (×0.80) y egresos suben (×1.20). Escenario de crisis.</div>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <div class="formula">Ingresos ajustados = Ingresos × (1 − Escenario/100)</div>
+                <div class="formula-desc" style="margin-bottom:10px;">
+                    Si el escenario es +10%, los ingresos se multiplican por 0.90.
+                </div>
+                <div class="formula">Egresos ajustados = Egresos × (1 + Escenario/100)</div>
+                <div class="formula-desc">
+                    Si el escenario es +10%, los egresos se multiplican por 1.10.
+                </div>
+            </div>
+
+            <h3>Cómo usarlo</h3>
+            <ol>
+                <li><strong>Empezá con 0%</strong> y revisá el saldo final.</li>
+                <li><strong>Movete a +10%</strong> y mirá cómo cambia. ¿Seguís sin quiebre?</li>
+                <li><strong>Movete a +20%</strong> y verificá el peor escenario.</li>
+                <li><strong>Volvé a 0%</strong> y considerá si tu plan aguanta una crisis.</li>
+            </ol>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ Importante</span>
+                El slider es una <strong>herramienta de estrés</strong>, no un pronóstico. No significa que el
+                escenario +20% vaya a suceder, sino que te muestra qué tan resiliente es tu negocio si empeora todo.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 8: MÉTRICAS ===== -->
+        <section id="metricas">
+            <h2>📊 Interpretar las métricas</h2>
+            <p>Después de ingresar los datos, vas a ver 4 tarjetas con los resultados principales:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">💥</span>
+                    <div class="name">Mes de Quiebre</div>
+                    <div class="desc">El primer mes donde el saldo se vuelve negativo. Si dice "—", no hay quiebre en el plazo proyectado.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">📉</span>
+                    <div class="name">Saldo Mínimo</div>
+                    <div class="desc">El valor más bajo que alcanza tu caja durante el período. Si es negativo, indica el déficit máximo.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">💵</span>
+                    <div class="name">Saldo Final</div>
+                    <div class="desc">Cuánto efectivo te queda al terminar el plazo de proyección. Es tu punto de llegada.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">⏱️</span>
+                    <div class="name">Autonomía (meses)</div>
+                    <div class="desc">Cuántos meses podés funcionar antes de quedarte sin caja. Es tu "colchón" de supervivencia.</div>
+                </div>
+            </div>
+
+            <h3>Cómo leer los colores</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Significado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟢</td>
+                        <td><strong>Verde</strong> · Todo bajo control</td>
+                        <td>Mantener estrategia actual, considerar invertir excedente.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟡</td>
+                        <td><strong>Amarillo</strong> · Margen ajustado</td>
+                        <td>Monitorear de cerca, buscar optimizaciones.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Rojo</strong> · Alerta de quiebre</td>
+                        <td>Actuar urgente: reducir costos, aumentar precios o buscar financiamiento.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 9: QUIEBRE ===== -->
+        <section id="quiebre">
+            <h2>💥 Mes de quiebre y autonomía</h2>
+            <p>
+                Estas dos métricas están <strong>directamente relacionadas</strong> y son las más críticas
+                de la herramienta.
+            </p>
+
+            <h3>Mes de quiebre</h3>
+            <p>Es el <strong>primer mes en que tu saldo acumulado se vuelve negativo</strong>. A partir de ahí, no podés pagar tus compromisos.</p>
+
+            <div class="timeline">
+                <div class="timeline-item success">
+                    <div class="t-title">Meses 1-3: Todo en orden</div>
+                    <div class="t-desc">Saldo positivo. Podés pagar todos tus compromisos sin problemas.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="t-title">Mes 4: Ajuste</div>
+                    <div class="t-desc">El saldo empieza a bajar. Los egresos superan a los ingresos.</div>
+                </div>
+                <div class="timeline-item danger">
+                    <div class="t-title">Mes 6: Quiebre ⚠️</div>
+                    <div class="t-desc">Saldo cruza a negativo. Sin financiamiento, no podés operar.</div>
+                </div>
+            </div>
+
+            <h3>Autonomía</h3>
+            <p>
+                La <strong>autonomía</strong> es cuántos meses podés seguir operando antes de quebrar. Es tu
+                "runway" o pista de despegue.
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Autonomía</th>
+                        <th>Interpretación</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge red">&lt; 3 meses</span></td>
+                        <td>Crítico. En cualquier momento te quedás sin caja.</td>
+                        <td>Actuar esta semana: recortar gastos, cobrar deudores, buscar financiamiento.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge orange">3 – 6 meses</span></td>
+                        <td>Ajustado. Tenés poco margen para maniobrar.</td>
+                        <td>Plan de optimización urgente. Reducir costos no esenciales.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge blue">6 – 12 meses</span></td>
+                        <td>Razonable. Tenés colchón para planificar.</td>
+                        <td>Buscar crecimiento sostenible, no acciones desesperadas.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge green">&gt; 12 meses</span></td>
+                        <td>Excelente. Tenés tiempo para tomar decisiones estratégicas.</td>
+                        <td>Invertir en crecimiento, contratar, expandir.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== SECCIÓN 10: GRÁFICO ===== -->
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico principal muestra la <strong>evolución del saldo acumulado</strong> mes a mes
+                con una línea azul. Tiene una <strong>línea roja punteada horizontal</strong> que marca el nivel cero.
+            </p>
+
+            <h3>Qué mirar</h3>
+            <ul>
+                <li>Si la línea azul está <strong>siempre por encima</strong> de la línea roja → tu caja está sana.</li>
+                <li>Si la línea azul <strong>toca o cruza</strong> la línea roja → estás en zona de quiebre.</li>
+                <li>La <strong>forma de la curva</strong> indica la tendencia: si baja constantemente, es señal de alarma.</li>
+                <li>La etiqueta <strong>"⚠️ Quiebre"</strong> aparece del lado izquierdo de la línea roja para recordarte qué representa.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Lectura rápida</span>
+                <strong>Curva ascendente</strong>: tu negocio genera más de lo que gasta. Excelente.<br>
+                <strong>Curva plana</strong>: estás en equilibrio. Necesitás crecer o ajustar costos.<br>
+                <strong>Curva descendente</strong>: estás perdiendo caja. Urgente revisar.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 11: TABLA ===== -->
+        <section id="tabla">
+            <h2>📋 Tabla mes a mes</h2>
+            <p>
+                Debajo de las recomendaciones hay una sección plegable con la <strong>proyección detallada mes a mes</strong>.
+                Hacé clic en "📋 Ver tabla mes a mes" para expandirla.
+            </p>
+
+            <h3>Columnas de la tabla</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Columna</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mes</strong></td>
+                        <td>Número de mes (1 a 12 por defecto).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ingresos</strong></td>
+                        <td>Cuánto vas a facturar ese mes, con el crecimiento aplicado.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Egresos</strong></td>
+                        <td>Cuánto vas a gastar ese mes, con la inflación aplicada.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flujo Neto</strong></td>
+                        <td>Ingresos − Egresos. Positivo = ganás, negativo = perdés.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Saldo Acumulado</strong></td>
+                        <td>El efectivo total que tenés en caja después de ese mes.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Filas de color</span>
+                Las filas con <strong>fondo verde</strong> tienen saldo positivo (bien).
+                Las filas con <strong>fondo rojo</strong> tienen saldo negativo (quiebre).
+                Buscá el primer rojo para identificar el mes exacto de quiebre.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 12: RECOMENDACIONES ===== -->
+        <section id="recomendaciones">
+            <h2>🧠 Recomendaciones automáticas</h2>
+            <p>
+                La herramienta genera recomendaciones personalizadas según el estado de tu caja. Puede darte
+                varios tipos de mensajes:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Icono</th>
+                        <th>Tipo</th>
+                        <th>Cuándo aparece</th>
+                        <th>Qué sugiere</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🔴</td>
+                        <td><strong>Alerta de quiebre</strong></td>
+                        <td>Cuando el saldo se vuelve negativo</td>
+                        <td>Indica el mes exacto, el déficit y el % de ajuste necesario en ingresos o egresos.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟢</td>
+                        <td><strong>Excelente salud</strong></td>
+                        <td>Margen de seguridad &gt; 2</td>
+                        <td>Invertir excedente o crear fondo de reserva.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟡</td>
+                        <td><strong>Salud aceptable</strong></td>
+                        <td>Margen entre 1 y 2</td>
+                        <td>Monitorear de cerca y buscar mejorar ingresos.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🟡</td>
+                        <td><strong>Margen ajustado</strong></td>
+                        <td>Margen &lt; 1 sin quiebre</td>
+                        <td>Revisar costos fijos y diversificar ingresos.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Cómo aprovechar las recomendaciones</span>
+                Cuando aparece una alerta de quiebre, la herramienta te dice <strong>cuánto necesitás ajustar</strong>
+                (por ejemplo: "reducir egresos en un 15%"). Usá ese número como meta concreta para tu plan de acción.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 13: EJEMPLO ===== -->
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés una <strong>tienda de ropa</strong> con estos datos actuales:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Saldo inicial</td>
+                        <td>$50.000</td>
+                    </tr>
+                    <tr>
+                        <td>Ingresos mensuales</td>
+                        <td>$30.000</td>
+                    </tr>
+                    <tr>
+                        <td>Egresos mensuales</td>
+                        <td>$35.000</td>
+                    </tr>
+                    <tr>
+                        <td>Crecimiento de ingresos</td>
+                        <td>2% mensual</td>
+                    </tr>
+                    <tr>
+                        <td>Inflación de egresos</td>
+                        <td>4% mensual</td>
+                    </tr>
+                    <tr>
+                        <td>Plazo</td>
+                        <td>12 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Escenario</td>
+                        <td>0% (realista)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué calcula la herramienta?</h3>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mes de quiebre</td>
+                        <td><span class="badge red">Mes 7</span></td>
+                        <td>En el séptimo mes tu saldo cruza a negativo.</td>
+                    </tr>
+                    <tr>
+                        <td>Saldo mínimo</td>
+                        <td>-$8.400</td>
+                        <td>El déficit máximo que alcanzarías.</td>
+                    </tr>
+                    <tr>
+                        <td>Saldo final (mes 12)</td>
+                        <td>-$27.100</td>
+                        <td>Terminás el año con deuda si no actuás.</td>
+                    </tr>
+                    <tr>
+                        <td>Autonomía</td>
+                        <td>6 meses</td>
+                        <td>Tenés 6 meses para revertir la situación.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Reducir egresos:</strong> la herramienta te dice que necesitás bajar costos un ~12% para no quebrar.</li>
+                <li><strong>Subir precios:</strong> podés aumentar precios un 10% para compensar la inflación.</li>
+                <li><strong>Cobrar más rápido:</strong> si tenés cheques a 30 días, negociá contado con descuento.</li>
+                <li><strong>Pausar inversiones:</strong> cualquier gasto no esencial debe esperar.</li>
+                <li><strong>Buscar financiamiento:</strong> si no podés ajustar lo suficiente, considerá un préstamo puente.</li>
+            </ol>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Prueba el escenario optimista</span>
+                Si movés el slider a -10% (optimista), vas a ver cómo la situación cambia drásticamente.
+                Esto te muestra el <strong>rango de acción</strong> que tenés. El objetivo es que incluso en el
+                escenario pesimista, tu negocio no quiebre.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 14: PDF ===== -->
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar tu análisis o compartirlo con tu contador o socio:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, las 4 tarjetas de resultados, la recomendación
+                personalizada, el gráfico de evolución del saldo, la tabla mes a mes y una descripción
+                resumida con los parámetros clave del análisis.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso del PDF</span>
+                <strong>Guardá un PDF cada mes</strong> con la fecha en el nombre del archivo.
+                Vas a poder comparar cómo evolucionó tu proyección y detectar si tus supuestos
+                fueron realistas o no.</p>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 15: FAQ ===== -->
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">No. Esta herramienta no guarda datos en localStorage. Al cerrar el navegador, los valores vuelven a los defaults. Guardá un PDF si querés conservar el análisis.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar comas en los números?</div>
+                <div class="a">Sí. La herramienta acepta tanto puntos como comas como separador decimal. Internamente los normaliza.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué diferencia hay entre ingresos y saldo?</div>
+                <div class="a">Los ingresos son lo que facturás en el mes. El saldo es el efectivo acumulado en caja después de ese mes. Podés tener ingresos altos pero saldo bajo si los egresos son mayores.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa un "quiebre" en el flujo de caja?</div>
+                <div class="a">Significa que el saldo acumulado se vuelve negativo. En la práctica, no tenés plata para pagar tus compromisos y necesitás financiamiento urgente.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El crecimiento de ingresos incluye inflación?</div>
+                <div class="a">No. Es crecimiento real en volumen. Si querés reflejar un aumento de precios por inflación, tenés que sumarlo aparte: por ejemplo, 2% de crecimiento real + 4% de inflación = 6% de aumento nominal.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cuántos meses conviene proyectar?</div>
+                <div class="a">Para un negocio estable, 12 meses está bien. Si estás en crisis, proyectá 6 meses. Si estás planificando inversiones grandes, podés ir a 24 meses.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué el slider ajusta ingresos y egresos en direcciones opuestas?</div>
+                <div class="a">Porque simula un escenario coherente: si el contexto empeora, tus ventas bajan Y tus costos suben (por inflación o desabastecimiento). No tiene sentido que ambos mejoren al mismo tiempo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿La herramienta incluye impuestos?</div>
+                <div class="a">No. Los egresos que cargues deben incluir impuestos y todos los gastos reales. La herramienta trabaja con los valores que vos le des.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si mi saldo inicial es 0?</div>
+                <div class="a">La herramienta funciona igual, pero empezás con menos margen. Si tus ingresos son menores que tus egresos desde el mes 1, el quiebre es inmediato.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo estimo mis ingresos mensuales?</div>
+                <div class="a">Sumá las ventas de los últimos 3-6 meses y dividí por la cantidad de meses. Si tenés estacionalidad marcada, podés cargar el promedio anual y ajustar el crecimiento.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El gráfico muestra valores reales o nominales?</div>
+                <div class="a">Muestra valores nominales (los que cargaste). Si la inflación es alta, los valores pueden parecer grandes pero su poder de compra es menor.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo simular un préstamo?</div>
+                <div class="a">Sí. Agregá el monto del préstamo al saldo inicial, y sumá la cuota mensual a los egresos. Compará el resultado con y sin préstamo.</div>
+            </div>
+        </section>
+
+        <!-- ===== SECCIÓN 16: TIPS ===== -->
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Actualizá el saldo inicial cada mes</h3>
+            <p>El saldo inicial es tu caja real de hoy. Si no lo actualizás, la proyección pierde precisión rápidamente.</p>
+
+            <h3>2. Sé conservador con el crecimiento</h3>
+            <p>Es mejor proyectar 2% y crecer 4%, que proyectar 6% y crecer 4%. En el primer caso, tenés una sorpresa positiva; en el segundo, un problema de caja.</p>
+
+            <h3>3. Usá escenarios para planificar decisiones</h3>
+            <p>Antes de contratar a alguien, movete al escenario +10%. ¿Seguís sin quiebre? Ese es tu margen de seguridad.</p>
+
+            <h3>4. Guardá un PDF por cada escenario</h3>
+            <p>Generá PDFs del escenario optimista, realista y pesimista. Compará los tres y usalos para tomar decisiones.</p>
+
+            <h3>5. Combiná con el Panel de KPIs</h3>
+            <p>El Panel de KPIs te da el detalle semanal; el Cashflow te da la foto anual. Juntos te dan control total.</p>
+
+            <h3>6. Revisá el efecto de los plazos de pago</h3>
+            <p>Si tus clientes pagan a 30 días, tus ingresos reales son los del mes anterior. Tenelo en cuenta al proyectar.</p>
+
+            <h3>7. Cuidado con los gastos estacionales</h3>
+            <p>Aguinaldos, vacaciones, impuestos anuales. Si los tenés, promediálos o agregálos como egresos puntuales.</p>
+
+            <h3>8. Simulá tu peor mes</h3>
+            <p>Cargá el peor mes de tu historia como base. Si tu negocio aguanta ese escenario, estás bien preparado.</p>
+
+            <h3>9. Considerá el efecto de un cliente grande</h3>
+            <p>Si perdés tu principal cliente, ¿cuánto cambia el escenario? Agregalo como escenario de estrés.</p>
+
+            <h3>10. Creá un fondo de reserva</h3>
+            <p>Si tu autonomía es mayor a 6 meses, considerá crear un fondo de reserva equivalente a 3 meses de egresos. Es tu seguro contra imprevistos.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta vas a poder <strong>anticipar problemas de caja</strong> con
+                meses de anticipación y tomar decisiones antes de que sea urgente. La clave está en la
+                <strong>anticipación</strong>, no en la reacción.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con el <strong>Simulador de Cashflow</strong>:</p>
+            <div class="cards-grid">
+            <a href="panel-kpis.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📊 Panel de KPIs</div>
+            <div class="card-desc">Cargá las semanas reales para ajustar la proyección anual.</div>
+            </a>
+            <a href="simulador-equilibrio.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">⚖️ Punto de Equilibrio</div>
+            <div class="card-desc">Definí la meta mínima de ventas para no quebrar.</div>
+            </a>
+            <a href="analisis-estacionalidad.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📅 Análisis de Estacionalidad</div>
+            <div class="card-desc">Incorporá los meses fuertes y débiles a la proyección.</div>
+            </a>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER NOTE ===== -->
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Simulador de Flujo de Caja (Cashflow)</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <!-- ===== FOOTER COMPARTIDO ===== -->
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Botón volver arriba -->
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <!-- JS compartido -->
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

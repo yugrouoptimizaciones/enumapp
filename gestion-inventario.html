@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Inventario · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Gestión de Inventario de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>📦 ENUMAPP · GESTIÓN DE INVENTARIO</h2>
+            <p>Predicción de reposición y cantidad de pedido</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📦 Gestión de Inventario
+                    <small>· Stock y reposición</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-gestion-inventario.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Administrá tu stock, calculá el punto de pedido, la cantidad económica de pedido (EOQ) y recibí alertas de reposición.
+        </div>
+
+        <div class="form-section">
+            <h4>📝 <span id="formTitle">Agregar Producto</span></h4>
+            <div class="grid-2">
+                <div class="input-group"><label>Nombre del Producto</label><input type="text" id="prodNombre" placeholder="Ej: Harina de trigo" /></div>
+                <div class="input-group"><label>Stock Actual (unidades)</label><input type="number" id="prodStock" value="100" step="1" min="0" /></div>
+                <div class="input-group"><label>Ventas Diarias Promedio (unidades)</label><input type="number" id="prodVentas" value="5" step="0.5" min="0.1" /></div>
+                <div class="input-group"><label>Lead Time (días)</label><input type="number" id="prodLeadTime" value="7" step="1" min="0" /></div>
+                <div class="input-group"><label>Días de Seguridad</label><input type="number" id="prodSeguridad" value="3" step="1" min="0" /></div>
+                <div class="input-group"><label>Costo de Pedido ($)</label><input type="number" id="prodCostoPedido" value="5000" step="100" min="0" /></div>
+                <div class="input-group"><label>Costo de Almacenamiento (% anual)</label><input type="number" id="prodCostoAlmacen" value="20" step="1" min="0" /></div>
+                <div class="input-group"><label>Precio Unitario ($)</label><input type="number" id="prodPrecio" value="1000" step="100" min="0" /></div>
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; justify-content:center;">
+                <button class="btn-primary" onclick="guardarProducto()">💾 Guardar Producto</button>
+                <button class="btn-secondary" onclick="limpiarFormulario()">🗑️ Limpiar</button>
+                <button class="btn-secondary" onclick="cargarEjemplos()" style="background:#8e44ad;">📋 Ejemplos</button>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row no-print">
+            <span class="badge">📦 <strong>Productos registrados</strong> <span class="counter-badge" id="contadorProductos">0</span></span>
+            <button class="btn-pdf" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div id="productGrid" class="product-grid"></div>
+
+        <div class="flex-row" style="margin-top:8px;">
+            <span class="badge">📊 <strong>Resumen de inventario</strong></span>
+        </div>
+
+        <div class="results-grid-4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:10px;">
+            <div class="result-card info">
+                <div class="label">📦 Stock Total</div>
+                <div class="value" id="stockTotal">0</div>
+                <div class="sub">unidades en inventario</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">⚠️ Productos Críticos</div>
+                <div class="value" id="productosCriticos">0</div>
+                <div class="sub">bajo punto de pedido</div>
+            </div>
+            <div class="result-card positive">
+                <div class="label">✅ Productos Saludables</div>
+                <div class="value" id="productosSaludables">0</div>
+                <div class="sub">stock suficiente</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">🔄 Próxima Reposición</div>
+                <div class="value" id="proxReposicion" style="font-size:16px;">—</div>
+                <div class="sub">producto más urgente</div>
+            </div>
+        </div>
+
+        <div class="recommendation-box" id="recommendationBox">
+            <h3>🧠 Recomendaciones</h3>
+            <p id="recommendationText">Agregá productos para recibir recomendaciones.</p>
+        </div>
+
+        <div class="flex-row no-print" style="margin-top:0;">
+            <span class="badge">📈 <strong>Proyección de stock</strong></span>
+        </div>
+        <div class="filter-bar no-print">
+            <label style="font-weight:600; color:var(--color-text);">Seleccioná un producto:</label>
+            <select id="selectGrafico" onchange="renderizarGrafico()">
+                <option value="">— Sin productos —</option>
+            </select>
+        </div>
+        <div class="chart-container">
+            <canvas id="stockChart"></canvas>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 <strong>Interpretación:</strong> Punto de pedido = (Ventas × Lead Time) + Stock de seguridad. EOQ = √(2 × Demanda anual × Costo de pedido / Costo de almacenamiento).</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        let productos = [];
+        let editingId = null;
+        let chartStock = null;
+
+        const prodNombre = document.getElementById('prodNombre');
+        const prodStock = document.getElementById('prodStock');
+        const prodVentas = document.getElementById('prodVentas');
+        const prodLeadTime = document.getElementById('prodLeadTime');
+        const prodSeguridad = document.getElementById('prodSeguridad');
+        const prodCostoPedido = document.getElementById('prodCostoPedido');
+        const prodCostoAlmacen = document.getElementById('prodCostoAlmacen');
+        const prodPrecio = document.getElementById('prodPrecio');
+        const formTitle = document.getElementById('formTitle');
+
+        const stockTotal = document.getElementById('stockTotal');
+        const productosCriticos = document.getElementById('productosCriticos');
+        const productosSaludables = document.getElementById('productosSaludables');
+        const proxReposicion = document.getElementById('proxReposicion');
+        const contadorProductos = document.getElementById('contadorProductos');
+        const productGrid = document.getElementById('productGrid');
+        const recommendationText = document.getElementById('recommendationText');
+        const printDesc = document.getElementById('printDesc');
+        const selectGrafico = document.getElementById('selectGrafico');
+        const lastSaved = document.getElementById('lastSaved');
+        const ctx = document.getElementById('stockChart').getContext('2d');
+
+        function generarId() { return Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
+
+        function calcularMetricas(p) {
+            const ventasDiarias = p.ventasDiarias || 0.1;
+            const leadTime = p.leadTime || 0;
+            const stockSeguridad = p.stockSeguridad || 0;
+            const stockActual = p.stockActual || 0;
+            const costoPedido = p.costoPedido || 0;
+            const costoAlmacen = (p.costoAlmacen || 0) / 100;
+            const precio = p.precio || 1;
+
+            const puntoPedido = (ventasDiarias * leadTime) + stockSeguridad;
+            const diasCobertura = ventasDiarias > 0 ? stockActual / ventasDiarias : 0;
+            const demandaAnual = ventasDiarias * 365;
+            const costoAlmacenUnitario = precio * costoAlmacen;
+            let eoq = 0;
+            if (costoAlmacenUnitario > 0 && costoPedido > 0) {
+                eoq = Math.sqrt((2 * demandaAnual * costoPedido) / costoAlmacenUnitario);
+            }
+
+            let diasHastaPedido = 0;
+            if (ventasDiarias > 0) {
+                diasHastaPedido = (stockActual - stockSeguridad) / ventasDiarias;
+                if (diasHastaPedido < 0) diasHastaPedido = 0;
+            }
+
+            let estado = 'verde', estadoLabel = '✅ Stock suficiente';
+            if (stockActual <= puntoPedido && stockActual > 0) {
+                estado = 'amarillo'; estadoLabel = '🟡 Cerca del punto de pedido';
+            }
+            if (stockActual <= 0 || (stockActual > 0 && stockActual < stockSeguridad)) {
+                estado = 'rojo'; estadoLabel = '🔴 Stock crítico';
+            }
+
+            return {
+                puntoPedido: Math.round(puntoPedido), stockSeguridad: Math.round(stockSeguridad),
+                diasCobertura, eoq: Math.round(eoq), diasHastaPedido, estado, estadoLabel,
+                demandaAnual: Math.round(demandaAnual)
+            };
+        }
+
+        /* ===== GUARDAR / CARGAR (STORAGE UNIFICADO) ===== */
+        function guardarInventario() {
+            ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.INVENTARIO, productos);
+            lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function cargarInventario() {
+            const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.INVENTARIO, null);
+            if (Array.isArray(data) && data.length >= 0) {
+                productos = data;
+                if (productos.length > 0) lastSaved.textContent = 'Cargado desde guardado';
+                else lastSaved.textContent = 'Sin datos';
+                return true;
+            }
+            return false;
+        }
+
+        function guardarProducto() {
+            const nombre = prodNombre.value.trim();
+            if (!nombre) { ENUMAPP_UI.toast('Ingresá el nombre', 'warning'); return; }
+
+            const producto = {
+                id: editingId || generarId(),
+                nombre,
+                stockActual: parseFloat(prodStock.value) || 0,
+                ventasDiarias: parseFloat(prodVentas.value) || 0.1,
+                leadTime: parseFloat(prodLeadTime.value) || 0,
+                stockSeguridad: parseFloat(prodSeguridad.value) || 0,
+                costoPedido: parseFloat(prodCostoPedido.value) || 0,
+                costoAlmacen: parseFloat(prodCostoAlmacen.value) || 0,
+                precio: parseFloat(prodPrecio.value) || 1
+            };
+
+            if (editingId) {
+                const idx = productos.findIndex(p => p.id === editingId);
+                if (idx !== -1) productos[idx] = producto;
+                editingId = null;
+                formTitle.textContent = 'Agregar Producto';
+            } else {
+                productos.push(producto);
+            }
+
+            limpiarFormulario();
+            renderizarTodo();
+            guardarInventario();
+            ENUMAPP_UI.toast('✅ Producto guardado', 'success');
+        }
+
+        function editarProducto(id) {
+            const p = productos.find(p => p.id === id);
+            if (!p) return;
+            editingId = id;
+            formTitle.textContent = '✏️ Editando: ' + p.nombre;
+            prodNombre.value = p.nombre;
+            prodStock.value = p.stockActual;
+            prodVentas.value = p.ventasDiarias;
+            prodLeadTime.value = p.leadTime;
+            prodSeguridad.value = p.stockSeguridad;
+            prodCostoPedido.value = p.costoPedido;
+            prodCostoAlmacen.value = p.costoAlmacen;
+            prodPrecio.value = p.precio;
+            document.getElementById('formTitle').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function eliminarProducto(id) {
+            if (!ENUMAPP_UI.confirm('¿Eliminar este producto?')) return;
+            productos = productos.filter(p => p.id !== id);
+            renderizarTodo();
+            guardarInventario();
+        }
+
+        function limpiarFormulario() {
+            prodNombre.value = ''; prodStock.value = ''; prodVentas.value = '';
+            prodLeadTime.value = ''; prodSeguridad.value = ''; prodCostoPedido.value = '';
+            prodCostoAlmacen.value = ''; prodPrecio.value = '';
+            editingId = null;
+            formTitle.textContent = 'Agregar Producto';
+        }
+
+        function cargarEjemplos() {
+            const ejemplos = [
+                { nombre: 'Harina de trigo', stockActual: 100, ventasDiarias: 5, leadTime: 7, stockSeguridad: 3, costoPedido: 5000, costoAlmacen: 20, precio: 1000 },
+                { nombre: 'Aceite vegetal', stockActual: 60, ventasDiarias: 3, leadTime: 5, stockSeguridad: 2, costoPedido: 4000, costoAlmacen: 15, precio: 1500 },
+                { nombre: 'Leche en polvo', stockActual: 30, ventasDiarias: 2, leadTime: 10, stockSeguridad: 5, costoPedido: 6000, costoAlmacen: 25, precio: 2000 },
+                { nombre: 'Queso rallado', stockActual: 15, ventasDiarias: 4, leadTime: 3, stockSeguridad: 2, costoPedido: 3000, costoAlmacen: 30, precio: 800 },
+                { nombre: 'Sal fina', stockActual: 200, ventasDiarias: 8, leadTime: 4, stockSeguridad: 4, costoPedido: 2500, costoAlmacen: 10, precio: 300 }
+            ];
+            ejemplos.forEach(e => {
+                productos.push({ id: generarId(), ...e });
+            });
+            renderizarTodo();
+            guardarInventario();
+            ENUMAPP_UI.toast('✅ 5 productos de ejemplo cargados', 'success');
+        }
+
+        function renderizarTodo() {
+            contadorProductos.textContent = productos.length;
+
+            if (productos.length === 0) {
+                productGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px 20px; color:var(--color-text-faint); background:var(--color-bg-card); border-radius:18px; border:1px dashed var(--color-border-input);">
+                    <span style="font-size:48px;">📦</span><br>
+                    <strong style="font-size:18px;">No hay productos registrados</strong><br>
+                    <span>Agregá tu primer producto.</span>
+                </div>`;
+            } else {
+                let html = '';
+                productos.forEach(p => {
+                    const m = calcularMetricas(p);
+                    const alertaClass = m.estado === 'rojo' ? 'rojo' : m.estado === 'amarillo' ? 'amarillo' : 'verde';
+                    html += `<div class="product-card">
+                        <div class="nombre">${p.nombre}</div>
+                        <div class="detalle">
+                            <span>Stock:</span> ${ENUMAPP_FMT.number(p.stockActual)} unid.<br>
+                            <span>Punto de pedido:</span> ${ENUMAPP_FMT.number(m.puntoPedido)} unid.<br>
+                            <span>EOQ:</span> ${ENUMAPP_FMT.number(m.eoq)} unid.<br>
+                            <span>Días de cobertura:</span> ${m.diasCobertura.toFixed(1)} días<br>
+                            <span>Reposición en:</span> ${m.diasHastaPedido.toFixed(1)} días
+                        </div>
+                        <div class="alerta ${alertaClass}">${m.estadoLabel}</div>
+                        <div class="actions">
+                            <button class="btn-secondary" onclick="editarProducto('${p.id}')" style="padding:4px 12px; font-size:12px;">✏️</button>
+                            <button class="btn-danger" onclick="eliminarProducto('${p.id}')" style="padding:4px 12px; font-size:12px;">🗑️</button>
+                        </div>
+                    </div>`;
+                });
+                productGrid.innerHTML = html;
+            }
+
+            let totalStock = 0, criticos = 0, saludables = 0, masUrgente = null, minDias = Infinity;
+            productos.forEach(p => {
+                const m = calcularMetricas(p);
+                totalStock += p.stockActual || 0;
+                if (m.estado === 'rojo') criticos++;
+                if (m.estado === 'verde') saludables++;
+                if (m.diasHastaPedido < minDias && p.stockActual > 0) {
+                    minDias = m.diasHastaPedido; masUrgente = p;
+                }
+            });
+
+            stockTotal.textContent = ENUMAPP_FMT.number(totalStock);
+            productosCriticos.textContent = criticos;
+            productosSaludables.textContent = saludables;
+            proxReposicion.textContent = masUrgente ? masUrgente.nombre + ' (' + minDias.toFixed(1) + ' días)' : '—';
+
+            let selectHTML = '<option value="">Seleccioná un producto</option>';
+            productos.forEach(p => { selectHTML += `<option value="${p.id}">${p.nombre}</option>`; });
+            selectGrafico.innerHTML = selectHTML;
+
+            if (productos.length === 0) {
+                recommendationText.textContent = '📌 Agregá productos para comenzar a gestionar tu inventario.';
+            } else if (criticos > 0) {
+                const nombres = productos.filter(p => calcularMetricas(p).estado === 'rojo').map(p => p.nombre).join(', ');
+                recommendationText.innerHTML = `🔴 <strong>¡Atención!</strong> ${criticos} producto(s) crítico(s): ${nombres}.<br>📦 Realizá un pedido de reposición urgente.`;
+            } else if (criticos === 0) {
+                const amarillos = productos.filter(p => calcularMetricas(p).estado === 'amarillo').length;
+                if (amarillos > 0) {
+                    recommendationText.innerHTML = `🟡 <strong>Inventario bajo control</strong> con ${amarillos} producto(s) cerca del punto de pedido.`;
+                } else {
+                    recommendationText.innerHTML = `✅ <strong>Inventario saludable!</strong> Todos los productos tienen stock suficiente.`;
+                }
+            }
+
+            renderizarGrafico();
+
+            printDesc.innerHTML = `
+                <strong>Total productos:</strong> ${productos.length}<br>
+                <strong>Stock total:</strong> ${ENUMAPP_FMT.number(totalStock)} unid.<br>
+                <strong>Productos críticos:</strong> ${criticos} &nbsp;|&nbsp; <strong>Saludables:</strong> ${saludables}<br>
+                <strong>Producto más urgente:</strong> ${masUrgente ? masUrgente.nombre : 'Ninguno'}
+            `;
+
+            document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+        }
+
+        function renderizarGrafico() {
+            const id = selectGrafico.value;
+            if (chartStock) { chartStock.destroy(); chartStock = null; }
+
+            if (!id || productos.length === 0) {
+                chartStock = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels: ['Sin datos'], datasets: [{ label: 'Esperando producto', data: [0], borderColor: '#dce3ec' }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+                return;
+            }
+
+            const p = productos.find(prod => prod.id === id);
+            if (!p) return;
+
+            const m = calcularMetricas(p);
+            const diasSimulacion = 45;
+            const labels = [], stockData = [], puntoPedidoData = [], seguridadData = [];
+
+            let stockSim = p.stockActual;
+            for (let i = 0; i <= diasSimulacion; i++) {
+                labels.push('Día ' + i);
+                stockData.push(Math.round(stockSim));
+                puntoPedidoData.push(Math.round(m.puntoPedido));
+                seguridadData.push(Math.round(m.stockSeguridad));
+                stockSim -= p.ventasDiarias;
+                if (stockSim < 0) stockSim = 0;
+            }
+
+            chartStock = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Stock Proyectado',
+                        data: stockData,
+                        borderColor: '#2b7be4',
+                        backgroundColor: 'rgba(43,123,228,0.05)',
+                        borderWidth: 3, pointRadius: 2, tension: 0.2, fill: true,
+                    }, {
+                        label: 'Punto de Pedido',
+                        data: puntoPedidoData,
+                        borderColor: '#e74c3c',
+                        borderDash: [6, 4], borderWidth: 2, pointRadius: 0, fill: false,
+                    }, {
+                        label: 'Stock de Seguridad',
+                        data: seguridadData,
+                        borderColor: '#f39c12',
+                        borderDash: [4, 4], borderWidth: 2, pointRadius: 0, fill: false,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { boxWidth: 15, padding: 15, font: { size: 12, weight: '600' }, color: '#0a2540' } },
+                        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + ENUMAPP_FMT.number(c.parsed.y) + ' unid.' } }
+                    },
+                    scales: {
+                        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#5b6f82', maxTicksLimit: 20 } },
+                        y: { beginAtZero: true, ticks: { color: '#5b6f82' } }
+                    }
+                }
+            });
+        }
+
+        if (!cargarInventario()) {
+            lastSaved.textContent = 'Sin datos';
+            cargarEjemplos();
+        } else {
+            renderizarTodo();
+        }
+
+        window.addEventListener('beforeunload', guardarInventario);
+        document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>

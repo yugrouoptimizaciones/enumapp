@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Importación · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Calculadora de Importación de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="tool-page">
+
+    <div class="tool-container">
+
+        <div class="print-header">
+            <h2>📦 ENUMAPP · COSTOS DE IMPORTACIÓN</h2>
+            <p>Proyección de costos reales con aranceles y brecha</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📦 Calculadora de Importación
+                    <small>· Reposición + Venta</small>
+                </h1>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <a href="manual-gestor-proveedores.html" class="btn-secondary btn-small" style="text-decoration:none;">📖 Ver manual</a>
+            <a href="suite.html" class="back-link">← Volver a la suite</a>
+            </div>
+        </header>
+
+        <div class="subtitle">
+            Proyectá el costo real en pesos, el costo por unidad y el precio de venta recomendado con margen de ganancia.
+        </div>
+
+        <div class="form-section">
+            <div class="grid-2">
+                <div class="input-group"><label>Valor FOB (USD)</label><input type="number" id="fob" value="10000" step="100" min="0"></div>
+                <div class="input-group"><label>Flete + Seguro (USD)</label><input type="number" id="flete" value="1200" step="50" min="0"></div>
+                <div class="input-group"><label>Cantidad de unidades</label><input type="number" id="unidades" value="100" step="1" min="1"></div>
+                <div class="input-group"><label>Alícuota Derechos de Importación (%)</label><input type="number" id="ali" value="1.5" step="0.1" min="0"></div>
+                <div class="input-group"><label>Tasa de Estadística (%)</label><input type="number" id="tasaEst" value="2.5" step="0.1" min="0"></div>
+                <div class="input-group"><label>Impuestos internos / IVA (%)</label><input type="number" id="iva" value="0" step="0.5" min="0"></div>
+                <div class="input-group"><label>Otros gastos (USD)</label><input type="number" id="otros" value="350" step="10" min="0"></div>
+                <div class="input-group"><label>Dólar oficial (ARS)</label><input type="number" id="oficial" value="1510" step="1" min="0"></div>
+                <div class="input-group"><label>Margen de ganancia sugerido (%)</label><input type="number" id="margen" value="30" step="1" min="0"></div>
+                <div class="input-group" style="grid-column: 1 / -1;">
+                    <label>Brecha cambiaria (%) <span class="hint">· deslizá para simular</span></label>
+                    <input type="range" id="brechaSlider" min="0" max="30" step="0.5" value="5" style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; font-size:13px; color:var(--color-text-muted); margin-top:4px;">
+                        <span>0% (oficial puro)</span>
+                        <span id="brechaDisplay" style="font-weight:700; color:var(--color-text);">5.0%</span>
+                        <span>30% (extremo)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="flex-row">
+            <span class="badge">💰 <strong>Costos proyectados</strong> · en tiempo real</span>
+            <button class="btn-pdf no-print" onclick="window.print()">📄 Generar Informe PDF</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:10px;">
+            <div class="result-card">
+                <div class="label">Valor CIF</div>
+                <div class="value" id="cifDisplay">USD 11.200</div>
+                <div class="sub">base imponible</div>
+            </div>
+            <div class="result-card">
+                <div class="label">Total Aranceles + Imp.</div>
+                <div class="value" id="taxesDisplay">USD 448</div>
+                <div class="sub">DI + Tasa + IVA</div>
+            </div>
+            <div class="result-card">
+                <div class="label">Costo Total (USD)</div>
+                <div class="value" id="totalUsdDisplay">USD 11.998</div>
+                <div class="sub">incluye todos los gastos</div>
+            </div>
+            <div class="result-card">
+                <div class="label">Tipo de Cambio Real</div>
+                <div class="value" id="tcRealDisplay">$ 1.585,50</div>
+                <div class="sub">oficial + brecha</div>
+            </div>
+            <div class="result-card positive" style="grid-column: span 2;">
+                <div class="label">Costo Final en Pesos (Total)</div>
+                <div class="value" id="totalArsDisplay">$ 19.022.000</div>
+                <div class="sub">costo total de la importación</div>
+            </div>
+            <div class="result-card warning">
+                <div class="label">Costo por Unidad</div>
+                <div class="value" id="unitArsDisplay">$ 190.220</div>
+                <div class="sub">costo de reposición x unidad</div>
+            </div>
+            <div class="result-card info">
+                <div class="label">Precio Venta Recomendado</div>
+                <div class="value" id="ventaDisplay">$ 247.286</div>
+                <div class="sub">con margen aplicado</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 Aranceles y cotizaciones según normativa vigente (septiembre 2026).</span>
+            <span>🔄 <span id="lastSaved">Sin datos</span></span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+        <div class="print-desc" id="printDesc"></div>
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        (function() {
+            const fobInput = document.getElementById('fob');
+            const fleteInput = document.getElementById('flete');
+            const unidadesInput = document.getElementById('unidades');
+            const aliInput = document.getElementById('ali');
+            const tasaEstInput = document.getElementById('tasaEst');
+            const ivaInput = document.getElementById('iva');
+            const otrosInput = document.getElementById('otros');
+            const oficialInput = document.getElementById('oficial');
+            const brechaSlider = document.getElementById('brechaSlider');
+            const brechaDisplay = document.getElementById('brechaDisplay');
+            const margenInput = document.getElementById('margen');
+
+            const cifDisplay = document.getElementById('cifDisplay');
+            const taxesDisplay = document.getElementById('taxesDisplay');
+            const totalUsdDisplay = document.getElementById('totalUsdDisplay');
+            const tcRealDisplay = document.getElementById('tcRealDisplay');
+            const totalArsDisplay = document.getElementById('totalArsDisplay');
+            const unitArsDisplay = document.getElementById('unitArsDisplay');
+            const ventaDisplay = document.getElementById('ventaDisplay');
+            const lastSaved = document.getElementById('lastSaved');
+
+            function fmtUsd(n) { return 'USD ' + Math.round(n).toLocaleString('es-AR'); }
+            function fmtArs(n) { return '$ ' + Math.round(n).toLocaleString('es-AR'); }
+
+            /* ===== PERSISTENCIA ===== */
+            let saveTimer = null;
+            function guardarImportacion() {
+                const estado = {
+                    fob: fobInput.value,
+                    flete: fleteInput.value,
+                    unidades: unidadesInput.value,
+                    ali: aliInput.value,
+                    tasaEst: tasaEstInput.value,
+                    iva: ivaInput.value,
+                    otros: otrosInput.value,
+                    oficial: oficialInput.value,
+                    margen: margenInput.value,
+                    brecha: brechaSlider.value
+                };
+                ENUMAPP_STORAGE.set(ENUMAPP_STORAGE.KEYS.IMPORTACION, estado);
+                lastSaved.textContent = 'Guardado: ' + new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+            }
+            function cargarImportacion() {
+                const data = ENUMAPP_STORAGE.get(ENUMAPP_STORAGE.KEYS.IMPORTACION, null);
+                if (data && typeof data === 'object') {
+                    if (data.fob !== undefined) fobInput.value = data.fob;
+                    if (data.flete !== undefined) fleteInput.value = data.flete;
+                    if (data.unidades !== undefined) unidadesInput.value = data.unidades;
+                    if (data.ali !== undefined) aliInput.value = data.ali;
+                    if (data.tasaEst !== undefined) tasaEstInput.value = data.tasaEst;
+                    if (data.iva !== undefined) ivaInput.value = data.iva;
+                    if (data.otros !== undefined) otrosInput.value = data.otros;
+                    if (data.oficial !== undefined) oficialInput.value = data.oficial;
+                    if (data.margen !== undefined) margenInput.value = data.margen;
+                    if (data.brecha !== undefined) brechaSlider.value = data.brecha;
+                    lastSaved.textContent = 'Cargado desde guardado';
+                    return true;
+                }
+                return false;
+            }
+
+            function calcular() {
+                const fob = parseFloat(fobInput.value) || 0;
+                const flete = parseFloat(fleteInput.value) || 0;
+                const unidades = parseFloat(unidadesInput.value) || 1;
+                const ali = parseFloat(aliInput.value) || 0;
+                const tasaEst = parseFloat(tasaEstInput.value) || 0;
+                const ivaPct = parseFloat(ivaInput.value) || 0;
+                const otros = parseFloat(otrosInput.value) || 0;
+                const oficial = parseFloat(oficialInput.value) || 1;
+                const brecha = parseFloat(brechaSlider.value) || 0;
+                const margen = parseFloat(margenInput.value) || 0;
+
+                const cif = fob + flete;
+                const di = cif * (ali / 100);
+                const te = cif * (tasaEst / 100);
+                const baseIva = cif + di + te;
+                const iva = baseIva * (ivaPct / 100);
+                const totalTaxes = di + te + iva;
+                const totalUsd = cif + totalTaxes + otros;
+                const tcReal = oficial * (1 + (brecha / 100));
+                const totalArs = totalUsd * tcReal;
+                const unitArs = unidades > 0 ? totalArs / unidades : 0;
+                const precioVenta = unitArs * (1 + (margen / 100));
+
+                cifDisplay.textContent = fmtUsd(cif);
+                taxesDisplay.textContent = fmtUsd(totalTaxes);
+                totalUsdDisplay.textContent = fmtUsd(totalUsd);
+                tcRealDisplay.textContent = '$ ' + tcReal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                totalArsDisplay.textContent = fmtArs(totalArs);
+                unitArsDisplay.textContent = fmtArs(unitArs);
+                ventaDisplay.textContent = fmtArs(precioVenta);
+                brechaDisplay.textContent = brecha.toFixed(1) + '%';
+
+                printDesc.innerHTML = `
+                    <strong>FOB:</strong> ${fmtUsd(fob)} &nbsp;|&nbsp; <strong>Flete+Seguro:</strong> ${fmtUsd(flete)}<br>
+                    <strong>CIF:</strong> ${fmtUsd(cif)} &nbsp;|&nbsp; <strong>Aranceles+Imp:</strong> ${fmtUsd(totalTaxes)}<br>
+                    <strong>Costo total USD:</strong> ${fmtUsd(totalUsd)} &nbsp;|&nbsp; <strong>TC real:</strong> $${tcReal.toFixed(2)}<br>
+                    <strong>Costo total ARS:</strong> ${fmtArs(totalArs)} &nbsp;|&nbsp; <strong>Por unidad:</strong> ${fmtArs(unitArs)}<br>
+                    <strong>Precio venta sugerido (margen ${margen}%):</strong> ${fmtArs(precioVenta)}
+                `;
+
+                document.getElementById('printDate').textContent = 'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+
+                // Guardar con debounce (no en cada tecla)
+                if (saveTimer) clearTimeout(saveTimer);
+                saveTimer = setTimeout(guardarImportacion, 500);
+            }
+
+            const inputs = [fobInput, fleteInput, unidadesInput, aliInput, tasaEstInput, ivaInput, otrosInput, oficialInput, brechaSlider, margenInput];
+            inputs.forEach(inp => {
+                inp.addEventListener('input', calcular);
+                inp.addEventListener('change', calcular);
+            });
+
+            // Cargar datos guardados al iniciar
+            if (!cargarImportacion()) {
+                lastSaved.textContent = 'Sin datos';
+            }
+            calcular();
+
+            window.addEventListener('beforeunload', guardarImportacion);
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual · Gestión de Inventario · ENUMAPP</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Manual de uso de la Gestión de Inventario de ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/manuals.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="manual-page">
+
+    <div class="enumapp-container">
+
+        <div class="print-header">
+            <h2>📖 ENUMAPP · MANUAL DE GESTIÓN DE INVENTARIO</h2>
+            <p>Predicción de reposición y cantidad de pedido</p>
+            <div class="report-date" id="printDate"></div>
+        </div>
+
+        <header class="enumapp-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="44" height="44" class="enumapp-logo">
+                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
+                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
+                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
+                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
+            </svg>
+            <div class="enumapp-header-text">
+                <div class="enumapp-brand">ENUMAPP</div>
+                <h1 style="margin: 0;">
+                    📖 Manual de Uso
+                    <small>· Gestión de Inventario (Stock)</small>
+                </h1>
+            </div>
+            <a href="gestion-inventario.html" class="back-link">← Volver a la herramienta</a>
+        </header>
+
+        <div class="subtitle">
+            Guía completa para administrar tu stock, calcular el punto de pedido, la cantidad económica
+            de pedido (EOQ) y recibir alertas de reposición antes de quedarte sin mercadería.
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de contenidos</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es esta herramienta?</a></li>
+                <li><a href="#cuando-usar">¿Cuándo usarla?</a></li>
+                <li><a href="#primeros-pasos">Primeros pasos</a></li>
+                <li><a href="#campos">Descripción de cada campo</a></li>
+                <li><a href="#punto-pedido">Punto de pedido</a></li>
+                <li><a href="#eoq">Cantidad económica de pedido (EOQ)</a></li>
+                <li><a href="#seguridad">Stock de seguridad</a></li>
+                <li><a href="#estados">Los 3 estados de stock</a></li>
+                <li><a href="#tarjetas">Tarjetas de producto</a></li>
+                <li><a href="#metricas">Métricas del resumen</a></li>
+                <li><a href="#grafico">Interpretar el gráfico</a></li>
+                <li><a href="#acciones">Editar y eliminar productos</a></li>
+                <li><a href="#ejemplo">Ejemplo práctico</a></li>
+                <li><a href="#pdf">Generar informe PDF</a></li>
+                <li><a href="#faq">Preguntas frecuentes</a></li>
+                <li><a href="#tips">Tips avanzados</a></li>
+                <li><a href="#relacionadas">Herramientas relacionadas</a></li>
+            </ul>
+        </div>
+
+        <section id="que-es">
+            <h2>🎯 ¿Qué es esta herramienta?</h2>
+            <p>
+                La <strong>Gestión de Inventario (Stock)</strong> es una herramienta que te permite
+                <strong>controlar cuánta mercadería tenés, cuándo reponerla y cuánto pedir</strong> para
+                minimizar costos sin quedarte sin stock.
+            </p>
+            <p>Con esta herramienta podés:</p>
+            <ul>
+                <li>Registrar todos tus productos con su stock actual.</li>
+                <li>Calcular el <strong>punto de pedido</strong>: cuándo hacer el próximo pedido.</li>
+                <li>Calcular la <strong>cantidad económica de pedido (EOQ)</strong>: cuánto pedir para minimizar costos.</li>
+                <li>Recibir <strong>alertas automáticas</strong> cuando un producto está en estado crítico.</li>
+                <li>Ver una <strong>proyección de stock</strong> a 45 días para cada producto.</li>
+                <li>Identificar el <strong>producto más urgente</strong> de reponer.</li>
+            </ul>
+
+            <div class="info-box">
+                <p><span class="title">💡 Concepto clave: Stock vs. Reposición</span>
+                El <strong>stock</strong> es la mercadería que tenés hoy. La <strong>reposición</strong>
+                es el proceso de comprar más cuando el stock baja. La clave está en reponer
+                <strong>a tiempo</strong> (ni muy temprano, que inmoviliza capital, ni muy tarde,
+                que te deja sin vender).</p>
+            </div>
+        </section>
+
+        <section id="cuando-usar">
+            <h2>📅 ¿Cuándo usarla?</h2>
+            <p>Esta herramienta es ideal para:</p>
+            <ul>
+                <li><strong>Negocios con productos físicos</strong>: tiendas, distribuidoras, fábricas.</li>
+                <li><strong>Controlar el capital inmovilizado</strong> en mercadería.</li>
+                <li><strong>Planificar compras</strong> a proveedores nacionales o importados.</li>
+                <li><strong>Evitar quiebres de stock</strong> que te hagan perder ventas.</li>
+                <li><strong>Optimizar costos</strong> de pedido y almacenamiento.</li>
+                <li><strong>Revisar periódicamente</strong> tu inventario (semanal o mensual).</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">✅ Recomendación</span>
+                Revisá la herramienta <strong>una vez por semana</strong> para ver los productos críticos.
+                Una vez por mes, revisá las métricas y ajustá los parámetros de cada producto
+                (ventas diarias, lead time, costos).</p>
+            </div>
+        </section>
+
+        <section id="primeros-pasos">
+            <h2>🚀 Primeros pasos</h2>
+            <p>Al abrir la herramienta, se cargan 5 productos de ejemplo. Vas a ver esta estructura:</p>
+
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Formulario</div>
+                    <div class="step-desc">Agregar o editar productos</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Tarjetas</div>
+                    <div class="step-desc">Ver todos los productos con alertas</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Resumen</div>
+                    <div class="step-desc">Métricas globales del inventario</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Gráfico</div>
+                    <div class="step-desc">Proyección a 45 días</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Datos persistentes</span>
+                Los productos se guardan automáticamente en el navegador. Si cerrás y volvés a abrir,
+                encontrás todo tal como lo dejaste.</p>
+            </div>
+        </section>
+
+        <section id="campos">
+            <h2>📋 Descripción de cada campo</h2>
+            <p>El formulario tiene <strong>8 campos</strong>. El único obligatorio es el nombre del producto.</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">#</th>
+                        <th>Campo</th>
+                        <th>Qué poner</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">1</td>
+                        <td><strong>Nombre del Producto</strong></td>
+                        <td>Identificador único y descriptivo.</td>
+                        <td>Harina de trigo</td>
+                    </tr>
+                    <tr>
+                        <td class="num">2</td>
+                        <td><strong>Stock Actual</strong></td>
+                        <td>Cuántas unidades tenés hoy en el depósito.</td>
+                        <td>100 unidades</td>
+                    </tr>
+                    <tr>
+                        <td class="num">3</td>
+                        <td><strong>Ventas Diarias Promedio</strong></td>
+                        <td>Cuántas unidades vendés o consumís por día.</td>
+                        <td>5 unidades/día</td>
+                    </tr>
+                    <tr>
+                        <td class="num">4</td>
+                        <td><strong>Lead Time</strong></td>
+                        <td>Días desde que hacés el pedido hasta que llega.</td>
+                        <td>7 días</td>
+                    </tr>
+                    <tr>
+                        <td class="num">5</td>
+                        <td><strong>Días de Seguridad</strong></td>
+                        <td>Días extra de stock para imprevistos (demoras, picos de demanda).</td>
+                        <td>3 días</td>
+                    </tr>
+                    <tr>
+                        <td class="num">6</td>
+                        <td><strong>Costo de Pedido</strong></td>
+                        <td>Cuánto te cuesta hacer un pedido (envío, gestión, tiempo).</td>
+                        <td>$5.000</td>
+                    </tr>
+                    <tr>
+                        <td class="num">7</td>
+                        <td><strong>Costo de Almacenamiento</strong></td>
+                        <td>% anual del valor del producto por guardarlo (alquiler, seguro, merma).</td>
+                        <td>20% anual</td>
+                    </tr>
+                    <tr>
+                        <td class="num">8</td>
+                        <td><strong>Precio Unitario</strong></td>
+                        <td>Valor de cada unidad del producto.</td>
+                        <td>$1.000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Cómo estimar ventas diarias</span>
+                Sumá las ventas de los últimos 30 días y dividí por 30. Si el producto es nuevo,
+                usá una proyección conservadora.</p>
+            </div>
+        </section>
+
+        <section id="punto-pedido">
+            <h2>📌 Punto de pedido</h2>
+            <p>
+                El <strong>punto de pedido</strong> es el nivel de stock en el que debés hacer el
+                próximo pedido para no quedarte sin mercadería.
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">Punto de Pedido = (Ventas Diarias × Lead Time) + Stock de Seguridad</div>
+                <div class="formula-desc">
+                    Ejemplo: (5 unid/día × 7 días) + 3 unid = 38 unidades.
+                </div>
+            </div>
+
+            <h3>Cómo interpretarlo</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Situación</th>
+                        <th>Significado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Stock <strong>por encima</strong> del punto de pedido</td>
+                        <td>Tenés suficiente stock.</td>
+                        <td>No hacer nada.</td>
+                    </tr>
+                    <tr>
+                        <td>Stock <strong>igual</strong> al punto de pedido</td>
+                        <td>Momento exacto de hacer el pedido.</td>
+                        <td>Hacer el pedido AHORA.</td>
+                    </tr>
+                    <tr>
+                        <td>Stock <strong>por debajo</strong> del punto de pedido</td>
+                        <td>Vas a quedarte sin stock antes de que llegue el pedido.</td>
+                        <td>Pedir urgente o buscar proveedor alternativo.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><span class="title">⚠️ No confundir con el stock de seguridad</span>
+                El <strong>punto de pedido</strong> es el momento en el que hacés el pedido.
+                El <strong>stock de seguridad</strong> es el colchón mínimo que nunca querés tocar.
+                Si tocás el stock de seguridad, estás en problemas.</p>
+            </div>
+        </section>
+
+        <section id="eoq">
+            <h2>📦 Cantidad económica de pedido (EOQ)</h2>
+            <p>
+                La <strong>EOQ</strong> (<em>Economic Order Quantity</em>) es la cantidad ideal a pedir
+                para <strong>minimizar los costos totales</strong>: ni pedir muy poco (más pedidos, más
+                costo de gestión) ni pedir mucho (más stock inmovilizado, más costo de almacenamiento).
+            </p>
+
+            <div class="formula-box">
+                <div class="formula">EOQ = √((2 × Demanda Anual × Costo de Pedido) ÷ Costo Unitario de Almacenamiento)</div>
+                <div class="formula-desc">
+                    Demanda anual = Ventas diarias × 365.<br>
+                    Costo unitario de almacenamiento = Precio × % de costo de almacenamiento.
+                </div>
+            </div>
+
+            <h3>Ejemplo numérico</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Ventas diarias</td><td>5 unidades</td></tr>
+                    <tr><td>Demanda anual</td><td>1.825 unidades (5 × 365)</td></tr>
+                    <tr><td>Costo de pedido</td><td>$5.000</td></tr>
+                    <tr><td>Precio unitario</td><td>$1.000</td></tr>
+                    <tr><td>Costo almacenamiento</td><td>20% anual ($200/año por unidad)</td></tr>
+                    <tr><td><strong>EOQ</strong></td><td><strong>≈ 302 unidades</strong></td></tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p><span class="title">💡 Interpretación</span>
+                Pedir <strong>302 unidades</strong> cada vez que hacés un pedido te minimiza los costos
+                totales. Si pedís menos, gastás más en gestión de pedidos. Si pedís más, gastás más
+                en almacenamiento.</p>
+            </div>
+        </section>
+
+        <section id="seguridad">
+            <h2>🛡️ Stock de seguridad</h2>
+            <p>
+                El <strong>stock de seguridad</strong> es la cantidad mínima de unidades que querés
+                tener siempre como colchón. Sirve para cubrir:
+            </p>
+            <ul>
+                <li><strong>Demoras del proveedor</strong>: si el lead time se estira, no te quedás sin stock.</li>
+                <li><strong>Picos de demanda</strong>: si un día vendés el doble de lo normal.</li>
+                <li><strong>Errores de pronóstico</strong>: si subestimaste las ventas.</li>
+            </ul>
+
+            <h3>Cómo elegir los días de seguridad</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Días</th>
+                        <th>Cuándo usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>1-2 días</strong></td><td>Proveedor muy confiable y demanda estable.</td></tr>
+                    <tr><td><strong>3-5 días</strong></td><td>Proveedor con demoras ocasionales o demanda variable.</td></tr>
+                    <tr><td><strong>7-15 días</strong></td><td>Productos importados o proveedores poco confiables.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Regla práctica</span>
+                Empezá con 3 días de seguridad. Si en 3 meses tuviste quiebres de stock,
+                subilo a 5-7 días. Si nunca tuviste problemas, podés bajarlo a 2 días.</p>
+            </div>
+        </section>
+
+        <section id="estados">
+            <h2>🎨 Los 3 estados de stock</h2>
+            <p>La herramienta clasifica cada producto en uno de estos 3 estados según su nivel de stock:</p>
+
+            <div class="cards-grid">
+                <div class="card positive">
+                    <div class="card-title">✅ Stock suficiente</div>
+                    <div class="card-cond">Stock &gt; Punto de pedido</div>
+                    <div class="card-desc">
+                        Todo en orden. Tenés suficiente stock y no necesitás pedir todavía.
+                        Se muestra en <strong>verde</strong> en la tarjeta.
+                    </div>
+                </div>
+                <div class="card warning">
+                    <div class="card-title">🟡 Cerca del punto de pedido</div>
+                    <div class="card-cond">Stock ≤ Punto de pedido</div>
+                    <div class="card-desc">
+                        Es momento de hacer el pedido. Si no actuás pronto, vas a quedar
+                        sin stock. Se muestra en <strong>amarillo</strong>.
+                    </div>
+                </div>
+                <div class="card danger">
+                    <div class="card-title">🔴 Stock crítico</div>
+                    <div class="card-cond">Stock ≤ 0 o Stock &lt; Stock de seguridad</div>
+                    <div class="card-desc">
+                        Emergencia. Estás por debajo del stock de seguridad o ya sin mercadería.
+                        Hay que hacer un pedido urgente. Se muestra en <strong>rojo</strong>.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tarjetas">
+            <h2>🎴 Tarjetas de producto</h2>
+            <p>Cada producto se muestra como una tarjeta con toda su información clave:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Nombre</strong></td><td>Nombre del producto.</td></tr>
+                    <tr><td><strong>Stock</strong></td><td>Unidades actuales en depósito.</td></tr>
+                    <tr><td><strong>Punto de pedido</strong></td><td>Nivel en el que hay que reponer.</td></tr>
+                    <tr><td><strong>EOQ</strong></td><td>Cantidad óptima de pedido.</td></tr>
+                    <tr><td><strong>Días de cobertura</strong></td><td>Cuántos días durará el stock actual al ritmo de venta actual.</td></tr>
+                    <tr><td><strong>Reposición en</strong></td><td>Cuántos días faltan para llegar al punto de pedido.</td></tr>
+                    <tr><td><strong>Alerta</strong></td><td>Etiqueta de color con el estado (verde/amarillo/rojo).</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="metricas">
+            <h2>📊 Métricas del resumen</h2>
+            <p>Debajo de las tarjetas hay 4 métricas globales de tu inventario:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="icon">📦</span>
+                    <div class="name">Stock Total</div>
+                    <div class="desc">Suma de todas las unidades que tenés en inventario.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">⚠️</span>
+                    <div class="name">Productos Críticos</div>
+                    <div class="desc">Cuántos productos están en estado rojo. Deberían ser 0.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">✅</span>
+                    <div class="name">Productos Saludables</div>
+                    <div class="desc">Cuántos productos están en estado verde.</div>
+                </div>
+                <div class="metric-card">
+                    <span class="icon">🔄</span>
+                    <div class="name">Próxima Reposición</div>
+                    <div class="desc">El producto que va a necesitar reposición antes, con sus días restantes.</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><span class="title">💡 Lectura rápida</span>
+                Si tenés <strong>muchos productos críticos</strong>, tu sistema de reposición
+                no está funcionando bien. Revisá los puntos de pedido o los lead times.
+                Si <strong>todos son saludables</strong>, estás gestionando bien el stock.</p>
+            </div>
+        </section>
+
+        <section id="grafico">
+            <h2>📈 Interpretar el gráfico</h2>
+            <p>
+                El gráfico muestra la <strong>proyección de stock a 45 días</strong> del producto
+                que selecciones en el desplegable. Tiene 3 líneas:
+            </p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Color</th>
+                        <th>Línea</th>
+                        <th>Qué muestra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">🔵</td>
+                        <td><strong>Azul sólida</strong></td>
+                        <td>Stock proyectado. Baja cada día por las ventas.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🔴</td>
+                        <td><strong>Roja punteada</strong></td>
+                        <td>Punto de pedido. Cuando la línea azul lo cruza, hay que pedir.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">🟠</td>
+                        <td><strong>Naranja punteada</strong></td>
+                        <td>Stock de seguridad. Nunca deberías bajar de acá.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Qué buscar en el gráfico</h3>
+            <ul>
+                <li>El <strong>día exacto</strong> en que la línea azul cruza la roja: es cuando hay que hacer el pedido.</li>
+                <li>Si la línea azul <strong>toca la naranja</strong>: estás en zona de riesgo.</li>
+                <li>Si la línea azul <strong>llega a 0 antes de 45 días</strong>: te vas a quedar sin stock.</li>
+                <li>La <strong>pendiente</strong> de la línea azul te dice qué tan rápido se consume el producto.</li>
+            </ul>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Truco visual</span>
+                Si la línea azul cruza la roja en menos de 7 días, ese producto es <strong>urgente</strong>.
+                Si tarda más de 20 días, tenés tiempo de planificar.</p>
+            </div>
+        </section>
+
+        <section id="acciones">
+            <h2>✏️ Editar y eliminar productos</h2>
+            <p>Cada tarjeta tiene <strong>2 botones de acción</strong> en la parte inferior:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px;">Botón</th>
+                        <th>Acción</th>
+                        <th>Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">✏️</td>
+                        <td><strong>Editar</strong></td>
+                        <td>Carga los datos del producto en el formulario para modificarlos. Podés cambiar cualquier campo.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center; font-size:20px;">🗑️</td>
+                        <td><strong>Eliminar</strong></td>
+                        <td>Borra el producto del inventario. Pide confirmación antes de hacerlo.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Actualizá el stock periódicamente</span>
+                Editá el stock actual cada vez que hagas un pedido o recibas mercadería. Es la única
+                forma de mantener las alertas precisas.</p>
+            </div>
+        </section>
+
+        <section id="ejemplo">
+            <h2>🎓 Ejemplo práctico</h2>
+            <p>Imaginate que tenés una <strong>panadería</strong> y querés controlar el stock de
+                harina de trigo. Cargás estos datos:</p>
+
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Nombre</td><td>Harina de trigo</td></tr>
+                    <tr><td>Stock Actual</td><td>100 unidades</td></tr>
+                    <tr><td>Ventas Diarias</td><td>5 unidades/día</td></tr>
+                    <tr><td>Lead Time</td><td>7 días</td></tr>
+                    <tr><td>Días de Seguridad</td><td>3 días</td></tr>
+                    <tr><td>Costo de Pedido</td><td>$5.000</td></tr>
+                    <tr><td>Costo de Almacenamiento</td><td>20% anual</td></tr>
+                    <tr><td>Precio Unitario</td><td>$1.000</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Resultados que calcularía la herramienta</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                        <th>Interpretación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Punto de pedido</td>
+                        <td>38 unidades</td>
+                        <td>Cuando bajes de 38 unid., hay que pedir.</td>
+                    </tr>
+                    <tr>
+                        <td>EOQ</td>
+                        <td>302 unidades</td>
+                        <td>Cantidad ideal de pedido para minimizar costos.</td>
+                    </tr>
+                    <tr>
+                        <td>Días de cobertura</td>
+                        <td>20 días</td>
+                        <td>El stock actual durará 20 días.</td>
+                    </tr>
+                    <tr>
+                        <td>Reposición en</td>
+                        <td>19,4 días</td>
+                        <td>Tenés 19 días para hacer el próximo pedido.</td>
+                    </tr>
+                    <tr>
+                        <td>Estado</td>
+                        <td><span class="badge green">✅ Saludable</span></td>
+                        <td>Todo en orden.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>¿Qué decisiones tomar?</h3>
+            <ol>
+                <li><strong>Monitorear</strong> el producto cada semana.</li>
+                <li><strong>Cuando baje a 38 unidades</strong>, hacer un pedido de 302 unidades.</li>
+                <li><strong>Si el proveedor se retrasa</strong>, considerar subir los días de seguridad a 5.</li>
+                <li><strong>Si el precio del proveedor sube</strong>, recalcular la EOQ (puede convenir pedir menos).</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">📊 Escenario de urgencia</span>
+                Si el stock bajara a <strong>30 unidades</strong> (por debajo del punto de pedido),
+                la tarjeta cambiaría a amarillo. Si bajara a <strong>2 unidades</strong> (por debajo
+                del stock de seguridad de 3), cambiaría a rojo y aparecería en la lista de críticos.</p>
+            </div>
+        </section>
+
+        <section id="pdf">
+            <h2>📄 Generar informe PDF</h2>
+            <p>Para guardar el estado del inventario o compartirlo con tu equipo:</p>
+            <ol>
+                <li>Hacé clic en el botón <span class="badge blue">📄 Generar Informe PDF</span>.</li>
+                <li>Se abre el diálogo de impresión del navegador.</li>
+                <li>En "Destino", seleccioná <strong>"Guardar como PDF"</strong>.</li>
+                <li>Hacé clic en <strong>Guardar</strong> y elegí dónde guardarlo.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><span class="title">ℹ️ Qué incluye el PDF</span>
+                El informe incluye: encabezado con fecha, todas las tarjetas de productos con sus
+                alertas, las 4 métricas del resumen, el gráfico del producto seleccionado y una
+                descripción resumida con los datos clave del inventario.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><span class="title">💡 Buen uso</span>
+                Generá un PDF <strong>cada viernes</strong> como respaldo semanal. Si querés analizar
+                la evolución de un producto, guardá un PDF mensual y comparalos.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>❓ Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <div class="q">¿Los datos se guardan si cierro el navegador?</div>
+                <div class="a">Sí. Los productos se guardan en el almacenamiento local del navegador. Al volver a abrir, encontrás todo tal como lo dejaste.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué significa "Lead Time"?</div>
+                <div class="a">Es el tiempo que tarda el proveedor en entregarte la mercadería desde que hacés el pedido. Incluye preparación, despacho y transporte.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo tener varios productos con el mismo nombre?</div>
+                <div class="a">Sí, pero no es recomendable. Si tenés dos productos similares, diferenciálos con una variante: "Harina de trigo 000" y "Harina de trigo 0000".</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo estimo el costo de almacenamiento?</div>
+                <div class="a">Sumá alquiler proporcional, seguro, mermas y costo de oportunidad del capital inmovilizado. Como referencia, el 20% anual es un valor típico para productos no perecederos.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si dejo el costo de almacenamiento en 0?</div>
+                <div class="a">La EOQ no se puede calcular (daría infinito). La herramienta te muestra EOQ = 0 en ese caso. Poné un valor mayor a 0 para obtener el cálculo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El EOQ es siempre la cantidad ideal a pedir?</div>
+                <div class="a">Es la cantidad que minimiza la suma de costos de pedido y almacenamiento. Pero puede haber restricciones prácticas (espacio, presupuesto, descuentos por volumen) que te hagan ajustarlo.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Por qué mi producto aparece como crítico si tengo stock?</div>
+                <div class="a">Porque tenés stock, pero menos que el stock de seguridad que configuraste. Es una alerta temprana para que actúes antes de quedarte sin nada.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo usar esto para productos perecederos?</div>
+                <div class="a">Sí, pero tené en cuenta las fechas de vencimiento. El EOQ asume que el producto no se vence. Para perecederos, ajustá el EOQ a la baja.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Cómo cambio el orden de los productos?</div>
+                <div class="a">No se puede cambiar el orden desde la interfaz. Los productos se muestran en el orden en que los cargaste. Si querés otro orden, eliminá y volvé a cargar.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿El gráfico muestra un solo producto a la vez?</div>
+                <div class="a">Sí. Para ver la proyección de otro producto, cambialo en el desplegable "Seleccioná un producto".</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Puedo exportar los datos a Excel?</div>
+                <div class="a">No directamente. Pero podés copiar los datos manualmente desde el PDF o usar el navegador para inspeccionar el localStorage.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="q">¿Qué pasa si tengo muchos productos?</div>
+                <div class="a">La herramienta no tiene límite. Pero para que sea útil, enfocate en los productos de mayor rotación o valor. Los productos de bajo movimiento pueden no necesitar gestión diaria.</div>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>💡 Tips avanzados</h2>
+
+            <h3>1. Actualizá el stock después de cada pedido</h3>
+            <p>Cada vez que recibís mercadería, actualizá el stock actual. Si no lo hacés, las alertas pierden precisión rápidamente.</p>
+
+            <h3>2. Revisá el lead time real</h3>
+            <p>El lead time que ponés suele ser el ideal. Medí el real durante 3 meses y ajustá. Si tu proveedor siempre tarda 10 días, no pongas 7.</p>
+
+            <h3>3. Subí el stock de seguridad si tuviste quiebres</h3>
+            <p>Si en los últimos 3 meses te quedaste sin stock 2 veces, subí los días de seguridad. El costo de quiebre es mayor que el de mantener stock extra.</p>
+
+            <h3>4. Ajustá el EOQ según la realidad</h3>
+            <p>Si el EOQ te da un número poco práctico (por ejemplo, 302 unidades), redondealo a un múltiplo que se ajuste a tu operación (300 o 350).</p>
+
+            <h3>5. Separá productos por categoría</h3>
+            <p>En el nombre del producto, agregá un prefijo: <code>[Bebidas] Coca-Cola</code>, <code>[Almacén] Harina</code>. Así podés ordenar visualmente por categoría.</p>
+
+            <h3>6. Combiná con el Gestor de Proveedores</h3>
+            <p>Usá el Gestor de Proveedores para elegir el mejor proveedor de cada producto. Después cargá su lead time real en el inventario.</p>
+
+            <h3>7. Combiná con el Tablero Kanban</h3>
+            <p>Cuando un producto entra en estado crítico, creá una tarea en el Kanban para hacer el pedido. Así no se te escapa ninguna reposición.</p>
+
+            <h3>8. Hacé un conteo físico mensual</h3>
+            <p>Una vez por mes, contá el stock real y comparalo con el sistema. Ajustá las diferencias. Esto te da confianza en los datos.</p>
+
+            <h3>9. Revisá el gráfico antes de cada pedido</h3>
+            <p>Antes de hacer un pedido, mirá el gráfico del producto. Te confirma si estás en el momento justo o si podés esperar unos días más.</p>
+
+            <h3>10. Guardá un PDF cada mes</h3>
+            <p>Un PDF mensual te sirve como archivo histórico. Si hay un problema de stock, podés revisar cómo evolucionó y detectar la causa.</p>
+
+            <div class="tip-box">
+                <p><span class="title">🎯 Objetivo final</span>
+                Después de usar esta herramienta durante 2-3 meses, vas a tener una <strong>gestión de stock
+                profesional</strong>: sin quiebres, sin exceso de capital inmovilizado y con pedidos
+                optimizados. Eso libera tiempo y plata para hacer crecer el negocio.</p>
+            </div>
+        </section>
+
+        <!-- ===== HERRAMIENTAS RELACIONADAS ===== -->
+        <section id="relacionadas">
+            <h2>🔗 Herramientas relacionadas</h2>
+            <p>Estas herramientas se complementan con la <strong>Gestión de Inventario</strong>:</p>
+            <div class="cards-grid">
+            <a href="gestor-proveedores.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">🏢 Gestor de Proveedores</div>
+            <div class="card-desc">Elegí el mejor proveedor según puntaje ponderado y lead time.</div>
+            </a>
+            <a href="calculadora-importacion.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">📦 Calculadora de Importación</div>
+            <div class="card-desc">Calculá el costo real de productos importados con lead time largo.</div>
+            </a>
+            <a href="simulador-cashflow.html" class="card info" style="text-decoration:none; color:inherit;">
+            <div class="card-title">💵 Simulador de Cashflow</div>
+            <div class="card-desc">Proyectá el impacto de las compras de reposición en tu caja.</div>
+            </a>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <span>📌 <strong>Manual de Uso</strong> · Gestión de Inventario (Stock)</span>
+            <span>🔄 Última actualización: Septiembre 2026</span>
+        </div>
+
+        <footer class="enumapp-footer">
+            <div class="footer-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
+                    <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
+                    <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
+                    <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
+                </svg>
+                <strong>ENUMAPP</strong>
+            </div>
+            <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+            <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+            <div class="footer-links">
+                <a href="suite.html">Inicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="premium-proximamente.html">Activar Premium</a>
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="privacidad.html">Política de Privacidad</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/manual.js"></script>
+    <script>
+        document.getElementById('printDate').textContent =
+            'Fecha: ' + ENUMAPP_FMT.dateTime(new Date());
+    </script>
+
+</body>
+</html>
