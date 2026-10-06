@@ -19,17 +19,12 @@
 
     <header class="public-header">
         <a href="index.html" class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="40" height="40">
-                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
-                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
-                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
-                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
-                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
-                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
-            </svg>
+             <object type="image/svg+xml" data="logos/logo_header.svg" width="100" height="100">
+                Tu navegador no soporta SVG.
+            </object>
             <div class="logo-text">
-                <span class="brand">ENUMAPP</span>
-                <span class="tagline">Tus números, tu negocio, tu app</span>
+                <span class="brand"></span>
+                <span class="brand">Tus números, tu negocio, tu app</span>
             </div>
         </a>
         <nav class="header-nav">
@@ -123,23 +118,28 @@
 
     <footer class="enumapp-footer">
         <div class="footer-brand">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
-                <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
-                <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
-                <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
-                <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
-                <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
-            </svg>
+            <object type="image/svg+xml" data="logos/logo_header.svg" width="60" height="60">
+                Tu navegador no soporta SVG.
+            </object>
             <strong>ENUMAPP</strong>
         </div>
         <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
         <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+        <div class="legal-footer-block">
+            <span class="legal-footer-label">Tus derechos como consumidor:</span>
+            <div class="legal-footer-links">
+                <a href="baja.html" class="legal-footer-link">🛑 Baja del Servicio</a>
+                <span class="legal-footer-sep">·</span>
+                <a href="baja.html" class="legal-footer-link">↩️ Arrepentimiento de Compra</a>
+            </div>
+        </div>        
         <div class="footer-links">
             <a href="suite.html">Inicio</a>
             <a href="contacto.html">Contacto</a>
             <a href="premium-proximamente.html">Activar Premium</a>
             <a href="terminos.html">Términos y Condiciones</a>
             <a href="privacidad.html">Política de Privacidad</a>
+            <a href="#" id="cookieConfigLink">Configurar cookies</a>
         </div>
     </footer>
 
@@ -211,6 +211,66 @@
             }
         });
     </script>
+<!-- ===== BANNER DE COOKIES ===== -->
+<div id="cookieBanner" class="cookie-banner">
+    <div class="cookie-banner-content">
+        <div class="cookie-banner-icon">🍪</div>
+        <div class="cookie-banner-text">
+            <strong>Usamos cookies</strong>
+            <p>Utilizamos cookies propias y de terceros para analizar el uso de ENUMAPP y mejorar tu experiencia. Podés aceptar todas, rechazar las no esenciales o configurarlas a tu medida. Conocé más en nuestra <a href="privacidad.html">Política de Privacidad</a>.</p>
+        </div>
+        <div class="cookie-banner-actions">
+            <button id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Aceptar todas</button>
+            <button id="cookieAcceptEssential" class="cookie-btn cookie-btn-secondary">Solo esenciales</button>
+            <button id="cookieConfig" class="cookie-btn cookie-btn-link">Configurar</button>
+        </div>
+    </div>
+</div>
 
+<!-- ===== MODAL DE CONFIGURACIÓN ===== -->
+<div id="cookieConfigModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+            <h2>Configuración de cookies</h2>
+            <p>Elegí qué tipos de cookies querés permitir. Las cookies esenciales no se pueden desactivar porque son necesarias para el funcionamiento del sitio.</p>
+        </div>
+        <div class="cookie-modal-body">
+            <div class="cookie-option">
+                <div class="cookie-option-info">
+                    <strong>Cookies esenciales</strong>
+                    <p>Necesarias para el funcionamiento básico: sesión, seguridad y preferencias. No se pueden desactivar.</p>
+                </div>
+                <label class="cookie-switch">
+                    <input type="checkbox" checked disabled>
+                    <span class="cookie-slider"></span>
+                </label>
+            </div>
+            <div class="cookie-option">
+                <div class="cookie-option-info">
+                    <strong>Cookies de análisis</strong>
+                    <p>Nos ayudan a entender cómo usás ENUMAPP para mejorar la plataforma (ej. Google Analytics).</p>
+                </div>
+                <label class="cookie-switch">
+                    <input type="checkbox" id="cookieAnalytics">
+                    <span class="cookie-slider"></span>
+                </label>
+            </div>
+            <div class="cookie-option">
+                <div class="cookie-option-info">
+                    <strong>Cookies de marketing</strong>
+                    <p>Permiten mostrar publicidad personalizada y medir campañas (ej. Meta Pixel).</p>
+                </div>
+                <label class="cookie-switch">
+                    <input type="checkbox" id="cookieMarketing">
+                    <span class="cookie-slider"></span>
+                </label>
+            </div>
+        </div>
+        <div class="cookie-modal-footer">
+            <button id="cookieSaveConfig" class="cookie-btn cookie-btn-primary">Guardar preferencias</button>
+        </div>
+    </div>
+</div>
+<script src="js/cookies.js"></script>
 </body>
 </html>

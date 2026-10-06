@@ -93,6 +93,48 @@
     color: var(--color-primary-dark);
     text-decoration: underline;
 }
+.legal-footer-block {
+    margin: 16px 0 8px;
+    padding: 14px 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    text-align: center;
+}
+
+.legal-footer-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.legal-footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.legal-footer-link {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.legal-footer-link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+.legal-footer-sep {
+    color: var(--color-text-muted);
+    font-size: 14px;
+}
 
 /* ===== FOOTER NOTE (resumen simple) ===== */
 .footer-note {

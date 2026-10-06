@@ -13,6 +13,9 @@ window.ENUMAPP_UI = {
      * @param {number} duration - Milisegundos antes de ocultarse (default 3000)
      */
     toast(message, type = 'info', duration = 3000) {
+     // Eliminar toasts anteriores antes de mostrar uno nuevo
+        document.querySelectorAll('.enumapp-toast').forEach(t => t.remove());
+
         const toast = document.createElement('div');
         toast.className = 'enumapp-toast' + (type !== 'info' ? ' ' + type : '');
         toast.textContent = message;

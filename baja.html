@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baja del Servicio y Arrepentimiento · ENUMAPP</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232B7BE4'/%3E%3Crect x='8' y='7' width='3' height='18' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='7' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='14' width='10' height='3' rx='1' fill='%23FFFFFF'/%3E%3Crect x='8' y='21' width='14' height='3' rx='1' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#2B7BE4" />
+    <meta name="description" content="Ejercé tu derecho de baja del servicio o arrepentimiento de compra en ENUMAPP." />
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/tools.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body class="public-page">
+
+    <header class="public-header">
+        <a href="index.html" class="logo">
+             <object type="image/svg+xml" data="logos/logo_header.svg" width="100" height="100">
+                Tu navegador no soporta SVG.
+            </object>
+            <div class="logo-text">
+                <span class="brand"></span>
+                <span class="brand">Tus números, tu negocio, tu app</span>
+            </div>
+        </a>
+        <nav class="header-nav">
+            <a href="suite.html" class="header-link">Suite</a>
+            <a href="index.html" class="header-link">← Volver al inicio</a>
+        </nav>
+    </header>
+
+    <section class="public-hero">
+        <span style="font-size:64px; display:block; margin-bottom:12px;">🛑</span>
+        <h1>Baja del Servicio y Arrepentimiento</h1>
+        <p>Ejercé tu derecho de cancelar tu suscripción o arrepentirte de la compra de forma simple, sin justificar tu decisión y sin penalidades.</p>
+    </section>
+
+    <div style="max-width:1000px; margin:0 auto; padding:0 24px 60px; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+
+        <!-- TARJETA BAJA -->
+        <div style="background:white; border-radius:28px; padding:40px 32px; box-shadow:0 20px 50px rgba(0,20,40,0.08); border:1px solid var(--color-border);">
+            <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+                <div style="width:48px; height:48px; background:rgba(43,123,228,0.1); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px;">📤</div>
+                <h2 style="font-size:22px; font-weight:700; color:var(--color-text); margin:0; border:none; padding:0;">Baja del Servicio</h2>
+            </div>
+            <p style="font-size:14.5px; color:var(--color-text-muted); margin-bottom:24px;">Cancelá tu suscripción al Plan Premium en cualquier momento. No necesitás justificar tu decisión ni pagar ninguna penalidad.</p>
+
+            <form id="bajaForm">
+                <div class="form-group">
+                    <label>Email de tu cuenta <span style="color:var(--color-danger);">*</span></label>
+                    <input type="email" name="email" id="bajaEmail" placeholder="tu@email.com" required />
+                </div>
+                <div class="form-group">
+                    <label>Motivo (opcional)</label>
+                    <select name="motivo" id="bajaMotivo" style="width:100%; padding:14px 16px; border:1.5px solid var(--color-border-input); border-radius:14px; font-size:15px; background:var(--color-bg-input); font-family:inherit; color:var(--color-text);">
+                        <option value="">Prefiero no decir</option>
+                        <option value="Ya no lo necesito">Ya no lo necesito</option>
+                        <option value="Precio">Precio</option>
+                        <option value="Falta de funciones">Falta de funciones</option>
+                        <option value="Problemas técnicos">Problemas técnicos</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-submit" style="background:linear-gradient(135deg, #dc3545 0%, #c82333 100%);">🛑 Confirmar baja del servicio</button>
+                <p class="form-note">Tu baja será procesada en un plazo máximo de 24 horas. Recibirás un código de identificación en tu correo.</p>
+            </form>
+        </div>
+
+        <!-- TARJETA ARREPENTIMIENTO -->
+        <div style="background:white; border-radius:28px; padding:40px 32px; box-shadow:0 20px 50px rgba(0,20,40,0.08); border:1px solid var(--color-border);">
+            <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+                <div style="width:48px; height:48px; background:rgba(46,204,113,0.1); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px;">↩️</div>
+                <h2 style="font-size:22px; font-weight:700; color:var(--color-text); margin:0; border:none; padding:0;">Arrepentimiento de Compra</h2>
+            </div>
+            <p style="font-size:14.5px; color:var(--color-text-muted); margin-bottom:24px;">Si contrataste el Plan Premium hace menos de 10 días corridos, podés arrepentirte de la compra sin costo alguno.</p>
+
+            <form id="arrepentimientoForm">
+                <div class="form-group">
+                    <label>Email de tu cuenta <span style="color:var(--color-danger);">*</span></label>
+                    <input type="email" name="email" id="arrEmail" placeholder="tu@email.com" required />
+                </div>
+                <div class="form-group">
+                    <label>Fecha de compra <span style="color:var(--color-danger);">*</span></label>
+                    <input type="date" name="fecha" id="arrFecha" required />
+                </div>
+                <button type="submit" class="form-submit" style="background:linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);">↩️ Solicitar arrepentimiento</button>
+                <p class="form-note">Tenés 10 días corridos desde la compra. Recibirás un código de confirmación en tu correo dentro de las 24 horas.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- INFO LEGAL -->
+    <section class="public-section">
+        <h2>Información importante</h2>
+        <p class="section-subtitle">Tus derechos como consumidor.</p>
+        <div style="max-width:780px; margin:20px auto 0;">
+            <div class="public-faq"><h3>¿Tiene algún costo?</h3><p>No. Tanto la baja del servicio como el arrepentimiento de compra son <strong>totalmente gratuitos</strong> y no generan penalidades.</p></div>
+            <div class="public-faq"><h3>¿Cuánto tarda la baja?</h3><p>La baja se procesa de forma inmediata. En un plazo máximo de <strong>24 horas</strong> recibirás un código de identificación en tu correo electrónico.</p></div>
+            <div class="public-faq"><h3>¿Qué pasa con mis datos?</h3><p>Al dar de baja el servicio, tus datos personales serán eliminados de nuestros sistemas conforme a la <a href="privacidad.html">Política de Privacidad</a>.</p></div>
+            <div class="public-faq"><h3>¿Puedo volver a suscribirme?</h3><p>Sí. Podés volver a contratar el Plan Premium cuando quieras. Tu cuenta y configuración se conservarán por 30 días.</p></div>
+        </div>
+    </section>
+
+    <footer class="enumapp-footer">
+        <div class="footer-brand">
+            <object type="image/svg+xml" data="logos/logo_header.svg" width="60" height="60">
+                Tu navegador no soporta SVG.
+            </object>
+            <strong>ENUMAPP</strong>
+        </div>
+        <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
+        <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
+        <div class="footer-links">
+            <a href="suite.html">Inicio</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="premium-proximamente.html">Activar Premium</a>
+            <a href="terminos.html">Términos y Condiciones</a>
+            <a href="privacidad.html">Política de Privacidad</a>
+            <a href="#" id="cookieConfigLink">Configurar cookies</a>
+        </div>
+    </footer>
+
+    <script src="js/format.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        // Función para generar un código de identificación simple
+        function generarCodigo(prefijo) {
+            const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+            return prefijo + '-' + random;
+        }
+
+        // --- BAJA DEL SERVICIO ---
+        document.getElementById('bajaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('bajaEmail').value.trim();
+            const motivo = document.getElementById('bajaMotivo').value;
+
+            if (!email) {
+                ENUMAPP_UI.toast('Ingresá tu email para continuar', 'warning');
+                return;
+            }
+
+            const codigo = generarCodigo('BAJA');
+            ENUMAPP_UI.toast('✅ Baja solicitada. Código: ' + codigo, 'success', 6000);
+            this.reset();
+
+            // Aquí podés agregar la lógica para enviar el email o registrar la baja en tu backend/Google Forms
+        });
+
+        // --- ARREPENTIMIENTO DE COMPRA ---
+        document.getElementById('arrepentimientoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('arrEmail').value.trim();
+            const fecha = document.getElementById('arrFecha').value;
+
+            if (!email || !fecha) {
+                ENUMAPP_UI.toast('Completá todos los campos obligatorios', 'warning');
+                return;
+            }
+
+            // Validar que la fecha esté dentro de los últimos 10 días
+            const hoy = new Date();
+            const fechaCompra = new Date(fecha + 'T00:00:00');
+            const diffDias = Math.floor((hoy - fechaCompra) / (1000 * 60 * 60 * 24));
+
+            if (diffDias > 10 || diffDias < 0) {
+                ENUMAPP_UI.toast('❌ La fecha debe estar dentro de los últimos 10 días corridos', 'danger', 6000);
+                return;
+            }
+
+            const codigo = generarCodigo('ARR');
+            ENUMAPP_UI.toast('✅ Arrepentimiento registrado. Código: ' + codigo, 'success', 6000);
+            this.reset();
+
+            // Aquí podés agregar la lógica para procesar el reintegro
+        });
+    </script>
+<!-- ===== BANNER DE COOKIES ===== -->
+<div id="cookieBanner" class="cookie-banner">
+    <div class="cookie-banner-content">
+        <div class="cookie-banner-icon">🍪</div>
+        <div class="cookie-banner-text">
+            <strong>Usamos cookies</strong>
+            <p>Utilizamos cookies propias y de terceros para analizar el uso de ENUMAPP y mejorar tu experiencia. Podés aceptar todas, rechazar las no esenciales o configurarlas a tu medida. Conocé más en nuestra <a href="privacidad.html">Política de Privacidad</a>.</p>
+        </div>
+        <div class="cookie-banner-actions">
+            <button id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Aceptar todas</button>
+            <button id="cookieAcceptEssential" class="cookie-btn cookie-btn-secondary">Solo esenciales</button>
+            <button id="cookieConfig" class="cookie-btn cookie-btn-link">Configurar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL DE CONFIGURACIÓN ===== -->
+<div id="cookieConfigModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+            <h2>Configuración de cookies</h2>
+            <p>Elegí qué tipos de cookies querés permitir. Las cookies esenciales no se pueden desactivar porque son necesarias para el funcionamiento del sitio.</p>
+        </div>
+        <div class="cookie-modal-body">
+            <div class="cookie-option">
+                <div class="cookie-option-info">
+                    <strong>Cookies esenciales</strong>
+                    <p>Necesarias para el funcionamiento básico: sesión, seguridad y preferencias. No se pueden desactivar.</p>
+                </div>
+                <label class="cookie-switch">
+                    <input type="checkbox" checked disabled>
+                    <span class="cookie-slider"></span>
+                </label>
+            </div>
+            <div class="cookie-option">
+                <div class="cookie-option-info">
+                    <strong>Cookies de análisis</strong>
+                    <p>Nos ayudan a entender cómo usás ENUMAPP para mejorar la plataforma (ej. Google Analytics).</p>
+                </div>
+                <label class="cookie-switch">
+                    <input type="checkbox" id="cookieAnalytics">
+                    <span class="cookie-slider"></span>
+                </label>
+            </div>
+            <div class="cookie-option">
+                <div class="cookie-option-info">
+                    <strong>Cookies de marketing</strong>
+                    <p>Permiten mostrar publicidad personalizada y medir campañas (ej. Meta Pixel).</p>
+                </div>
+                <label class="cookie-switch">
+                    <input type="checkbox" id="cookieMarketing">
+                    <span class="cookie-slider"></span>
+                </label>
+            </div>
+        </div>
+        <div class="cookie-modal-footer">
+            <button id="cookieSaveConfig" class="cookie-btn cookie-btn-primary">Guardar preferencias</button>
+        </div>
+    </div>
+</div>
+<script src="js/cookies.js"></script>
+</body>
+</html>

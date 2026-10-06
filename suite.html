@@ -20,16 +20,11 @@
     <!-- HEADER PÚBLICO -->
     <header class="public-header">
         <a href="suite.html" class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="40" height="40">
-                <rect width="80" height="80" rx="18" fill="#2B7BE4"/>
-                <rect x="20" y="22" width="7" height="36" rx="2" fill="#FFFFFF"/>
-                <rect x="20" y="22" width="30" height="7" rx="2" fill="#FFFFFF"/>
-                <rect x="20" y="37" width="22" height="7" rx="2" fill="#FFFFFF"/>
-                <rect x="20" y="52" width="30" height="7" rx="2" fill="#FFFFFF"/>
-                <circle cx="60" cy="26" r="5" fill="#2ECC71"/>
-            </svg>
+            <object type="image/svg+xml" data="logos/logo_header.svg" width="100" height="100">
+                Tu navegador no soporta SVG.
+            </object>
             <div class="logo-text">
-                <span class="brand">ENUMAPP</span>
+                <span class="brand">Tus números, tu negocio, tu app</span>
                 <span class="tagline">Suite de herramientas</span>
             </div>
         </a>
@@ -70,14 +65,18 @@
 
     <footer class="enumapp-footer" style="max-width:1300px; margin:20px auto 0;">
         <div class="footer-brand">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24">
-                <rect width="32" height="32" rx="8" fill="#2B7BE4"/>
-                <rect x="8" y="7" width="3" height="18" rx="1" fill="#FFFFFF"/>
-                <rect x="8" y="7" width="14" height="3" rx="1" fill="#FFFFFF"/>
-                <rect x="8" y="14" width="10" height="3" rx="1" fill="#FFFFFF"/>
-                <rect x="8" y="21" width="14" height="3" rx="1" fill="#FFFFFF"/>
-            </svg>
+            <object type="image/svg+xml" data="logos/logo_header.svg" width="60" height="60">
+                Tu navegador no soporta SVG.
+            </object>
             <strong>ENUMAPP</strong>
+        </div>
+        <div class="legal-footer-block">
+            <span class="legal-footer-label">Tus derechos como consumidor:</span>
+            <div class="legal-footer-links">
+                <a href="baja.html" class="legal-footer-link">🛑 Baja del Servicio</a>
+                <span class="legal-footer-sep">·</span>
+                <a href="baja.html" class="legal-footer-link">↩️ Arrepentimiento de Compra</a>
+            </div>
         </div>
         <p class="footer-tagline">Tus números, tu negocio, tu app.</p>
         <p>© 2026 ENUMAPP · Todos los derechos reservados</p>
@@ -87,6 +86,7 @@
             <a href="premium-proximamente.html">Activar Premium</a>
             <a href="terminos.html">Términos y Condiciones</a>
             <a href="privacidad.html">Política de Privacidad</a>
+            <a href="#" id="cookieConfigLink">Configurar cookies</a>
         </div>
     </footer>
 
@@ -121,6 +121,9 @@
 
         // ===== RENDERIZAR GRID =====
         function renderizarHerramientas() {
+            const grid = document.getElementById('toolsGrid');
+            if (!grid) return;
+
             const buscar = document.getElementById('buscarTool').value.toLowerCase().trim();
             const filtro = document.getElementById('filtroModulo').value;
 
@@ -134,8 +137,6 @@
             }
             if (filtro !== 'todos') filtradas = filtradas.filter(h => h.cat === filtro);
 
-            const grid = document.getElementById('toolsGrid');
-
             if (filtradas.length === 0) {
                 grid.innerHTML = `<div class="empty-state">
                     <span class="icon">🔍</span>
@@ -145,7 +146,6 @@
                 return;
             }
 
-            // Agrupar por categoría si no hay filtro de módulo específico
             const mostrarAgrupado = (filtro === 'todos' && !buscar);
 
             if (mostrarAgrupado) {
@@ -154,23 +154,18 @@
                 categorias.forEach(cat => {
                     const tools = filtradas.filter(h => h.cat === cat);
                     if (tools.length === 0) return;
-                    const iconoCat = tools[0].icono;
                     html += `<h2 style="font-size:22px; font-weight:700; color:var(--color-text); margin:30px 0 16px; display:flex; align-items:center; gap:10px; border:none; padding:0;">
                         ${getIconoModulo(cat)} ${cat}
                         <span style="font-size:14px; font-weight:400; color:var(--color-text-muted);">(${tools.length} herramientas)</span>
                     </h2>`;
                     html += `<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px;">`;
-                    tools.forEach(h => {
-                        html += renderizarCard(h);
-                    });
+                    tools.forEach(h => { html += renderizarCard(h); });
                     html += `</div>`;
                 });
                 grid.innerHTML = html;
             } else {
                 let html = `<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px;">`;
-                filtradas.forEach(h => {
-                    html += renderizarCard(h);
-                });
+                filtradas.forEach(h => { html += renderizarCard(h); });
                 html += `</div>`;
                 grid.innerHTML = html;
             }
@@ -199,28 +194,38 @@
             </div>`;
         }
 
-        // ===== CERRAR SESIÓN (con ENUMAPP_AUTH) =====
+        // ===== CERRAR SESIÓN =====
         function cerrarSesion(e) {
             if (e) e.preventDefault();
-            if (!ENUMAPP_UI.confirm('¿Cerrar sesión? Se borrará tu registro (los datos de las herramientas se conservan).')) return;
-            ENUMAPP_AUTH.cerrarSesion();
+            const ok = ENUMAPP_UI && ENUMAPP_UI.confirm
+                ? ENUMAPP_UI.confirm('¿Cerrar sesión? Se borrará tu registro (los datos de las herramientas se conservan).')
+                : confirm('¿Cerrar sesión?');
+            if (!ok) return;
+            localStorage.removeItem('enumapp_v1_registro');
+            window.location.href = 'index.html';
         }
 
         // ===== VERIFICAR REGISTRO =====
-        const registro = ENUMAPP_AUTH.getUsuario();
+        let registro = null;
+        try {
+            const raw = localStorage.getItem('enumapp_v1_registro');
+            registro = raw ? JSON.parse(raw) : null;
+        } catch (err) { registro = null; }
+
         if (registro) {
             document.getElementById('userInfo').textContent = '👤 ' + (registro.nombre || 'Usuario');
         } else {
-            // No registrado: redirigir a index
             window.location.href = 'index.html';
         }
 
         // ===== BADGE PREMIUM =====
-        if (ENUMAPP_AUTH.isPremium()) {
+        if (localStorage.getItem('enumapp_v1_premium') === 'true') {
             const badge = document.getElementById('premiumBadge');
-            badge.className = 'premium-status-badge premium';
-            badge.innerHTML = '⭐ PREMIUM';
-            badge.href = 'suite.html';
+            if (badge) {
+                badge.className = 'premium-status-badge premium';
+                badge.innerHTML = '⭐ PREMIUM';
+                badge.href = 'suite.html';
+            }
         }
 
         // ===== INIT =====
@@ -229,5 +234,67 @@
         console.log('🏠 ENUMAPP · Suite cargada');
     </script>
 
+    <!-- ===== BANNER DE COOKIES ===== -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="cookie-banner-content">
+            <div class="cookie-banner-icon">🍪</div>
+            <div class="cookie-banner-text">
+                <strong>Usamos cookies</strong>
+                <p>Utilizamos cookies propias y de terceros para analizar el uso de ENUMAPP y mejorar tu experiencia. Podés aceptar todas, rechazar las no esenciales o configurarlas a tu medida. Conocé más en nuestra <a href="privacidad.html">Política de Privacidad</a>.</p>
+            </div>
+            <div class="cookie-banner-actions">
+                <button id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Aceptar todas</button>
+                <button id="cookieAcceptEssential" class="cookie-btn cookie-btn-secondary">Solo esenciales</button>
+                <button id="cookieConfig" class="cookie-btn cookie-btn-link">Configurar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL DE CONFIGURACIÓN ===== -->
+    <div id="cookieConfigModal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h2>Configuración de cookies</h2>
+                <p>Elegí qué tipos de cookies querés permitir. Las cookies esenciales no se pueden desactivar porque son necesarias para el funcionamiento del sitio.</p>
+            </div>
+            <div class="cookie-modal-body">
+                <div class="cookie-option">
+                    <div class="cookie-option-info">
+                        <strong>Cookies esenciales</strong>
+                        <p>Necesarias para el funcionamiento básico: sesión, seguridad y preferencias. No se pueden desactivar.</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+                <div class="cookie-option">
+                    <div class="cookie-option-info">
+                        <strong>Cookies de análisis</strong>
+                        <p>Nos ayudan a entender cómo usás ENUMAPP para mejorar la plataforma (ej. Google Analytics).</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" id="cookieAnalytics">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+                <div class="cookie-option">
+                    <div class="cookie-option-info">
+                        <strong>Cookies de marketing</strong>
+                        <p>Permiten mostrar publicidad personalizada y medir campañas (ej. Meta Pixel).</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" id="cookieMarketing">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="cookieSaveConfig" class="cookie-btn cookie-btn-primary">Guardar preferencias</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cookies.js"></script>
 </body>
 </html>
